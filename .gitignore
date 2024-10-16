@@ -1,0 +1,9 @@
+*.class
+.idea
+/.idea/*
+/out
+<<<<<<< HEAD
+/out/*
+=======
+/out/*
+>>>>>>> 7227bb0502103cef31291f70ab84b8809ef8b800
