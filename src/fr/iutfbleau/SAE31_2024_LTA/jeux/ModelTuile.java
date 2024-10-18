@@ -6,13 +6,11 @@ import java.util.Random;
 
 public class ModelTuile {
     private final Color[] composition;
-    private final int seed;
     private boolean estPosee;
-    private int[] xPoints; // Coordonnées X du polygone
-    private int[] yPoints; // Coordonnées Y du polygone
+    private final int[] xPoints;
+    private final int[] yPoints;
 
     public ModelTuile(int seed) {
-        this.seed = seed;
         composition = new Color[6];
         Random random = new Random();
         random.setSeed(seed);
@@ -25,23 +23,23 @@ public class ModelTuile {
                 new Color(20, 119, 69)
         );
 
-        Color couleur1 = colorPalette.get(random.nextInt(colorPalette.size())); // Correction ici
-        Color couleur2 = colorPalette.get(random.nextInt(colorPalette.size())); // Correction ici
+        Color couleur1 = colorPalette.get(random.nextInt(colorPalette.size()));
+        Color couleur2 = colorPalette.get(random.nextInt(colorPalette.size()));
         int territory = random.nextInt(7);
         int decalage = random.nextInt(6);
         int taille2 = 6 - territory;
 
         for (int i = 0; i < territory; i++) {
             composition[decalage] = couleur1;
-            decalage = (decalage + 1) % 6; // Utilisation de modulo pour éviter les débordements
+            decalage = (decalage + 1) % 6;
         }
         for (int i = 0; i < taille2; i++) {
             composition[decalage] = couleur2;
-            decalage = (decalage + 1) % 6; // Utilisation de modulo pour éviter les débordements
+            decalage = (decalage + 1) % 6;
         }
         this.estPosee = false;
-        this.xPoints = new int[6]; // Initialiser le tableau des coordonnées X
-        this.yPoints = new int[6]; // Initialiser le tableau des coordonnées Y
+        this.xPoints = new int[6];
+        this.yPoints = new int[6];
     }
 
     // Méthode pour définir les coordonnées du polygone
