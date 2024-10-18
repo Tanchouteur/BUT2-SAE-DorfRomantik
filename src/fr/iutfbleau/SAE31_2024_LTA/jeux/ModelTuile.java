@@ -8,13 +8,11 @@ public class ModelTuile {
     private final Color[] composition;
     private final int seed;
     private boolean estPosee;
-    private int q;
-    private int r;
+    private int[] xPoints; // Coordonnées X du polygone
+    private int[] yPoints; // Coordonnées Y du polygone
 
     public ModelTuile(int seed) {
         this.seed = seed;
-        Color couleur1;
-        Color couleur2;
         composition = new Color[6];
         Random random = new Random();
         random.setSeed(seed);
@@ -27,55 +25,42 @@ public class ModelTuile {
                 new Color(20, 119, 69)
         );
 
-        couleur1 = colorPalette.get(random.nextInt(colorPalette.size()));
-        couleur2 = colorPalette.get(random.nextInt(colorPalette.size()));
+        Color couleur1 = colorPalette.get(random.nextInt(colorPalette.size())); // Correction ici
+        Color couleur2 = colorPalette.get(random.nextInt(colorPalette.size())); // Correction ici
         int territory = random.nextInt(7);
         int decalage = random.nextInt(6);
         int taille2 = 6 - territory;
 
         for (int i = 0; i < territory; i++) {
-            if (decalage > 5) {
-                decalage = 0;
-            }
             composition[decalage] = couleur1;
-            decalage++;
+            decalage = (decalage + 1) % 6; // Utilisation de modulo pour éviter les débordements
         }
         for (int i = 0; i < taille2; i++) {
-            if (decalage > 5) {
-                decalage = 0;
-            }
             composition[decalage] = couleur2;
-            decalage++;
+            decalage = (decalage + 1) % 6; // Utilisation de modulo pour éviter les débordements
         }
         this.estPosee = false;
+        this.xPoints = new int[6]; // Initialiser le tableau des coordonnées X
+        this.yPoints = new int[6]; // Initialiser le tableau des coordonnées Y
     }
 
-    public void setCoordonner(int q, int r) {
-        this.q = q;
-        this.r = r;
+    // Méthode pour définir les coordonnées du polygone
+    public void setCoordinates(int centerX, int centerY, int radius) {
+        for (int i = 0; i < 6; i++) {
+            xPoints[i] = (int) (centerX + radius * Math.cos(i * Math.PI / 3));
+            yPoints[i] = (int) (centerY + radius * Math.sin(i * Math.PI / 3));
+        }
     }
 
-    public int getQ() {
-        return this.q;
-    }
-
-    public int getR() {
-        return this.r;
-    }
-
-    public int getSeed() {
-        return this.seed;
+    // Méthode pour obtenir le polygone
+    public Polygon getPolygon() {
+        Polygon hexagon = new Polygon(xPoints, yPoints, 6);
+        return hexagon;
     }
 
     public Color[] getComposition() {
         return this.composition;
     }
 
-    public boolean getEstPosee() {
-        return this.estPosee;
-    }
 
-    public void setEstPosee(boolean estPosee) {
-        this.estPosee = estPosee;
-    }
 }
