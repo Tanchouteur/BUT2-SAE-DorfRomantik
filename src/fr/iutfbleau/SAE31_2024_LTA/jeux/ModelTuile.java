@@ -10,6 +10,9 @@ public class ModelTuile {
     private final int[] xPoints;
     private final int[] yPoints;
 
+    private int x;
+    private int y;
+
     public ModelTuile(int seed) {
         composition = new Color[6];
         Random random = new Random();
@@ -42,7 +45,7 @@ public class ModelTuile {
         this.yPoints = new int[6];
     }
 
-    // Méthode pour définir les coordonnées du polygone
+    // Méthode pour définir les coordonnées du polygone visuelement
     public void setCoordinates(int centerX, int centerY, int radius) {
         for (int i = 0; i < 6; i++) {
             xPoints[i] = (int) (centerX + radius * Math.cos(i * Math.PI / 3));
@@ -59,5 +62,14 @@ public class ModelTuile {
         return this.composition;
     }
 
+    // Méthode pour définir les coordonnées du polygone dans la matrice
+    public void setCoordonner(int x, int y) {
+    }
 
+    public int getX() {
+        return this.x;
+    }
+    public int getY() {
+        return this.y;
+    }
 }

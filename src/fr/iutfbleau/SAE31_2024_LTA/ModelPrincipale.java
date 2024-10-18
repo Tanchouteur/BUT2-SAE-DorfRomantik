@@ -131,19 +131,15 @@ public class ModelPrincipale {
 
     public void setSelectedSeed(int seed) {
         selectedSeed = seed;
-        this.createJeux();
     }
 
-    private void createJeux(){
+    public void createJeux(){
         this.modelJeux = new ModelJeux(this, selectedSeed);
+
     }
 
     public ModelJeux getModelJeux() {
         return modelJeux;
-    }
-
-    public String getPlayerName() {
-        return playerName;
     }
 
     public Image getLogo() {
