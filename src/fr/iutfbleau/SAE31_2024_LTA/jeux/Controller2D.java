@@ -17,7 +17,7 @@ public class Controller2D extends MouseAdapter {
 
     @Override
     public void mousePressed(MouseEvent e) {
-        if (e.getButton() == MouseEvent.BUTTON1) { // Clic gauche
+        if (e.getButton() == MouseEvent.BUTTON1) {
             dragging = true;
             startX = e.getX();
             startY = e.getY();
@@ -33,19 +33,16 @@ public class Controller2D extends MouseAdapter {
             int deltaX = currentX - startX;
             int deltaY = currentY - startY;
 
-            System.out.println("Déplacement: " + deltaX + ", " + deltaY);
-
-            // Mettre à jour les offsets dans VueJeux
             vueJeux.updateOffsets(deltaX, deltaY);
 
             startX = currentX;
-            startY = currentY; // Mettez à jour les coordonnées de départ
+            startY = currentY;
         }
     }
 
     @Override
     public void mouseReleased(MouseEvent e) {
-        if (e.getButton() == MouseEvent.BUTTON1) { // Clic gauche
+        if (e.getButton() == MouseEvent.BUTTON1) {
             dragging = false;
             System.out.println("Clic gauche relâché");
         }
