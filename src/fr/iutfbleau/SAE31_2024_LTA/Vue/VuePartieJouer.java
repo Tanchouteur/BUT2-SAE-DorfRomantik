@@ -4,6 +4,7 @@ import fr.iutfbleau.SAE31_2024_LTA.Controller.ControllerMenuCard;
 import fr.iutfbleau.SAE31_2024_LTA.Controller.ControllerSearchPartieJouer;
 import fr.iutfbleau.SAE31_2024_LTA.Model.Bdd.BddPartieJouer;
 import fr.iutfbleau.SAE31_2024_LTA.Model.ModelPartieJouer;
+import fr.iutfbleau.SAE31_2024_LTA.Model.ModelPrincipale;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
@@ -15,12 +16,13 @@ public class VuePartieJouer extends JPanel {
     private final ModelPartieJouer modelPartieJouer;
     private JTable tableView;
     private JTextField searchField;
-    private final VuePrincipale vuePrincipale;
+    private final ModelPrincipale modelPrincipale;
 
-    public VuePartieJouer(VuePrincipale vuePrincipale) {
-        this.modelPartieJouer = new ModelPartieJouer(vuePrincipale.getModelPrincipale().getBdd());
-        this.vuePrincipale = vuePrincipale;
+    public VuePartieJouer(ModelPrincipale modelPrincipale) {
 
+        this.modelPrincipale = modelPrincipale;
+
+        this.modelPartieJouer = modelPrincipale.getModelPartieJouer();
         setLayout(new BorderLayout());
 
         initSwingComponents();
@@ -59,11 +61,11 @@ public class VuePartieJouer extends JPanel {
 
         JButton searchButton = new JButton("Rechercher");
         searchButton.setPreferredSize(new Dimension(200, 50));
-        searchButton.addActionListener(new ControllerSearchPartieJouer(vuePrincipale));
+        searchButton.addActionListener(new ControllerSearchPartieJouer(modelPrincipale));
 
         JButton menuButton = new JButton("Menu");
         menuButton.setPreferredSize(new Dimension(200, 50));
-        menuButton.addActionListener(new ControllerMenuCard(vuePrincipale));
+        menuButton.addActionListener(new ControllerMenuCard(modelPrincipale));
 
         sidebar.add(Box.createVerticalStrut(20));
         sidebar.add(searchLabel);

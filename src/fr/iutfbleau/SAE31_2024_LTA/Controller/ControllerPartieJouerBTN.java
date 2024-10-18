@@ -8,14 +8,14 @@ import java.awt.event.ActionListener;
 
 public class ControllerPartieJouerBTN implements ActionListener {
     VuePrincipale vuePrincipale;
-    public ControllerPartieJouerBTN(VuePrincipale vuePrincipale){
-        this.vuePrincipale = vuePrincipale;
+    ModelPrincipale modelPrincipale;
+    public ControllerPartieJouerBTN(ModelPrincipale modelPrincipale) {
+        this.modelPrincipale = modelPrincipale;
+        this.vuePrincipale = modelPrincipale.getVuePrincipale();
     }
     @Override
     public void actionPerformed(ActionEvent e) {
-        ModelPrincipale modelPrincipale = vuePrincipale.getModelPrincipale();
-
-        modelPrincipale.getMediaPlayerManager().startClip(vuePrincipale.getModelPrincipale().getMediaPlayerManager().getClicAudioClip(), false);
+        modelPrincipale.getMediaPlayerManager().startClip(modelPrincipale.getMediaPlayerManager().getClicAudioClip(), false);
 
         vuePrincipale.getCardLayout().show(vuePrincipale.getFramePane(), "partieJouer");
         vuePrincipale.setTitle("DorfJavatik - Liste des parties jouer");

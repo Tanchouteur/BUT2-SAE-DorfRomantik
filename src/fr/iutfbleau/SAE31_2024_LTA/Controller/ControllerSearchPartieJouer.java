@@ -1,6 +1,7 @@
 package fr.iutfbleau.SAE31_2024_LTA.Controller;
 
 import fr.iutfbleau.SAE31_2024_LTA.Model.Bdd.BddPartieJouer;
+import fr.iutfbleau.SAE31_2024_LTA.Model.ModelPrincipale;
 import fr.iutfbleau.SAE31_2024_LTA.Vue.VuePrincipale;
 
 import javax.swing.*;
@@ -10,18 +11,18 @@ import java.util.List;
 
 public class ControllerSearchPartieJouer implements ActionListener {
 
-    private final VuePrincipale vuePrincipale;
+    private final ModelPrincipale modelPrincipale;
     private String search;
 
-    public ControllerSearchPartieJouer(VuePrincipale vuePrincipale) {
-        this.vuePrincipale = vuePrincipale;
+    public ControllerSearchPartieJouer(ModelPrincipale modelPrincipale) {
+        this.modelPrincipale = modelPrincipale;
     }
 
     @Override
     public void actionPerformed(ActionEvent actionEvent) {
-        this.search = vuePrincipale.getVuePartieJouer().getSearchField().getText();
+        this.search = modelPrincipale.getModelPartieJouer().getVuePartieJouer().getSearchField().getText();
 
-        vuePrincipale.getModelPrincipale().getMediaPlayerManager().startClip(vuePrincipale.getModelPrincipale().getMediaPlayerManager().getClicAudioClip(), false);
+        modelPrincipale.getMediaPlayerManager().startClip(modelPrincipale.getMediaPlayerManager().getClicAudioClip(), false);
 
         if (search.isEmpty() || search.equals("Entrer le nom du joueur")) {
             resetPartie();
@@ -31,21 +32,21 @@ public class ControllerSearchPartieJouer implements ActionListener {
     }
 
     private void resetPartie() {
-        List<BddPartieJouer> allParties = vuePrincipale.getVuePartieJouer().getModelPartieJouer().getAllParties();
+        List<BddPartieJouer> allParties = modelPrincipale.getModelPartieJouer().getAllParties();
         SwingUtilities.invokeLater(() -> {
-            vuePrincipale.getVuePartieJouer().getTableModel().setRowCount(0);
+            modelPrincipale.getModelPartieJouer().getVuePartieJouer().getTableModel().setRowCount(0);
             for (BddPartieJouer partie : allParties) {
-                vuePrincipale.getVuePartieJouer().getTableModel().addRow(new Object[]{partie.getPlayerName(), partie.getListeTuile().getId(), partie.getScore()});
+                modelPrincipale.getModelPartieJouer().getVuePartieJouer().getTableModel().addRow(new Object[]{partie.getPlayerName(), partie.getListeTuile().getId(), partie.getScore()});
             }
         });
     }
 
     private void searchPartie() {
-        List<BddPartieJouer> filteredParties = vuePrincipale.getVuePartieJouer().getModelPartieJouer().getFilteredParties(search);
+        List<BddPartieJouer> filteredParties = modelPrincipale.getModelPartieJouer().getVuePartieJouer().getModelPartieJouer().getFilteredParties(search);
         SwingUtilities.invokeLater(() -> {
-            vuePrincipale.getVuePartieJouer().getTableModel().setRowCount(0);
+            modelPrincipale.getModelPartieJouer().getVuePartieJouer().getTableModel().setRowCount(0);
             for (BddPartieJouer partie : filteredParties) {
-                vuePrincipale.getVuePartieJouer().getTableModel().addRow(new Object[]{partie.getPlayerName(), partie.getListeTuile().getId(), partie.getScore()});
+                modelPrincipale.getModelPartieJouer().getVuePartieJouer().getTableModel().addRow(new Object[]{partie.getPlayerName(), partie.getListeTuile().getId(), partie.getScore()});
             }
         });
     }

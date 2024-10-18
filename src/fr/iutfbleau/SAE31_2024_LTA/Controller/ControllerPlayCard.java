@@ -1,6 +1,7 @@
 package fr.iutfbleau.SAE31_2024_LTA.Controller;
 
 import fr.iutfbleau.SAE31_2024_LTA.Model.Bdd.BddListeTuiles;
+import fr.iutfbleau.SAE31_2024_LTA.Model.ModelJeux;
 import fr.iutfbleau.SAE31_2024_LTA.Model.ModelPrincipale;
 import fr.iutfbleau.SAE31_2024_LTA.Vue.VueJeux;
 import fr.iutfbleau.SAE31_2024_LTA.Vue.VueMenu;
@@ -15,19 +16,19 @@ import java.util.Random;
 public class ControllerPlayCard implements ActionListener {
     private final VuePrincipale vuePrincipale;
     private final List<BddListeTuiles> listeTuiles;
+    ModelPrincipale modelPrincipale;
 
-    public ControllerPlayCard(VuePrincipale vuePrincipale, List<BddListeTuiles> listeTuiles) {
-
-        this.vuePrincipale = vuePrincipale;
+    public ControllerPlayCard(ModelPrincipale modelPrincipale, List<BddListeTuiles> listeTuiles) {
+        this.modelPrincipale = modelPrincipale;
+        this.vuePrincipale = modelPrincipale.getVuePrincipale();
         this.listeTuiles = listeTuiles;
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        VueMenu vueMenu = vuePrincipale.getVueMenu();
-        ModelPrincipale modelPrincipale = vuePrincipale.getModelPrincipale();
-        String playerName = vuePrincipale.getVueMenu().playerNameInput.getText();
-        VueJeux vueJeux = vuePrincipale.getVueJeux();
+        VueMenu vueMenu = modelPrincipale.getModelMenu().getVueMenu();
+        String playerName = modelPrincipale.getModelMenu().getVueMenu().playerNameInput.getText();
+        ModelJeux modelJeux = modelPrincipale.getModelJeux();
 
         if (playerName.isEmpty() || playerName.equals("Player Name...")) {
             JOptionPane.showMessageDialog(vueMenu, "Veuillez entrer un nom de joueur !");
@@ -48,7 +49,6 @@ public class ControllerPlayCard implements ActionListener {
 
                 modelPrincipale.setPlayerName(playerName);
                 modelPrincipale.setSelectedSeed(seed);
-                vueJeux.createSuite();
 
                 modelPrincipale.getMediaPlayerManager().stopClip(modelPrincipale.getMediaPlayerManager().getMenuMusicClip());
 

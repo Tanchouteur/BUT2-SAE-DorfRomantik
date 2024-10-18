@@ -1,6 +1,7 @@
 package fr.iutfbleau.SAE31_2024_LTA.Model;
 
 import fr.iutfbleau.SAE31_2024_LTA.Model.Bdd.ModelBDD;
+import fr.iutfbleau.SAE31_2024_LTA.Vue.VuePrincipale;
 
 import javax.sound.sampled.*;
 import java.io.ByteArrayInputStream;
@@ -8,21 +9,32 @@ import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
 
 public class ModelPrincipale {
-    private final ModelMediaLoader mediaLoader;
     private final MediaPlayerManager mediaPlayerManager;
+    private final ModelBDD bdd;
+
+    private final ModelPartieJouer modelPartieJouer;
+    private final ModelMenu modelMenu;
+    private ModelJeux modelJeux;
+
+    private final VuePrincipale vuePrincipale;
 
     private Clip menuMusicClip;
     private Clip clicAudioClip;
 
-    private final ModelBDD bdd;
     private String playerName;
     private int selectedSeed;
 
+
     public ModelPrincipale() {
         bdd = new ModelBDD();
-        mediaLoader = new ModelMediaLoader();
-        loadMedia();
+
         mediaPlayerManager = new MediaPlayerManager(menuMusicClip, clicAudioClip);
+        loadMedia();
+        vuePrincipale = createView();
+
+        modelMenu = new ModelMenu(this);
+        modelPartieJouer = new ModelPartieJouer(this);
+
     }
 
     private void loadMedia() {
@@ -70,16 +82,24 @@ public class ModelPrincipale {
         }
     }
 
+    private VuePrincipale createView(){
+        return new VuePrincipale(this);
+    }
+
+    public VuePrincipale getVuePrincipale() {
+        return vuePrincipale;
+    }
+
     public MediaPlayerManager getMediaPlayerManager() {
         return mediaPlayerManager;
     }
 
-    public ModelMediaLoader getMediaLoader() {
-        return mediaLoader;
-    }
-
     public ModelBDD getBdd() {
         return this.bdd;
+    }
+
+    public ModelMenu getModelMenu() {
+        return modelMenu;
     }
 
     public int getSelectedSeed() {
@@ -88,6 +108,15 @@ public class ModelPrincipale {
 
     public void setSelectedSeed(int seed) {
         selectedSeed = seed;
+        this.createJeux();
+    }
+
+    private void createJeux(){
+        this.modelJeux = new ModelJeux(this, selectedSeed);
+    }
+
+    public ModelJeux getModelJeux() {
+        return modelJeux;
     }
 
     public String getPlayerName() {
@@ -96,5 +125,9 @@ public class ModelPrincipale {
 
     public void setPlayerName(String playerName) {
         this.playerName = playerName;
+    }
+
+    public ModelPartieJouer getModelPartieJouer() {
+        return modelPartieJouer;
     }
 }
