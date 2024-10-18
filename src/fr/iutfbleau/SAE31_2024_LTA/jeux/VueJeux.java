@@ -63,7 +63,6 @@ public class VueJeux extends JPanel {
         g2d.drawPolygon(tuilePoly);
     }
 
-
     public void updateOffsets(int deltaX, int deltaY) {
         offsetX += deltaX;
         offsetY += deltaY;

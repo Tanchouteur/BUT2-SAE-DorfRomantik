@@ -8,17 +8,18 @@ public class ModelJeux {
     private VueJeux vueJeux;
     private final ModelPrincipale modelPrincipale;
     //private final ModelMatrice modelMatrice;
+    //private final ModelTuile[][] listTuilesPosee;
 
     private final LinkedList<ModelTuile> listTuiles;
-    private final LinkedList<ModelTuile> listTuilesPosee;
 
     int seed;
 
     public ModelJeux(ModelPrincipale modelPrincipale, int seed) {
         this.modelPrincipale = modelPrincipale;
+        //this.modelMatrice = new ModelMatrice();
         listTuiles = new LinkedList<>();
         this.seed = seed;
-        this.listTuilesPosee = new LinkedList<>();
+        //this.listTuilesPosee = modelMatrice.getListTuilesPosee();
 
         for (int i = 50; i >= 0; i--) {
             ModelTuile tuile = new ModelTuile(seed+i);
@@ -37,6 +38,7 @@ public class ModelJeux {
     public LinkedList<ModelTuile> getListTuiles() {
         return listTuiles;
     }
+
     public LinkedList<ModelTuile> getListTuilesPosee() {
         return listTuilesPosee;
     }
