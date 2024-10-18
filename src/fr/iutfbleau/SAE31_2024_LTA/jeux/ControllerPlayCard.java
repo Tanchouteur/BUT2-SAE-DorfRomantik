@@ -1,7 +1,6 @@
-package fr.iutfbleau.SAE31_2024_LTA.Controller;
+package fr.iutfbleau.SAE31_2024_LTA.jeux;
 
 import fr.iutfbleau.SAE31_2024_LTA.Bdd.BddListeTuiles;
-import fr.iutfbleau.SAE31_2024_LTA.jeux.ModelJeux;
 import fr.iutfbleau.SAE31_2024_LTA.ModelPrincipale;
 import fr.iutfbleau.SAE31_2024_LTA.menu.VueMenu;
 import fr.iutfbleau.SAE31_2024_LTA.VuePrincipale;

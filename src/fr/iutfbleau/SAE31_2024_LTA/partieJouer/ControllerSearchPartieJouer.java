@@ -1,4 +1,4 @@
-package fr.iutfbleau.SAE31_2024_LTA.Controller;
+package fr.iutfbleau.SAE31_2024_LTA.partieJouer;
 
 import fr.iutfbleau.SAE31_2024_LTA.Bdd.BddPartieJouer;
 import fr.iutfbleau.SAE31_2024_LTA.ModelPrincipale;
