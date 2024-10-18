@@ -1,4 +1,4 @@
-package fr.iutfbleau.SAE31_2024_LTA.Model;
+package fr.iutfbleau.SAE31_2024_LTA.jeux;
 
 public class ModelListePoche {
     private final ModelPoche[] poches;
