@@ -52,8 +52,7 @@ public class ModelTuile {
 
     // Méthode pour obtenir le polygone
     public Polygon getPolygon() {
-        Polygon hexagon = new Polygon(xPoints, yPoints, 6);
-        return hexagon;
+        return new Polygon(xPoints, yPoints, 6);
     }
 
     public Color[] getComposition() {
