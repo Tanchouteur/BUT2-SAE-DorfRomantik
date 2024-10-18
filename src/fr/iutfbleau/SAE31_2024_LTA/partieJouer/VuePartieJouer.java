@@ -1,9 +1,9 @@
-package fr.iutfbleau.SAE31_2024_LTA.Vue;
+package fr.iutfbleau.SAE31_2024_LTA.partieJouer;
 
-import fr.iutfbleau.SAE31_2024_LTA.Controller.ControllerMenuCard;
+import fr.iutfbleau.SAE31_2024_LTA.menu.ControllerMenuCard;
 import fr.iutfbleau.SAE31_2024_LTA.Controller.ControllerSearchPartieJouer;
-import fr.iutfbleau.SAE31_2024_LTA.Model.Bdd.BddPartieJouer;
-import fr.iutfbleau.SAE31_2024_LTA.Model.ModelPartieJouer;
+import fr.iutfbleau.SAE31_2024_LTA.Bdd.BddPartieJouer;
+import fr.iutfbleau.SAE31_2024_LTA.ModelPrincipale;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
@@ -12,15 +12,17 @@ import java.util.List;
 
 public class VuePartieJouer extends JPanel {
 
+    private final ModelPrincipale modelPrincipale;
     private final ModelPartieJouer modelPartieJouer;
+
     private JTable tableView;
     private JTextField searchField;
-    private final VuePrincipale vuePrincipale;
 
-    public VuePartieJouer(VuePrincipale vuePrincipale) {
-        this.modelPartieJouer = new ModelPartieJouer(vuePrincipale.getModelPrincipale().getBdd());
-        this.vuePrincipale = vuePrincipale;
+    public VuePartieJouer(ModelPrincipale modelPrincipale, ModelPartieJouer modelPartieJouer) {
 
+        this.modelPrincipale = modelPrincipale;
+
+        this.modelPartieJouer = modelPartieJouer;
         setLayout(new BorderLayout());
 
         initSwingComponents();
@@ -33,12 +35,12 @@ public class VuePartieJouer extends JPanel {
         JPanel contentPane = new JPanel(new BorderLayout());
         contentPane.setPreferredSize(new Dimension(1750, 900));
 
+        JPanel sidebar = createSidebar();
+        contentPane.add(sidebar, BorderLayout.EAST);
+
         tableView = createTableView();
         JScrollPane scrollPane = new JScrollPane(tableView);
         contentPane.add(scrollPane, BorderLayout.CENTER);
-
-        JPanel sidebar = createSidebar();
-        contentPane.add(sidebar, BorderLayout.EAST);
 
         add(contentPane, BorderLayout.CENTER);
     }
@@ -59,11 +61,11 @@ public class VuePartieJouer extends JPanel {
 
         JButton searchButton = new JButton("Rechercher");
         searchButton.setPreferredSize(new Dimension(200, 50));
-        searchButton.addActionListener(new ControllerSearchPartieJouer(vuePrincipale));
+        searchButton.addActionListener(new ControllerSearchPartieJouer(modelPrincipale));
 
         JButton menuButton = new JButton("Menu");
         menuButton.setPreferredSize(new Dimension(200, 50));
-        menuButton.addActionListener(new ControllerMenuCard(vuePrincipale));
+        menuButton.addActionListener(new ControllerMenuCard(modelPrincipale));
 
         sidebar.add(Box.createVerticalStrut(20));
         sidebar.add(searchLabel);
@@ -94,7 +96,9 @@ public class VuePartieJouer extends JPanel {
      * Charge les valeurs des parties jouées dans le tableau.
      */
     private void initTableValue(DefaultTableModel tableModel) {
+
         List<BddPartieJouer> allParties = modelPartieJouer.getAllParties();
+
         for (BddPartieJouer partie : allParties) {
             Object[] rowData = {partie.getPlayerName(), partie.getScore(), partie.getListeTuile().getId()};
             tableModel.addRow(rowData);

@@ -1,37 +1,31 @@
-package fr.iutfbleau.SAE31_2024_LTA.Vue;
+package fr.iutfbleau.SAE31_2024_LTA.menu;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.FocusAdapter;
-import java.awt.event.FocusEvent;
 import java.util.List;
 import java.util.Objects;
 
 import fr.iutfbleau.SAE31_2024_LTA.Controller.ControllerPartieJouerBTN;
 import fr.iutfbleau.SAE31_2024_LTA.Controller.ControllerPlayCard;
-import fr.iutfbleau.SAE31_2024_LTA.Model.Bdd.BddListeTuiles;
-import fr.iutfbleau.SAE31_2024_LTA.Model.ModelPrincipale;
+import fr.iutfbleau.SAE31_2024_LTA.Bdd.BddListeTuiles;
+import fr.iutfbleau.SAE31_2024_LTA.ModelPrincipale;
 
 public class VueMenu extends JPanel {
-    private final VuePrincipale principal;
-    private final ModelPrincipale modelPrincipale;
     public JTextField playerNameInput;
     private JComboBox<String> suiteSelector;
+    private final ModelPrincipale modelPrincipale;
 
-    public VueMenu(VuePrincipale principal) {
-        this.principal = principal;
-        this.modelPrincipale = principal.getModelPrincipale();
+    public VueMenu(ModelPrincipale modelPrincipale) {
+        this.modelPrincipale = modelPrincipale;
 
         JLayeredPane layeredPane = new JLayeredPane();
-        layeredPane.setPreferredSize(new Dimension(principal.getWidth(), principal.getHeight()));
+        layeredPane.setPreferredSize(new Dimension(modelPrincipale.getVuePrincipale().getWidth(), modelPrincipale.getVuePrincipale().getHeight()));
         setLayout(new BorderLayout());
         add(layeredPane, BorderLayout.CENTER);
 
         JLabel backgroundImage = new JLabel(new ImageIcon(Objects.requireNonNull(getClass().getResource("/Images/FondMenu.png"))));
-        backgroundImage.setBounds(0, 0, principal.getWidth(), principal.getHeight());
+        backgroundImage.setBounds(0, 0, modelPrincipale.getVuePrincipale().getWidth(), modelPrincipale.getVuePrincipale().getHeight());
         layeredPane.add(backgroundImage, Integer.valueOf(0));
-
-        modelPrincipale.getMediaPlayerManager().startClip(modelPrincipale.getMediaPlayerManager().getMenuMusicClip(), true);
 
         initSidebarComponent(layeredPane);
     }
@@ -59,26 +53,7 @@ public class VueMenu extends JPanel {
                 BorderFactory.createEmptyBorder(7, 7, 7, 7)
         ));
 
-        playerNameInput.addFocusListener(new FocusAdapter() {
-            @Override
-            public void focusGained(FocusEvent evt) {
-                modelPrincipale.getMediaPlayerManager().startClip(modelPrincipale.getMediaPlayerManager().getClicAudioClip(), false);
-                if (playerNameInput.getText().equals("Player Name...")) {
-                    playerNameInput.setText("");
-                    playerNameInput.setForeground(Color.BLACK);
-                }
-                principal.repaint();
-            }
-
-            @Override
-            public void focusLost(FocusEvent evt) {
-                if (playerNameInput.getText().isEmpty()) {
-                    playerNameInput.setForeground(Color.GRAY);
-                    playerNameInput.setText("Player Name...");
-                }
-                principal.repaint();
-            }
-        });
+        playerNameInput.addFocusListener(new ControllerFocus(this));
         sidebarPanel.add(playerNameInput);
 
         sidebarPanel.add(Box.createVerticalStrut(20));
@@ -113,7 +88,7 @@ public class VueMenu extends JPanel {
         partieJouerBtn.setFocusPainted(false);
         partieJouerBtn.setBorder(BorderFactory.createLineBorder(new Color(44, 44, 44, 230), 8, true));
         partieJouerBtn.setAlignmentY(100);
-        partieJouerBtn.addActionListener(new ControllerPartieJouerBTN(principal));
+        partieJouerBtn.addActionListener(new ControllerPartieJouerBTN(modelPrincipale));
         sidebarPanel.add(partieJouerBtn);
 
         sidebarPanel.add(Box.createVerticalStrut(20));
@@ -126,7 +101,7 @@ public class VueMenu extends JPanel {
         playButton.setFocusPainted(false);
         playButton.setBorder(BorderFactory.createLineBorder(new Color(44, 44, 44, 230), 8, true));
 
-        playButton.addActionListener(new ControllerPlayCard(principal, listeTuiles));
+        playButton.addActionListener(new ControllerPlayCard(modelPrincipale, listeTuiles));
         sidebarPanel.add(playButton);
 
         layeredPane.add(sidebarPanel, Integer.valueOf(1));

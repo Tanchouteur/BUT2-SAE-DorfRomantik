@@ -1,21 +1,21 @@
-package fr.iutfbleau.SAE31_2024_LTA.Controller;
+package fr.iutfbleau.SAE31_2024_LTA.menu;
 
-import fr.iutfbleau.SAE31_2024_LTA.Model.ModelPrincipale;
-import fr.iutfbleau.SAE31_2024_LTA.Vue.VuePrincipale;
+import fr.iutfbleau.SAE31_2024_LTA.ModelPrincipale;
+import fr.iutfbleau.SAE31_2024_LTA.VuePrincipale;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class ControllerMenuCard implements ActionListener {
-    private final VuePrincipale vuePrincipale;
+    private final ModelPrincipale modelPrincipale;
 
-    public ControllerMenuCard(VuePrincipale vuePrincipale) {
-        this.vuePrincipale = vuePrincipale;
+    public ControllerMenuCard(ModelPrincipale modelPrincipale) {
+        this.modelPrincipale = modelPrincipale;
     }
 
     @Override
     public void actionPerformed(ActionEvent event) {
-        ModelPrincipale modelPrincipale = vuePrincipale.getModelPrincipale();
+        VuePrincipale vuePrincipale = modelPrincipale.getVuePrincipale();
 
         modelPrincipale.getMediaPlayerManager().startClip(modelPrincipale.getMediaPlayerManager().getClicAudioClip(), false);
 

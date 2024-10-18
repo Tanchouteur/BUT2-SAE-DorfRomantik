@@ -1,6 +1,5 @@
-package fr.iutfbleau.SAE31_2024_LTA.Model;
+package fr.iutfbleau.SAE31_2024_LTA.media;
 
-import fr.iutfbleau.SAE31_2024_LTA.Vue.VuePrincipale;
 import javax.sound.sampled.Clip;
 
 public class MediaPlayerManager {

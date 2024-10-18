@@ -1,4 +1,4 @@
-package fr.iutfbleau.SAE31_2024_LTA.Vue;
+package fr.iutfbleau.SAE31_2024_LTA.guiScore;
 
 import javax.swing.*;
 

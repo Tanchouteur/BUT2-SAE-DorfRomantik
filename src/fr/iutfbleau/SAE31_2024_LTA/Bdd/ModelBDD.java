@@ -1,4 +1,4 @@
-package fr.iutfbleau.SAE31_2024_LTA.Model.Bdd;
+package fr.iutfbleau.SAE31_2024_LTA.Bdd;
 
 import java.sql.*;
 import java.util.ArrayList;

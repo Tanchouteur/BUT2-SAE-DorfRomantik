@@ -1,4 +1,4 @@
-package fr.iutfbleau.SAE31_2024_LTA.Model.Bdd;
+package fr.iutfbleau.SAE31_2024_LTA.Bdd;
 
 public class BddListeTuiles {
     private final int id;
