@@ -1,7 +1,7 @@
-package fr.iutfbleau.SAE31_2024_LTA.Controller;
+package fr.iutfbleau.SAE31_2024_LTA.menu;
 
-import fr.iutfbleau.SAE31_2024_LTA.Model.ModelPrincipale;
-import fr.iutfbleau.SAE31_2024_LTA.Vue.VuePrincipale;
+import fr.iutfbleau.SAE31_2024_LTA.ModelPrincipale;
+import fr.iutfbleau.SAE31_2024_LTA.VuePrincipale;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;

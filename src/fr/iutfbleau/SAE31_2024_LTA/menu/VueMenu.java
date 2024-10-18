@@ -1,17 +1,14 @@
-package fr.iutfbleau.SAE31_2024_LTA.Vue;
+package fr.iutfbleau.SAE31_2024_LTA.menu;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.FocusAdapter;
-import java.awt.event.FocusEvent;
 import java.util.List;
 import java.util.Objects;
 
-import fr.iutfbleau.SAE31_2024_LTA.Controller.ControllerFocus;
 import fr.iutfbleau.SAE31_2024_LTA.Controller.ControllerPartieJouerBTN;
 import fr.iutfbleau.SAE31_2024_LTA.Controller.ControllerPlayCard;
-import fr.iutfbleau.SAE31_2024_LTA.Model.Bdd.BddListeTuiles;
-import fr.iutfbleau.SAE31_2024_LTA.Model.ModelPrincipale;
+import fr.iutfbleau.SAE31_2024_LTA.Bdd.BddListeTuiles;
+import fr.iutfbleau.SAE31_2024_LTA.ModelPrincipale;
 
 public class VueMenu extends JPanel {
     public JTextField playerNameInput;

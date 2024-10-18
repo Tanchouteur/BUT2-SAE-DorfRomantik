@@ -1,11 +1,10 @@
 package fr.iutfbleau.SAE31_2024_LTA.Controller;
 
-import fr.iutfbleau.SAE31_2024_LTA.Model.Bdd.BddListeTuiles;
-import fr.iutfbleau.SAE31_2024_LTA.Model.ModelJeux;
-import fr.iutfbleau.SAE31_2024_LTA.Model.ModelPrincipale;
-import fr.iutfbleau.SAE31_2024_LTA.Vue.VueJeux;
-import fr.iutfbleau.SAE31_2024_LTA.Vue.VueMenu;
-import fr.iutfbleau.SAE31_2024_LTA.Vue.VuePrincipale;
+import fr.iutfbleau.SAE31_2024_LTA.Bdd.BddListeTuiles;
+import fr.iutfbleau.SAE31_2024_LTA.jeux.ModelJeux;
+import fr.iutfbleau.SAE31_2024_LTA.ModelPrincipale;
+import fr.iutfbleau.SAE31_2024_LTA.menu.VueMenu;
+import fr.iutfbleau.SAE31_2024_LTA.VuePrincipale;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;

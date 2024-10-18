@@ -1,6 +1,6 @@
-package fr.iutfbleau.SAE31_2024_LTA.Model;
+package fr.iutfbleau.SAE31_2024_LTA.jeux;
 
-import fr.iutfbleau.SAE31_2024_LTA.Vue.VueJeux;
+import fr.iutfbleau.SAE31_2024_LTA.ModelPrincipale;
 
 import java.util.LinkedList;
 

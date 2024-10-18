@@ -1,7 +1,6 @@
-package fr.iutfbleau.SAE31_2024_LTA.Controller;
+package fr.iutfbleau.SAE31_2024_LTA.jeux;
 
-import fr.iutfbleau.SAE31_2024_LTA.Model.ModelTuile;
-import fr.iutfbleau.SAE31_2024_LTA.Vue.VuePrincipale;
+import fr.iutfbleau.SAE31_2024_LTA.VuePrincipale;
 
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;

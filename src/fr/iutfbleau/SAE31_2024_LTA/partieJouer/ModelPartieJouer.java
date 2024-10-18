@@ -1,8 +1,7 @@
-package fr.iutfbleau.SAE31_2024_LTA.Model;
+package fr.iutfbleau.SAE31_2024_LTA.partieJouer;
 
-import fr.iutfbleau.SAE31_2024_LTA.Model.Bdd.BddPartieJouer;
-import fr.iutfbleau.SAE31_2024_LTA.Model.Bdd.ModelBDD;
-import fr.iutfbleau.SAE31_2024_LTA.Vue.VuePartieJouer;
+import fr.iutfbleau.SAE31_2024_LTA.Bdd.BddPartieJouer;
+import fr.iutfbleau.SAE31_2024_LTA.ModelPrincipale;
 
 import java.util.List;
 import java.util.stream.Collectors;

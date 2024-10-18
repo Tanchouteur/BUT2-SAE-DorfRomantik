@@ -1,6 +1,6 @@
-package fr.iutfbleau.SAE31_2024_LTA.Model;
+package fr.iutfbleau.SAE31_2024_LTA.menu;
 
-import fr.iutfbleau.SAE31_2024_LTA.Vue.VueMenu;
+import fr.iutfbleau.SAE31_2024_LTA.ModelPrincipale;
 
 public class ModelMenu {
 

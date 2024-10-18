@@ -1,4 +1,4 @@
-package fr.iutfbleau.SAE31_2024_LTA.Controller;
+package fr.iutfbleau.SAE31_2024_LTA.menu;
 
 import javax.swing.*;
 import java.awt.*;

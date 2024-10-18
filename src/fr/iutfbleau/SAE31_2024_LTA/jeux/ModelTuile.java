@@ -1,6 +1,4 @@
-package fr.iutfbleau.SAE31_2024_LTA.Model;
-
-import fr.iutfbleau.SAE31_2024_LTA.Vue.VueTuile;
+package fr.iutfbleau.SAE31_2024_LTA.jeux;
 
 import java.awt.*;
 import java.util.List;
@@ -9,7 +7,6 @@ import java.util.Random;
 public class ModelTuile {
     private final Color[] composition;
     private final int seed;
-    private final VueTuile vueTuile;
     private boolean estPosee;
     private int q;
     private int r;
@@ -50,7 +47,6 @@ public class ModelTuile {
             composition[decalage] = couleur2;
             decalage++;
         }
-        vueTuile = new VueTuile(composition);
         this.estPosee = false;
     }
 
@@ -73,10 +69,6 @@ public class ModelTuile {
 
     public Color[] getComposition() {
         return this.composition;
-    }
-
-    public VueTuile getVueTuile() {
-        return this.vueTuile;
     }
 
     public boolean getEstPosee() {

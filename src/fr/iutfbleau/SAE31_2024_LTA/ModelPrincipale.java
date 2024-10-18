@@ -1,7 +1,10 @@
-package fr.iutfbleau.SAE31_2024_LTA.Model;
+package fr.iutfbleau.SAE31_2024_LTA;
 
-import fr.iutfbleau.SAE31_2024_LTA.Model.Bdd.ModelBDD;
-import fr.iutfbleau.SAE31_2024_LTA.Vue.VuePrincipale;
+import fr.iutfbleau.SAE31_2024_LTA.Bdd.ModelBDD;
+import fr.iutfbleau.SAE31_2024_LTA.jeux.ModelJeux;
+import fr.iutfbleau.SAE31_2024_LTA.media.MediaPlayerManager;
+import fr.iutfbleau.SAE31_2024_LTA.menu.ModelMenu;
+import fr.iutfbleau.SAE31_2024_LTA.partieJouer.ModelPartieJouer;
 
 import javax.imageio.ImageIO;
 import javax.sound.sampled.*;

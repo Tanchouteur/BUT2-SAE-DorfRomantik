@@ -1,12 +1,9 @@
-package fr.iutfbleau.SAE31_2024_LTA.Vue;
+package fr.iutfbleau.SAE31_2024_LTA;
 
-import fr.iutfbleau.SAE31_2024_LTA.Model.ModelPrincipale;
+import fr.iutfbleau.SAE31_2024_LTA.guiScore.VueScoreScreen;
 
-import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
-import java.io.IOException;
-import java.net.URL;
 
 /**
  * La classe VuePrincipale représente la fenêtre principale de l'application DorfRomantique.

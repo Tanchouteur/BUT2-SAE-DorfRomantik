@@ -1,11 +1,5 @@
-package fr.iutfbleau.SAE31_2024_LTA.Model;
+package fr.iutfbleau.SAE31_2024_LTA.media;
 
-
-
-import java.io.File;
-import java.net.URL;
-import java.util.ArrayList;
-import java.util.List;
 
 public class ModelMediaLoader {
 

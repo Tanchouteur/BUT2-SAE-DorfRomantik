@@ -1,8 +1,7 @@
 package fr.iutfbleau.SAE31_2024_LTA.Controller;
 
-import fr.iutfbleau.SAE31_2024_LTA.Model.Bdd.BddPartieJouer;
-import fr.iutfbleau.SAE31_2024_LTA.Model.ModelPrincipale;
-import fr.iutfbleau.SAE31_2024_LTA.Vue.VuePrincipale;
+import fr.iutfbleau.SAE31_2024_LTA.Bdd.BddPartieJouer;
+import fr.iutfbleau.SAE31_2024_LTA.ModelPrincipale;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;

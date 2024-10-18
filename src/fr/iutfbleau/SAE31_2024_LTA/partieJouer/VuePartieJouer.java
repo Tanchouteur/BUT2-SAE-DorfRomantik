@@ -1,10 +1,9 @@
-package fr.iutfbleau.SAE31_2024_LTA.Vue;
+package fr.iutfbleau.SAE31_2024_LTA.partieJouer;
 
-import fr.iutfbleau.SAE31_2024_LTA.Controller.ControllerMenuCard;
+import fr.iutfbleau.SAE31_2024_LTA.menu.ControllerMenuCard;
 import fr.iutfbleau.SAE31_2024_LTA.Controller.ControllerSearchPartieJouer;
-import fr.iutfbleau.SAE31_2024_LTA.Model.Bdd.BddPartieJouer;
-import fr.iutfbleau.SAE31_2024_LTA.Model.ModelPartieJouer;
-import fr.iutfbleau.SAE31_2024_LTA.Model.ModelPrincipale;
+import fr.iutfbleau.SAE31_2024_LTA.Bdd.BddPartieJouer;
+import fr.iutfbleau.SAE31_2024_LTA.ModelPrincipale;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;

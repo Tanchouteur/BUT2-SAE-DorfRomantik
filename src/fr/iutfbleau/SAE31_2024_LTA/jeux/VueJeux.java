@@ -1,6 +1,6 @@
-package fr.iutfbleau.SAE31_2024_LTA.Vue;
+package fr.iutfbleau.SAE31_2024_LTA.jeux;
 
-import fr.iutfbleau.SAE31_2024_LTA.Model.ModelPrincipale;
+import fr.iutfbleau.SAE31_2024_LTA.ModelPrincipale;
 
 import javax.swing.*;
 
