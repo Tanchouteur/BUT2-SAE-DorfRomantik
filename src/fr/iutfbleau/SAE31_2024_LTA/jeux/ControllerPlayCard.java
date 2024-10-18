@@ -1,7 +1,6 @@
-package fr.iutfbleau.SAE31_2024_LTA.Controller;
+package fr.iutfbleau.SAE31_2024_LTA.jeux;
 
 import fr.iutfbleau.SAE31_2024_LTA.Bdd.BddListeTuiles;
-import fr.iutfbleau.SAE31_2024_LTA.jeux.ModelJeux;
 import fr.iutfbleau.SAE31_2024_LTA.ModelPrincipale;
 import fr.iutfbleau.SAE31_2024_LTA.menu.VueMenu;
 import fr.iutfbleau.SAE31_2024_LTA.VuePrincipale;
@@ -27,7 +26,7 @@ public class ControllerPlayCard implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         VueMenu vueMenu = modelPrincipale.getModelMenu().getVueMenu();
         String playerName = modelPrincipale.getModelMenu().getVueMenu().playerNameInput.getText();
-        ModelJeux modelJeux = modelPrincipale.getModelJeux();
+        modelPrincipale.getMediaPlayerManager().startClip(modelPrincipale.getMediaPlayerManager().getClicAudioClip(), false);
 
         if (playerName.isEmpty() || playerName.equals("Player Name...")) {
             JOptionPane.showMessageDialog(vueMenu, "Veuillez entrer un nom de joueur !");
@@ -51,7 +50,7 @@ public class ControllerPlayCard implements ActionListener {
 
                 modelPrincipale.getMediaPlayerManager().stopClip(modelPrincipale.getMediaPlayerManager().getMenuMusicClip());
 
-                modelPrincipale.getMediaPlayerManager().startClip(modelPrincipale.getMediaPlayerManager().getClicAudioClip(), false);
+
 
                 vuePrincipale.getCardLayout().show(vuePrincipale.getFramePane(), "jeux");
             }

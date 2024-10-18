@@ -36,9 +36,9 @@ public class ModelPrincipale {
 
     public ModelPrincipale() {
         bdd = new ModelBDD();
-
-        mediaPlayerManager = new MediaPlayerManager(menuMusicClip, clicAudioClip);
         loadMedia();
+        mediaPlayerManager = new MediaPlayerManager(menuMusicClip, clicAudioClip);
+
         vuePrincipale = createView();
 
         modelMenu = new ModelMenu(this);
@@ -51,46 +51,46 @@ public class ModelPrincipale {
         try {
             URL logoUrl = getClass().getResource("/Images/logo.png");
             if (logoUrl != null) {
-                Image logo = ImageIO.read(logoUrl);
-
+                logo = ImageIO.read(logoUrl);
             } else {
                 System.err.println("Logo non trouvé : /Images/Logo.png");
             }
         } catch (IOException e) {
-            e.printStackTrace();
+            System.out.println("logo err : " + e);
         }
 
+
+        ByteArrayOutputStream buffer = new ByteArrayOutputStream();
+        byte[] data = new byte[1024];
+        int nRead;
         try {
             InputStream menuMusicStream = getClass().getResourceAsStream("/Audio/MenuSoundTrack.wav");
             if (menuMusicStream == null) {
                 throw new IllegalArgumentException("Le fichier audio MenuSoundTrack.wav est introuvable.");
             }
 
-            ByteArrayOutputStream buffer = new ByteArrayOutputStream();
-            byte[] data = new byte[1024];
-            int nRead;
             while ((nRead = menuMusicStream.read(data, 0, data.length)) != -1) {
                 buffer.write(data, 0, nRead);
             }
 
             ByteArrayInputStream byteArrayInputStream = new ByteArrayInputStream(buffer.toByteArray());
             AudioInputStream audioStream = AudioSystem.getAudioInputStream(byteArrayInputStream);
+
             menuMusicClip = AudioSystem.getClip();
             menuMusicClip.open(audioStream);
+
         } catch (Exception e) {
             System.err.println("Erreur lors du chargement de la musique du menu : " + e.getMessage());
             System.exit(1);
         }
 
+        buffer.reset();
         try {
             InputStream clicAudioStream = getClass().getResourceAsStream("/Audio/buttonClic.wav");
             if (clicAudioStream == null) {
                 throw new IllegalArgumentException("Le fichier audio buttonClic.wav est introuvable.");
             }
 
-            ByteArrayOutputStream buffer = new ByteArrayOutputStream();
-            byte[] data = new byte[1024];
-            int nRead;
             while ((nRead = clicAudioStream.read(data, 0, data.length)) != -1) {
                 buffer.write(data, 0, nRead);
             }

@@ -5,8 +5,8 @@ import java.awt.*;
 import java.util.List;
 import java.util.Objects;
 
-import fr.iutfbleau.SAE31_2024_LTA.Controller.ControllerPartieJouerBTN;
-import fr.iutfbleau.SAE31_2024_LTA.Controller.ControllerPlayCard;
+import fr.iutfbleau.SAE31_2024_LTA.partieJouer.ControllerPartieJouerBTN;
+import fr.iutfbleau.SAE31_2024_LTA.jeux.ControllerPlayCard;
 import fr.iutfbleau.SAE31_2024_LTA.Bdd.BddListeTuiles;
 import fr.iutfbleau.SAE31_2024_LTA.ModelPrincipale;
 
@@ -53,7 +53,7 @@ public class VueMenu extends JPanel {
                 BorderFactory.createEmptyBorder(7, 7, 7, 7)
         ));
 
-        playerNameInput.addFocusListener(new ControllerFocus(this));
+        playerNameInput.addFocusListener(new ControllerFocus(this, modelPrincipale));
         sidebarPanel.add(playerNameInput);
 
         sidebarPanel.add(Box.createVerticalStrut(20));
