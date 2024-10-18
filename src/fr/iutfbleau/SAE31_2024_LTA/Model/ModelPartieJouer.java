@@ -14,7 +14,6 @@ public class ModelPartieJouer {
 
     public ModelPartieJouer(ModelPrincipale modelPrincipale) {
         this.modelPrincipale = modelPrincipale;
-
         createVue();
     }
 
@@ -32,8 +31,9 @@ public class ModelPartieJouer {
     }
 
     private void createVue(){
-        vuePartieJouer = new VuePartieJouer(modelPrincipale);
+        vuePartieJouer = new VuePartieJouer(modelPrincipale, this);
         modelPrincipale.getVuePrincipale().add(vuePartieJouer, "partieJouer");
+        modelPrincipale.getVuePrincipale().repaint();
     }
 
     public VuePartieJouer getVuePartieJouer() {

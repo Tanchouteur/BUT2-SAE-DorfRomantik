@@ -13,16 +13,17 @@ import java.util.List;
 
 public class VuePartieJouer extends JPanel {
 
+    private final ModelPrincipale modelPrincipale;
     private final ModelPartieJouer modelPartieJouer;
+
     private JTable tableView;
     private JTextField searchField;
-    private final ModelPrincipale modelPrincipale;
 
-    public VuePartieJouer(ModelPrincipale modelPrincipale) {
+    public VuePartieJouer(ModelPrincipale modelPrincipale, ModelPartieJouer modelPartieJouer) {
 
         this.modelPrincipale = modelPrincipale;
 
-        this.modelPartieJouer = modelPrincipale.getModelPartieJouer();
+        this.modelPartieJouer = modelPartieJouer;
         setLayout(new BorderLayout());
 
         initSwingComponents();
@@ -35,12 +36,12 @@ public class VuePartieJouer extends JPanel {
         JPanel contentPane = new JPanel(new BorderLayout());
         contentPane.setPreferredSize(new Dimension(1750, 900));
 
+        JPanel sidebar = createSidebar();
+        contentPane.add(sidebar, BorderLayout.EAST);
+
         tableView = createTableView();
         JScrollPane scrollPane = new JScrollPane(tableView);
         contentPane.add(scrollPane, BorderLayout.CENTER);
-
-        JPanel sidebar = createSidebar();
-        contentPane.add(sidebar, BorderLayout.EAST);
 
         add(contentPane, BorderLayout.CENTER);
     }
@@ -96,7 +97,9 @@ public class VuePartieJouer extends JPanel {
      * Charge les valeurs des parties jouées dans le tableau.
      */
     private void initTableValue(DefaultTableModel tableModel) {
+
         List<BddPartieJouer> allParties = modelPartieJouer.getAllParties();
+
         for (BddPartieJouer partie : allParties) {
             Object[] rowData = {partie.getPlayerName(), partie.getScore(), partie.getListeTuile().getId()};
             tableModel.addRow(rowData);

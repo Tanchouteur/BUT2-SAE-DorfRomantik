@@ -30,6 +30,7 @@ public class ModelJeux {
     private void createView(){
         this.vueJeux = new VueJeux(modelPrincipale);
         modelPrincipale.getVuePrincipale().add(vueJeux, "jeux");
+        modelPrincipale.getVuePrincipale().repaint();
     }
 
     public LinkedList<ModelTuile> getListTuiles() {

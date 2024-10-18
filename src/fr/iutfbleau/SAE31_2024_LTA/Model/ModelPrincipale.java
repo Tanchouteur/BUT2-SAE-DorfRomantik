@@ -3,10 +3,14 @@ package fr.iutfbleau.SAE31_2024_LTA.Model;
 import fr.iutfbleau.SAE31_2024_LTA.Model.Bdd.ModelBDD;
 import fr.iutfbleau.SAE31_2024_LTA.Vue.VuePrincipale;
 
+import javax.imageio.ImageIO;
 import javax.sound.sampled.*;
+import java.awt.*;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.io.InputStream;
+import java.net.URL;
 
 public class ModelPrincipale {
     private final MediaPlayerManager mediaPlayerManager;
@@ -24,6 +28,8 @@ public class ModelPrincipale {
     private String playerName;
     private int selectedSeed;
 
+    private Image logo;
+
 
     public ModelPrincipale() {
         bdd = new ModelBDD();
@@ -35,9 +41,22 @@ public class ModelPrincipale {
         modelMenu = new ModelMenu(this);
         modelPartieJouer = new ModelPartieJouer(this);
 
+        vuePrincipale.setVisible(true);
     }
 
     private void loadMedia() {
+        try {
+            URL logoUrl = getClass().getResource("/Images/logo.png");
+            if (logoUrl != null) {
+                Image logo = ImageIO.read(logoUrl);
+
+            } else {
+                System.err.println("Logo non trouvé : /Images/Logo.png");
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
         try {
             InputStream menuMusicStream = getClass().getResourceAsStream("/Audio/MenuSoundTrack.wav");
             if (menuMusicStream == null) {
@@ -59,6 +78,7 @@ public class ModelPrincipale {
             System.err.println("Erreur lors du chargement de la musique du menu : " + e.getMessage());
             System.exit(1);
         }
+
         try {
             InputStream clicAudioStream = getClass().getResourceAsStream("/Audio/buttonClic.wav");
             if (clicAudioStream == null) {
@@ -121,6 +141,10 @@ public class ModelPrincipale {
 
     public String getPlayerName() {
         return playerName;
+    }
+
+    public Image getLogo() {
+        return logo;
     }
 
     public void setPlayerName(String playerName) {

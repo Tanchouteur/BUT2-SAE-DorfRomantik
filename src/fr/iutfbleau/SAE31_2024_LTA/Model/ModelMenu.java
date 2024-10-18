@@ -4,15 +4,24 @@ import fr.iutfbleau.SAE31_2024_LTA.Vue.VueMenu;
 
 public class ModelMenu {
 
-    private final VueMenu vueMenu;
+    private final ModelPrincipale modelPrincipale;
+    private VueMenu vueMenu;
 
     ModelMenu(ModelPrincipale modelPrincipale) {
+        this.modelPrincipale = modelPrincipale;
         modelPrincipale.getMediaPlayerManager().startClip(modelPrincipale.getMediaPlayerManager().getMenuMusicClip(), true);
-        vueMenu = new VueMenu(modelPrincipale);
-        modelPrincipale.getVuePrincipale().add(vueMenu, "menu");
+
+        createVueMenu();
     }
 
     public VueMenu getVueMenu() {
         return vueMenu;
+    }
+
+    public void createVueMenu() {
+        vueMenu = new VueMenu(modelPrincipale);
+        modelPrincipale.getVuePrincipale().add(vueMenu, "menu");
+        modelPrincipale.getVuePrincipale().repaint();
+        modelPrincipale.getVuePrincipale().getCardLayout().show(modelPrincipale.getVuePrincipale().getFramePane(), "menu");
     }
 }

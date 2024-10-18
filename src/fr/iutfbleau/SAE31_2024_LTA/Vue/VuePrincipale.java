@@ -10,7 +10,6 @@ import java.net.URL;
 
 /**
  * La classe VuePrincipale représente la fenêtre principale de l'application DorfRomantique.
- * Elle gère les différentes vues de l'application (menu, jeu, score) en utilisant un CardLayout.
  */
 public class VuePrincipale extends JFrame {
     private final CardLayout cardLayout;
@@ -32,28 +31,14 @@ public class VuePrincipale extends JFrame {
         setMinimumSize(new Dimension(1650,1050));
         setResizable(false);
 
-        try {
-            URL logoUrl = getClass().getResource("/Images/logo.png");
-            if (logoUrl != null) {
-                Image logo = ImageIO.read(logoUrl);
-                setIconImage(logo);
-            } else {
-                System.err.println("Logo non trouvé : /Images/Logo.png");
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        setIconImage(modelPrincipale.getLogo());
 
         cardLayout = new CardLayout();
         setLayout(cardLayout);
 
         framePane = getContentPane();
 
-
         vueScoreScreen = new VueScoreScreen();
-
-
-
 
         add(vueScoreScreen, "score");
     }
