@@ -17,6 +17,7 @@ public class ControllerFocus implements FocusListener {
 
     @Override
     public void focusGained(FocusEvent e) {
+        modelPrincipale.getMediaPlayerManager().startClip(modelPrincipale.getMediaPlayerManager().getClicAudioClip(), false);
 
         if (e.getSource() instanceof JTextField) {
             JTextField playerNameInput = (JTextField) e.getComponent();

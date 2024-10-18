@@ -20,8 +20,6 @@ public class MediaPlayerManager {
             } else {
                 clip.start();
             }
-        }else {
-            System.err.println("Clip is null");
         }
     }
 

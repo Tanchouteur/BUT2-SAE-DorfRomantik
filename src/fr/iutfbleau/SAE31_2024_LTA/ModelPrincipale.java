@@ -56,7 +56,7 @@ public class ModelPrincipale {
                 System.err.println("Logo non trouvé : /Images/Logo.png");
             }
         } catch (IOException e) {
-            e.printStackTrace();
+            System.out.println("logo err : " + e);
         }
 
 
@@ -84,6 +84,7 @@ public class ModelPrincipale {
             System.exit(1);
         }
 
+        buffer.reset();
         try {
             InputStream clicAudioStream = getClass().getResourceAsStream("/Audio/buttonClic.wav");
             if (clicAudioStream == null) {
