@@ -21,7 +21,6 @@ public class Controller2D extends MouseAdapter {
             dragging = true;
             startX = e.getX();
             startY = e.getY();
-            System.out.println("Clic gauche enfoncé à: (" + startX + ", " + startY + ")");
         }
     }
 
@@ -44,7 +43,6 @@ public class Controller2D extends MouseAdapter {
     public void mouseReleased(MouseEvent e) {
         if (e.getButton() == MouseEvent.BUTTON1) {
             dragging = false;
-            System.out.println("Clic gauche relâché");
         }
     }
 }
