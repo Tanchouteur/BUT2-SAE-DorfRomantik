@@ -7,7 +7,7 @@ public class ModelMenu {
     private final ModelPrincipale modelPrincipale;
     private VueMenu vueMenu;
 
-    ModelMenu(ModelPrincipale modelPrincipale) {
+    public ModelMenu(ModelPrincipale modelPrincipale) {
         this.modelPrincipale = modelPrincipale;
         modelPrincipale.getMediaPlayerManager().startClip(modelPrincipale.getMediaPlayerManager().getMenuMusicClip(), true);
 
