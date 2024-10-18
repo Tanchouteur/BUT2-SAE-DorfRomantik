@@ -5,7 +5,7 @@ public class ModelListePoche {
     private int nbPoches;
 
     public ModelListePoche() {
-        this.poches = new ModelPoche[50];
+        this.poches = new ModelPoche[100];
         this.nbPoches = 0;
     }
 
