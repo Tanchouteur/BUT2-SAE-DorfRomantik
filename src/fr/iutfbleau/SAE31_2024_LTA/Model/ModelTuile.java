@@ -11,8 +11,8 @@ public class ModelTuile {
     private final int seed;
     private final VueTuile vueTuile;
     private boolean estPosee;
-    private int q;
-    private int r;
+    private int x;
+    private int y;
 
     public ModelTuile(int seed) {
         this.seed = seed;
@@ -54,17 +54,17 @@ public class ModelTuile {
         this.estPosee = false;
     }
 
-    public void setCoordonner(int q, int r) {
-        this.q = q;
-        this.r = r;
+    public void setCoordonner(int x, int y) {
+        this.x = x;
+        this.y = y;
     }
 
-    public int getQ() {
-        return this.q;
+    public int getX() {
+        return this.x;
     }
 
-    public int getR() {
-        return this.r;
+    public int getY() {
+        return this.y;
     }
 
     public int getSeed() {
