@@ -6,14 +6,16 @@ import java.util.Random;
 
 public class ModelTuile {
     private final Color[] composition;
-    private boolean estPosee;
-    private final int[] xPoints;
-    private final int[] yPoints;
+
 
     private int x;
     private int y;
 
-    public ModelTuile(int seed) {
+    private boolean button;
+
+    private VueTuile vueTuile;
+
+    public ModelTuile(int seed) {//Tuile de jeux
         composition = new Color[6];
         Random random = new Random();
         random.setSeed(seed);
@@ -40,22 +42,26 @@ public class ModelTuile {
             composition[decalage] = couleur2;
             decalage = (decalage + 1) % 6;
         }
-        this.estPosee = false;
-        this.xPoints = new int[6];
-        this.yPoints = new int[6];
+
+         button = false;
+    }
+
+    public ModelTuile() {//Tuile grise qui sert de bouton
+        composition = new Color[6];
+
+        Color couleur1 = new Color(26, 32, 46);
+
+        for (int i = 0; i < 6; i++) {
+            composition[i] = couleur1;
+        }
+
+        button = true;
     }
 
     // Méthode pour définir les coordonnées du polygone visuelement
-    public void setCoordinates(int centerX, int centerY, int radius) {
-        for (int i = 0; i < 6; i++) {
-            xPoints[i] = (int) (centerX + radius * Math.cos(i * Math.PI / 3));
-            yPoints[i] = (int) (centerY + radius * Math.sin(i * Math.PI / 3));
-        }
-    }
+    public void createVueTuile(int centerX, int centerY, int radius) {
 
-    // Méthode pour obtenir le polygone
-    public Polygon getPolygon() {
-        return new Polygon(xPoints, yPoints, 6);
+        vueTuile = new VueTuile(this, centerX, centerY, radius);
     }
 
     public Color[] getComposition() {
@@ -73,5 +79,13 @@ public class ModelTuile {
     }
     public int getY() {
         return this.y;
+    }
+
+    public boolean isButton() {
+        return button;
+    }
+
+    public VueTuile getVueTuile() {
+        return vueTuile;
     }
 }

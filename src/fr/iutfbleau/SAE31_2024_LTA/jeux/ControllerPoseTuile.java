@@ -5,7 +5,9 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
 public class ControllerPoseTuile implements MouseListener {
+
     ModelJeux modelJeux;
+
     ControllerPoseTuile(ModelJeux modelJeux) {
         this.modelJeux = modelJeux;
     }
@@ -17,6 +19,8 @@ public class ControllerPoseTuile implements MouseListener {
             modelJeux.getVueJeux().remove(button);
         }
         System.out.println("Bouton hexagonal cliqué !");
+
+
     }
 
     @Override

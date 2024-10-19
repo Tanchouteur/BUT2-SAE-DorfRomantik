@@ -3,17 +3,23 @@ package fr.iutfbleau.SAE31_2024_LTA.jeux;
 import javax.swing.*;
 import java.awt.*;
 
-
-public class ModelPolyButton extends JComponent {
+public class VuePolyButton extends JComponent {
     int centerX, centerY, radius;
     Polygon polygon;
 
-    public ModelPolyButton(int centerX, int centerY, int radius) {
+    int x;
+    int y;
+
+    public VuePolyButton(int centerX, int centerY, int radius, int x, int y) {
         this.centerX = centerX;
         this.centerY = centerY;
         this.radius = radius;
+        this.x = x;
+        this.y = y;
 
-        polygon = createHexagon(centerX, centerY, radius);
+        polygon = createHexagon(radius, radius, radius);
+
+        this.setBounds(centerX-radius, centerY-radius, radius*2, radius*2);
     }
 
     private Polygon createHexagon(int centerX, int centerY, int radius) {

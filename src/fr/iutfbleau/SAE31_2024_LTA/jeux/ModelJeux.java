@@ -47,6 +47,7 @@ public class ModelJeux {
         modelMatrice.poseeTuile(48, 50, listTuiles.getFirst()); // Tuile encore en dessous
         listTuiles.removeFirst();
 
+        createButton();
 
         createView();
     }
@@ -67,5 +68,41 @@ public class ModelJeux {
 
     public ModelMatrice getModelMatrice() {
         return this.modelMatrice;
+    }
+
+    public void createButton() {
+        for (int row = 0; row < modelMatrice.getListTuilesPosee().length; row++) {
+            for (int col = 0; col < modelMatrice.getListTuilesPosee()[row].length; col++) {
+
+                ModelTuile tuile = modelMatrice.getListTuilesPosee()[row][col];
+
+                if (tuile != null && !tuile.isButton()) {
+
+                    if (!getModelMatrice().getNordOuest(tuile)) {
+                        modelMatrice.poseeTuile(row-1, col-1, new ModelTuile());
+                    }
+
+                    if (!getModelMatrice().getNord(tuile)) {
+                        modelMatrice.poseeTuile(row-2,col, new ModelTuile());
+                    }
+
+                    if (!getModelMatrice().getNordEst(tuile)) {
+                        modelMatrice.poseeTuile(row-1,col+1, new ModelTuile());
+                    }
+
+                    if (!getModelMatrice().getSudOuest(tuile)) {
+                        modelMatrice.poseeTuile(row+1,col-1, new ModelTuile());
+                    }
+
+                    if (!getModelMatrice().getSud(tuile)) {
+                        modelMatrice.poseeTuile(row+2,col, new ModelTuile());
+                    }
+
+                    if (!getModelMatrice().getSudEst(tuile)) {
+                        modelMatrice.poseeTuile(row+1,col+1, new ModelTuile());
+                    }
+                }
+            }
+        }
     }
 }

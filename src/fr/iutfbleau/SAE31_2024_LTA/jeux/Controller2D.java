@@ -17,6 +17,7 @@ public class Controller2D extends MouseAdapter {
 
     @Override
     public void mousePressed(MouseEvent e) {
+
         if (e.getButton() == MouseEvent.BUTTON1) {
             dragging = true;
             startX = e.getX();
