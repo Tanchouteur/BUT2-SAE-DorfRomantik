@@ -139,7 +139,7 @@ public class VueJeux extends JPanel {
 
         buttonPoly.add(new ModelPolyButton(centerX, centerY, radius));
 
-        buttonPoly.getLast().addActionListener(new ControllerPoseTuile(modelJeux));
+        buttonPoly.getLast().addMouseListener(new ControllerPoseTuile(modelJeux));
 
         this.add(buttonPoly.getLast());
     }
