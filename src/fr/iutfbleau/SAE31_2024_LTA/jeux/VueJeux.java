@@ -4,6 +4,7 @@ import fr.iutfbleau.SAE31_2024_LTA.ModelPrincipale;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.MouseAdapter;
 import java.util.LinkedList;
 
 public class VueJeux extends JPanel {
@@ -20,18 +21,19 @@ public class VueJeux extends JPanel {
     private final int hexHeight =  tuileSize-7;
 
     private ModelTuile[][] listeTuilesPosee;
-    private LinkedList<VuePolyButton> buttonPoly;
 
     public VueJeux(ModelPrincipale modelPrincipale, ModelJeux modelJeux) {
         setLayout(null);
         new Controller2D(this);
 
         this.modelJeux = modelJeux;
-        buttonPoly = new LinkedList<>();
     }
 
     @Override
     protected void paintComponent(Graphics g) {
+
+        removeAll();
+
         super.paintComponent(g);
         g2d = (Graphics2D) g;
         listeTuilesPosee = modelJeux.getModelMatrice().getListTuilesPosee();
@@ -66,6 +68,7 @@ public class VueJeux extends JPanel {
                         tuile.createVueTuile(x, y, tuileSize/2);
 
                         this.add(tuile.getVueTuile());
+                        tuile.getVueTuile().addMouseListener(new ControllerPoseTuile(modelJeux, tuile));
                     }
                 }
             }
@@ -77,4 +80,6 @@ public class VueJeux extends JPanel {
         offsetY += deltaY;
         repaint();
     }
+
+
 }

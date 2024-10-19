@@ -16,7 +16,7 @@ public class ModelJeux {
     public ModelJeux(ModelPrincipale modelPrincipale, int seed) {
         this.modelPrincipale = modelPrincipale;
 
-        this.modelMatrice = new ModelMatrice();
+        this.modelMatrice = new ModelMatrice(this);
         listTuiles = new LinkedList<>();
 
         this.seed = seed;
@@ -25,11 +25,7 @@ public class ModelJeux {
             listTuiles.add(tuile);
         }
 
-
-        modelMatrice.poseeTuile(50, 50, listTuiles.getFirst()); // Pose de la tuile centrale
-        listTuiles.removeFirst();
-
-        modelMatrice.poseeTuile(49, 49, listTuiles.getFirst()); // Tuile en haut à gauche (ligne impaire, décalée)
+        /*modelMatrice.poseeTuile(49, 49, listTuiles.getFirst()); // Tuile en haut à gauche (ligne impaire, décalée)
         listTuiles.removeFirst();
 
         modelMatrice.poseeTuile(49, 51, listTuiles.getFirst()); // Tuile en haut à droite (ligne impaire, décalée)
@@ -45,11 +41,13 @@ public class ModelJeux {
         listTuiles.removeFirst();
 
         modelMatrice.poseeTuile(48, 50, listTuiles.getFirst()); // Tuile encore en dessous
-        listTuiles.removeFirst();
-
-        createButton();
+        listTuiles.removeFirst();*/
 
         createView();
+
+        modelMatrice.poseeTuile(50, 50); // Pose de la tuile centrale
+
+        createButton();
     }
 
     private void createView(){
@@ -79,27 +77,27 @@ public class ModelJeux {
                 if (tuile != null && !tuile.isButton()) {
 
                     if (!getModelMatrice().getNordOuest(tuile)) {
-                        modelMatrice.poseeTuile(row-1, col-1, new ModelTuile());
+                        modelMatrice.poseeButton(row-1, col-1, new ModelTuile());
                     }
 
                     if (!getModelMatrice().getNord(tuile)) {
-                        modelMatrice.poseeTuile(row-2,col, new ModelTuile());
+                        modelMatrice.poseeButton(row-2,col, new ModelTuile());
                     }
 
                     if (!getModelMatrice().getNordEst(tuile)) {
-                        modelMatrice.poseeTuile(row-1,col+1, new ModelTuile());
+                        modelMatrice.poseeButton(row-1,col+1, new ModelTuile());
                     }
 
                     if (!getModelMatrice().getSudOuest(tuile)) {
-                        modelMatrice.poseeTuile(row+1,col-1, new ModelTuile());
+                        modelMatrice.poseeButton(row+1,col-1, new ModelTuile());
                     }
 
                     if (!getModelMatrice().getSud(tuile)) {
-                        modelMatrice.poseeTuile(row+2,col, new ModelTuile());
+                        modelMatrice.poseeButton(row+2,col, new ModelTuile());
                     }
 
                     if (!getModelMatrice().getSudEst(tuile)) {
-                        modelMatrice.poseeTuile(row+1,col+1, new ModelTuile());
+                        modelMatrice.poseeButton(row+1,col+1, new ModelTuile());
                     }
                 }
             }

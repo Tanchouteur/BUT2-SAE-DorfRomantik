@@ -2,18 +2,23 @@ package fr.iutfbleau.SAE31_2024_LTA.jeux;
 
 public class ModelMatrice {
     private final ModelTuile[][] listTuilesPosee;
-    
-    public ModelMatrice(){
+    private ModelJeux modelJeux;
+    public ModelMatrice(ModelJeux modelJeux) {
         this.listTuilesPosee = new ModelTuile[101][101];
+        this.modelJeux = modelJeux;
     }
 
-    public void poseeTuile(int x,int y, ModelTuile tuile){
+    public void poseeTuile(int x,int y){
+        this.listTuilesPosee[x][y] = modelJeux.getListTuiles().getFirst();
+        this.listTuilesPosee[x][y].setCoordonner(x, y);
+        modelJeux.getListTuiles().removeFirst();
+        modelJeux.getVueJeux().repaint();
+    }
+
+    public void poseeButton(int x,int y, ModelTuile tuile){
         this.listTuilesPosee[x][y] = tuile;
         this.listTuilesPosee[x][y].setCoordonner(x, y);
-    }
-
-    public void deleteTuile(ModelTuile tuile){
-        this.listTuilesPosee[tuile.getX()][tuile.getY()] = null;
+        modelJeux.getVueJeux().repaint();
     }
 
     public boolean getNordOuest(ModelTuile tuile){

@@ -7,20 +7,22 @@ import java.awt.event.MouseListener;
 public class ControllerPoseTuile implements MouseListener {
 
     ModelJeux modelJeux;
+    ModelTuile buttonTuile;
 
-    ControllerPoseTuile(ModelJeux modelJeux) {
+    ControllerPoseTuile(ModelJeux modelJeux, ModelTuile buttonTuile) {
         this.modelJeux = modelJeux;
+        this.buttonTuile = buttonTuile;
     }
 
     @Override
     public void mouseClicked(MouseEvent e) {
-        if (e.getSource() instanceof JButton) {
-            JButton button = (JButton) e.getSource();
-            modelJeux.getVueJeux().remove(button);
+        Object source = e.getSource();
+        if (source instanceof VueTuile) {
+
+            modelJeux.getModelMatrice().poseeTuile(buttonTuile.getX(), buttonTuile.getY());
+            modelJeux.createButton();
         }
         System.out.println("Bouton hexagonal cliqué !");
-
-
     }
 
     @Override

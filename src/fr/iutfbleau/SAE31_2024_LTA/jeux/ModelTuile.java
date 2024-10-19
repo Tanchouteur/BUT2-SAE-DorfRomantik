@@ -49,7 +49,7 @@ public class ModelTuile {
     public ModelTuile() {//Tuile grise qui sert de bouton
         composition = new Color[6];
 
-        Color couleur1 = new Color(26, 32, 46);
+        Color couleur1 = new Color(213, 213, 213);
 
         for (int i = 0; i < 6; i++) {
             composition[i] = couleur1;
