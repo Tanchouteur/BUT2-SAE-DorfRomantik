@@ -89,18 +89,37 @@ public class VueJeux extends JLayeredPane {
         repaint();
     }
 
+    public void updateTuile(VueTuile btnCliked){
+        for (int row = 0; row < modelJeux.getModelMatrice().getListTuilesPosee().length; row++) {
+            for (int col = 0; col < modelJeux.getModelMatrice().getListTuilesPosee()[row].length; col++) {
+
+                ModelTuile tuile = modelJeux.getModelMatrice().getListTuilesPosee()[row][col];
+
+                if (tuile != null && tuile.getVueTuile() != null && tuile.isButton()) {
+                    this.remove(tuile.getVueTuile());
+                    this.remove(btnCliked);
+                    tuile.deleteVueTuile();
+                }
+            }
+        }
+        repaint();
+    }
+
     public void updatePreviewTuile(){
 
         if (tuilePreview != null) {
             this.remove(tuilePreview.getVueTuile());
         }
-        tuilePreview = new ModelTuile(modelJeux.getListTuiles().getFirst().getSeed());
-        int centerX = 70;
-        int centerY = getHeight()-70;
 
-        tuilePreview.createVueTuile(centerX, centerY, 60);
+        if (!modelJeux.getListTuiles().isEmpty()) {
+            tuilePreview = new ModelTuile(modelJeux.getListTuiles().getFirst().getSeed());
+            int centerX = 70;
+            int centerY = getHeight() - 70;
 
-        add(tuilePreview.getVueTuile(), Integer.valueOf(1));
-        repaint();
+            tuilePreview.createVueTuile(centerX, centerY, 60);
+
+            add(tuilePreview.getVueTuile(), Integer.valueOf(1));
+            repaint();
+        }
     }
 }

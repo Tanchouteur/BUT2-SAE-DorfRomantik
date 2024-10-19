@@ -87,4 +87,17 @@ public class ModelJeux {
             }
         }
     }
+
+    public void deleteButtons() {
+        for (int row = 0; row < modelMatrice.getListTuilesPosee().length; row++) {
+            for (int col = 0; col < modelMatrice.getListTuilesPosee()[row].length; col++) {
+
+                ModelTuile tuile = modelMatrice.getListTuilesPosee()[row][col];
+
+                if (tuile != null && tuile.isButton()) {
+                    modelMatrice.deleteButton(row, col);
+                }
+            }
+        }
+    }
 }

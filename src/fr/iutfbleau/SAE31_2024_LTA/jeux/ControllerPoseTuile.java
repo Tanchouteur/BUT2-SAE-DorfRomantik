@@ -34,23 +34,13 @@ public class ControllerPoseTuile implements MouseListener {
             if(!modelJeux.getListTuiles().isEmpty()) {
                 modelJeux.getModelMatrice().poseeTuile(buttonTuile.getX(), buttonTuile.getY());
                 modelJeux.createButton();
-
-                for (int row = 0; row < modelJeux.getModelMatrice().getListTuilesPosee().length; row++) {
-                    for (int col = 0; col < modelJeux.getModelMatrice().getListTuilesPosee()[row].length; col++) {
-
-                        ModelTuile tuile = modelJeux.getModelMatrice().getListTuilesPosee()[row][col];
-
-                        if (tuile != null && tuile.getVueTuile() != null && tuile.isButton()) {
-                            modelJeux.getVueJeux().remove(tuile.getVueTuile());
-                            modelJeux.getVueJeux().remove(btnCliked);
-                            tuile.deleteVueTuile();
-                        }
-                    }
-                }
-
+                modelJeux.getVueJeux().updateTuile(btnCliked);
             }else {
                 //Crée un controlleur de fin de partit
 
+                modelJeux.getVueJeux().updateTuile(btnCliked);
+                modelJeux.deleteButtons();
+                modelJeux.getVueJeux().repaint();
             }
         }
         clicked = false;
