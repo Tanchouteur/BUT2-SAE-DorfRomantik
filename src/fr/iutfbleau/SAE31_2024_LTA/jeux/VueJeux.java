@@ -142,6 +142,5 @@ public class VueJeux extends JPanel {
         buttonPoly.getLast().addActionListener(new ControllerPoseTuile(modelJeux));
 
         this.add(buttonPoly.getLast());
-        repaint();
     }
 }
