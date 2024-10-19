@@ -25,7 +25,7 @@ public class VueJeux extends JLayeredPane {
 
 
 
-    public VueJeux(ModelPrincipale modelPrincipale, ModelJeux modelJeux) {
+    public VueJeux( ModelJeux modelJeux) {
         setLayout(null);
         new Controller2D(this);
         this.modelJeux = modelJeux;
