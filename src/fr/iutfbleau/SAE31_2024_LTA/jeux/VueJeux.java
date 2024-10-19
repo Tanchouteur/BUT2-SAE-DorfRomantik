@@ -1,7 +1,5 @@
 package fr.iutfbleau.SAE31_2024_LTA.jeux;
 
-import fr.iutfbleau.SAE31_2024_LTA.ModelPrincipale;
-
 import javax.swing.*;
 import java.awt.*;
 
@@ -29,7 +27,6 @@ public class VueJeux extends JLayeredPane {
         setLayout(null);
         new Controller2D(this);
         this.modelJeux = modelJeux;
-
     }
 
     @Override
@@ -65,6 +62,7 @@ public class VueJeux extends JLayeredPane {
                     if (!tuile.isButton()){
                         tuile.createVueTuile(x, y, tuileSize);
                         this.add(tuile.getVueTuile(), Integer.valueOf(0));
+                        this.updatePreviewTuile();
                     }else {
                         tuile.createVueTuile(x, y, tuileSize/2);
 
@@ -93,42 +91,16 @@ public class VueJeux extends JLayeredPane {
 
     public void updatePreviewTuile(){
 
-        if (tuilePreview != null){
-            remove(tuilePreview.getVueTuile());
+        if (tuilePreview != null) {
+            this.remove(tuilePreview.getVueTuile());
         }
         tuilePreview = new ModelTuile(modelJeux.getListTuiles().getFirst().getSeed());
-        int centerX = getWidth() / 2;
-        int centerY = getHeight() / 2;
+        int centerX = 70;
+        int centerY = getHeight()-70;
 
-        int[] xPoint = new int[6];
-        int[] yPoint = new int[6];
+        tuilePreview.createVueTuile(centerX, centerY, 60);
 
-        for (int i = 0; i < 6; i++) {
-            xPoint[i] = (int) (centerX + 60 * Math.cos(i * Math.PI / 3));
-            yPoint[i] = (int) (centerY + 60 * Math.sin(i * Math.PI / 3));
-        }
-
-        Polygon polygon = new Polygon(xPoint, yPoint, 6);
-
-        Color[] composition = tuilePreview.getComposition();
-        for (int i = 0; i < 6; i++) {
-            int[] xPoints = {
-                    polygon.xpoints[i],
-                    polygon.xpoints[(i + 1) % 6],
-                    centerX
-            };
-            int[] yPoints = {
-                    polygon.ypoints[i],
-                    polygon.ypoints[(i + 1) % 6],
-                    centerY
-            };
-
-            g2d.setColor(composition[i]);
-            g2d.fillPolygon(xPoints, yPoints, 3);
-        }
-
-        g2d.setColor(Color.BLACK);
-        g2d.drawPolygon(polygon);
-
+        add(tuilePreview.getVueTuile(), Integer.valueOf(1));
+        repaint();
     }
 }

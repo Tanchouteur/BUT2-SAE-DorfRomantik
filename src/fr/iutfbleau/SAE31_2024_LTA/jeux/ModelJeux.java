@@ -30,15 +30,17 @@ public class ModelJeux {
         modelMatrice.poseeTuile(50, 50); // Pose de la tuile centrale
 
         createButton();
+
+
     }
 
     private void createView(){
         this.vueJeux = new VueJeux(this);
         modelPrincipale.getVuePrincipale().add(vueJeux, "jeux");
-        modelPrincipale.getVuePrincipale().repaint();
     }
 
     public LinkedList<ModelTuile> getListTuiles() {
+
         return listTuiles;
     }
 
