@@ -20,7 +20,6 @@ public class ModelMatrice {
     public void poseeButton(int x,int y, ModelTuile tuile){
         this.listTuilesPosee[x][y] = tuile;
         this.listTuilesPosee[x][y].setCoordonner(x, y);
-        modelJeux.getVueJeux().repaint();
     }
 
     public boolean getNordOuest(ModelTuile tuile){

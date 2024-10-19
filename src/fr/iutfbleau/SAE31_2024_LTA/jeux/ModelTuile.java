@@ -11,7 +11,7 @@ public class ModelTuile {
     private int x;
     private int y;
 
-    private boolean button;
+    private final boolean button;
 
     private VueTuile vueTuile;
 
@@ -87,5 +87,9 @@ public class ModelTuile {
 
     public VueTuile getVueTuile() {
         return vueTuile;
+    }
+
+    public void deleteVueTuile() {
+        vueTuile = null;
     }
 }
