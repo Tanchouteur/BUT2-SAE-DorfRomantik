@@ -5,8 +5,10 @@ import java.awt.event.MouseListener;
 
 public class ControllerPoseTuile implements MouseListener {
 
-    ModelJeux modelJeux;
-    ModelTuile buttonTuile;
+    private final ModelJeux modelJeux;
+    private final ModelTuile buttonTuile;
+
+    private boolean clicked = false;
 
     ControllerPoseTuile(ModelJeux modelJeux, ModelTuile buttonTuile) {
         this.modelJeux = modelJeux;
@@ -15,8 +17,19 @@ public class ControllerPoseTuile implements MouseListener {
 
     @Override
     public void mouseClicked(MouseEvent e) {
+
+    }
+
+    @Override
+    public void mousePressed(MouseEvent e) {
+        clicked = true;
+    }
+
+    @Override
+    public void mouseReleased(MouseEvent e) {
+
         Object source = e.getSource();
-        if (source instanceof VueTuile btnCliked) {
+        if (source instanceof VueTuile btnCliked && clicked) {
 
             if(!modelJeux.getListTuiles().isEmpty()) {
                 modelJeux.getModelMatrice().poseeTuile(buttonTuile.getX(), buttonTuile.getY());
@@ -40,25 +53,16 @@ public class ControllerPoseTuile implements MouseListener {
 
             }
         }
-    }
-
-    @Override
-    public void mousePressed(MouseEvent e) {
-
-    }
-
-    @Override
-    public void mouseReleased(MouseEvent e) {
-
+        clicked = false;
     }
 
     @Override
     public void mouseEntered(MouseEvent e) {
-
+        clicked = true;
     }
 
     @Override
     public void mouseExited(MouseEvent e) {
-
+        clicked = false;
     }
 }
