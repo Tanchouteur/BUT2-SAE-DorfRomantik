@@ -32,7 +32,7 @@ public class VueJeux extends JPanel {
     @Override
     protected void paintComponent(Graphics g) {
 
-        removeAll();
+        //removeAll();
 
         super.paintComponent(g);
         g2d = (Graphics2D) g;
@@ -55,20 +55,28 @@ public class VueJeux extends JPanel {
 
                 ModelTuile tuile = listeTuilesPosee[row][col];
 
-                if (tuile != null) {
+                int x = totalOffsetX + col * (3 * tuileSize / 2);
+                int y = totalOffsetY + row * hexHeight;
 
-                    int x = totalOffsetX + col * (3 * tuileSize / 2);
-                    int y = totalOffsetY + row * hexHeight;
+                if (tuile != null && tuile.getVueTuile() == null) {
 
                     if (!tuile.isButton()){
                         tuile.createVueTuile(x, y, tuileSize);
-
                         this.add(tuile.getVueTuile());
                     }else {
                         tuile.createVueTuile(x, y, tuileSize/2);
 
                         this.add(tuile.getVueTuile());
                         tuile.getVueTuile().addMouseListener(new ControllerPoseTuile(modelJeux, tuile));
+                    }
+                }else if (tuile != null && tuile.getVueTuile() != null) {
+
+                    if (!tuile.isButton()){
+
+                        tuile.getVueTuile().updateTuile(x, y, tuileSize);
+
+                    }else {
+                        tuile.getVueTuile().updateTuile(x, y, tuileSize/2);
                     }
                 }
             }
