@@ -24,7 +24,7 @@ public class ModelMatrice {
     public boolean getNord(ModelTuile tuile){
         int x = tuile.getX();
         int y = tuile.getY();
-        if(this.listTuilesPosee[x][y-2] == null){
+        if(this.listTuilesPosee[x-2][y] == null){
             return false;
         }
         return true;
@@ -33,7 +33,7 @@ public class ModelMatrice {
     public boolean getNordEst(ModelTuile tuile){
         int x = tuile.getX();
         int y = tuile.getY();
-        if(this.listTuilesPosee[x+1][y-1] == null){
+        if(this.listTuilesPosee[x-1][y+1] == null){
             return false;
         }
         return true;
@@ -42,7 +42,7 @@ public class ModelMatrice {
     public boolean getSudOuest(ModelTuile tuile){
         int x = tuile.getX();
         int y = tuile.getY();
-        if(this.listTuilesPosee[x-1][y+1] == null){
+        if(this.listTuilesPosee[x+1][y-1] == null){
             return false;
         }
         return true;
@@ -51,7 +51,7 @@ public class ModelMatrice {
     public boolean getSud(ModelTuile tuile){
         int x = tuile.getX();
         int y = tuile.getY();
-        if(this.listTuilesPosee[x][y+2] == null){
+        if(this.listTuilesPosee[x+2][y] == null){
             return false;
         }
         return true;

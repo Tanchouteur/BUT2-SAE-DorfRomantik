@@ -64,6 +64,8 @@ public class ModelTuile {
 
     // Méthode pour définir les coordonnées du polygone dans la matrice
     public void setCoordonner(int x, int y) {
+        this.x = x;
+        this.y = y;
     }
 
     public int getX() {

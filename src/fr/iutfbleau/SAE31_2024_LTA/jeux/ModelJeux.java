@@ -25,9 +25,28 @@ public class ModelJeux {
             listTuiles.add(tuile);
         }
 
-        listTuiles.getFirst().setCoordinates(modelPrincipale.getVuePrincipale().getWidth()/2, modelPrincipale.getVuePrincipale().getHeight()/2,50);//on pose la premiere tuile au milieux de l'écrant
-        modelMatrice.poseeTuile(50,50,listTuiles.getFirst());//Pose de la premiere tuile
+
+        modelMatrice.poseeTuile(50, 50, listTuiles.getFirst()); // Pose de la tuile centrale
         listTuiles.removeFirst();
+
+        modelMatrice.poseeTuile(49, 49, listTuiles.getFirst()); // Tuile en haut à gauche (ligne impaire, décalée)
+        listTuiles.removeFirst();
+
+        modelMatrice.poseeTuile(49, 51, listTuiles.getFirst()); // Tuile en haut à droite (ligne impaire, décalée)
+        listTuiles.removeFirst();
+
+        modelMatrice.poseeTuile(51, 49, listTuiles.getFirst()); // Tuile en bas à gauche
+        listTuiles.removeFirst();
+
+        modelMatrice.poseeTuile(51, 51, listTuiles.getFirst()); // Tuile en bas à droite
+        listTuiles.removeFirst();
+
+        modelMatrice.poseeTuile(52, 50, listTuiles.getFirst()); // Tuile encore en dessous
+        listTuiles.removeFirst();
+
+        modelMatrice.poseeTuile(48, 50, listTuiles.getFirst()); // Tuile encore en dessous
+        listTuiles.removeFirst();
+
 
         createView();
     }
