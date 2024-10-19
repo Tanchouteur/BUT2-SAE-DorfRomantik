@@ -23,6 +23,10 @@ public class VueTuile extends JComponent {
         updateTuile( centerX, centerY, radius);
     }
 
+    public ModelTuile getModelTuile() {
+        return modelTuile;
+    }
+
     private Polygon createHexagon(int radius) {
 
         for (int i = 0; i < 6; i++) {

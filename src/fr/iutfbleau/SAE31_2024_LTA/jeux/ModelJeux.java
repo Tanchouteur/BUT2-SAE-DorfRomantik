@@ -20,7 +20,7 @@ public class ModelJeux {
         listTuiles = new LinkedList<>();
 
         this.seed = seed;
-        for (int i = 50; i >= 0; i--) {
+        for (int i = 10; i >= 0; i--) {
             ModelTuile tuile = new ModelTuile(seed+i);
             listTuiles.add(tuile);
         }
@@ -30,15 +30,17 @@ public class ModelJeux {
         modelMatrice.poseeTuile(50, 50); // Pose de la tuile centrale
 
         createButton();
+
+
     }
 
     private void createView(){
-        this.vueJeux = new VueJeux(modelPrincipale, this);
+        this.vueJeux = new VueJeux(this);
         modelPrincipale.getVuePrincipale().add(vueJeux, "jeux");
-        modelPrincipale.getVuePrincipale().repaint();
     }
 
     public LinkedList<ModelTuile> getListTuiles() {
+
         return listTuiles;
     }
 
@@ -81,6 +83,19 @@ public class ModelJeux {
                     if (!getModelMatrice().getSudEst(tuile)) {
                         modelMatrice.poseeButton(row+1,col+1, new ModelTuile());
                     }
+                }
+            }
+        }
+    }
+
+    public void deleteButtons() {
+        for (int row = 0; row < modelMatrice.getListTuilesPosee().length; row++) {
+            for (int col = 0; col < modelMatrice.getListTuilesPosee()[row].length; col++) {
+
+                ModelTuile tuile = modelMatrice.getListTuilesPosee()[row][col];
+
+                if (tuile != null && tuile.isButton()) {
+                    modelMatrice.deleteButton(row, col);
                 }
             }
         }

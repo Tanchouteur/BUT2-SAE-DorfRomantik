@@ -1,5 +1,6 @@
 package fr.iutfbleau.SAE31_2024_LTA.jeux;
 
+import javax.swing.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
@@ -37,6 +38,9 @@ public class Controller2D extends MouseAdapter {
 
             startX = currentX;
             startY = currentY;
+        }
+        if (vueJeux.getModelJeux().getListTuiles().isEmpty()) {
+            vueJeux.getModelJeux().deleteButtons();
         }
     }
 

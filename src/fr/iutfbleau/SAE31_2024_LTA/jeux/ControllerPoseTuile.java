@@ -8,11 +8,14 @@ public class ControllerPoseTuile implements MouseListener {
     private final ModelJeux modelJeux;
     private final ModelTuile buttonTuile;
 
+    private ModelTuile modeleTuilePreviewed;
+
     private boolean clicked = false;
 
     ControllerPoseTuile(ModelJeux modelJeux, ModelTuile buttonTuile) {
         this.modelJeux = modelJeux;
         this.buttonTuile = buttonTuile;
+
     }
 
     @Override
@@ -34,35 +37,36 @@ public class ControllerPoseTuile implements MouseListener {
             if(!modelJeux.getListTuiles().isEmpty()) {
                 modelJeux.getModelMatrice().poseeTuile(buttonTuile.getX(), buttonTuile.getY());
                 modelJeux.createButton();
-
-                for (int row = 0; row < modelJeux.getModelMatrice().getListTuilesPosee().length; row++) {
-                    for (int col = 0; col < modelJeux.getModelMatrice().getListTuilesPosee()[row].length; col++) {
-
-                        ModelTuile tuile = modelJeux.getModelMatrice().getListTuilesPosee()[row][col];
-
-                        if (tuile != null && tuile.getVueTuile() != null && tuile.isButton()) {
-                            modelJeux.getVueJeux().remove(tuile.getVueTuile());
-                            modelJeux.getVueJeux().remove(btnCliked);
-                            tuile.deleteVueTuile();
-                        }
-                    }
-                }
-
+                modelJeux.getVueJeux().updateTuile(btnCliked);
             }else {
                 //Crée un controlleur de fin de partit
+
+                modelJeux.getVueJeux().updateTuile(btnCliked);
+                modelJeux.deleteButtons();
 
             }
         }
         clicked = false;
+        modelJeux.getVueJeux().unsetPreviewOnButton(modeleTuilePreviewed);
+        modelJeux.getVueJeux().repaint();
     }
 
     @Override
     public void mouseEntered(MouseEvent e) {
         clicked = true;
+
+        Object source = e.getSource();
+        if (source instanceof VueTuile btnHovered && clicked) {
+            modeleTuilePreviewed = modelJeux.getVueJeux().setPreviewOnButton(btnHovered);
+        }
+
+
+
     }
 
     @Override
     public void mouseExited(MouseEvent e) {
         clicked = false;
+        modelJeux.getVueJeux().unsetPreviewOnButton(modeleTuilePreviewed);
     }
 }

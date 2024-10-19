@@ -22,6 +22,10 @@ public class ModelMatrice {
         this.listTuilesPosee[x][y].setCoordonner(x, y);
     }
 
+    public void deleteButton(int x,int y){
+        this.listTuilesPosee[x][y] = null;
+    }
+
     public boolean getNordOuest(ModelTuile tuile){
         int x = tuile.getX();
         int y = tuile.getY();

@@ -7,6 +7,7 @@ import java.util.Random;
 public class ModelTuile {
     private final Color[] composition;
 
+    private int seed;
 
     private int x;
     private int y;
@@ -18,6 +19,7 @@ public class ModelTuile {
     public ModelTuile(int seed) {//Tuile de jeux
         composition = new Color[6];
         Random random = new Random();
+        this.seed = seed;
         random.setSeed(seed);
 
         List<Color> colorPalette = List.of(
@@ -91,5 +93,9 @@ public class ModelTuile {
 
     public void deleteVueTuile() {
         vueTuile = null;
+    }
+
+    public int getSeed() {
+        return seed;
     }
 }
