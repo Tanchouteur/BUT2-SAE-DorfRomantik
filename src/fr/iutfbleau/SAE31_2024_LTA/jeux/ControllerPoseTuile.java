@@ -1,6 +1,5 @@
 package fr.iutfbleau.SAE31_2024_LTA.jeux;
 
-import javax.swing.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
