@@ -39,6 +39,9 @@ public class Controller2D extends MouseAdapter {
             startX = currentX;
             startY = currentY;
         }
+        if (vueJeux.getModelJeux().getListTuiles().isEmpty()) {
+            vueJeux.getModelJeux().deleteButtons();
+        }
     }
 
     @Override

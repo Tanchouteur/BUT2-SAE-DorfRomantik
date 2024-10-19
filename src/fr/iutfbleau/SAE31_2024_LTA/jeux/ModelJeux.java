@@ -20,7 +20,7 @@ public class ModelJeux {
         listTuiles = new LinkedList<>();
 
         this.seed = seed;
-        for (int i = 50; i >= 0; i--) {
+        for (int i = 10; i >= 0; i--) {
             ModelTuile tuile = new ModelTuile(seed+i);
             listTuiles.add(tuile);
         }

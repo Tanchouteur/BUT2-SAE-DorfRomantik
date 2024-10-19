@@ -123,8 +123,53 @@ public class VueJeux extends JLayeredPane {
                 tuilePreview[row].createVueTuile(centerX, centerY, 50);
                 add(tuilePreview[row].getVueTuile(), Integer.valueOf(modelJeux.getListTuiles().size() - row));
             }
+        }else{
+
+            for (int row = 0; row < tuilePreview.length; row++) {
+                if (tuilePreview[row] != null) {
+                    this.remove(tuilePreview[row].getVueTuile());
+                }
+            }
+            modelJeux.deleteButtons();
         }
 
         repaint();
+    }
+
+    public ModelTuile setPreviewOnButton(VueTuile btnHovered) {
+        if (btnHovered.getModelTuile().isButton() && !modelJeux.getListTuiles().isEmpty()) {
+            ModelTuile modelHoveredPreviewed = new ModelTuile(modelJeux.getListTuiles().getFirst().getSeed());
+
+            int centerX = getWidth() / 2;
+            int centerY = getHeight() / 2;
+
+            int initialOffsetX = centerX - (3 * tuileSize / 2) * 50;
+            int initialOffsetY = centerY - hexHeight * 50;
+
+            int totalOffsetX = initialOffsetX + offsetX;
+            int totalOffsetY = initialOffsetY + offsetY;
+
+            int x = totalOffsetX + btnHovered.getModelTuile().getY() * (3 * tuileSize / 2);
+            int y = totalOffsetY + btnHovered.getModelTuile().getX() * hexHeight;
+
+            modelHoveredPreviewed.createVueTuile(x, y, 45);
+
+            add(modelHoveredPreviewed.getVueTuile(), Integer.valueOf(1));
+            repaint();
+            return modelHoveredPreviewed;
+        }
+        return null;
+    }
+
+    public void unsetPreviewOnButton(ModelTuile modelHoveredPreview) {
+        if (modelHoveredPreview != null) {
+            this.remove(modelHoveredPreview.getVueTuile());
+
+        }
+        this.repaint();
+    }
+
+    public ModelJeux getModelJeux() {
+        return modelJeux;
     }
 }
