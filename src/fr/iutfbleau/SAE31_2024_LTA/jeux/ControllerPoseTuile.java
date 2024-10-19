@@ -18,9 +18,13 @@ public class ControllerPoseTuile implements MouseListener {
     public void mouseClicked(MouseEvent e) {
         Object source = e.getSource();
         if (source instanceof VueTuile) {
+            if(!modelJeux.getListTuiles().isEmpty()) {
+                modelJeux.getModelMatrice().poseeTuile(buttonTuile.getX(), buttonTuile.getY());
+                modelJeux.createButton();
+            }else {
+                //Crée un controlleur de fin de partit
 
-            modelJeux.getModelMatrice().poseeTuile(buttonTuile.getX(), buttonTuile.getY());
-            modelJeux.createButton();
+            }
         }
         System.out.println("Bouton hexagonal cliqué !");
     }

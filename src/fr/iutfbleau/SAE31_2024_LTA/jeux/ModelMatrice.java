@@ -1,8 +1,10 @@
 package fr.iutfbleau.SAE31_2024_LTA.jeux;
 
 public class ModelMatrice {
+
     private final ModelTuile[][] listTuilesPosee;
-    private ModelJeux modelJeux;
+    private final ModelJeux modelJeux;
+
     public ModelMatrice(ModelJeux modelJeux) {
         this.listTuilesPosee = new ModelTuile[101][101];
         this.modelJeux = modelJeux;
