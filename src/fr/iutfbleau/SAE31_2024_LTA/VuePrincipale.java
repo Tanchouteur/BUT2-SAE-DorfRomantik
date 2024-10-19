@@ -22,11 +22,12 @@ public class VuePrincipale extends JFrame {
     public VuePrincipale(ModelPrincipale modelPrincipale) {
         this.modelPrincipale = modelPrincipale;
         setTitle("DorfRomantique Alpha");
-        setSize(1920,1080);
+        setSize(1200,800);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
-        setMinimumSize(new Dimension(1650,1050));
-        setResizable(false);
+        setMinimumSize(new Dimension(500,500));
+        setResizable(true);
+
 
         setIconImage(modelPrincipale.getLogo());
 
