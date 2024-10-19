@@ -19,7 +19,7 @@ public class VueJeux extends JLayeredPane {
 
     private ModelTuile[][] listeTuilesPosee;
 
-    private ModelTuile tuilePreview;
+    private ModelTuile[] tuilePreview;
 
 
 
@@ -27,6 +27,7 @@ public class VueJeux extends JLayeredPane {
         setLayout(null);
         new Controller2D(this);
         this.modelJeux = modelJeux;
+        tuilePreview = new ModelTuile[modelJeux.getListTuiles().size()];
     }
 
     @Override
@@ -107,19 +108,23 @@ public class VueJeux extends JLayeredPane {
 
     public void updatePreviewTuile(){
 
-        if (tuilePreview != null) {
-            this.remove(tuilePreview.getVueTuile());
-        }
-
         if (!modelJeux.getListTuiles().isEmpty()) {
-            tuilePreview = new ModelTuile(modelJeux.getListTuiles().getFirst().getSeed());
-            int centerX = 70;
-            int centerY = getHeight() - 70;
+            for (int row = modelJeux.getListTuiles().size() - 1; row >= 0; row--) {
 
-            tuilePreview.createVueTuile(centerX, centerY, 60);
+                if (tuilePreview[row] != null) {
+                    this.remove(tuilePreview[row].getVueTuile());
+                }
 
-            add(tuilePreview.getVueTuile(), Integer.valueOf(1));
-            repaint();
+                tuilePreview[row] = new ModelTuile(modelJeux.getListTuiles().get(row).getSeed());
+
+                int centerX = 60;
+                int centerY = getHeight() - (5 * (modelJeux.getListTuiles().size() - row) + 15);
+
+                tuilePreview[row].createVueTuile(centerX, centerY, 50);
+                add(tuilePreview[row].getVueTuile(), Integer.valueOf(modelJeux.getListTuiles().size() - row));
+            }
         }
+
+        repaint();
     }
 }
