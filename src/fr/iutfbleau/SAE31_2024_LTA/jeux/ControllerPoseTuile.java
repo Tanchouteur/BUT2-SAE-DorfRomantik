@@ -26,7 +26,6 @@ public class ControllerPoseTuile implements MouseListener {
 
             }
         }
-        System.out.println("Bouton hexagonal cliqué !");
     }
 
     @Override
