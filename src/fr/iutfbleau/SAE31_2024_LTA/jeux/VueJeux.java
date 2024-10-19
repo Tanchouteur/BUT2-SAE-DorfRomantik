@@ -55,7 +55,7 @@ public class VueJeux extends JPanel {
 
                 ModelTuile tuile = listeTuilesPosee[row][col];
 
-                if (tuile != null) {
+                if (tuile != null && tuile.getVueTuile() == null) {
 
                     int x = totalOffsetX + col * (3 * tuileSize / 2);
                     int y = totalOffsetY + row * hexHeight;
@@ -64,6 +64,22 @@ public class VueJeux extends JPanel {
                         tuile.createVueTuile(x, y, tuileSize);
 
                         this.add(tuile.getVueTuile());
+                    }else {
+                        tuile.createVueTuile(x, y, tuileSize/2);
+
+                        this.add(tuile.getVueTuile());
+                        tuile.getVueTuile().addMouseListener(new ControllerPoseTuile(modelJeux, tuile));
+                    }
+                }else if (tuile != null && tuile.getVueTuile() != null) {
+                    int x = totalOffsetX + col * (3 * tuileSize / 2);
+                    int y = totalOffsetY + row * hexHeight;
+
+                    if (!tuile.isButton()){
+
+                        tuile.createVueTuile(x, y, tuileSize);
+
+                        this.add(tuile.getVueTuile());
+
                     }else {
                         tuile.createVueTuile(x, y, tuileSize/2);
 
