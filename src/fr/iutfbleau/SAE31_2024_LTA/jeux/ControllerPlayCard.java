@@ -42,7 +42,7 @@ public class ControllerPlayCard implements ActionListener {
                     Random rand = new Random();
                     seed = rand.nextInt();
                 } else {
-                    seed = listeTuiles.get(selectedIndex - 1).getSeed();
+                    seed = listeTuiles.get(selectedIndex - 1).getSeed();//listetuile de la bdd
                 }
 
                 modelPrincipale.setPlayerName(playerName);
@@ -50,8 +50,7 @@ public class ControllerPlayCard implements ActionListener {
 
                 modelPrincipale.getMediaPlayerManager().stopClip(modelPrincipale.getMediaPlayerManager().getMenuMusicClip());
 
-
-
+                modelPrincipale.createJeux();
                 vuePrincipale.getCardLayout().show(vuePrincipale.getFramePane(), "jeux");
             }
         }

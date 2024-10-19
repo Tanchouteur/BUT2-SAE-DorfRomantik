@@ -8,6 +8,31 @@ l'archive JAR est éxécutable et ne require rien d'autre que [JDK-18](https://w
 
 ### Information sur la Base de données : [bdd](InfoBDD/BDD.md)
 
+## Notre version
+### Notre version se divise en plusieurs parties :
+- ### Le menu du jeux : 
+  - Choisir sont username
+  - Choisir la suite de tuile avec laquel ont va jouer
+  - Boutton pour aller voir la liste des parties jouer (a revoir)
+  - Bouton pour lancer le jeux
+
+
+- ### La liste des parties jouer
+  - a détailler
+
+
+- ### Le Jeux en lui même : 
+  - Méthode de placement des tuiles : 
+    - Bouton pour placer une tuiles adjacentes a une autres
+    - placement uniquemment adjacent a une tuile deja présente
+  
+
+  - Methode de déplacement de la caméra : 
+    - Déplacement "drag" on reste appuyer sur clique gauche et on déplace
+
+
+
+
 ### [Sujet](https://iut-fbleau.fr/sitebp/sae3/31_2024/M67XNS5HAF8M5DAN.php) :
 ### Paysages
 Dans ce jeu inspiré librement de Dorfromantik, le joueur doit assembler des tuiles hexagonales pour former un paysage harmonieux.

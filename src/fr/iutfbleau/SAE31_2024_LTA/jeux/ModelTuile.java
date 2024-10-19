@@ -6,15 +6,16 @@ import java.util.Random;
 
 public class ModelTuile {
     private final Color[] composition;
-    private final int seed;
-    private boolean estPosee;
-    private int q;
-    private int r;
 
-    public ModelTuile(int seed) {
-        this.seed = seed;
-        Color couleur1;
-        Color couleur2;
+
+    private int x;
+    private int y;
+
+    private boolean button;
+
+    private VueTuile vueTuile;
+
+    public ModelTuile(int seed) {//Tuile de jeux
         composition = new Color[6];
         Random random = new Random();
         random.setSeed(seed);
@@ -27,55 +28,64 @@ public class ModelTuile {
                 new Color(20, 119, 69)
         );
 
-        couleur1 = colorPalette.get(random.nextInt(colorPalette.size()));
-        couleur2 = colorPalette.get(random.nextInt(colorPalette.size()));
+        Color couleur1 = colorPalette.get(random.nextInt(colorPalette.size()));
+        Color couleur2 = colorPalette.get(random.nextInt(colorPalette.size()));
         int territory = random.nextInt(7);
         int decalage = random.nextInt(6);
         int taille2 = 6 - territory;
 
         for (int i = 0; i < territory; i++) {
-            if (decalage > 5) {
-                decalage = 0;
-            }
             composition[decalage] = couleur1;
-            decalage++;
+            decalage = (decalage + 1) % 6;
         }
         for (int i = 0; i < taille2; i++) {
-            if (decalage > 5) {
-                decalage = 0;
-            }
             composition[decalage] = couleur2;
-            decalage++;
+            decalage = (decalage + 1) % 6;
         }
-        this.estPosee = false;
+
+         button = false;
     }
 
-    public void setCoordonner(int q, int r) {
-        this.q = q;
-        this.r = r;
+    public ModelTuile() {//Tuile grise qui sert de bouton
+        composition = new Color[6];
+
+        Color couleur1 = new Color(213, 213, 213);
+
+        for (int i = 0; i < 6; i++) {
+            composition[i] = couleur1;
+        }
+
+        button = true;
     }
 
-    public int getQ() {
-        return this.q;
-    }
+    // Méthode pour définir les coordonnées du polygone visuelement
+    public void createVueTuile(int centerX, int centerY, int radius) {
 
-    public int getR() {
-        return this.r;
-    }
-
-    public int getSeed() {
-        return this.seed;
+        vueTuile = new VueTuile(this, centerX, centerY, radius);
     }
 
     public Color[] getComposition() {
         return this.composition;
     }
 
-    public boolean getEstPosee() {
-        return this.estPosee;
+    // Méthode pour définir les coordonnées du polygone dans la matrice
+    public void setCoordonner(int x, int y) {
+        this.x = x;
+        this.y = y;
     }
 
-    public void setEstPosee(boolean estPosee) {
-        this.estPosee = estPosee;
+    public int getX() {
+        return this.x;
+    }
+    public int getY() {
+        return this.y;
+    }
+
+    public boolean isButton() {
+        return button;
+    }
+
+    public VueTuile getVueTuile() {
+        return vueTuile;
     }
 }
