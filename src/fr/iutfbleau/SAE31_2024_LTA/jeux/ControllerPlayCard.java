@@ -25,7 +25,7 @@ public class ControllerPlayCard implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         VueMenu vueMenu = modelPrincipale.getModelMenu().getVueMenu();
-        String playerName = modelPrincipale.getModelMenu().getVueMenu().playerNameInput.getText();
+        String playerName = modelPrincipale.getModelMenu().getVueMenu().getPlayerNameInput().getText();
         modelPrincipale.getMediaPlayerManager().startClip(modelPrincipale.getMediaPlayerManager().getClicAudioClip(), false);
 
         if (playerName.isEmpty() || playerName.equals("Player Name...")) {
