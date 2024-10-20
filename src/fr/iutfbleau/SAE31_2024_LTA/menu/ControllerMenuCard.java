@@ -16,7 +16,7 @@ public class ControllerMenuCard implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent event) {
         VuePrincipale vuePrincipale = modelPrincipale.getVuePrincipale();
-
+        modelPrincipale.getMediaPlayerManager().stopClip(modelPrincipale.getModelMediaLoader().getGameMusicClips());
         modelPrincipale.getMediaPlayerManager().startClip(modelPrincipale.getModelMediaLoader().getClicAudioClip(), false);
 
         vuePrincipale.getCardLayout().show(vuePrincipale.getFramePane(), "menu");

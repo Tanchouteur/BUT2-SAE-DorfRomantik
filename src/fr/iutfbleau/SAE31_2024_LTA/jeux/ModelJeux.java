@@ -1,6 +1,7 @@
 package fr.iutfbleau.SAE31_2024_LTA.jeux;
 
 import fr.iutfbleau.SAE31_2024_LTA.ModelPrincipale;
+import fr.iutfbleau.SAE31_2024_LTA.endGame.ControllerEndGame;
 
 import java.util.LinkedList;
 
@@ -9,13 +10,15 @@ public class ModelJeux {
     private final ModelPrincipale modelPrincipale;
     private final ModelMatrice modelMatrice;
 
+    private ControllerEndGame controllerEndGame;
+
     private final LinkedList<ModelTuile> listTuiles;
 
-    int seed;
+    private int seed;
 
     public ModelJeux(ModelPrincipale modelPrincipale, int seed) {
         this.modelPrincipale = modelPrincipale;
-
+        controllerEndGame = new ControllerEndGame(modelPrincipale);
         this.modelMatrice = new ModelMatrice(this);
         listTuiles = new LinkedList<>();
 
@@ -30,8 +33,6 @@ public class ModelJeux {
         modelMatrice.poseeTuile(50, 50); // Pose de la tuile centrale
 
         createButton();
-
-
     }
 
     private void createView(){
@@ -104,4 +105,9 @@ public class ModelJeux {
     public void playTuileSound(int soundIndex) {
         modelPrincipale.getMediaPlayerManager().startClip(modelPrincipale.getModelMediaLoader().getClipsTuiles()[soundIndex], false);
     }
+
+    public ControllerEndGame getControllerEndGame() {
+        return controllerEndGame;
+    }
+
 }

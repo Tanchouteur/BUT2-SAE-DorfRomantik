@@ -64,9 +64,8 @@ public class VueJeux extends JLayeredPane {
                         tuile.createVueTuile(x, y, tuileSize);
                         this.add(tuile.getVueTuile(), Integer.valueOf(0));
                         this.updatePreviewTuile();
-                    }else {
+                    }else if (!modelJeux.getListTuiles().isEmpty()){
                         tuile.createVueTuile(x, y, tuileSize/2);
-
                         this.add(tuile.getVueTuile(), Integer.valueOf(0));
                         tuile.getVueTuile().addMouseListener(new ControllerPoseTuile(modelJeux, tuile));
                     }
@@ -76,7 +75,7 @@ public class VueJeux extends JLayeredPane {
 
                         tuile.getVueTuile().updateTuile(x, y, tuileSize);
 
-                    }else {
+                    }else if (!modelJeux.getListTuiles().isEmpty()){
                         tuile.getVueTuile().updateTuile(x, y, tuileSize/2);
                     }
                 }
@@ -98,7 +97,9 @@ public class VueJeux extends JLayeredPane {
 
                 if (tuile != null && tuile.getVueTuile() != null && tuile.isButton()) {
                     this.remove(tuile.getVueTuile());
-                    this.remove(btnCliked);
+                    if (btnCliked != null) {
+                        this.remove(btnCliked);
+                    }
                     tuile.deleteVueTuile();
                 }
             }
@@ -131,6 +132,7 @@ public class VueJeux extends JLayeredPane {
                 }
             }
             modelJeux.deleteButtons();
+            getModelJeux().getControllerEndGame().end();
         }
 
         repaint();

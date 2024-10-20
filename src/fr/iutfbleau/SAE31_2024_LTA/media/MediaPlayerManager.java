@@ -41,7 +41,7 @@ public class MediaPlayerManager {
 
             currentClip.addLineListener(event -> {
                 if (event.getType() == LineEvent.Type.STOP) {
-                    currentClip.close();
+                    currentClip.stop();
                     int nextClipIndex = (currentClipIndex + 1) % musicClips.size();
                     startClip(musicClips, nextClipIndex);
                 }
@@ -52,6 +52,16 @@ public class MediaPlayerManager {
     public void stopClip(Clip clip) {
         if (clip != null && clip.isRunning()) {
             clip.stop();
+        }
+    }
+
+    public void stopClip(List<Clip> musicClips) {
+        if (!musicClips.isEmpty()) {
+            for (Clip clip : musicClips) {
+                if (clip.isRunning()) {
+                    stopClip(clip);
+                }
+            }
         }
     }
 

@@ -1,6 +1,6 @@
 package fr.iutfbleau.SAE31_2024_LTA;
 
-import fr.iutfbleau.SAE31_2024_LTA.guiScore.VueScoreScreen;
+import fr.iutfbleau.SAE31_2024_LTA.endGame.VueScoreScreen;
 import fr.iutfbleau.SAE31_2024_LTA.settings.ControllerPopup;
 
 import javax.imageio.ImageIO;
@@ -49,7 +49,7 @@ public class VuePrincipale extends JFrame {
 
         framePane = getContentPane();
 
-        vueScoreScreen = new VueScoreScreen();
+        vueScoreScreen = new VueScoreScreen(modelPrincipale);
 
         add(vueScoreScreen, "score");
 
