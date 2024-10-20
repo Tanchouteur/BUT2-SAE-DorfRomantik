@@ -23,10 +23,10 @@ public class ModelMediaLoader {
 
         String[] pathTuileSound = new String[5];
         pathTuileSound[0] = "/Audio/TuileSound/eau.wav";
-        pathTuileSound[1] = "/Audio/TuileSound/foret.wav";
-        pathTuileSound[2] = "/Audio/TuileSound/plaine.wav";
-        pathTuileSound[3] = "/Audio/TuileSound/champ.wav";
-        pathTuileSound[4] = "/Audio/TuileSound/montagne.wav";
+        pathTuileSound[1] = "/Audio/TuileSound/montagne.wav";
+        pathTuileSound[2] = "/Audio/TuileSound/champ.wav";
+        pathTuileSound[3] = "/Audio/TuileSound/plaine.wav";
+        pathTuileSound[4] = "/Audio/TuileSound/foret.wav";
 
         for (int i = 0; i < pathTuileSound.length; i++) {
             clipsTuiles[i] = loadMedia(pathTuileSound[i]);
