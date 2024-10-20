@@ -26,7 +26,7 @@ public class ControllerPlayCard implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         VueMenu vueMenu = modelPrincipale.getModelMenu().getVueMenu();
         String playerName = modelPrincipale.getModelMenu().getVueMenu().getPlayerNameInput().getText();
-        modelPrincipale.getMediaPlayerManager().startClip(modelPrincipale.getMediaPlayerManager().getClicAudioClip(), false);
+        modelPrincipale.getMediaPlayerManager().startClip(modelPrincipale.getModelMediaLoader().getClicAudioClip(), false);
 
         if (playerName.isEmpty() || playerName.equals("Player Name...")) {
             JOptionPane.showMessageDialog(vueMenu, "Veuillez entrer un nom de joueur !");
@@ -48,7 +48,8 @@ public class ControllerPlayCard implements ActionListener {
                 modelPrincipale.setPlayerName(playerName);
                 modelPrincipale.setSelectedSeed(seed);
 
-                modelPrincipale.getMediaPlayerManager().stopClip(modelPrincipale.getMediaPlayerManager().getMenuMusicClip());
+                modelPrincipale.getMediaPlayerManager().stopClip(modelPrincipale.getModelMediaLoader().getMenuMusicClip());
+                modelPrincipale.getMediaPlayerManager().startClip(modelPrincipale.getModelMediaLoader().getGameMusicClips(),0);
 
                 modelPrincipale.createJeux();
                 vuePrincipale.getCardLayout().show(vuePrincipale.getFramePane(), "jeux");

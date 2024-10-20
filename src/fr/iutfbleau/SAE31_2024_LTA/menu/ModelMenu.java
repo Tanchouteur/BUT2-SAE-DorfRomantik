@@ -9,7 +9,8 @@ public class ModelMenu {
 
     public ModelMenu(ModelPrincipale modelPrincipale) {
         this.modelPrincipale = modelPrincipale;
-        modelPrincipale.getMediaPlayerManager().startClip(modelPrincipale.getMediaPlayerManager().getMenuMusicClip(), true);
+
+        modelPrincipale.getMediaPlayerManager().startClip(modelPrincipale.getModelMediaLoader().getMenuMusicClip(), true);
 
         createVueMenu();
     }

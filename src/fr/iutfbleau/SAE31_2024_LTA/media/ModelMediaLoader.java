@@ -1,53 +1,90 @@
 package fr.iutfbleau.SAE31_2024_LTA.media;
 
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.InputStream;
+import java.util.List;
 
 public class ModelMediaLoader {
 
+    private final Clip menuMusicClip;
+    private final Clip clicAudioClip;
+    private final Clip[] clipsTuiles = new Clip[5];
 
-    public ModelMediaLoader() {
+    private final List<Clip> gameMusicClips;
 
+    public ModelMediaLoader() {//Charge touts les son du jeux
+
+        menuMusicClip = loadMedia("/Audio/MenuSoundTrack.wav");
+        clicAudioClip = loadMedia("/Audio/buttonClic.wav");
+
+        String[] pathTuileSound = new String[5];
+        pathTuileSound[0] = "/Audio/TuileSound/eau.wav";
+        pathTuileSound[1] = "/Audio/TuileSound/foret.wav";
+        pathTuileSound[2] = "/Audio/TuileSound/plaine.wav";
+        pathTuileSound[3] = "/Audio/TuileSound/champ.wav";
+        pathTuileSound[4] = "/Audio/TuileSound/montagne.wav";
+
+        for (int i = 0; i < pathTuileSound.length; i++) {
+            clipsTuiles[i] = loadMedia(pathTuileSound[i]);
+        }
+
+        MusiqueTrack musiqueTrack = new MusiqueTrack("/Audio/MusicInGame");
+        gameMusicClips = musiqueTrack.getMusicClips();
     }
 
-    /*public void loadMusicTracks(String path) {
-        URL musicFolderUrl = getClass().getResource(path);
-        if (musicFolderUrl != null) {
-            File musicFolder = new File(musicFolderUrl.getFile());
+    /**
+     * Charge un fichier audio et retourne un Clip.
+     *
+     * @param path Le chemin vers le fichier audio.
+     * @return Un Clip chargé avec l'audio.
+     */
+    private Clip loadMedia(String path) {
+        Clip clip = null;
+        ByteArrayOutputStream buffer = new ByteArrayOutputStream();
+        byte[] data = new byte[1024];
+        int nRead;
 
-            if (musicFolder.isDirectory()) {
-                File[] files = musicFolder.listFiles((_, name) -> name.toLowerCase().endsWith(".mp3"));
-                if (files != null) {
-                    for (File file : files) {
-                        String mediaUrl = file.toURI().toString();
-                        Media media = new Media(mediaUrl);
-                        musicTracks.add(media);
-                    }
-                    System.out.println("Musiques chargées : " + musicTracks.size());
-                } else {
-                    System.out.println("Le dossier est vide ou une erreur s'est produite.");
-                }
-            } else {
-                System.out.println("L'URL ne correspond pas à un dossier.");
+        try {
+            InputStream audioStream = getClass().getResourceAsStream(path);
+            if (audioStream == null) {
+                throw new IllegalArgumentException("Le fichier audio " + path + " est introuvable.");
             }
-        } else {
-            System.err.println("Dossier non trouvé : " + path);
+
+            while ((nRead = audioStream.read(data, 0, data.length)) != -1) {
+                buffer.write(data, 0, nRead);
+            }
+
+            ByteArrayInputStream byteArrayInputStream = new ByteArrayInputStream(buffer.toByteArray());
+            AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(byteArrayInputStream);
+
+            clip = AudioSystem.getClip();
+            clip.open(audioInputStream);
+
+        } catch (Exception e) {
+            System.err.println("Erreur lors du chargement de " + path + " : " + e.getMessage());
+            System.exit(1);
         }
+
+        return clip;
     }
 
-    public void playMusicGame() {
-        if (musicTracks.isEmpty()) {
-            System.err.println("Aucune musique à jouer !");
-            return;
-        }
+    public Clip getMenuMusicClip() {
+        return menuMusicClip;
+    }
 
-        if (currentPlayer != null) {
-            currentPlayer.stop();
-        }
+    public Clip getClicAudioClip() {
+        return clicAudioClip;
+    }
 
-        currentPlayer = new MediaPlayer(musicTracks.getFirst());
-        currentPlayer.setOnEndOfMedia(() -> {
-            musicTracks.add(musicTracks.removeFirst());
-            playMusicGame();
-        });
-        currentPlayer.play();
-    }*/
+    public List<Clip> getGameMusicClips() {
+        return gameMusicClips;
+    }
+
+    public Clip[] getClipsTuiles() {
+        return clipsTuiles;
+    }
 }
