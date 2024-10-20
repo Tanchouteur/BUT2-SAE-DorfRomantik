@@ -115,17 +115,23 @@ public class VueMenu extends JPanel {
         suiteSelector.setBackground(Color.WHITE);
         suiteSelector.setForeground(Color.BLACK);
         suiteSelector.addItem("Choisir une suite...");
-        modelPrincipale.getBdd().updateBdd();
-        List<BddListeTuiles> listeTuiles = modelPrincipale.getBdd().getListeTuiles();
-        for (BddListeTuiles tuile : listeTuiles) {
-            String suiteName ="";
-            if(tuile.getId()!=-1){
-                suiteName = String.valueOf(tuile.getId());
-            }else {
-                suiteName = "Aléatoire";
+
+        List<BddListeTuiles> listeTuiles;
+        if (modelPrincipale.getBdd().updateBdd()) {
+            listeTuiles = modelPrincipale.getBdd().getListeTuiles();
+            for (BddListeTuiles tuile : listeTuiles) {
+                String suiteName = "";
+                if (tuile.getId() != -1) {
+                    suiteName = String.valueOf(tuile.getId());
+                } else {
+                    suiteName = "Aléatoire";
+                }
+                suiteSelector.addItem("Suite : " + suiteName + " - BestScore: " +
+                        (tuile.getBestScore() != null ? tuile.getBestScore() : "N/A"));
             }
-            suiteSelector.addItem("Suite : " + suiteName + " - BestScore: " +
-                    (tuile.getBestScore() != null ? tuile.getBestScore() : "N/A"));
+        }else {
+            suiteSelector.addItem("Suite : Aléatoire");
+            listeTuiles = null;
         }
 
         suiteSelector.setBorder(BorderFactory.createCompoundBorder(

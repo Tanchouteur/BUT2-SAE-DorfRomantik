@@ -21,76 +21,89 @@ public class ModelBDD {
 
 
         } catch (SQLException e) {
-            System.err.println("Erreur de connexion BDD - " + e.getMessage());
+            System.err.println("Erreur de connexion BDD");
         }
     }
 
-    public void updateBdd(){
-        this.listeTuiles = getAllListe();
-        this.partieJouees = getAllPartieJouer();
+    public boolean updateBdd(){
+        if (db!=null) {
+            this.listeTuiles = getAllListe();
+            this.partieJouees = getAllPartieJouer();
+            return true;
+        }
+        return false;
     }
 
     private List<BddListeTuiles> getAllListe() {
-        List<BddListeTuiles> seeds = new ArrayList<>();
-        String query = "SELECT id, seed, BestScore FROM ListeTuiles";
+        if (db!=null) {
+            List<BddListeTuiles> seeds = new ArrayList<>();
+            String query = "SELECT id, seed, BestScore FROM ListeTuiles";
 
-        try (Statement stmt = db.createStatement();
-             ResultSet rs = stmt.executeQuery(query)) {
+            try (Statement stmt = db.createStatement();
+                 ResultSet rs = stmt.executeQuery(query)) {
 
-            while (rs.next()) {
-                int id = rs.getInt("id");
-                int seed = rs.getInt("seed");
-                Integer bestScore = rs.getObject("BestScore", Integer.class);
+                while (rs.next()) {
+                    int id = rs.getInt("id");
+                    int seed = rs.getInt("seed");
+                    Integer bestScore = rs.getObject("BestScore", Integer.class);
 
-                seeds.add(new BddListeTuiles(id, seed, bestScore));
+                    seeds.add(new BddListeTuiles(id, seed, bestScore));
+                }
+
+            } catch (SQLException e) {
+                System.err.println("Erreur de preparation SQL methode getAllListe() - " + e.getMessage());
             }
-
-        } catch (SQLException e) {
-            System.err.println("Erreur de preparation SQL methode getAllListe() - " + e.getMessage());
+            return seeds;
         }
-        return seeds;
+        return null;
     }
 
     private List<BddPartieJouer> getAllPartieJouer() {
-        List<BddPartieJouer> parties = new ArrayList<>();
-        String query = "SELECT id, PlayerName, Score, ListeTuile FROM PartieJouer";
+        if (db!=null) {
+            List<BddPartieJouer> parties = new ArrayList<>();
+            String query = "SELECT id, PlayerName, Score, ListeTuile FROM PartieJouer";
 
-        try (Statement stmt = db.createStatement();
-             ResultSet rs = stmt.executeQuery(query)) {
+            try (Statement stmt = db.createStatement();
+                 ResultSet rs = stmt.executeQuery(query)) {
 
-            while (rs.next()) {
-                int id = rs.getInt("id");
-                String playerName = rs.getString("PlayerName");
-                int score = rs.getInt("Score");
-                int listeTuileId = rs.getInt("ListeTuile");
+                while (rs.next()) {
+                    int id = rs.getInt("id");
+                    String playerName = rs.getString("PlayerName");
+                    int score = rs.getInt("Score");
+                    int listeTuileId = rs.getInt("ListeTuile");
 
-                BddListeTuiles listeTuile = getListeTuileById(listeTuileId);//comme sa on refait la FK dans la table
+                    BddListeTuiles listeTuile = getListeTuileById(listeTuileId);//comme sa on refait la FK dans la table
 
-                parties.add(new BddPartieJouer(id, playerName, score, listeTuile));
+                    parties.add(new BddPartieJouer(id, playerName, score, listeTuile));
+                }
+
+            } catch (SQLException e) {
+                System.err.println("Erreur de preparation SQL methode getAllPartieJouer() - " + e.getMessage());
             }
-
-        } catch (SQLException e) {
-            System.err.println("Erreur de preparation SQL methode getAllPartieJouer() - " + e.getMessage());
+            return parties;
         }
-        return parties;
+        return null;
     }
 
     public BddListeTuiles getListeTuileById(int id) throws SQLException {
-        PreparedStatement ps = db.prepareStatement("SELECT * FROM ListeTuiles WHERE id = ?");
-        ps.setInt(1, id);
-        ResultSet rs = ps.executeQuery();
+        if (db!=null) {
+            PreparedStatement ps = db.prepareStatement("SELECT * FROM ListeTuiles WHERE id = ?");
+            ps.setInt(1, id);
+            ResultSet rs = ps.executeQuery();
 
-        BddListeTuiles listeTuile = null;
-        if (rs.next()) {
-            int seed = rs.getInt("seed");
-            int bestScore = rs.getInt("BestScore");
-            listeTuile = new BddListeTuiles(id, seed, bestScore);
+            BddListeTuiles listeTuile = null;
+            if (rs.next()) {
+                int seed = rs.getInt("seed");
+                int bestScore = rs.getInt("BestScore");
+                listeTuile = new BddListeTuiles(id, seed, bestScore);
+            }
+
+            rs.close();
+            ps.close();
+
+            return listeTuile;
         }
-
-        rs.close();
-        ps.close();
-
-        return listeTuile;
+        return null;
     }
 
     public List<BddListeTuiles> getListeTuiles() {

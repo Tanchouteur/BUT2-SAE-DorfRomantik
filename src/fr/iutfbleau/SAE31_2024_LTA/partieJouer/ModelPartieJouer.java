@@ -17,16 +17,23 @@ public class ModelPartieJouer {
     }
 
     public List<BddPartieJouer> getAllParties() {
-        return modelPrincipale.getBdd().getPartieJouer().stream()
-                .sorted((p1, p2) -> Integer.compare(p2.getScore(), p1.getScore()))
-                .collect(Collectors.toList());
+        if (modelPrincipale.getBdd().updateBdd()) {
+            List<BddPartieJouer> listParties = modelPrincipale.getBdd().getPartieJouer().stream()
+                    .sorted((p1, p2) -> Integer.compare(p2.getScore(), p1.getScore()))
+                    .collect(Collectors.toList());
+            return listParties;
+        }
+        return null;
     }
 
     public List<BddPartieJouer> getFilteredParties(String playerName) {
-        return modelPrincipale.getBdd().getPartieJouer().stream()
-                .filter(partie -> partie.getPlayerName().equalsIgnoreCase(playerName))
-                .sorted((p1, p2) -> Integer.compare(p2.getScore(), p1.getScore()))
-                .collect(Collectors.toList());
+        if (modelPrincipale.getBdd().updateBdd()) {
+            return modelPrincipale.getBdd().getPartieJouer().stream()
+                    .filter(partie -> partie.getPlayerName().equalsIgnoreCase(playerName))
+                    .sorted((p1, p2) -> Integer.compare(p2.getScore(), p1.getScore()))
+                    .collect(Collectors.toList());
+        }
+        return null;
     }
 
     private void createVue(){
