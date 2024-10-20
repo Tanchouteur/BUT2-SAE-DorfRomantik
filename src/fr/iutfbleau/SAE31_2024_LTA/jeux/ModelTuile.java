@@ -81,6 +81,13 @@ public class ModelTuile {
         this.y = y;
     }
 
+    public void decalage(){
+        int indexCouleur1 = this.composition[0];
+        int tmp;
+        for(int i =0; i < composition.length-2;i++){
+            this.composition[i] = this.composition[i+1];
+        }
+    }
     public int getX() {
         return this.x;
     }
