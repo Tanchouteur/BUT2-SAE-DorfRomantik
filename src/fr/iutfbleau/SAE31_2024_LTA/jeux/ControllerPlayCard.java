@@ -37,13 +37,21 @@ public class ControllerPlayCard implements ActionListener {
                 JOptionPane.showMessageDialog(vueMenu, "Veuillez choisir une suite");
             } else {
                 int seed;
-                if (selectedIndex == 0) {
+                if (listeTuiles != null) {
+                    if (selectedIndex == 1) {
+                        Random rand = new Random();
+                        seed = rand.nextInt();
+                        modelPrincipale.setSeedIndex(-1);
+                    } else {
+
+                        seed = listeTuiles.get(selectedIndex - 1).getSeed();//listetuile de la bdd
+                        modelPrincipale.setSeedIndex(selectedIndex);
+
+                    }
+                }else {
                     Random rand = new Random();
                     seed = rand.nextInt();
                     modelPrincipale.setSeedIndex(-1);
-                } else {
-                    seed = listeTuiles.get(selectedIndex - 1).getSeed();//listetuile de la bdd
-                    modelPrincipale.setSeedIndex(selectedIndex);
                 }
 
                 modelPrincipale.setPlayerName(playerName);

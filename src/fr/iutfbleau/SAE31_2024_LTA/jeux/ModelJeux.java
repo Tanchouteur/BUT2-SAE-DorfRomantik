@@ -11,7 +11,7 @@ public class ModelJeux {
 
     private final ModelPrincipale modelPrincipale;
     private final ModelMatrice modelMatrice;
-
+    private final ModelListePoche modelListePoche;
     private final LinkedList<ModelTuile> listTuiles;
 
     private int seed;
@@ -19,6 +19,7 @@ public class ModelJeux {
 
     public ModelJeux(ModelPrincipale modelPrincipale, int seed) {
         this.modelPrincipale = modelPrincipale;
+        this.modelListePoche = new ModelListePoche(this);
         this.modelMatrice = new ModelMatrice(this);
         listTuiles = new LinkedList<>();
 
@@ -30,8 +31,8 @@ public class ModelJeux {
 
         createView();
 
-        modelMatrice.poseeTuile(50, 50); // Pose de la tuile centrale
-
+        modelMatrice.poseeTuile(50, 50);// Pose de la tuile centrale
+        setScore(5);
         createButton();
     }
 
@@ -124,5 +125,9 @@ public class ModelJeux {
 
     public void setScore(int score) {
         this.score = score;
+    }
+
+    public ModelListePoche getModelListePoche() {
+        return modelListePoche;
     }
 }

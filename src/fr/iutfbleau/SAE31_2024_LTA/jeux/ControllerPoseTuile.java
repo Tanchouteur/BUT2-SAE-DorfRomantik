@@ -40,6 +40,7 @@ public class ControllerPoseTuile implements MouseListener {
                 modelJeux.getModelMatrice().poseeTuile(buttonTuile.getX(), buttonTuile.getY());
                 modelJeux.createButton();
                 modelJeux.getVueJeux().updateTuile(btnCliked);
+                modelJeux.getVueJeux().updatePlayerInfo();
             }
 
         }

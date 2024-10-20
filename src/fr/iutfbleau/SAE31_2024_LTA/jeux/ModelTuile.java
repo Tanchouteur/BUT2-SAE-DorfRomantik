@@ -5,6 +5,9 @@ import java.util.Random;
 public class ModelTuile {
     private int[] composition;
 
+    private int Indexcouleur1;
+    private int Indexcouleur2;
+
     private int seed;
 
     private int x;
@@ -19,6 +22,7 @@ public class ModelTuile {
 
     public ModelTuile(int seed, boolean preview) {//Tuile de jeux
         composition = new int[6];
+
         Random random = new Random();
         this.seed = seed;
         this.preview = preview;
@@ -41,10 +45,11 @@ public class ModelTuile {
         }
 
         int territory = random.nextInt(composition.length-1);
+        int taille1 = random.nextInt(composition.length+1);
         int decalage = random.nextInt(composition.length);
-        int taille2 = 6 - territory;
+        int taille2 = 6 - taille1;
 
-        for (int i = 0; i < territory; i++) {
+        for (int i = 0; i < taille1; i++) {
             composition[decalage] = indexCouleur1;
             decalage = (decalage + 1) % 6;
         }
@@ -52,8 +57,21 @@ public class ModelTuile {
             composition[decalage] = indexCouleur2;
             decalage = (decalage + 1) % 6;
         }
-
-        if (territory > 3)
+        if (taille1!=6 && taille2!=6){
+            this.Indexcouleur1 = indexCouleur1;
+            this.Indexcouleur2 = indexCouleur2;
+        }
+        else {
+            if (taille1==6){
+                this.Indexcouleur1 = indexCouleur1;
+                this.Indexcouleur2 = indexCouleur1;
+            }
+            else {
+                this.Indexcouleur1 = indexCouleur2;
+                this.Indexcouleur2 = indexCouleur2;
+            }
+        }
+        if (taille1 > 3)
             soundIndex = indexCouleur1;
         else
             soundIndex = indexCouleur2;
@@ -143,5 +161,12 @@ public class ModelTuile {
 
     public void setComposition(int[] composition){
         this.composition = composition;
+    }
+
+    public int getIndexcouleur1() {
+        return Indexcouleur1;
+    }
+    public int getIndexcouleur2() {
+        return Indexcouleur2;
     }
 }

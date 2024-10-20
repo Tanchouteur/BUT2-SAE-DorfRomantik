@@ -11,6 +11,11 @@ public class ModelPoche {
         this.length = 0;
 
     }
+
+    public ModelTuile[] getTuiles() {
+        return tuiles;
+    }
+
     public int getLength() {
         return this.length;
     }
