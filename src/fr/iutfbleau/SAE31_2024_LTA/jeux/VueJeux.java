@@ -20,11 +20,17 @@ public class VueJeux extends JLayeredPane {
 
     VueInfoPanel infoPanel;//HUD
 
+    ControllerMouseWheelDecalage controllerMouseWheelDecalage;
+
     public VueJeux( ModelJeux modelJeux) {
         setLayout(null);
         new Controller2D(this);
         this.modelJeux = modelJeux;
+
         tuilePreview = new ModelTuile[modelJeux.getListTuiles().size()];
+
+        this.addMouseWheelListener(new ControllerMouseWheelDecalage(modelJeux.getModelPrincipale()));
+
         showPlayerInfo();
     }
 
