@@ -49,4 +49,16 @@ public class ControllerSearchPartieJouer implements ActionListener {
             }
         });
     }
+    public int searchPartieOfPlayer(String playerName, int seed) {
+        List<BddPartieJouer> filteredParties = modelPrincipale.getModelPartieJouer().getVuePartieJouer().getModelPartieJouer().getFilteredParties(playerName);
+        int score = 0;
+        for (BddPartieJouer partie : filteredParties) {
+            if (partie.getListeTuile().getSeed() == seed) {
+                if(partie.getScore() > score){
+                    score = partie.getScore();
+                }
+            }
+        }
+        return score;
+    }
 }

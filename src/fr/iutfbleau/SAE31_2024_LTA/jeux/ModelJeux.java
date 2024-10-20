@@ -12,7 +12,6 @@ public class ModelJeux {
     private final ModelPrincipale modelPrincipale;
     private final ModelMatrice modelMatrice;
 
-
     private final LinkedList<ModelTuile> listTuiles;
 
     private int seed;
@@ -56,6 +55,10 @@ public class ModelJeux {
 
     public ModelMatrice getModelMatrice() {
         return this.modelMatrice;
+    }
+
+    public ModelPrincipale getModelPrincipale() {
+        return this.modelPrincipale;
     }
 
     public void createButton() {
@@ -118,6 +121,7 @@ public class ModelJeux {
     public int getScore() {
         return this.score;
     }
+
     public void setScore(int score) {
         this.score = score;
     }

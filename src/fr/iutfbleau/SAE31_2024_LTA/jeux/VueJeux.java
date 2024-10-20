@@ -28,6 +28,7 @@ public class VueJeux extends JLayeredPane {
         new Controller2D(this);
         this.modelJeux = modelJeux;
         tuilePreview = new ModelTuile[modelJeux.getListTuiles().size()];
+        showPlayerInfo();
     }
 
     @Override
@@ -179,6 +180,50 @@ public class VueJeux extends JLayeredPane {
     }
 
     public void showPlayerInfo() {
+        Color greyColor = new Color(44, 44, 44, 255);
+        Font buttonMenuFont = new Font("Arial", Font.BOLD, 18);
+        Font inputMenuFont = new Font("Arial", Font.BOLD, 24);
 
+        JPanel infoPanel = new JPanel();
+        infoPanel.setLayout(new BorderLayout());
+        infoPanel.setBackground(new Color(112, 112, 112, 181));
+
+        JLabel playerNameLabel = new JLabel(modelJeux.getModelPrincipale().getPlayerName());
+        playerNameLabel.setFont(inputMenuFont);
+        playerNameLabel.setForeground(Color.WHITE);
+        playerNameLabel.setBackground(greyColor);
+        playerNameLabel.setBorder(BorderFactory.createCompoundBorder(
+                BorderFactory.createLineBorder(greyColor, 1, true),
+                BorderFactory.createEmptyBorder(7, 7, 7, 7)
+        ));
+
+        JLabel bestScoreLabel = new JLabel("Ton record : "+modelJeux.getModelPrincipale().getModelPartieJouer().getVuePartieJouer().getControllerSearchPartieJouer().searchPartieOfPlayer(modelJeux.getModelPrincipale().getPlayerName(),modelJeux.getModelPrincipale().getSelectedSeed())+" Points");
+        bestScoreLabel.setFont(buttonMenuFont);
+        bestScoreLabel.setBackground(greyColor);
+        bestScoreLabel.setForeground(Color.WHITE);
+        bestScoreLabel.setBorder(BorderFactory.createCompoundBorder(
+                BorderFactory.createLineBorder(greyColor, 1, true),
+                BorderFactory.createEmptyBorder(7, 10, 7, 10)
+        ));
+
+
+        JLabel currentScore = new JLabel("Score : "+modelJeux.getScore()+" Points");
+        currentScore.setFont(buttonMenuFont);
+        currentScore.setBackground(greyColor);
+        currentScore.setForeground(Color.WHITE);
+        currentScore.setBorder(BorderFactory.createCompoundBorder(
+                BorderFactory.createLineBorder(greyColor, 1, true),
+                BorderFactory.createEmptyBorder(10, 10, 10, 10)
+        ));
+
+        infoPanel.add(playerNameLabel,BorderLayout.WEST);
+        infoPanel.add(bestScoreLabel,BorderLayout.CENTER);
+        infoPanel.add(currentScore,BorderLayout.EAST);
+
+        int panelWidth =550+playerNameLabel.getWidth()+bestScoreLabel.getWidth();
+        int panelHeight = 50+playerNameLabel.getHeight()+bestScoreLabel.getHeight();
+
+        infoPanel.setBounds(30,30,panelWidth,panelHeight);
+        this.add(infoPanel, Integer.valueOf(2));
     }
 }

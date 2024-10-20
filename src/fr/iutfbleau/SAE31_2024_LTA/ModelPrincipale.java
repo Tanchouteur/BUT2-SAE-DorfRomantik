@@ -100,4 +100,8 @@ public class ModelPrincipale {
     public ModelEndGame getModelEndGame() {
         return modelEndGame;
     }
+
+    public String getPlayerName() {
+        return playerName;
+    }
 }
