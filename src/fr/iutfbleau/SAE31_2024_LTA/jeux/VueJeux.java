@@ -115,7 +115,7 @@ public class VueJeux extends JLayeredPane {
                     this.remove(tuilePreview[row].getVueTuile());
                 }
 
-                tuilePreview[row] = new ModelTuile(modelJeux.getListTuiles().get(row).getSeed());
+                tuilePreview[row] = new ModelTuile(modelJeux.getListTuiles().get(row).getSeed(), false);
 
                 int centerX = 60;
                 int centerY = getHeight() - (5 * (modelJeux.getListTuiles().size() - row) + 15);
@@ -138,7 +138,7 @@ public class VueJeux extends JLayeredPane {
 
     public ModelTuile setPreviewOnButton(VueTuile btnHovered) {
         if (btnHovered.getModelTuile().isButton() && !modelJeux.getListTuiles().isEmpty()) {
-            ModelTuile modelHoveredPreviewed = new ModelTuile(modelJeux.getListTuiles().getFirst().getSeed());
+            ModelTuile modelHoveredPreviewed = new ModelTuile(modelJeux.getListTuiles().getFirst().getSeed(), true);
 
             int centerX = getWidth() / 2;
             int centerY = getHeight() / 2;

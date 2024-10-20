@@ -11,15 +11,17 @@ public class ModelTuile {
     private int y;
 
     private final boolean button;
+    private boolean preview = false;
 
     private VueTuile vueTuile;
 
     private int soundIndex;
 
-    public ModelTuile(int seed) {//Tuile de jeux
+    public ModelTuile(int seed, boolean preview) {//Tuile de jeux
         composition = new int[6];
         Random random = new Random();
         this.seed = seed;
+        this.preview = preview;
         random.setSeed(seed);
 
         int[] indexBiome = new int[5];
@@ -104,5 +106,9 @@ public class ModelTuile {
 
     public int getSoundIndex() {
         return soundIndex;
+    }
+
+    public boolean isPreview() {
+        return preview;
     }
 }

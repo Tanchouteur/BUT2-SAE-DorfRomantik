@@ -21,7 +21,7 @@ public class ModelJeux {
 
         this.seed = seed;
         for (int i = 10; i >= 0; i--) {
-            ModelTuile tuile = new ModelTuile(seed+i);
+            ModelTuile tuile = new ModelTuile(seed+i, false);
             listTuiles.add(tuile);
         }
 

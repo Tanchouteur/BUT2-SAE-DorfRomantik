@@ -57,12 +57,21 @@ public class VueTuile extends JComponent {
         int[] composition = modelTuile.getComposition();
 
         Color[] colorPalette = new Color[6];
-        colorPalette[0] = new Color(30, 142, 216);
-        colorPalette[1] = new Color(119, 119, 119);
-        colorPalette[2] = new Color(235, 222, 33);
-        colorPalette[3] = new Color(119, 198, 119);
-        colorPalette[4] = new Color(20, 119, 69);
-        colorPalette[5] = new Color(181, 181, 181);
+        if (!modelTuile.isPreview()) {//Si c'est une tuile normal
+            colorPalette[0] = new Color(30, 142, 216);
+            colorPalette[1] = new Color(119, 119, 119);
+            colorPalette[2] = new Color(235, 222, 33);
+            colorPalette[3] = new Color(119, 198, 119);
+            colorPalette[4] = new Color(20, 119, 69);
+            colorPalette[5] = new Color(181, 181, 181);
+        }else {
+            colorPalette[0] = new Color(30, 142, 216, 200);
+            colorPalette[1] = new Color(119, 119, 119, 200);
+            colorPalette[2] = new Color(235, 222, 33, 200);
+            colorPalette[3] = new Color(119, 198, 119, 200);
+            colorPalette[4] = new Color(20, 119, 69, 200);
+            colorPalette[5] = new Color(181, 181, 181, 200);
+        }
 
 
         for (int i = 0; i < 6; i++) {
