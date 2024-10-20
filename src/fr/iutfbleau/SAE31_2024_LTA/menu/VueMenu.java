@@ -187,6 +187,7 @@ public class VueMenu extends JPanel {
         settingsButton.addActionListener(modelPrincipale.getVuePrincipale().getControllerPopup());
 
 
+
         gbc.gridy = 4;
         sidebarPanel.add(settingsButton, gbc);
 

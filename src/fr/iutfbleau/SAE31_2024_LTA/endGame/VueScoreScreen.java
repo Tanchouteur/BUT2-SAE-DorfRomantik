@@ -17,33 +17,69 @@ public class VueScoreScreen extends JPanel {
     }
 
     private void initSidebarComponent() {
-        sidebarPanel = new JPanel();
-        sidebarPanel.setLayout(new BoxLayout(sidebarPanel, BoxLayout.Y_AXIS));
-        sidebarPanel.setBackground(new Color(174, 171, 171, 121));  // Transparent avec fond gris
-        sidebarPanel.setBorder(BorderFactory.createLineBorder(new Color(44, 44, 44, 230), 8, true));
+        Color greyColor = new Color(44, 44, 44, 255);
+        Font buttonMenuFont = new Font("Arial", Font.BOLD, 36);
+        Font labelMenuFont = new Font("Arial", Font.BOLD, 30);
 
+        sidebarPanel = new JPanel(new GridBagLayout());
+        sidebarPanel.setBackground(new Color(193, 193, 193, 126));
         sidebarPanel.setOpaque(true);
 
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.insets = new Insets(10, 10, 10, 10);
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+        gbc.weightx = 0.0;
+        gbc.gridx = 0;
+
         JLabel scoreLabel = new JLabel("Score");
-        scoreLabel.setFont(new Font("Serif", Font.BOLD, 40));
+        scoreLabel.setFont(labelMenuFont);
         scoreLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
 
-        JLabel scoreLabel2 = new JLabel("0");
-        scoreLabel2.setFont(new Font("Serif", Font.BOLD, 40));
-        scoreLabel2.setAlignmentX(Component.CENTER_ALIGNMENT);
-        scoreLabel2.setText(modelPrincipale.getModelJeux().getScore() + " Points");
+        gbc.gridy = 0;
+        sidebarPanel.add(scoreLabel, gbc);
 
-        sidebarPanel.add(scoreLabel);
-        sidebarPanel.add(scoreLabel2);
+        scoreLabel.setText("Score : "+modelPrincipale.getModelJeux().getScore() + " Points");
+
+        gbc.gridy = 1;
 
         JButton menuButton = new JButton("Menu");
-        menuButton.setFont(new Font("Arial", Font.BOLD, 36));
-        menuButton.setBackground(new Color(44, 44, 44, 230));
+        menuButton.setFont(buttonMenuFont);
+        menuButton.setBackground(greyColor);
         menuButton.setForeground(Color.WHITE);
         menuButton.setPreferredSize(new Dimension(440, 80));
         menuButton.setFocusPainted(false);
-        menuButton.setBorder(BorderFactory.createLineBorder(new Color(44, 44, 44, 230), 8, true));
+        menuButton.setBorder(BorderFactory.createLineBorder(greyColor, 8, true));
         menuButton.addActionListener(new ControllerMenuCard(modelPrincipale));
-        sidebarPanel.add(menuButton);
+
+        gbc.gridy = 3;
+        sidebarPanel.add(menuButton, gbc);
+
+        JButton settingsButton = new JButton("Paramètres");
+        settingsButton.setFont(buttonMenuFont);
+        settingsButton.setBackground(greyColor);
+        settingsButton.setForeground(Color.WHITE);
+        settingsButton.setFocusPainted(false);
+        settingsButton.setBorder(BorderFactory.createCompoundBorder(
+                BorderFactory.createLineBorder(greyColor, 1, true),
+                BorderFactory.createEmptyBorder(10, 20, 10, 20)
+        ));
+        settingsButton.addActionListener(modelPrincipale.getVuePrincipale().getControllerPopup());
+
+        gbc.gridy = 4;
+        sidebarPanel.add(settingsButton, gbc);
+
+        JButton quitButton = new JButton("Quitter");
+        quitButton.setFont(buttonMenuFont);
+        quitButton.setBackground(greyColor);
+        quitButton.setForeground(Color.WHITE);
+        quitButton.setFocusPainted(false);
+        quitButton.setBorder(BorderFactory.createCompoundBorder(
+                BorderFactory.createLineBorder(greyColor, 1, true),
+                BorderFactory.createEmptyBorder(10, 20, 10, 20)
+        ));
+        quitButton.addActionListener(e -> System.exit(0));
+
+        gbc.gridy = 5;
+        sidebarPanel.add(quitButton, gbc);
     }
 }
