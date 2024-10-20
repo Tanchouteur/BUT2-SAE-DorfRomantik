@@ -5,23 +5,20 @@ import java.awt.*;
 
 public class VueJeux extends JLayeredPane {
 
-    private Graphics2D g2d;
-
     private final ModelJeux modelJeux;
     private int offsetX = 0;
     private int offsetY = 0;
 
     // Taille des tuiles
     private final int tuileSize = 50;
-
     //decalage vertical entre deux lignes de tuiles
     private final int hexHeight =  tuileSize-7;
 
-    private ModelTuile[][] listeTuilesPosee;
-
-    private ModelTuile[] tuilePreview;
+    private final ModelTuile[] tuilePreview;
 
     private boolean end = false;
+
+    VueInfoPanel infoPanel;//HUD
 
     public VueJeux( ModelJeux modelJeux) {
         setLayout(null);
@@ -35,9 +32,9 @@ public class VueJeux extends JLayeredPane {
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
 
-        g2d = (Graphics2D) g;
+        Graphics2D g2d = (Graphics2D) g;
 
-        listeTuilesPosee = modelJeux.getModelMatrice().getListTuilesPosee();
+        ModelTuile[][] listeTuilesPosee = modelJeux.getModelMatrice().getListTuilesPosee();
 
         int centerX = getWidth() / 2;
         int centerY = getHeight() / 2;
@@ -133,9 +130,9 @@ public class VueJeux extends JLayeredPane {
             }
         }else{
 
-            for (int row = 0; row < tuilePreview.length; row++) {
-                if (tuilePreview[row] != null) {
-                    this.remove(tuilePreview[row].getVueTuile());
+            for (ModelTuile tuile : tuilePreview) {
+                if (tuile != null) {
+                    this.remove(tuile.getVueTuile());
                 }
             }
             modelJeux.deleteButtons();
@@ -180,50 +177,13 @@ public class VueJeux extends JLayeredPane {
     }
 
     public void showPlayerInfo() {
-        Color greyColor = new Color(44, 44, 44, 255);
-        Font buttonMenuFont = new Font("Arial", Font.BOLD, 18);
-        Font inputMenuFont = new Font("Arial", Font.BOLD, 24);
+        infoPanel = new VueInfoPanel(modelJeux);
 
-        JPanel infoPanel = new JPanel();
-        infoPanel.setLayout(new BorderLayout());
-        infoPanel.setBackground(new Color(112, 112, 112, 181));
-
-        JLabel playerNameLabel = new JLabel(modelJeux.getModelPrincipale().getPlayerName());
-        playerNameLabel.setFont(inputMenuFont);
-        playerNameLabel.setForeground(Color.WHITE);
-        playerNameLabel.setBackground(greyColor);
-        playerNameLabel.setBorder(BorderFactory.createCompoundBorder(
-                BorderFactory.createLineBorder(greyColor, 1, true),
-                BorderFactory.createEmptyBorder(7, 7, 7, 7)
-        ));
-
-        JLabel bestScoreLabel = new JLabel("Ton record : "+modelJeux.getModelPrincipale().getModelPartieJouer().getVuePartieJouer().getControllerSearchPartieJouer().searchPartieOfPlayer(modelJeux.getModelPrincipale().getPlayerName(),modelJeux.getModelPrincipale().getSelectedSeed())+" Points");
-        bestScoreLabel.setFont(buttonMenuFont);
-        bestScoreLabel.setBackground(greyColor);
-        bestScoreLabel.setForeground(Color.WHITE);
-        bestScoreLabel.setBorder(BorderFactory.createCompoundBorder(
-                BorderFactory.createLineBorder(greyColor, 1, true),
-                BorderFactory.createEmptyBorder(7, 10, 7, 10)
-        ));
-
-
-        JLabel currentScore = new JLabel("Score : "+modelJeux.getScore()+" Points");
-        currentScore.setFont(buttonMenuFont);
-        currentScore.setBackground(greyColor);
-        currentScore.setForeground(Color.WHITE);
-        currentScore.setBorder(BorderFactory.createCompoundBorder(
-                BorderFactory.createLineBorder(greyColor, 1, true),
-                BorderFactory.createEmptyBorder(10, 10, 10, 10)
-        ));
-
-        infoPanel.add(playerNameLabel,BorderLayout.WEST);
-        infoPanel.add(bestScoreLabel,BorderLayout.CENTER);
-        infoPanel.add(currentScore,BorderLayout.EAST);
-
-        int panelWidth =550+playerNameLabel.getWidth()+bestScoreLabel.getWidth();
-        int panelHeight = 50+playerNameLabel.getHeight()+bestScoreLabel.getHeight();
-
-        infoPanel.setBounds(30,30,panelWidth,panelHeight);
+        infoPanel.setBounds(30,30,550,50);
         this.add(infoPanel, Integer.valueOf(2));
+    }
+
+    public void updatePlayerInfo(){
+        infoPanel.getCurrentScore().setText("Score : "+modelJeux.getScore()+" Points");
     }
 }
