@@ -31,8 +31,8 @@ public class ModelJeux {
 
         createView();
 
-        modelMatrice.poseeTuile(50, 50); // Pose de la tuile centrale
-
+        modelMatrice.poseeTuile(50, 50);// Pose de la tuile centrale
+        setScore(5);
         createButton();
     }
 

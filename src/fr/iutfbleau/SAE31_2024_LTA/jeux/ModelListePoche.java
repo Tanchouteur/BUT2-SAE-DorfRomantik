@@ -4,24 +4,24 @@ public class ModelListePoche {
     private final ModelPoche[] poches;
     private int nbPoches;
     private final ModelJeux modelJeux;
-    private int points;
+    private int Score;
 
     public ModelListePoche(ModelJeux modelJeux) {
         this.poches = new ModelPoche[100];
         this.nbPoches = 0;
         this.modelJeux = modelJeux;
-        this.points = 0;
+        this.Score = 0;
     }
 
     public void addListePoche(int couleur) {
-
-        this.poches[nbPoches++] = new ModelPoche(couleur);
+        this.poches[nbPoches] = new ModelPoche(couleur);
         this.nbPoches++;
-        addPoints();
+        addScore();
     }
-    public void addTuilePoche(ModelPoche p) {
-        this.points -= p.getLength()*p.getCouleur();
-
+    public void addTuilePoche(ModelPoche p, ModelTuile t) {
+        this.Score -= p.getLength()*p.getLength();
+        p.addTuile(t);
+        this.Score += p.getLength()*p.getLength();
 
     }
     public ModelPoche[] getListePoche() {
@@ -35,15 +35,12 @@ public class ModelListePoche {
     public ModelJeux getModelJeux() {
         return this.modelJeux;
     }
-    public int getPoints() {
-        return this.points;
+    public int getScore() {
+        return this.Score;
     }
-    protected void addPoints(ModelPoche poche) {
 
-
-    }
-    protected void addPoints() {
-        this.points++;
+    protected void addScore() {
+        this.Score++;
     }
 
 
