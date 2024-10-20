@@ -172,8 +172,7 @@ public class ModelMatrice {
         }
         if (this.getSudOuest(tuile) && (!use1 || !use2)) {
             System.out.println("ici6");
-            if (tuile.getIndexcouleur1()==this.listTuilesPosee[x+1][y-1].getComposition()[2] ||
-                    tuile.getIndexcouleur2()==this.listTuilesPosee[x+1][y-1].getComposition()[2]) {
+            if (tuile.getIndexcouleur1()==this.listTuilesPosee[x+1][y-1].getComposition()[2] || tuile.getIndexcouleur2()==this.listTuilesPosee[x+1][y-1].getComposition()[2]) {
                 System.out.println("la6");
                 int couleur = this.listTuilesPosee[x+1][y-1].getComposition()[2];
                 for (int i=0;i< modelListePoche.getNbPoches();i++) {
@@ -198,8 +197,7 @@ public class ModelMatrice {
                 }
             }
 
-        }
-        else {
+        }else {
             if (tuile.getIndexcouleur1()==tuile.getIndexcouleur2() && !use1) {
                 modelListePoche.addListePoche(tuile.getIndexcouleur1());
                 System.out.println("rien1");
@@ -215,9 +213,10 @@ public class ModelMatrice {
                 }
             }
         }
-        modelJeux.setScore(5);
-        System.out.println(modelJeux.getModelListePoche().getScore());
+        modelJeux.setScore(modelJeux.getScore()+1);
         modelJeux.getListTuiles().removeFirst();
+
+        modelJeux.getVueJeux().updatePlayerInfo();
         modelJeux.getVueJeux().repaint();
     }
 
