@@ -32,13 +32,12 @@ public class ControllerPlayCard implements ActionListener {
             JOptionPane.showMessageDialog(vueMenu, "Veuillez entrer un nom de joueur !");
         } else {
             int selectedIndex = vueMenu.getSuiteSelector().getSelectedIndex();
-            int lastIndex = vueMenu.getSuiteSelector().getItemCount() - 1;
 
             if (selectedIndex == 0) {
                 JOptionPane.showMessageDialog(vueMenu, "Veuillez choisir une suite");
             } else {
                 int seed;
-                if (selectedIndex == lastIndex) {
+                if (selectedIndex == 0) {
                     Random rand = new Random();
                     seed = rand.nextInt();
                     modelPrincipale.setSeedIndex(-1);

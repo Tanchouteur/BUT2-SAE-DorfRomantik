@@ -35,14 +35,12 @@ public class VueScoreScreen extends JPanel {
         gbc.gridy = 1;
         sidebarPanel.add(scoreLabel, gbc);
 
-        if (modelPrincipale.getSeedIndex()!=-1) {
-            JButton saveBddButton = new JButton("Saved in cloud");
-            setFontButton(greyColor, buttonMenuFont, saveBddButton);
-            saveBddButton.addActionListener(new ControllerSaveGame(modelPrincipale));
+        JButton saveBddButton = new JButton("Saved in cloud");
+        setFontButton(greyColor, buttonMenuFont, saveBddButton);
+        saveBddButton.addActionListener(new ControllerSaveGame(modelPrincipale));
 
-            gbc.gridy = 2;
-            sidebarPanel.add(saveBddButton, gbc);
-        }
+        gbc.gridy = 2;
+        sidebarPanel.add(saveBddButton, gbc);
 
         JButton menuButton = new JButton("Menu");
         setFontButton(greyColor, buttonMenuFont, menuButton);
