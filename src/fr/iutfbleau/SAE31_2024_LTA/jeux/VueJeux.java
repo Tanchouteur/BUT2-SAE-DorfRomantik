@@ -5,23 +5,23 @@ import java.awt.*;
 
 public class VueJeux extends JLayeredPane {
 
-    private Graphics2D g2d;
-
     private final ModelJeux modelJeux;
     private int offsetX = 0;
     private int offsetY = 0;
 
     // Taille des tuiles
     private final int tuileSize = 50;
-
     //decalage vertical entre deux lignes de tuiles
     private final int hexHeight =  tuileSize-7;
 
     private ModelTuile[][] listeTuilesPosee;
-
     private ModelTuile[] tuilePreview;
 
     private boolean end = false;
+
+    //HUD
+    JLabel currentScore;
+
 
     public VueJeux( ModelJeux modelJeux) {
         setLayout(null);
@@ -35,7 +35,7 @@ public class VueJeux extends JLayeredPane {
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
 
-        g2d = (Graphics2D) g;
+        Graphics2D g2d = (Graphics2D) g;
 
         listeTuilesPosee = modelJeux.getModelMatrice().getListTuilesPosee();
 
@@ -133,9 +133,9 @@ public class VueJeux extends JLayeredPane {
             }
         }else{
 
-            for (int row = 0; row < tuilePreview.length; row++) {
-                if (tuilePreview[row] != null) {
-                    this.remove(tuilePreview[row].getVueTuile());
+            for (ModelTuile tuile : tuilePreview) {
+                if (tuile != null) {
+                    this.remove(tuile.getVueTuile());
                 }
             }
             modelJeux.deleteButtons();
@@ -207,7 +207,7 @@ public class VueJeux extends JLayeredPane {
         ));
 
 
-        JLabel currentScore = new JLabel("Score : "+modelJeux.getScore()+" Points");
+        currentScore = new JLabel("Score : "+modelJeux.getScore()+" Points");
         currentScore.setFont(buttonMenuFont);
         currentScore.setBackground(greyColor);
         currentScore.setForeground(Color.WHITE);
@@ -225,5 +225,9 @@ public class VueJeux extends JLayeredPane {
 
         infoPanel.setBounds(30,30,panelWidth,panelHeight);
         this.add(infoPanel, Integer.valueOf(2));
+    }
+
+    public void updatePlayerInfo(){
+        currentScore.setText("Score : "+modelJeux.getScore()+" Points");
     }
 }
