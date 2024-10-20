@@ -13,9 +13,22 @@ public class ControllerMenuCard implements ActionListener {
         this.modelPrincipale = modelPrincipale;
     }
 
+    public void goMenu(){
+        VuePrincipale vuePrincipale = modelPrincipale.getVuePrincipale();
+
+        modelPrincipale.getMediaPlayerManager().stopClip(modelPrincipale.getModelMediaLoader().getGameMusicClips());
+        modelPrincipale.getMediaPlayerManager().startClip(modelPrincipale.getModelMediaLoader().getClicAudioClip(), false);
+        modelPrincipale.getMediaPlayerManager().startClip(modelPrincipale.getModelMediaLoader().getMenuMusicClip(), true);
+
+        vuePrincipale.getCardLayout().show(vuePrincipale.getFramePane(), "menu");
+
+        vuePrincipale.setTitle("DorfJavatik - Menu");
+    }
+
     @Override
     public void actionPerformed(ActionEvent event) {
         VuePrincipale vuePrincipale = modelPrincipale.getVuePrincipale();
+
         modelPrincipale.getMediaPlayerManager().stopClip(modelPrincipale.getModelMediaLoader().getGameMusicClips());
         modelPrincipale.getMediaPlayerManager().startClip(modelPrincipale.getModelMediaLoader().getClicAudioClip(), false);
         modelPrincipale.getMediaPlayerManager().startClip(modelPrincipale.getModelMediaLoader().getMenuMusicClip(), true);

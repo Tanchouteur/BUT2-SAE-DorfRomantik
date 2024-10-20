@@ -1,5 +1,6 @@
 package fr.iutfbleau.SAE31_2024_LTA.settings;
 import fr.iutfbleau.SAE31_2024_LTA.VuePrincipale;
+import fr.iutfbleau.SAE31_2024_LTA.menu.ControllerMenuCard;
 
 import javax.swing.*;
 import javax.swing.event.ChangeListener;
@@ -28,27 +29,33 @@ public class VueSettings extends JPanel {
         effectsVolumeSlider.addChangeListener(new ControllerVolumeChange(vuePrincipale,1));
         add(slidersPanel, BorderLayout.CENTER);
 
+        JPanel buttonPanel = new JPanel(new GridLayout(2, 1));
         JButton resumeButton = new JButton("Resume");
         resumeButton.addActionListener(e -> onResume(controllerPopup));
 
-        add(resumeButton, BorderLayout.SOUTH);
-    }
+        buttonPanel.add(resumeButton);
 
-    public int getMusicVolume() {
-        return musicVolumeSlider.getValue();
-    }
+        JButton quitButton = new JButton("Quit");
+        quitButton.addActionListener(e -> onQuit(controllerPopup));
+        buttonPanel.add(quitButton);
 
-    public int getEffectsVolume() {
-        return effectsVolumeSlider.getValue();
+        add(buttonPanel, BorderLayout.SOUTH);
     }
 
     private void onResume(ControllerPopup controllerPopup) {
         controllerPopup.closePopup();
     }
 
+    private void onQuit(ControllerPopup controllerPopup) {
+        ControllerMenuCard controllerMenuCard = new ControllerMenuCard(controllerPopup.vuePrincipale.getModelPrincipale());
+        controllerPopup.closePopup();
+        controllerMenuCard.goMenu();
+    }
+
     public void setMusicVolume(int volume) {
         musicVolumeSlider.setValue(volume);
     }
+
     public void setEffectsVolume(int volume) {
         effectsVolumeSlider.setValue(volume);
     }
