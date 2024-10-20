@@ -147,20 +147,6 @@ public class VueMenu extends JPanel {
         gbc.gridy = 1;
         sidebarPanel.add(suiteSelector, gbc);
 
-        JButton partieJouerBtn = new JButton("Partie Jouer");
-        partieJouerBtn.setFont(buttonMenuFont);
-        partieJouerBtn.setBackground(greyColor);
-        partieJouerBtn.setForeground(Color.WHITE);
-        partieJouerBtn.setFocusPainted(false);
-        partieJouerBtn.setBorder(BorderFactory.createCompoundBorder(
-                BorderFactory.createLineBorder(greyColor, 1, true),
-                BorderFactory.createEmptyBorder(10, 20, 10, 20)
-        ));
-        partieJouerBtn.addActionListener(new ControllerPartieJouerBTN(modelPrincipale));
-
-        gbc.gridy = 2;
-        sidebarPanel.add(partieJouerBtn, gbc);
-
         JButton playButton = new JButton("Jouer");
         playButton.setFont(buttonMenuFont);
         playButton.setBackground(greyColor);
@@ -172,8 +158,23 @@ public class VueMenu extends JPanel {
         ));
         playButton.addActionListener(new ControllerPlayCard(modelPrincipale, listeTuiles));
 
-        gbc.gridy = 3;
+        gbc.gridy = 2;
         sidebarPanel.add(playButton, gbc);
+
+
+        JButton partieJouerBtn = new JButton("Partie Jouer");
+        partieJouerBtn.setFont(buttonMenuFont);
+        partieJouerBtn.setBackground(greyColor);
+        partieJouerBtn.setForeground(Color.WHITE);
+        partieJouerBtn.setFocusPainted(false);
+        partieJouerBtn.setBorder(BorderFactory.createCompoundBorder(
+                BorderFactory.createLineBorder(greyColor, 1, true),
+                BorderFactory.createEmptyBorder(10, 20, 10, 20)
+        ));
+        partieJouerBtn.addActionListener(new ControllerPartieJouerBTN(modelPrincipale));
+
+        gbc.gridy = 3;
+        sidebarPanel.add(partieJouerBtn, gbc);
 
         JButton settingsButton = new JButton("Paramètres");
         settingsButton.setFont(buttonMenuFont);

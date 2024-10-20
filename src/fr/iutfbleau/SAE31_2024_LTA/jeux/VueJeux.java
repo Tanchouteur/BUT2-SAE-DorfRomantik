@@ -196,5 +196,6 @@ public class VueJeux extends JLayeredPane {
 
     public void deletePlayerInfo() {
         this.remove(infoPanel);
+        repaint();
     }
 }

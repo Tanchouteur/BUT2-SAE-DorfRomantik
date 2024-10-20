@@ -39,6 +39,11 @@ public class VueScoreScreen extends JPanel {
         sidebarPanel.add(scoreLabel, gbc);
 
         scoreLabel.setText("Score : "+modelPrincipale.getModelJeux().getScore() + " Points");
+        scoreLabel.setFont(buttonMenuFont);
+        scoreLabel.setBackground(greyColor);
+        scoreLabel.setForeground(Color.WHITE);
+        scoreLabel.setPreferredSize(new Dimension(400, 80));
+        scoreLabel.setBorder(BorderFactory.createLineBorder(greyColor, 5, true));
 
         gbc.gridy = 1;
 
