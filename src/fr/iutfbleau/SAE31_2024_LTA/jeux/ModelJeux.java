@@ -8,14 +8,15 @@ public class ModelJeux {
     private VueJeux vueJeux;
     private final ModelPrincipale modelPrincipale;
     private final ModelMatrice modelMatrice;
-
+    private final ModelListePoche modelListePoche;
     private final LinkedList<ModelTuile> listTuiles;
 
     int seed;
+    private int score;
 
     public ModelJeux(ModelPrincipale modelPrincipale, int seed) {
         this.modelPrincipale = modelPrincipale;
-
+        this.modelListePoche = new ModelListePoche(this);
         this.modelMatrice = new ModelMatrice(this);
         listTuiles = new LinkedList<>();
 
@@ -103,5 +104,9 @@ public class ModelJeux {
 
     public void playTuileSound(int soundIndex) {
         modelPrincipale.getMediaPlayerManager().startClip(modelPrincipale.getModelMediaLoader().getClipsTuiles()[soundIndex], false);
+    }
+
+    public ModelListePoche getModelListePoche() {
+        return modelListePoche;
     }
 }
