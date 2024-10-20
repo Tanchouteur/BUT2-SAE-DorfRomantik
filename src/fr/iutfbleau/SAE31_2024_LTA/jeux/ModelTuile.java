@@ -32,8 +32,8 @@ public class ModelTuile {
         int indexCouleur1 = indexBiome[random.nextInt(indexBiome.length)];
         int indexCouleur2 = indexBiome[random.nextInt(indexBiome.length)];
 
-        int territory = random.nextInt(7);
-        int decalage = random.nextInt(6);
+        int territory = random.nextInt(composition.length+1);
+        int decalage = random.nextInt(composition.length);
         int taille2 = 6 - territory;
 
         for (int i = 0; i < territory; i++) {
@@ -45,9 +45,12 @@ public class ModelTuile {
             decalage = (decalage + 1) % 6;
         }
 
+        if (territory > 3)
+            soundIndex = indexCouleur1;
+        else
+            soundIndex = indexCouleur2;
 
-
-         button = false;
+        button = false;
     }
 
     public ModelTuile() {//Tuile grise qui sert de bouton
@@ -97,5 +100,8 @@ public class ModelTuile {
 
     public int getSeed() {
         return seed;
+    }
+    public int getSoundIndex() {
+        return soundIndex;
     }
 }
