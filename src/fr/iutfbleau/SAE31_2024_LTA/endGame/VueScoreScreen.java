@@ -20,9 +20,21 @@ public class VueScoreScreen extends JPanel {
         sidebarPanel = new JPanel();
         sidebarPanel.setLayout(new BoxLayout(sidebarPanel, BoxLayout.Y_AXIS));
         sidebarPanel.setBackground(new Color(174, 171, 171, 121));  // Transparent avec fond gris
+        sidebarPanel.setBorder(BorderFactory.createLineBorder(new Color(44, 44, 44, 230), 8, true));
+
         sidebarPanel.setOpaque(true);
 
-        sidebarPanel.add(Box.createVerticalStrut(40));
+        JLabel scoreLabel = new JLabel("Score");
+        scoreLabel.setFont(new Font("Serif", Font.BOLD, 40));
+        scoreLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+
+        JLabel scoreLabel2 = new JLabel("0");
+        scoreLabel2.setFont(new Font("Serif", Font.BOLD, 40));
+        scoreLabel2.setAlignmentX(Component.CENTER_ALIGNMENT);
+        scoreLabel2.setText(modelPrincipale.getModelJeux().getScore() + " Points");
+
+        sidebarPanel.add(scoreLabel);
+        sidebarPanel.add(scoreLabel2);
 
         JButton menuButton = new JButton("Menu");
         menuButton.setFont(new Font("Arial", Font.BOLD, 36));

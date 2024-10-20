@@ -16,6 +16,7 @@ public class ModelJeux {
     private final LinkedList<ModelTuile> listTuiles;
 
     private int seed;
+    private int score = 0;
 
     public ModelJeux(ModelPrincipale modelPrincipale, int seed) {
         this.modelPrincipale = modelPrincipale;
@@ -112,5 +113,12 @@ public class ModelJeux {
 
     public VueScoreScreen getVueScoreScreen() {
         return vueScoreScreen;
+    }
+
+    public int getScore() {
+        return this.score;
+    }
+    public void setScore(int score) {
+        this.score = score;
     }
 }
