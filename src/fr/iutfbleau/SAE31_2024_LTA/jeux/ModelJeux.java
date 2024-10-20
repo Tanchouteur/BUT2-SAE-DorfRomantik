@@ -1,21 +1,24 @@
 package fr.iutfbleau.SAE31_2024_LTA.jeux;
 
 import fr.iutfbleau.SAE31_2024_LTA.ModelPrincipale;
+import fr.iutfbleau.SAE31_2024_LTA.endGame.VueScoreScreen;
 
 import java.util.LinkedList;
 
 public class ModelJeux {
     private VueJeux vueJeux;
+    private VueScoreScreen vueScoreScreen;
+
     private final ModelPrincipale modelPrincipale;
     private final ModelMatrice modelMatrice;
 
     private final LinkedList<ModelTuile> listTuiles;
 
-    int seed;
+    private int seed;
+    private int score = 0;
 
     public ModelJeux(ModelPrincipale modelPrincipale, int seed) {
         this.modelPrincipale = modelPrincipale;
-
         this.modelMatrice = new ModelMatrice(this);
         listTuiles = new LinkedList<>();
 
@@ -30,13 +33,15 @@ public class ModelJeux {
         modelMatrice.poseeTuile(50, 50); // Pose de la tuile centrale
 
         createButton();
-
-
     }
 
     private void createView(){
         this.vueJeux = new VueJeux(this);
         modelPrincipale.getVuePrincipale().add(vueJeux, "jeux");
+    }
+
+    public void createEndView(){
+        this.vueScoreScreen = new VueScoreScreen(modelPrincipale);
     }
 
     public LinkedList<ModelTuile> getListTuiles() {
@@ -50,6 +55,10 @@ public class ModelJeux {
 
     public ModelMatrice getModelMatrice() {
         return this.modelMatrice;
+    }
+
+    public ModelPrincipale getModelPrincipale() {
+        return this.modelPrincipale;
     }
 
     public void createButton() {
@@ -103,5 +112,17 @@ public class ModelJeux {
 
     public void playTuileSound(int soundIndex) {
         modelPrincipale.getMediaPlayerManager().startClip(modelPrincipale.getModelMediaLoader().getClipsTuiles()[soundIndex], false);
+    }
+
+    public VueScoreScreen getVueScoreScreen() {
+        return vueScoreScreen;
+    }
+
+    public int getScore() {
+        return this.score;
+    }
+
+    public void setScore(int score) {
+        this.score = score;
     }
 }
