@@ -32,7 +32,12 @@ public class ModelTuile {
         indexBiome[4] = 4; //Foret
 
         int indexCouleur1 = indexBiome[random.nextInt(indexBiome.length)];
-        int indexCouleur2 = indexBiome[random.nextInt(indexBiome.length)];
+        int indexCouleur2 = indexBiome[random.nextInt(indexBiome.length)]
+        if (indexCouleur1 == indexCouleur2){
+          random = new Random();
+          random.setSeed(seed+1)
+           indexCouleur2 = indexBiome[random.nextInt(indexBiome.length)];
+        }
 
         int territory = random.nextInt(composition.length+1);
         int decalage = random.nextInt(composition.length);
