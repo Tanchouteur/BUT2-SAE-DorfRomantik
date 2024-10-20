@@ -1,13 +1,17 @@
 package fr.iutfbleau.SAE31_2024_LTA.media;
 
+import fr.iutfbleau.SAE31_2024_LTA.ModelPrincipale;
+
 import javax.sound.sampled.Clip;
 import javax.sound.sampled.FloatControl;
 import javax.sound.sampled.LineEvent;
 import java.util.List;
 
 public class MediaPlayerManager {
+    ModelPrincipale modelPrincipale;
 
-    public MediaPlayerManager() {
+    public MediaPlayerManager(ModelPrincipale modelPrincipale) {
+        this.modelPrincipale = modelPrincipale;
     }
 
     public void startClip(Clip clip, boolean loopIndefinitely) {
@@ -57,7 +61,7 @@ public class MediaPlayerManager {
      * @param clip  Le clip dont on veut changer le volume.
      * @param level Le niveau de volume entre 0 (muet) et 1 (volume maximum). Attention sa déscend tres vite
      */
-    public void setClipVolume(Clip clip, float level) {
+    private void setClipVolume(Clip clip, float level) {
         if (clip != null) {
             if (clip.isControlSupported(FloatControl.Type.MASTER_GAIN)) {
                 FloatControl volumeControl = (FloatControl) clip.getControl(FloatControl.Type.MASTER_GAIN);
@@ -72,5 +76,29 @@ public class MediaPlayerManager {
         }
     }
 
+    public void setVolumeEffect(int levelP) {
+        float level = levelP / 100.0f;
+        for (int i = 0; i < modelPrincipale.getModelMediaLoader().getClipsTuiles().length; i++) {
+            setClipVolume(modelPrincipale.getModelMediaLoader().getClipsTuiles()[i], level);
+        }
+        setClipVolume(modelPrincipale.getModelMediaLoader().getClicAudioClip(), level);
+        modelPrincipale.getModelMediaLoader().setVolumeEffect(levelP);
+    }
 
+    public void setVolumeMusique(int levelP) {
+        float level = levelP / 100.0f;
+        for (int i = 0; i < modelPrincipale.getModelMediaLoader().getGameMusicClips().size(); i++) {
+            setClipVolume(modelPrincipale.getModelMediaLoader().getGameMusicClips().get(i), level);
+        }
+        setClipVolume(modelPrincipale.getModelMediaLoader().getMenuMusicClip(), level);
+        modelPrincipale.getModelMediaLoader().setVolumeMusic(levelP);
+    }
+
+    public float getClipVolume(Clip clip) {
+        if (clip != null && clip.isControlSupported(FloatControl.Type.MASTER_GAIN)) {
+            FloatControl volumeControl = (FloatControl) clip.getControl(FloatControl.Type.MASTER_GAIN);
+            return volumeControl.getValue();
+        }
+        return 0;
+    }
 }

@@ -14,9 +14,14 @@ public class ModelMediaLoader {
     private final Clip clicAudioClip;
     private final Clip[] clipsTuiles = new Clip[5];
 
+    private int volumeEffect;
+    private int volumeMusic;
+
     private final List<Clip> gameMusicClips;
 
     public ModelMediaLoader() {//Charge touts les son du jeux
+        volumeEffect = 100;
+        volumeMusic = 100;
 
         menuMusicClip = loadMedia("/Audio/MenuSoundTrack.wav");
         clicAudioClip = loadMedia("/Audio/buttonClic.wav");
@@ -86,5 +91,19 @@ public class ModelMediaLoader {
 
     public Clip[] getClipsTuiles() {
         return clipsTuiles;
+    }
+
+    public void setVolumeEffect(int volume) {
+        volumeEffect = volume;
+    }
+    public void setVolumeMusic(int volume) {
+        volumeMusic = volume;
+    }
+
+    public int getVolumeEffect() {
+        return volumeEffect;
+    }
+    public int getVolumeMusic() {
+        return volumeMusic;
     }
 }

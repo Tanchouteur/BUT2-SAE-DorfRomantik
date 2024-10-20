@@ -1,10 +1,12 @@
 package fr.iutfbleau.SAE31_2024_LTA;
 
 import fr.iutfbleau.SAE31_2024_LTA.guiScore.VueScoreScreen;
+import fr.iutfbleau.SAE31_2024_LTA.settings.ControllerPopup;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.KeyEvent;
 import java.io.IOException;
 import java.net.URL;
 
@@ -50,6 +52,15 @@ public class VuePrincipale extends JFrame {
         vueScoreScreen = new VueScoreScreen();
 
         add(vueScoreScreen, "score");
+
+        //Gestion de la touche echap
+        ControllerPopup controllerPopup = new ControllerPopup(this);
+
+        InputMap inputMap = getRootPane().getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW);
+        ActionMap actionMap = getRootPane().getActionMap();
+
+        inputMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), "openSettings");
+        actionMap.put("openSettings", controllerPopup);
     }
 
     public CardLayout getCardLayout() {
@@ -62,5 +73,9 @@ public class VuePrincipale extends JFrame {
 
     public VueScoreScreen getVueScoreScreen() {
         return vueScoreScreen;
+    }
+
+    public ModelPrincipale getModelPrincipale() {
+        return modelPrincipale;
     }
 }
