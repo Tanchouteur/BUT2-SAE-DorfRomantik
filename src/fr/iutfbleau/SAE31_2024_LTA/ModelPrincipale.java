@@ -34,7 +34,7 @@ public class ModelPrincipale {
     public ModelPrincipale() {
         bdd = new ModelBDD();
 
-        mediaPlayerManager = new MediaPlayerManager();
+        mediaPlayerManager = new MediaPlayerManager(this);
         modelMediaLoader = new ModelMediaLoader();
 
         vuePrincipale = createView();
