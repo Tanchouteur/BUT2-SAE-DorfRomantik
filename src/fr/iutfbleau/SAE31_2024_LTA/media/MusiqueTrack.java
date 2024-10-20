@@ -38,7 +38,6 @@ public class MusiqueTrack {
                             System.err.println("Erreur lors du chargement du fichier : " + file.getName());
                         }
                     }
-                    System.out.println("Musiques chargées : " + musicClips.size());
                 } else {
                     System.out.println("Le dossier est vide ou une erreur s'est produite.");
                 }
