@@ -10,9 +10,8 @@ public class VueInfoPanel extends javax.swing.JPanel {
         Font buttonMenuFont = new Font("Arial", Font.BOLD, 18);
         Font inputMenuFont = new Font("Arial", Font.BOLD, 24);
 
-        JPanel infoPanel = new JPanel();
-        infoPanel.setLayout(new BorderLayout());
-        infoPanel.setBackground(new Color(112, 112, 112, 181));
+        this.setLayout(new BorderLayout());
+        this.setBackground(new Color(112, 112, 112, 181));
 
         JLabel playerNameLabel = new JLabel(modelJeux.getModelPrincipale().getPlayerName());
         playerNameLabel.setFont(inputMenuFont);
@@ -42,9 +41,9 @@ public class VueInfoPanel extends javax.swing.JPanel {
                 BorderFactory.createEmptyBorder(10, 10, 10, 10)
         ));
 
-        infoPanel.add(playerNameLabel,BorderLayout.WEST);
-        infoPanel.add(bestScoreLabel,BorderLayout.CENTER);
-        infoPanel.add(currentScore,BorderLayout.EAST);
+        this.add(playerNameLabel,BorderLayout.WEST);
+        this.add(bestScoreLabel,BorderLayout.CENTER);
+        this.add(currentScore,BorderLayout.EAST);
     }
     public JLabel getCurrentScore() {
         return currentScore;
