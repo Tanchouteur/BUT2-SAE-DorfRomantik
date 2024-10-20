@@ -12,14 +12,8 @@ public class VueScoreScreen extends JPanel {
     public VueScoreScreen(ModelPrincipale modelPrincipale) {
         setLayout(new BorderLayout());
         this.modelPrincipale = modelPrincipale;
-
-    }
-
-    public void addElements(){
-        add(modelPrincipale.getModelJeux().getVueJeux(), BorderLayout.CENTER);
-
         initSidebarComponent();
-        add(sidebarPanel, BorderLayout.EAST);
+        add(sidebarPanel, BorderLayout.CENTER);
     }
 
     private void initSidebarComponent() {

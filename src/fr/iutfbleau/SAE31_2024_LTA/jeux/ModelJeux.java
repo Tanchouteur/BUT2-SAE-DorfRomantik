@@ -1,16 +1,17 @@
 package fr.iutfbleau.SAE31_2024_LTA.jeux;
 
 import fr.iutfbleau.SAE31_2024_LTA.ModelPrincipale;
-import fr.iutfbleau.SAE31_2024_LTA.endGame.ControllerEndGame;
+import fr.iutfbleau.SAE31_2024_LTA.endGame.VueScoreScreen;
 
 import java.util.LinkedList;
 
 public class ModelJeux {
     private VueJeux vueJeux;
+    private VueScoreScreen vueScoreScreen;
+
     private final ModelPrincipale modelPrincipale;
     private final ModelMatrice modelMatrice;
 
-    private ControllerEndGame controllerEndGame;
 
     private final LinkedList<ModelTuile> listTuiles;
 
@@ -18,7 +19,6 @@ public class ModelJeux {
 
     public ModelJeux(ModelPrincipale modelPrincipale, int seed) {
         this.modelPrincipale = modelPrincipale;
-        controllerEndGame = new ControllerEndGame(modelPrincipale);
         this.modelMatrice = new ModelMatrice(this);
         listTuiles = new LinkedList<>();
 
@@ -38,6 +38,10 @@ public class ModelJeux {
     private void createView(){
         this.vueJeux = new VueJeux(this);
         modelPrincipale.getVuePrincipale().add(vueJeux, "jeux");
+    }
+
+    public void createEndView(){
+        this.vueScoreScreen = new VueScoreScreen(modelPrincipale);
     }
 
     public LinkedList<ModelTuile> getListTuiles() {
@@ -106,8 +110,7 @@ public class ModelJeux {
         modelPrincipale.getMediaPlayerManager().startClip(modelPrincipale.getModelMediaLoader().getClipsTuiles()[soundIndex], false);
     }
 
-    public ControllerEndGame getControllerEndGame() {
-        return controllerEndGame;
+    public VueScoreScreen getVueScoreScreen() {
+        return vueScoreScreen;
     }
-
 }

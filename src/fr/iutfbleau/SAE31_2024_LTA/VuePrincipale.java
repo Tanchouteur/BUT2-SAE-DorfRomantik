@@ -18,8 +18,6 @@ public class VuePrincipale extends JFrame {
     private final Container framePane;
 
     ModelPrincipale modelPrincipale;
-
-    private final VueScoreScreen vueScoreScreen;
     /**
      * Constructeur de la classe VuePrincipale. Initialise la fenêtre,
      * les composants et les vues de l'application.
@@ -49,10 +47,6 @@ public class VuePrincipale extends JFrame {
 
         framePane = getContentPane();
 
-        vueScoreScreen = new VueScoreScreen(modelPrincipale);
-
-        add(vueScoreScreen, "score");
-
         //Gestion de la touche echap
         ControllerPopup controllerPopup = new ControllerPopup(this);
 
@@ -69,10 +63,6 @@ public class VuePrincipale extends JFrame {
 
     public Container getFramePane() {
         return framePane;
-    }
-
-    public VueScoreScreen getVueScoreScreen() {
-        return vueScoreScreen;
     }
 
     public ModelPrincipale getModelPrincipale() {

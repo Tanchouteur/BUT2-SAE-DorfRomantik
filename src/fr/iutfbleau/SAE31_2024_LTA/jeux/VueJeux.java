@@ -21,7 +21,7 @@ public class VueJeux extends JLayeredPane {
 
     private ModelTuile[] tuilePreview;
 
-
+    private boolean end = false;
 
     public VueJeux( ModelJeux modelJeux) {
         setLayout(null);
@@ -81,6 +81,12 @@ public class VueJeux extends JLayeredPane {
                 }
             }
         }
+        if (modelJeux.getListTuiles().isEmpty() && !end){
+            end = true;
+            modelJeux.createEndView();
+            modelJeux.getVueScoreScreen().setBounds(getWidth()-400, 100, 350, 600);
+            this.add(modelJeux.getVueScoreScreen(), Integer.valueOf(1));
+        }
     }
 
     public void updateOffsets(int deltaX, int deltaY) {
@@ -132,7 +138,8 @@ public class VueJeux extends JLayeredPane {
                 }
             }
             modelJeux.deleteButtons();
-            getModelJeux().getControllerEndGame().end();
+            modelJeux.createEndView();
+            add(modelJeux.getVueScoreScreen(),Integer.valueOf(2));
         }
 
         repaint();

@@ -1,7 +1,5 @@
 package fr.iutfbleau.SAE31_2024_LTA.jeux;
 
-import fr.iutfbleau.SAE31_2024_LTA.endGame.ControllerEndGame;
-
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 

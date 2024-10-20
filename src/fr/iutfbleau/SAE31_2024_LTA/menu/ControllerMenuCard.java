@@ -18,10 +18,9 @@ public class ControllerMenuCard implements ActionListener {
         VuePrincipale vuePrincipale = modelPrincipale.getVuePrincipale();
         modelPrincipale.getMediaPlayerManager().stopClip(modelPrincipale.getModelMediaLoader().getGameMusicClips());
         modelPrincipale.getMediaPlayerManager().startClip(modelPrincipale.getModelMediaLoader().getClicAudioClip(), false);
+        modelPrincipale.getMediaPlayerManager().startClip(modelPrincipale.getModelMediaLoader().getMenuMusicClip(), true);
 
         vuePrincipale.getCardLayout().show(vuePrincipale.getFramePane(), "menu");
-
-        modelPrincipale.getMediaPlayerManager().setVolumeMusique(95);
 
         vuePrincipale.setTitle("DorfJavatik - Menu");
     }
