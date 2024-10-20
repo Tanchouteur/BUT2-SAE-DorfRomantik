@@ -12,7 +12,7 @@ public class ControllerMouseWheelDecalage implements MouseWheelListener {
     }
 
     @Override
-    public void mouseWheelMoved(MouseWheelEvent e) {
+    public void mouseWheelMoved(MouseWheelEvent e) {//WheelListener
         int wheelRotation = e.getWheelRotation();
         modelPrincipale.getModelJeux().getListTuiles().getFirst().decalage(wheelRotation,modelPrincipale.getModelJeux().getVueJeux());
     }
