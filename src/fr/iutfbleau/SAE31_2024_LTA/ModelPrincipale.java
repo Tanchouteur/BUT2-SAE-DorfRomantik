@@ -1,6 +1,7 @@
 package fr.iutfbleau.SAE31_2024_LTA;
 
 import fr.iutfbleau.SAE31_2024_LTA.Bdd.ModelBDD;
+import fr.iutfbleau.SAE31_2024_LTA.endGame.ModelEndGame;
 import fr.iutfbleau.SAE31_2024_LTA.jeux.ModelJeux;
 import fr.iutfbleau.SAE31_2024_LTA.media.MediaPlayerManager;
 import fr.iutfbleau.SAE31_2024_LTA.media.ModelMediaLoader;
@@ -25,6 +26,7 @@ public class ModelPrincipale {
     private final ModelPartieJouer modelPartieJouer;
     private final ModelMenu modelMenu;
     private ModelJeux modelJeux;
+    private ModelEndGame modelEndGame;
 
     private final VuePrincipale vuePrincipale;
 
@@ -43,6 +45,8 @@ public class ModelPrincipale {
         modelPartieJouer = new ModelPartieJouer(this);
 
         vuePrincipale.setVisible(true);
+
+        this.modelEndGame = new ModelEndGame();
     }
 
     private VuePrincipale createView(){
@@ -91,5 +95,13 @@ public class ModelPrincipale {
 
     public ModelMediaLoader getModelMediaLoader() {
         return modelMediaLoader;
+    }
+
+    public ModelEndGame getModelEndGame() {
+        return modelEndGame;
+    }
+
+    public String getPlayerName() {
+        return playerName;
     }
 }

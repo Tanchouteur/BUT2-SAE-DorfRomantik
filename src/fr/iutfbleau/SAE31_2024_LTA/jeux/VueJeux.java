@@ -5,38 +5,36 @@ import java.awt.*;
 
 public class VueJeux extends JLayeredPane {
 
-    private Graphics2D g2d;
-
     private final ModelJeux modelJeux;
     private int offsetX = 0;
     private int offsetY = 0;
 
     // Taille des tuiles
     private final int tuileSize = 50;
-
     //decalage vertical entre deux lignes de tuiles
     private final int hexHeight =  tuileSize-7;
 
-    private ModelTuile[][] listeTuilesPosee;
+    private final ModelTuile[] tuilePreview;
 
-    private ModelTuile[] tuilePreview;
+    private boolean end = false;
 
-
+    VueInfoPanel infoPanel;//HUD
 
     public VueJeux( ModelJeux modelJeux) {
         setLayout(null);
         new Controller2D(this);
         this.modelJeux = modelJeux;
         tuilePreview = new ModelTuile[modelJeux.getListTuiles().size()];
+        showPlayerInfo();
     }
 
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
 
-        g2d = (Graphics2D) g;
+        Graphics2D g2d = (Graphics2D) g;
 
-        listeTuilesPosee = modelJeux.getModelMatrice().getListTuilesPosee();
+        ModelTuile[][] listeTuilesPosee = modelJeux.getModelMatrice().getListTuilesPosee();
 
         int centerX = getWidth() / 2;
         int centerY = getHeight() / 2;
@@ -64,9 +62,8 @@ public class VueJeux extends JLayeredPane {
                         tuile.createVueTuile(x, y, tuileSize);
                         this.add(tuile.getVueTuile(), Integer.valueOf(0));
                         this.updatePreviewTuile();
-                    }else {
+                    }else if (!modelJeux.getListTuiles().isEmpty()){
                         tuile.createVueTuile(x, y, tuileSize/2);
-
                         this.add(tuile.getVueTuile(), Integer.valueOf(0));
                         tuile.getVueTuile().addMouseListener(new ControllerPoseTuile(modelJeux, tuile));
                     }
@@ -76,11 +73,17 @@ public class VueJeux extends JLayeredPane {
 
                         tuile.getVueTuile().updateTuile(x, y, tuileSize);
 
-                    }else {
+                    }else if (!modelJeux.getListTuiles().isEmpty()){
                         tuile.getVueTuile().updateTuile(x, y, tuileSize/2);
                     }
                 }
             }
+        }
+        if (modelJeux.getListTuiles().isEmpty() && !end){
+            end = true;
+            modelJeux.createEndView();
+            modelJeux.getVueScoreScreen().setBounds(getWidth()-400, 100, 350, 600);
+            this.add(modelJeux.getVueScoreScreen(), Integer.valueOf(1));
         }
     }
 
@@ -98,7 +101,9 @@ public class VueJeux extends JLayeredPane {
 
                 if (tuile != null && tuile.getVueTuile() != null && tuile.isButton()) {
                     this.remove(tuile.getVueTuile());
-                    this.remove(btnCliked);
+                    if (btnCliked != null) {
+                        this.remove(btnCliked);
+                    }
                     tuile.deleteVueTuile();
                 }
             }
@@ -125,12 +130,14 @@ public class VueJeux extends JLayeredPane {
             }
         }else{
 
-            for (int row = 0; row < tuilePreview.length; row++) {
-                if (tuilePreview[row] != null) {
-                    this.remove(tuilePreview[row].getVueTuile());
+            for (ModelTuile tuile : tuilePreview) {
+                if (tuile != null) {
+                    this.remove(tuile.getVueTuile());
                 }
             }
             modelJeux.deleteButtons();
+            modelJeux.createEndView();
+            add(modelJeux.getVueScoreScreen(),Integer.valueOf(2));
         }
 
         repaint();
@@ -169,7 +176,14 @@ public class VueJeux extends JLayeredPane {
         this.repaint();
     }
 
-    public ModelJeux getModelJeux() {
-        return modelJeux;
+    public void showPlayerInfo() {
+        infoPanel = new VueInfoPanel(modelJeux);
+
+        infoPanel.setBounds(30,30,550,50);
+        this.add(infoPanel, Integer.valueOf(2));
+    }
+
+    public void updatePlayerInfo(){
+        infoPanel.getCurrentScore().setText("Score : "+modelJeux.getScore()+" Points");
     }
 }

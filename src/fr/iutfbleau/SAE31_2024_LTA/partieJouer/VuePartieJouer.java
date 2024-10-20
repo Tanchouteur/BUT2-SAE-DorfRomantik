@@ -17,6 +17,8 @@ public class VuePartieJouer extends JPanel {
     private JTable tableView;
     private JTextField searchField;
 
+    private ControllerSearchPartieJouer controllerSearchPartieJouer;
+
     public VuePartieJouer(ModelPrincipale modelPrincipale, ModelPartieJouer modelPartieJouer) {
 
         this.modelPrincipale = modelPrincipale;
@@ -60,7 +62,8 @@ public class VuePartieJouer extends JPanel {
 
         JButton searchButton = new JButton("Rechercher");
         searchButton.setPreferredSize(new Dimension(200, 50));
-        searchButton.addActionListener(new ControllerSearchPartieJouer(modelPrincipale));
+        this.controllerSearchPartieJouer = new ControllerSearchPartieJouer(modelPrincipale);
+        searchButton.addActionListener(controllerSearchPartieJouer);
 
         JButton menuButton = new JButton("Menu");
         menuButton.setPreferredSize(new Dimension(200, 50));
@@ -118,5 +121,9 @@ public class VuePartieJouer extends JPanel {
 
     public ModelPartieJouer getModelPartieJouer() {
         return modelPartieJouer;
+    }
+
+    public ControllerSearchPartieJouer getControllerSearchPartieJouer() {
+        return controllerSearchPartieJouer;
     }
 }

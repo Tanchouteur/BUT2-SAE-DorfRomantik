@@ -25,8 +25,9 @@ public class ControllerFocus implements FocusListener {
                 playerNameInput.setText("");
                 playerNameInput.setForeground(Color.BLACK);
             }
-            panel.repaint();
+
         }
+        panel.repaint();
     }
 
     @Override
@@ -37,7 +38,8 @@ public class ControllerFocus implements FocusListener {
                 playerNameInput.setForeground(Color.GRAY);
                 playerNameInput.setText("Player Name...");
             }
-            panel.repaint();
+
         }
+        panel.repaint();
     }
 }

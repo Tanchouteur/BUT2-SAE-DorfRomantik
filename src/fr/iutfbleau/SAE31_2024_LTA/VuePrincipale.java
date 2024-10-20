@@ -1,6 +1,6 @@
 package fr.iutfbleau.SAE31_2024_LTA;
 
-import fr.iutfbleau.SAE31_2024_LTA.guiScore.VueScoreScreen;
+import fr.iutfbleau.SAE31_2024_LTA.endGame.VueScoreScreen;
 import fr.iutfbleau.SAE31_2024_LTA.settings.ControllerPopup;
 
 import javax.imageio.ImageIO;
@@ -17,9 +17,9 @@ public class VuePrincipale extends JFrame {
     private final CardLayout cardLayout;
     private final Container framePane;
 
-    ModelPrincipale modelPrincipale;
+    private final ControllerPopup controllerPopup;
 
-    private final VueScoreScreen vueScoreScreen;
+    ModelPrincipale modelPrincipale;
     /**
      * Constructeur de la classe VuePrincipale. Initialise la fenêtre,
      * les composants et les vues de l'application.
@@ -27,10 +27,10 @@ public class VuePrincipale extends JFrame {
     public VuePrincipale(ModelPrincipale modelPrincipale) {
         this.modelPrincipale = modelPrincipale;
         setTitle("DorfRomantique Alpha");
-        setSize(1200,800);
+        setSize(1370,800);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
-        setMinimumSize(new Dimension(500,500));
+        setMinimumSize(new Dimension(900,600));
         setResizable(true);
 
         try {
@@ -49,12 +49,8 @@ public class VuePrincipale extends JFrame {
 
         framePane = getContentPane();
 
-        vueScoreScreen = new VueScoreScreen();
-
-        add(vueScoreScreen, "score");
-
         //Gestion de la touche echap
-        ControllerPopup controllerPopup = new ControllerPopup(this);
+        controllerPopup = new ControllerPopup(this);
 
         InputMap inputMap = getRootPane().getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW);
         ActionMap actionMap = getRootPane().getActionMap();
@@ -71,11 +67,11 @@ public class VuePrincipale extends JFrame {
         return framePane;
     }
 
-    public VueScoreScreen getVueScoreScreen() {
-        return vueScoreScreen;
-    }
-
     public ModelPrincipale getModelPrincipale() {
         return modelPrincipale;
+    }
+
+    public ControllerPopup getControllerPopup() {
+        return controllerPopup;
     }
 }
