@@ -21,7 +21,7 @@ public class ControllerSearchPartieJouer implements ActionListener {
     public void actionPerformed(ActionEvent actionEvent) {
         this.search = modelPrincipale.getModelPartieJouer().getVuePartieJouer().getSearchField().getText();
 
-        modelPrincipale.getMediaPlayerManager().startClip(modelPrincipale.getMediaPlayerManager().getClicAudioClip(), false);
+        modelPrincipale.getMediaPlayerManager().startClip(modelPrincipale.getModelMediaLoader().getClicAudioClip(), false);
 
         if (search.isEmpty() || search.equals("Entrer le nom du joueur")) {
             resetPartie();

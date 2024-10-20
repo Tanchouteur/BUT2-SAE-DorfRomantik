@@ -54,7 +54,17 @@ public class VueTuile extends JComponent {
         super.paintComponent(g);
         Graphics2D g2d = (Graphics2D) g;
 
-        Color[] composition = modelTuile.getComposition();
+        int[] composition = modelTuile.getComposition();
+
+        Color[] colorPalette = new Color[6];
+        colorPalette[0] = new Color(30, 142, 216);
+        colorPalette[1] = new Color(119, 119, 119);
+        colorPalette[2] = new Color(235, 222, 33);
+        colorPalette[3] = new Color(119, 198, 119);
+        colorPalette[4] = new Color(20, 119, 69);
+        colorPalette[5] = new Color(181, 181, 181);
+
+
         for (int i = 0; i < 6; i++) {
             int[] xPoints = {
                     polygon.xpoints[i],
@@ -67,7 +77,7 @@ public class VueTuile extends JComponent {
                     centerY
             };
 
-            g2d.setColor(composition[i]);
+            g2d.setColor(colorPalette[composition[i]]);
             g2d.fillPolygon(xPoints, yPoints, 3);
         }
 

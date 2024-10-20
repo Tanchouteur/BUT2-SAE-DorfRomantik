@@ -100,4 +100,8 @@ public class ModelJeux {
             }
         }
     }
+
+    public void playTuileSound(int soundIndex) {
+        modelPrincipale.getMediaPlayerManager().startClip(modelPrincipale.getModelMediaLoader().getClipsTuiles()[soundIndex], false);
+    }
 }
