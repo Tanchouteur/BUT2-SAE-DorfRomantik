@@ -68,13 +68,15 @@ public class VuePartieJouer extends JPanel {
         JButton menuButton = new JButton("Menu");
         menuButton.setPreferredSize(new Dimension(200, 50));
         menuButton.addActionListener(new ControllerMenuCard(modelPrincipale));
-
-        sidebar.add(Box.createVerticalStrut(20));
-        sidebar.add(searchLabel);
-        sidebar.add(Box.createVerticalStrut(20));
-        sidebar.add(searchField);
-        sidebar.add(Box.createVerticalStrut(20));
-        sidebar.add(searchButton);
+        
+        if (modelPrincipale.getBdd().updateBdd()) {
+            sidebar.add(Box.createVerticalStrut(20));
+            sidebar.add(searchLabel);
+            sidebar.add(Box.createVerticalStrut(20));
+            sidebar.add(searchField);
+            sidebar.add(Box.createVerticalStrut(20));
+            sidebar.add(searchButton);
+        }
         sidebar.add(Box.createVerticalStrut(20));
         sidebar.add(menuButton);
 
@@ -100,9 +102,13 @@ public class VuePartieJouer extends JPanel {
     private void initTableValue(DefaultTableModel tableModel) {
 
         List<BddPartieJouer> allParties = modelPartieJouer.getAllParties();
-
-        for (BddPartieJouer partie : allParties) {
-            Object[] rowData = {partie.getPlayerName(), partie.getScore(), partie.getListeTuile().getId()};
+        if (allParties != null) {
+            for (BddPartieJouer partie : allParties) {
+                Object[] rowData = {partie.getPlayerName(), partie.getScore(), partie.getListeTuile().getId()};
+                tableModel.addRow(rowData);
+            }
+        }else{
+            Object[] rowData = {"Tu n'est pas connecter a la base de donnée", "offline", "offline"};
             tableModel.addRow(rowData);
         }
     }
