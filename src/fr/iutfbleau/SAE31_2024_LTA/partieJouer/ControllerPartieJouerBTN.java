@@ -15,7 +15,8 @@ public class ControllerPartieJouerBTN implements ActionListener {
     }
     @Override
     public void actionPerformed(ActionEvent e) {
-        modelPrincipale.getMediaPlayerManager().startClip(modelPrincipale.getModelMediaLoader().getClicAudioClip(), false);
+
+        modelPrincipale.getMediaPlayerManager().setClipVolume(modelPrincipale.getModelMediaLoader().getMenuMusicClip(),0.85f);
 
         vuePrincipale.getCardLayout().show(vuePrincipale.getFramePane(), "partieJouer");
         vuePrincipale.setTitle("DorfJavatik - Liste des parties jouer");
