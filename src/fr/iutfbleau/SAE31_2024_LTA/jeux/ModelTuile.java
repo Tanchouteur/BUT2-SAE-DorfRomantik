@@ -3,7 +3,7 @@ package fr.iutfbleau.SAE31_2024_LTA.jeux;
 import java.util.Random;
 
 public class ModelTuile {
-    private final int[] composition;
+    private int[] composition;
 
     private int seed;
 
@@ -81,10 +81,28 @@ public class ModelTuile {
         this.y = y;
     }
 
-    public void decalage(){
-        for(int i =0; i < composition.length-2;i++){
-            this.composition[i] = this.composition[i+1];
+    public void decalage(int decaler,VueJeux vueJeux){
+        //decaler > 0 = molette vers le bas
+        if(decaler>0) {
+            int tmp = this.composition[0];
+            for (int i = 0; i < composition.length - 1; i++) {
+                this.composition[i] = this.composition[i + decaler];
+                if(i == composition.length-2){
+                    this.composition[i+decaler] = tmp;
+                }
+            }
         }
+        //decaler < 0 = molette vers le haut
+        else{
+            int tmp = this.composition[this.composition.length-1];
+            for (int i = composition.length - 1; i > 0 ; i--) {
+                this.composition[i] = this.composition[i + decaler];
+                if(i == 1){
+                    this.composition[i+decaler] = tmp;
+                }
+            }
+        }
+        vueJeux.updatePreviewTuile();
     }
     public int getX() {
         return this.x;
@@ -115,5 +133,9 @@ public class ModelTuile {
 
     public boolean isPreview() {
         return preview;
+    }
+
+    public void setComposition(int[] composition){
+        this.composition = composition;
     }
 }
