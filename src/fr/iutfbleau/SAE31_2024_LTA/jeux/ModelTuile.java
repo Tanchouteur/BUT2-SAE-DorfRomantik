@@ -1,11 +1,9 @@
 package fr.iutfbleau.SAE31_2024_LTA.jeux;
 
-import java.awt.*;
-import java.util.List;
 import java.util.Random;
 
 public class ModelTuile {
-    private final Color[] composition;
+    private final int[] composition;
 
     private int seed;
 
@@ -16,45 +14,47 @@ public class ModelTuile {
 
     private VueTuile vueTuile;
 
+    private int soundIndex;
+
     public ModelTuile(int seed) {//Tuile de jeux
-        composition = new Color[6];
+        composition = new int[6];
         Random random = new Random();
         this.seed = seed;
         random.setSeed(seed);
 
-        List<Color> colorPalette = List.of(
-                new Color(30, 142, 216),
-                new Color(119, 119, 119),
-                new Color(235, 222, 33),
-                new Color(119, 198, 119),
-                new Color(20, 119, 69)
-        );
+        int[] indexBiome = new int[5];
+        indexBiome[0] = 0; //Mer
+        indexBiome[1] = 1; //Montagne
+        indexBiome[2] = 2; //Champ
+        indexBiome[3] = 3; //Plaine
+        indexBiome[4] = 4; //Foret
 
-        Color couleur1 = colorPalette.get(random.nextInt(colorPalette.size()));
-        Color couleur2 = colorPalette.get(random.nextInt(colorPalette.size()));
+        int indexCouleur1 = indexBiome[random.nextInt(indexBiome.length)];
+        int indexCouleur2 = indexBiome[random.nextInt(indexBiome.length)];
+
         int territory = random.nextInt(7);
         int decalage = random.nextInt(6);
         int taille2 = 6 - territory;
 
         for (int i = 0; i < territory; i++) {
-            composition[decalage] = couleur1;
+            composition[decalage] = indexCouleur1;
             decalage = (decalage + 1) % 6;
         }
         for (int i = 0; i < taille2; i++) {
-            composition[decalage] = couleur2;
+            composition[decalage] = indexCouleur2;
             decalage = (decalage + 1) % 6;
         }
+
+
 
          button = false;
     }
 
     public ModelTuile() {//Tuile grise qui sert de bouton
-        composition = new Color[6];
-
-        Color couleur1 = new Color(213, 213, 213);
+        composition = new int[6];
 
         for (int i = 0; i < 6; i++) {
-            composition[i] = couleur1;
+            composition[i] = 5;
         }
 
         button = true;
@@ -66,7 +66,7 @@ public class ModelTuile {
         vueTuile = new VueTuile(this, centerX, centerY, radius);
     }
 
-    public Color[] getComposition() {
+    public int[] getComposition() {
         return this.composition;
     }
 
