@@ -6,6 +6,8 @@ import fr.iutfbleau.SAE31_2024_LTA.jeux.ControllerPlayCard;
 import fr.iutfbleau.SAE31_2024_LTA.partieJouer.ControllerPartieJouerBTN;
 
 import javax.swing.*;
+import javax.swing.event.PopupMenuEvent;
+import javax.swing.event.PopupMenuListener;
 import java.awt.*;
 import java.util.List;
 import java.util.Objects;
@@ -125,6 +127,22 @@ public class VueMenu extends JPanel {
                 BorderFactory.createLineBorder(greyColor, 1, true),
                 BorderFactory.createEmptyBorder(0, 0, 0, 0)
         ));
+        suiteSelector.addPopupMenuListener(new PopupMenuListener() {
+            @Override
+            public void popupMenuWillBecomeVisible(PopupMenuEvent e) {
+                repaint();
+            }
+
+            @Override
+            public void popupMenuWillBecomeInvisible(PopupMenuEvent e) {
+                repaint();
+            }
+
+            @Override
+            public void popupMenuCanceled(PopupMenuEvent e) {
+                repaint();
+            }
+        });
 
         gbc.gridy = 1;
         sidebarPanel.add(suiteSelector, gbc);
