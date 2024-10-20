@@ -178,7 +178,7 @@ public class VueJeux extends JLayeredPane {
         this.repaint();
     }
 
-    public ModelJeux getModelJeux() {
-        return modelJeux;
+    public void showPlayerInfo() {
+
     }
 }
