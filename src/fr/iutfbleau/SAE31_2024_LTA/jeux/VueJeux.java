@@ -26,10 +26,11 @@ public class VueJeux extends JLayeredPane {
         this.modelJeux = modelJeux;
 
         tuilePreview = new ModelTuile[modelJeux.getListTuiles().size()];
+        createPlayerInfo();
 
         this.addMouseWheelListener(new ControllerMouseWheelDecalage(modelJeux.getModelPrincipale()));
 
-        showPlayerInfo();
+        createPlayerInfo();
     }
 
     @Override
@@ -87,6 +88,7 @@ public class VueJeux extends JLayeredPane {
             end = true;
             modelJeux.createEndView();
             modelJeux.getVueScoreScreen().setBounds(getWidth()-400, 100, 350, 600);
+            deletePlayerInfo();
             this.add(modelJeux.getVueScoreScreen(), Integer.valueOf(1));
         }
     }
@@ -181,7 +183,7 @@ public class VueJeux extends JLayeredPane {
         this.repaint();
     }
 
-    public void showPlayerInfo() {
+    public void createPlayerInfo() {
         infoPanel = new VueInfoPanel(modelJeux);
 
         infoPanel.setBounds(30,30,550,50);
@@ -190,5 +192,10 @@ public class VueJeux extends JLayeredPane {
 
     public void updatePlayerInfo(){
         infoPanel.getCurrentScore().setText("Score : "+modelJeux.getScore()+" Points");
+    }
+
+    public void deletePlayerInfo() {
+        this.remove(infoPanel);
+        repaint();
     }
 }

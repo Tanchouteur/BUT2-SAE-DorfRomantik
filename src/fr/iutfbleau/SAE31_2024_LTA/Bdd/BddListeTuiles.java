@@ -23,4 +23,6 @@ public class BddListeTuiles {
     public Integer getBestScore() {
         return bestScore;
     }
+
+
 }
