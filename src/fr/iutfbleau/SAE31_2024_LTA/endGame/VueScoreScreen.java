@@ -31,31 +31,22 @@ public class VueScoreScreen extends JPanel {
         gbc.weightx = 0.0;
         gbc.gridx = 0;
 
-        JLabel scoreLabel = new JLabel("Score");
-        scoreLabel.setFont(labelMenuFont);
-        scoreLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
-
-        gbc.gridy = 0;
+        JLabel scoreLabel = getjLabel(labelMenuFont, buttonMenuFont, greyColor);
+        gbc.gridy = 1;
         sidebarPanel.add(scoreLabel, gbc);
 
-        scoreLabel.setText("Score : "+modelPrincipale.getModelJeux().getScore() + " Points");
-        scoreLabel.setFont(buttonMenuFont);
-        scoreLabel.setBackground(greyColor);
-        scoreLabel.setForeground(Color.WHITE);
-        scoreLabel.setPreferredSize(new Dimension(400, 80));
-        scoreLabel.setBorder(BorderFactory.createLineBorder(greyColor, 5, true));
+        if (modelPrincipale.getSeedIndex()!=-1) {
+            JButton saveBddButton = new JButton("Saved in cloud");
+            setFontButton(greyColor, buttonMenuFont, saveBddButton);
+            saveBddButton.addActionListener(new ControllerSaveGame(modelPrincipale));
 
-        gbc.gridy = 1;
+            gbc.gridy = 2;
+            sidebarPanel.add(saveBddButton, gbc);
+        }
 
         JButton menuButton = new JButton("Menu");
-        menuButton.setFont(buttonMenuFont);
-        menuButton.setBackground(greyColor);
-        menuButton.setForeground(Color.WHITE);
-        menuButton.setPreferredSize(new Dimension(440, 80));
-        menuButton.setFocusPainted(false);
-        menuButton.setBorder(BorderFactory.createLineBorder(greyColor, 8, true));
+        setFontButton(greyColor, buttonMenuFont, menuButton);
         menuButton.addActionListener(new ControllerMenuCard(modelPrincipale));
-
         gbc.gridy = 3;
         sidebarPanel.add(menuButton, gbc);
 
@@ -86,5 +77,27 @@ public class VueScoreScreen extends JPanel {
 
         gbc.gridy = 5;
         sidebarPanel.add(quitButton, gbc);
+    }
+
+    private JLabel getjLabel(Font labelMenuFont, Font buttonMenuFont, Color greyColor) {
+        JLabel scoreLabel = new JLabel();
+        scoreLabel.setFont(labelMenuFont);
+        scoreLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+        scoreLabel.setText("Score : "+modelPrincipale.getModelJeux().getScore() + " Points");
+        scoreLabel.setFont(buttonMenuFont);
+        scoreLabel.setBackground(greyColor);
+        scoreLabel.setForeground(Color.WHITE);
+        scoreLabel.setPreferredSize(new Dimension(400, 80));
+        scoreLabel.setBorder(BorderFactory.createLineBorder(greyColor, 5, true));
+        return scoreLabel;
+    }
+
+    private void setFontButton(Color greyColor, Font buttonMenuFont, JButton button) {
+        button.setFont(buttonMenuFont);
+        button.setBackground(greyColor);
+        button.setForeground(Color.WHITE);
+        button.setPreferredSize(new Dimension(440, 80));
+        button.setFocusPainted(false);
+        button.setBorder(BorderFactory.createLineBorder(greyColor, 8, true));
     }
 }

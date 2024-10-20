@@ -18,12 +18,16 @@ public class ModelBDD {
                     "tanchou", "MotdepasseUpec77**");
 
 
-            this.listeTuiles = getAllListe();
-            this.partieJouees = getAllPartieJouer();
+
 
         } catch (SQLException e) {
             System.err.println("Erreur de connexion BDD - " + e.getMessage());
         }
+    }
+
+    public void updateBdd(){
+        this.listeTuiles = getAllListe();
+        this.partieJouees = getAllPartieJouer();
     }
 
     private List<BddListeTuiles> getAllListe() {
@@ -105,5 +109,14 @@ public class ModelBDD {
             }
         }
         return null;
+    }
+
+    public void saveGame(String playerName, int score, int listeTuileId) throws SQLException {
+        PreparedStatement ps = db.prepareStatement("INSERT INTO tanchou.PartieJouer (PlayerName, Score, ListeTuile) VALUES (?, ?, ?)");
+        ps.setString(1, playerName);
+        ps.setInt(2, score);
+        ps.setInt(3, listeTuileId);
+
+        ResultSet rs = ps.executeQuery();
     }
 }

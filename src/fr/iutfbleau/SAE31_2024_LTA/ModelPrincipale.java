@@ -32,6 +32,7 @@ public class ModelPrincipale {
 
     private String playerName;
     private int selectedSeed;
+    private int seedIndex;
 
     public ModelPrincipale() {
         bdd = new ModelBDD();
@@ -79,6 +80,7 @@ public class ModelPrincipale {
 
     public void setSelectedSeed(int seed) {
         selectedSeed = seed;
+
     }
 
     public void setPlayerName(String playerName) {
@@ -103,5 +105,13 @@ public class ModelPrincipale {
 
     public String getPlayerName() {
         return playerName;
+    }
+
+    public void setSeedIndex(int index) {
+        this.seedIndex = index;
+    }
+
+    public int getSeedIndex() {
+        return this.seedIndex;
     }
 }

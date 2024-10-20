@@ -41,12 +41,15 @@ public class ControllerPlayCard implements ActionListener {
                 if (selectedIndex == lastIndex) {
                     Random rand = new Random();
                     seed = rand.nextInt();
+                    modelPrincipale.setSeedIndex(-1);
                 } else {
                     seed = listeTuiles.get(selectedIndex - 1).getSeed();//listetuile de la bdd
+                    modelPrincipale.setSeedIndex(selectedIndex);
                 }
 
                 modelPrincipale.setPlayerName(playerName);
                 modelPrincipale.setSelectedSeed(seed);
+
 
                 modelPrincipale.getMediaPlayerManager().stopClip(modelPrincipale.getModelMediaLoader().getMenuMusicClip());
                 modelPrincipale.getMediaPlayerManager().startClip(modelPrincipale.getModelMediaLoader().getGameMusicClips(),0);

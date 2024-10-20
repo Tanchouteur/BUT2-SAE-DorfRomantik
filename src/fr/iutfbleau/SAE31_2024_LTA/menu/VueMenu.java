@@ -115,7 +115,7 @@ public class VueMenu extends JPanel {
         suiteSelector.setBackground(Color.WHITE);
         suiteSelector.setForeground(Color.BLACK);
         suiteSelector.addItem("Choisir une suite...");
-
+        modelPrincipale.getBdd().updateBdd();
         List<BddListeTuiles> listeTuiles = modelPrincipale.getBdd().getListeTuiles();
         for (BddListeTuiles tuile : listeTuiles) {
             suiteSelector.addItem("Suite : " + tuile.getId() + " - BestScore: " +
