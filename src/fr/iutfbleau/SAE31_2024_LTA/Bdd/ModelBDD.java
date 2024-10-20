@@ -15,7 +15,7 @@ public class ModelBDD {
             // Connexion à la base de données
             this.db = DriverManager.getConnection(
                     "jdbc:mariadb://dwarves.iut-fbleau.fr:3306/tanchou",
-                    "tanchou", "MotdepasseUpec77*");
+                    "tanchou", "MotdepasseUpec77**");
 
 
 
