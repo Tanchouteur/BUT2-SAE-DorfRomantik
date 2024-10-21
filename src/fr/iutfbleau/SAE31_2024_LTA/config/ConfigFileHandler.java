@@ -1,5 +1,7 @@
 package fr.iutfbleau.SAE31_2024_LTA.config;
 
+import fr.iutfbleau.SAE31_2024_LTA.ModelPrincipale;
+
 import java.io.*;
 import java.util.Properties;
 
@@ -23,7 +25,7 @@ public class ConfigFileHandler {
         }
     }
 
-    public Configuration loadConfiguration() {
+    public Configuration loadConfiguration(ModelPrincipale modelPrincipale) {
         Properties properties = new Properties();
         Configuration config = new Configuration();
 
@@ -34,9 +36,12 @@ public class ConfigFileHandler {
             config.setVolumeEffet(Integer.parseInt(properties.getProperty("volumeEffet", "100")));
             config.setVolumeMusique(Integer.parseInt(properties.getProperty("volumeMusique", "100")));
             config.setPlayerName(properties.getProperty("playerName", "Player Name..."));
-            config.setShowTutorialPopup(Boolean.parseBoolean(properties.getProperty("showTutorialPopup", "true")));
+            config.setShowTutorialPopup(Boolean.parseBoolean(properties.getProperty("showTutorialPopup")));
 
-            System.out.println("Configuration chargée avec succes.");
+            if (config.isShowTutorialPopup()){
+                modelPrincipale.getControllerPopup().showTutoDialog();
+            }
+
         } catch (IOException e) {
             System.err.println("Erreur lors du chargement de la configuration : " + e.getMessage());
         }

@@ -41,7 +41,7 @@ public class ModelPrincipale {
     private final ControllerPopup controllerPopup;
 
     public ModelPrincipale() {
-        configManager = new ConfigManager();
+        configManager = new ConfigManager(this);
         bdd = new ModelBDD();
 
         mediaPlayerManager = new MediaPlayerManager(this);

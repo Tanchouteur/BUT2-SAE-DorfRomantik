@@ -1,13 +1,15 @@
 package fr.iutfbleau.SAE31_2024_LTA.config;
 
+import fr.iutfbleau.SAE31_2024_LTA.ModelPrincipale;
+
 public class ConfigManager {
 
     private final Configuration configuration;
     private final ConfigFileHandler fileHandler;
 
-    public ConfigManager() {
+    public ConfigManager(ModelPrincipale modelPrincipale) {
         this.fileHandler = new ConfigFileHandler();
-        this.configuration = fileHandler.loadConfiguration();
+        this.configuration = fileHandler.loadConfiguration(modelPrincipale);
     }
 
     public int getVolumeEffet() {

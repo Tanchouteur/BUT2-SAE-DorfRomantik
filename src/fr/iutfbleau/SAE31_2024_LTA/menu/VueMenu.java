@@ -70,10 +70,6 @@ public class VueMenu extends JPanel {
 
         initSidebarComponent();
         layeredPane.add(sidebarPanel, Integer.valueOf(1));
-
-        if (modelPrincipale.getConfigManager().isShowTutorialPopup()){
-            modelPrincipale.getControllerPopup().showTutoDialog();
-        }
         modelPrincipale.getVuePrincipale().setActionMap();
     }
 
