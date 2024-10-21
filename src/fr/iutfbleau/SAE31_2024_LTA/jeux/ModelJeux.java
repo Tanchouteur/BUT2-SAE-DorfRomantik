@@ -13,6 +13,8 @@ public class ModelJeux {
     private final ModelMatrice modelMatrice;
     private final ModelListePoche modelListePoche;
     private final LinkedList<ModelTuile> listTuiles;
+    private boolean undo = false;
+    private ModelTuile tuileUndoAble;
 
     private int score = 0;
 
@@ -32,6 +34,7 @@ public class ModelJeux {
         createFirstTuile();
 
         setScore(0);
+        vueJeux.updatePreviewTuileList();
         createButton();
     }
 
@@ -71,6 +74,11 @@ public class ModelJeux {
 
         return listTuiles;
     }
+
+    public void addFirstListTuiles(ModelTuile tuile) {
+        listTuiles.addFirst(tuile);
+    }
+
 
     public VueJeux getVueJeux() {
         return this.vueJeux;
@@ -151,5 +159,21 @@ public class ModelJeux {
 
     public ModelListePoche getModelListePoche() {
         return modelListePoche;
+    }
+
+    public boolean isUndo() {
+        return undo;
+    }
+
+    public void setUndo(boolean undo) {
+        this.undo = undo;
+    }
+
+    public ModelTuile getTuileUndoAble() {
+        return tuileUndoAble;
+    }
+
+    public void setTuileUndoAble(ModelTuile tuileUndoAble) {
+        this.tuileUndoAble = tuileUndoAble;
     }
 }

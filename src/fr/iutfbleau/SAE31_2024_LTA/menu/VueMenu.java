@@ -62,7 +62,7 @@ public class VueMenu extends JPanel {
 
         layeredPane.add(backgroundImage, Integer.valueOf(0));
 
-        addComponentListener(new java.awt.event.ComponentAdapter() {
+        this.addComponentListener(new java.awt.event.ComponentAdapter() {
             public void componentResized(java.awt.event.ComponentEvent evt) {
                 updateMenu();
             }

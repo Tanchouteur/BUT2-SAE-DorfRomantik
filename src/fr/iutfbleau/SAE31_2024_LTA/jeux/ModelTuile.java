@@ -169,4 +169,8 @@ public class ModelTuile {
     public int getIndexcouleur2() {
         return Indexcouleur2;
     }
+
+    public void setVueTuile(VueTuile vueTuile) {
+        this.vueTuile = vueTuile;
+    }
 }

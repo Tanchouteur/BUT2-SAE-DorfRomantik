@@ -34,6 +34,15 @@ public class VueJeux extends JLayeredPane {
         this.addMouseWheelListener(new ControllerMouseWheelDecalage(modelJeux.getModelPrincipale()));
 
         createPlayerInfo();
+        addComponentListener(new java.awt.event.ComponentAdapter() {
+            public void componentResized(java.awt.event.ComponentEvent evt) {
+                if (end) {
+                    modelJeux.getVueScoreScreen().setBounds(getWidth() - 400, 100, 350, 600);
+                }else {
+                updatePreviewTuileList();
+                }
+            }
+        });
         dirty = true;
     }
 
@@ -75,12 +84,13 @@ public class VueJeux extends JLayeredPane {
                             this.add(tuile.getVueTuile(), Integer.valueOf(0));
                             tuile.getVueTuile().addMouseListener(new ControllerPoseTuile(modelJeux, tuile));
                         }
+
                     } else if (tuile != null && tuile.getVueTuile() != null) {
 
                         if (!tuile.isButton()) {
 
                             tuile.getVueTuile().updateTuile(x, y, tuileSize);
-                            this.updatePreviewTuileList();
+
                         } else if (!modelJeux.getListTuiles().isEmpty()) {
                             tuile.getVueTuile().updateTuile(x, y, tuileSize / 2);
                         }
@@ -89,10 +99,12 @@ public class VueJeux extends JLayeredPane {
             }
             if (modelJeux.getListTuiles().isEmpty() && !end) {
                 end = true;
+                this.updatePreviewTuileList();
                 modelJeux.createEndView();
                 modelJeux.getVueScoreScreen().setBounds(getWidth() - 400, 100, 350, 600);
                 deletePlayerInfo();
                 this.add(modelJeux.getVueScoreScreen(), Integer.valueOf(1));
+
             }
         }
     }
