@@ -1,6 +1,8 @@
 package fr.iutfbleau.SAE31_2024_LTA;
 
 import fr.iutfbleau.SAE31_2024_LTA.Bdd.ModelBDD;
+import fr.iutfbleau.SAE31_2024_LTA.config.ConfigManager;
+import fr.iutfbleau.SAE31_2024_LTA.config.Configuration;
 import fr.iutfbleau.SAE31_2024_LTA.endGame.ModelEndGame;
 import fr.iutfbleau.SAE31_2024_LTA.jeux.ModelJeux;
 import fr.iutfbleau.SAE31_2024_LTA.media.MediaPlayerManager;
@@ -18,6 +20,7 @@ import java.io.InputStream;
 import java.net.URL;
 
 public class ModelPrincipale {
+    private final ConfigManager configManager;
     private final MediaPlayerManager mediaPlayerManager;
     private final ModelMediaLoader modelMediaLoader;
 
@@ -26,7 +29,7 @@ public class ModelPrincipale {
     private final ModelPartieJouer modelPartieJouer;
     private final ModelMenu modelMenu;
     private ModelJeux modelJeux;
-    private ModelEndGame modelEndGame;
+    private final ModelEndGame modelEndGame;
 
     private final VuePrincipale vuePrincipale;
 
@@ -35,6 +38,7 @@ public class ModelPrincipale {
     private int seedIndex;
 
     public ModelPrincipale() {
+        configManager = new ConfigManager();
         bdd = new ModelBDD();
 
         mediaPlayerManager = new MediaPlayerManager(this);
@@ -113,5 +117,9 @@ public class ModelPrincipale {
 
     public int getSeedIndex() {
         return this.seedIndex;
+    }
+
+    public ConfigManager getConfigManager() {
+        return configManager;
     }
 }

@@ -21,7 +21,7 @@ public class ControllerFocus implements FocusListener {
 
         if (e.getSource() instanceof JTextField) {
             JTextField playerNameInput = (JTextField) e.getComponent();
-            if (playerNameInput.getText().equals("Player Name...")) {
+            if (playerNameInput.getText().equals(modelPrincipale.getConfigManager().getPlayerName())) {
                 playerNameInput.setText("");
                 playerNameInput.setForeground(Color.BLACK);
             }
@@ -36,7 +36,7 @@ public class ControllerFocus implements FocusListener {
             JTextField playerNameInput = (JTextField) e.getComponent();
             if (playerNameInput.getText().isEmpty()) {
                 playerNameInput.setForeground(Color.GRAY);
-                playerNameInput.setText("Player Name...");
+                playerNameInput.setText(modelPrincipale.getConfigManager().getPlayerName());
             }
 
         }

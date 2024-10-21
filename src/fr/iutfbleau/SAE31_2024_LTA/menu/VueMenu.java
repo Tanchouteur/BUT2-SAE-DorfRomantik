@@ -97,7 +97,7 @@ public class VueMenu extends JPanel {
         gbc.weightx = 0.0;
         gbc.gridx = 0;
 
-        playerNameInput = new JTextField("Player Name...", 15);
+        playerNameInput = new JTextField("Player Name", 15);
         playerNameInput.setFont(inputMenuFont);
         playerNameInput.setForeground(Color.GRAY);
         playerNameInput.setBackground(new Color(245, 245, 245, 216));
@@ -105,7 +105,10 @@ public class VueMenu extends JPanel {
                 BorderFactory.createLineBorder(greyColor, 1, true),
                 BorderFactory.createEmptyBorder(7, 7, 7, 7)
         ));
+
         playerNameInput.addFocusListener(new ControllerFocus(this, modelPrincipale));
+        playerNameInput.setText(modelPrincipale.getConfigManager().getPlayerName());
+        playerNameInput.setCursor(new Cursor(Cursor.TEXT_CURSOR));
 
         gbc.gridy = 0;
         sidebarPanel.add(playerNameInput, gbc);
@@ -153,6 +156,8 @@ public class VueMenu extends JPanel {
             }
         });
 
+        suiteSelector.setCursor(new Cursor(Cursor.HAND_CURSOR));
+
         gbc.gridy = 1;
         sidebarPanel.add(suiteSelector, gbc);
 
@@ -166,6 +171,7 @@ public class VueMenu extends JPanel {
                 BorderFactory.createEmptyBorder(10, 20, 10, 20)
         ));
         playButton.addActionListener(new ControllerPlayCard(modelPrincipale, listeTuiles));
+        playButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
 
         gbc.gridy = 2;
         sidebarPanel.add(playButton, gbc);
@@ -181,6 +187,7 @@ public class VueMenu extends JPanel {
                 BorderFactory.createEmptyBorder(10, 20, 10, 20)
         ));
         partieJouerBtn.addActionListener(new ControllerPartieJouerBTN(modelPrincipale));
+        partieJouerBtn.setCursor(new Cursor(Cursor.HAND_CURSOR));
 
         gbc.gridy = 3;
         sidebarPanel.add(partieJouerBtn, gbc);
@@ -195,7 +202,7 @@ public class VueMenu extends JPanel {
                 BorderFactory.createEmptyBorder(10, 20, 10, 20)
         ));
         settingsButton.addActionListener(modelPrincipale.getVuePrincipale().getControllerPopup());
-
+        settingsButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
 
 
         gbc.gridy = 4;
@@ -211,7 +218,7 @@ public class VueMenu extends JPanel {
                 BorderFactory.createEmptyBorder(10, 20, 10, 20)
         ));
         quitButton.addActionListener(e -> System.exit(0));
-
+        quitButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
         gbc.gridy = 5;
         sidebarPanel.add(quitButton, gbc);
 

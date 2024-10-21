@@ -50,7 +50,7 @@ public class VuePrincipale extends JFrame {
         framePane = getContentPane();
 
         //Gestion de la touche echap
-        controllerPopup = new ControllerPopup(this);
+        controllerPopup = new ControllerPopup(this, modelPrincipale.getConfigManager());
 
         InputMap inputMap = getRootPane().getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW);
         ActionMap actionMap = getRootPane().getActionMap();

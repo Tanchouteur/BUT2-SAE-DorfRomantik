@@ -1,6 +1,8 @@
 package fr.iutfbleau.SAE31_2024_LTA.settings;
 
+import fr.iutfbleau.SAE31_2024_LTA.ModelPrincipale;
 import fr.iutfbleau.SAE31_2024_LTA.VuePrincipale;
+import fr.iutfbleau.SAE31_2024_LTA.config.ConfigManager;
 import fr.iutfbleau.SAE31_2024_LTA.menu.ControllerMenuCard;
 
 import javax.swing.*;
@@ -10,17 +12,20 @@ import java.awt.event.*;
 public class VueSettings extends JPanel {
     private final JSlider musicVolumeSlider;
     private final JSlider effectsVolumeSlider;
+    private final ModelPrincipale modelPrincipale;
 
-    public VueSettings(ControllerPopup controllerPopup, VuePrincipale vuePrincipale) {
+    public VueSettings(ControllerPopup controllerPopup, ModelPrincipale modelPrincipale) {
+        this.modelPrincipale = modelPrincipale;
+        ConfigManager configManager = modelPrincipale.getConfigManager();
         setLayout(null);
         setBackground(new Color(30, 30, 30));
 
-        musicVolumeSlider = new JSlider(35, 100, vuePrincipale.getModelPrincipale().getModelMediaLoader().getVolumeMusic());
+        musicVolumeSlider = new JSlider(35, 100, configManager.getVolumeMusique());
         musicVolumeSlider.setBounds(200, 100, 400, 40);
         styleSlider(musicVolumeSlider);
         add(musicVolumeSlider);
 
-        effectsVolumeSlider = new JSlider(35, 100, vuePrincipale.getModelPrincipale().getModelMediaLoader().getVolumeEffect());
+        effectsVolumeSlider = new JSlider(35, 100, configManager.getVolumeEffet());
         effectsVolumeSlider.setBounds(200, 200, 400, 40);
         styleSlider(effectsVolumeSlider);
         add(effectsVolumeSlider);
@@ -35,8 +40,8 @@ public class VueSettings extends JPanel {
         effectsLabel.setBounds(50, 200, 150, 40);
         add(effectsLabel);
 
-        musicVolumeSlider.addChangeListener(new ControllerVolumeChange(vuePrincipale, 0));
-        effectsVolumeSlider.addChangeListener(new ControllerVolumeChange(vuePrincipale, 1));
+        musicVolumeSlider.addChangeListener(new ControllerVolumeChange(configManager, 0));
+        effectsVolumeSlider.addChangeListener(new ControllerVolumeChange(configManager, 1));
 
         JButton resumeButton = new JButton("Resume");
         styleButton(resumeButton);
@@ -106,7 +111,7 @@ public class VueSettings extends JPanel {
     }
 
     private void onQuit(ControllerPopup controllerPopup) {
-        ControllerMenuCard controllerMenuCard = new ControllerMenuCard(controllerPopup.vuePrincipale.getModelPrincipale());
+        ControllerMenuCard controllerMenuCard = new ControllerMenuCard(modelPrincipale);
         controllerPopup.closePopup();
         controllerMenuCard.goMenu();
     }
@@ -132,5 +137,6 @@ public class VueSettings extends JPanel {
     public void setEffectsVolume(int volume) {
         effectsVolumeSlider.setValue(volume);
     }
+
 }
 
