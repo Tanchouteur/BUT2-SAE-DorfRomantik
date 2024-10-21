@@ -76,7 +76,7 @@ public class VueMenu extends JPanel {
         backgroundImage.setSize(getWidth(), getHeight());
         layeredPane.setBounds(0, 0, modelPrincipale.getVuePrincipale().getWidth(), modelPrincipale.getVuePrincipale().getHeight());
         sidebarPanel.setBounds(getWidth() - 470, (getHeight() - 520) / 2, 400, 500);
-        repaint();
+        //repaint();
     }
 
     /**
@@ -143,12 +143,10 @@ public class VueMenu extends JPanel {
             public void popupMenuWillBecomeVisible(PopupMenuEvent e) {
                 repaint();
             }
-
             @Override
             public void popupMenuWillBecomeInvisible(PopupMenuEvent e) {
                 repaint();
             }
-
             @Override
             public void popupMenuCanceled(PopupMenuEvent e) {
                 repaint();

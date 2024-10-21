@@ -22,7 +22,7 @@ public class ModelMenu {
     public void createVueMenu() {
         vueMenu = new VueMenu(modelPrincipale);
         modelPrincipale.getVuePrincipale().add(vueMenu, "menu");
-        modelPrincipale.getVuePrincipale().repaint();
+        //modelPrincipale.getVuePrincipale().repaint();
         modelPrincipale.getVuePrincipale().getCardLayout().show(modelPrincipale.getVuePrincipale().getFramePane(), "menu");
     }
 }

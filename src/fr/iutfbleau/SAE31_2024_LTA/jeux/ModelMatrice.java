@@ -217,8 +217,10 @@ public class ModelMatrice {
         modelJeux.getListTuiles().removeFirst();
 
         modelJeux.getVueJeux().updatePlayerInfo();
-        modelJeux.getVueJeux().repaint();
+        modelJeux.getVueJeux().setDirty();
+        //modelJeux.getVueJeux().repaint();
     }
+
 
     public void poseeButton(int x,int y, ModelTuile tuile){
         this.listTuilesPosee[x][y] = tuile;

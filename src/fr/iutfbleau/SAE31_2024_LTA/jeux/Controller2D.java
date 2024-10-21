@@ -24,6 +24,7 @@ public class Controller2D extends MouseAdapter {
             startX = e.getX();
             startY = e.getY();
         }
+        vueJeux.repaint();
     }
 
     @Override
@@ -39,7 +40,7 @@ public class Controller2D extends MouseAdapter {
             startX = currentX;
             startY = currentY;
         }
-
+        vueJeux.repaint();
     }
 
     @Override

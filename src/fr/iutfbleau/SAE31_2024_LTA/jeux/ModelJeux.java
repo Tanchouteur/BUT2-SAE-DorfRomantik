@@ -14,7 +14,6 @@ public class ModelJeux {
     private final ModelListePoche modelListePoche;
     private final LinkedList<ModelTuile> listTuiles;
 
-    private int seed;
     private int score = 0;
 
     public ModelJeux(ModelPrincipale modelPrincipale, int seed) {
@@ -23,7 +22,6 @@ public class ModelJeux {
         this.modelMatrice = new ModelMatrice(this);
         listTuiles = new LinkedList<>();
 
-        this.seed = seed;
         for (int i = 10; i >= 0; i--) {
             ModelTuile tuile = new ModelTuile(seed*i, false);
             listTuiles.add(tuile);
@@ -31,9 +29,33 @@ public class ModelJeux {
 
         createView();
 
-        modelMatrice.poseeTuile(50, 50);// Pose de la tuile centrale
-        setScore(5);
+        createFirstTuile();
+
+        setScore(0);
         createButton();
+    }
+
+    private void createFirstTuile() {
+
+        int centerX = vueJeux.getX() / 2;
+        int centerY = vueJeux.getHeight() / 2;
+
+        int tuileCentreRow = 50;
+        int tuileCentreCol = 50;
+
+        int initialOffsetX = centerX - (3 * 50 / 2) * tuileCentreCol;
+        int initialOffsetY = centerY - 50-7 * tuileCentreRow;
+
+        int totalOffsetX = initialOffsetX;
+        int totalOffsetY = initialOffsetY;
+
+        int x = totalOffsetX + 50 * (3 * 50 / 2);
+        int y = totalOffsetY + 50 * 43;
+
+        listTuiles.getFirst().createVueTuile(x,y,50);
+        vueJeux.add(listTuiles.getFirst().getVueTuile());
+        modelMatrice.poseeTuile(50, 50);// Pose de la tuile centrale
+        vueJeux.repaint();
     }
 
     private void createView(){
