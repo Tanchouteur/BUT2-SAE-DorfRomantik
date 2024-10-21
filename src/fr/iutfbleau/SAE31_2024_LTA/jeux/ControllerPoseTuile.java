@@ -34,19 +34,18 @@ public class ControllerPoseTuile implements MouseListener {
         Object source = e.getSource();
         if (source instanceof VueTuile btnCliked && clicked) {
 
-            if (modelJeux.getListTuiles().size() > 0) {
+            if (!modelJeux.getListTuiles().isEmpty()) {
                 modelJeux.playTuileSound(modelJeux.getListTuiles().getFirst().getSoundIndex());
 
                 modelJeux.getModelMatrice().poseeTuile(buttonTuile.getX(), buttonTuile.getY());
                 modelJeux.createButton();
                 modelJeux.getVueJeux().updateTuile(btnCliked);
-                modelJeux.getVueJeux().updatePlayerInfo();
             }
 
         }
         clicked = false;
         modelJeux.getVueJeux().unsetPreviewOnButton(modeleTuilePreviewed);
-        modelJeux.getVueJeux().repaint();
+        //modelJeux.getVueJeux().repaint();
     }
 
     @Override
