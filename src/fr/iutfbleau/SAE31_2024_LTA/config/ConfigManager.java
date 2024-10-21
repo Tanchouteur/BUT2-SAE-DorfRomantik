@@ -1,6 +1,5 @@
 package fr.iutfbleau.SAE31_2024_LTA.config;
 
-import fr.iutfbleau.SAE31_2024_LTA.ModelPrincipale;
 import fr.iutfbleau.SAE31_2024_LTA.popup.ControllerPopup;
 
 public class ConfigManager {

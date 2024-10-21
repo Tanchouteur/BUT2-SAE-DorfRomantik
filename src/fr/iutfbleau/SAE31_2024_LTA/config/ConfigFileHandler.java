@@ -1,7 +1,5 @@
 package fr.iutfbleau.SAE31_2024_LTA.config;
 
-import fr.iutfbleau.SAE31_2024_LTA.ModelPrincipale;
-
 import java.io.*;
 import java.util.Properties;
 
@@ -19,7 +17,6 @@ public class ConfigFileHandler {
 
         try (FileOutputStream output = new FileOutputStream(CONFIG_FILE_PATH)) {
             properties.store(output, "Configuration Settings");
-            System.out.println("Configuration enregistrée avec succès.");
         } catch (IOException e) {
             System.err.println("Erreur lors de l'enregistrement de la configuration : " + e.getMessage());
         }
