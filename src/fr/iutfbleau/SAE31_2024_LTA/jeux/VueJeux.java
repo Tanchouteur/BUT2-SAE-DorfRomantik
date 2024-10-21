@@ -88,9 +88,7 @@ public class VueJeux extends JLayeredPane {
                     } else if (tuile != null && tuile.getVueTuile() != null) {
 
                         if (!tuile.isButton()) {
-
                             tuile.getVueTuile().updateTuile(x, y, tuileSize);
-
                         } else if (!modelJeux.getListTuiles().isEmpty()) {
                             tuile.getVueTuile().updateTuile(x, y, tuileSize / 2);
                         }
@@ -99,6 +97,8 @@ public class VueJeux extends JLayeredPane {
             }
             if (modelJeux.getListTuiles().isEmpty() && !end) {
                 end = true;
+                modelJeux.setUndo(false);
+                modelJeux.setUndoActivate(false);
                 this.updatePreviewTuileList();
                 modelJeux.createEndView();
                 modelJeux.getVueScoreScreen().setBounds(getWidth() - 400, 100, 350, 600);
@@ -131,7 +131,6 @@ public class VueJeux extends JLayeredPane {
             }
         }
         this.dirty = true;
-        //repaint();
     }
 
     public void updatePreviewTuileList(){
@@ -258,7 +257,12 @@ public class VueJeux extends JLayeredPane {
     public void setDirty(){
         this.dirty = true;
     }
+
     public void unsetDirty(){
         this.dirty = false;
+    }
+
+    public boolean isEnd() {
+        return this.end;
     }
 }

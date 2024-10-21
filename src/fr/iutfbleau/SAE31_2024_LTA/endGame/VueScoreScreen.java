@@ -62,7 +62,7 @@ public class VueScoreScreen extends JPanel {
                 BorderFactory.createLineBorder(greyColor, 1, true),
                 BorderFactory.createEmptyBorder(10, 20, 10, 20)
         ));
-        settingsButton.addActionListener(modelPrincipale.getVuePrincipale().getControllerPopup());
+        settingsButton.addActionListener(modelPrincipale.getControllerPopup());
 
         gbc.gridy = 4;
         sidebarPanel.add(settingsButton, gbc);

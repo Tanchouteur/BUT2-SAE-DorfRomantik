@@ -1,7 +1,6 @@
-package fr.iutfbleau.SAE31_2024_LTA.settings;
+package fr.iutfbleau.SAE31_2024_LTA.popup;
 
 import fr.iutfbleau.SAE31_2024_LTA.ModelPrincipale;
-import fr.iutfbleau.SAE31_2024_LTA.VuePrincipale;
 import fr.iutfbleau.SAE31_2024_LTA.config.ConfigManager;
 import fr.iutfbleau.SAE31_2024_LTA.menu.ControllerMenuCard;
 
@@ -9,12 +8,12 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 
-public class VueSettings extends JPanel {
+public class VueSettingsPopup extends JPanel {
     private final JSlider musicVolumeSlider;
     private final JSlider effectsVolumeSlider;
     private final ModelPrincipale modelPrincipale;
 
-    public VueSettings(ControllerPopup controllerPopup, ModelPrincipale modelPrincipale) {
+    public VueSettingsPopup(ControllerPopup controllerPopup, ModelPrincipale modelPrincipale) {
         this.modelPrincipale = modelPrincipale;
         ConfigManager configManager = modelPrincipale.getConfigManager();
         setLayout(null);
@@ -43,15 +42,21 @@ public class VueSettings extends JPanel {
         musicVolumeSlider.addChangeListener(new ControllerVolumeChange(configManager, 0));
         effectsVolumeSlider.addChangeListener(new ControllerVolumeChange(configManager, 1));
 
+        JButton tutoButton = new JButton("Tutoriel");
+        styleButton(tutoButton);
+        tutoButton.setBounds(20, 350, 180, 50);
+        tutoButton.addActionListener(e -> onTuto(controllerPopup));
+        add(tutoButton);
+
         JButton resumeButton = new JButton("Resume");
         styleButton(resumeButton);
-        resumeButton.setBounds(200, 350, 180, 50);
+        resumeButton.setBounds(230, 350, 180, 50);
         resumeButton.addActionListener(e -> onResume(controllerPopup));
         add(resumeButton);
 
-        JButton quitButton = new JButton("Quit");
+        JButton quitButton = new JButton("Menu");
         styleButton(quitButton);
-        quitButton.setBounds(420, 350, 180, 50);
+        quitButton.setBounds(450, 350, 180, 50);
         quitButton.addActionListener(e -> onQuit(controllerPopup));
         add(quitButton);
 
@@ -106,13 +111,18 @@ public class VueSettings extends JPanel {
         });
     }
 
+    private void onTuto(ControllerPopup controllerPopup) {
+        controllerPopup.closePopup(controllerPopup.getSettingsDialog());
+        controllerPopup.showTutoDialog(modelPrincipale.getConfigManager());
+    }
+
     private void onResume(ControllerPopup controllerPopup) {
-        controllerPopup.closePopup();
+        controllerPopup.closePopup(controllerPopup.getSettingsDialog());
     }
 
     private void onQuit(ControllerPopup controllerPopup) {
         ControllerMenuCard controllerMenuCard = new ControllerMenuCard(modelPrincipale);
-        controllerPopup.closePopup();
+        controllerPopup.closePopup(controllerPopup.getSettingsDialog());
         controllerMenuCard.goMenu();
     }
 

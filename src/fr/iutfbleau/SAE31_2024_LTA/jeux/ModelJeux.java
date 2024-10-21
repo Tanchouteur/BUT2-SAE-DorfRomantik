@@ -34,7 +34,7 @@ public class ModelJeux {
 
         createFirstTuile();
 
-        setScore();
+        setScore(0);
         vueJeux.updatePreviewTuileList();
         createButton();
     }
@@ -75,11 +75,6 @@ public class ModelJeux {
 
         return listTuiles;
     }
-
-    public void addFirstListTuiles(ModelTuile tuile) {
-        listTuiles.addFirst(tuile);
-    }
-
 
     public VueJeux getVueJeux() {
         return this.vueJeux;
@@ -136,7 +131,7 @@ public class ModelJeux {
                 ModelTuile tuile = modelMatrice.getListTuilesPosee()[row][col];
 
                 if (tuile != null && tuile.isButton()) {
-                    modelMatrice.deleteButton(row, col);
+                    modelMatrice.deleteTuile(row, col);
                 }
             }
         }
@@ -154,8 +149,8 @@ public class ModelJeux {
         return this.score;
     }
 
-    public void setScore() {
-        this.score=modelListePoche.getScore();
+    public void setScore(int score) {
+        this.score = score;
     }
 
     public ModelListePoche getModelListePoche() {
@@ -178,11 +173,20 @@ public class ModelJeux {
         this.undoActivate = undoActivate;
     }
 
-    public ModelTuile getTuileUndoAble() {
-        return tuileUndoAble;
-    }
+
 
     public void setTuileUndoAble(ModelTuile tuileUndoAble) {
         this.tuileUndoAble = tuileUndoAble;
+    }
+    public void undoLastTuile() {
+        if (!undo) {
+            listTuiles.addFirst(tuileUndoAble);
+            deleteButtons();
+            modelMatrice.deleteTuile(tuileUndoAble.getX(), tuileUndoAble.getY());
+            getVueJeux().updatePreviewTuileList();
+
+            createButton();
+            undo = true;
+        }
     }
 }
