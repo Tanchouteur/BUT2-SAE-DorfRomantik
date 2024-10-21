@@ -221,32 +221,6 @@ public class ModelMatrice {
         //modelJeux.getVueJeux().repaint();
     }
 
-    private void createViewWhenTuilePose(ModelTuile tuile, int x, int y) {
-        int centerX = modelJeux.getVueJeux().getX() / 2;
-        int centerY = modelJeux.getVueJeux().getHeight() / 2;
-
-        int tuileCentreRow = 50;
-        int tuileCentreCol = 50;
-
-        int initialOffsetX = centerX - (3 * 50 / 2) * tuileCentreCol;
-        int initialOffsetY = centerY - 50-7 * tuileCentreRow;
-
-        int totalOffsetX = initialOffsetX + modelJeux.getVueJeux().offsetX;
-        int totalOffsetY = initialOffsetY + modelJeux.getVueJeux().offsetY;
-
-        x = totalOffsetX + 50 * (3 * 50 / 2);
-        y = totalOffsetY + 50 * 43;
-
-        if (!tuile.isButton()) {
-            tuile.createVueTuile(x, y, tuileSize);
-            this.add(tuile.getVueTuile(), Integer.valueOf(0));
-            this.updatePreviewTuile();
-        } else if (!modelJeux.getListTuiles().isEmpty()) {
-            tuile.createVueTuile(x, y, tuileSize / 2);
-            this.add(tuile.getVueTuile(), Integer.valueOf(0));
-            tuile.getVueTuile().addMouseListener(new ControllerPoseTuile(modelJeux, tuile));
-        }
-    }
 
     public void poseeButton(int x,int y, ModelTuile tuile){
         this.listTuilesPosee[x][y] = tuile;
