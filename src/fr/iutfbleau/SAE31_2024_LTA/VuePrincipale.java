@@ -1,11 +1,11 @@
 package fr.iutfbleau.SAE31_2024_LTA;
 
-import fr.iutfbleau.SAE31_2024_LTA.endGame.VueScoreScreen;
-import fr.iutfbleau.SAE31_2024_LTA.settings.ControllerPopup;
+import fr.iutfbleau.SAE31_2024_LTA.popup.ControllerPopup;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.io.IOException;
 import java.net.URL;
@@ -16,8 +16,6 @@ import java.net.URL;
 public class VuePrincipale extends JFrame {
     private final CardLayout cardLayout;
     private final Container framePane;
-
-    private final ControllerPopup controllerPopup;
 
     ModelPrincipale modelPrincipale;
     /**
@@ -49,14 +47,6 @@ public class VuePrincipale extends JFrame {
 
         framePane = getContentPane();
 
-        //Gestion de la touche echap
-        controllerPopup = new ControllerPopup(this, modelPrincipale.getConfigManager());
-
-        InputMap inputMap = getRootPane().getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW);
-        ActionMap actionMap = getRootPane().getActionMap();
-
-        inputMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), "openSettings");
-        actionMap.put("openSettings", controllerPopup);
     }
 
     public CardLayout getCardLayout() {
@@ -71,7 +61,10 @@ public class VuePrincipale extends JFrame {
         return modelPrincipale;
     }
 
-    public ControllerPopup getControllerPopup() {
-        return controllerPopup;
+    public void setActionMap(){
+        InputMap inputMap = getRootPane().getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW);
+        inputMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), "openSettings");
+        ActionMap actionMap = getRootPane().getActionMap();
+        actionMap.put("openSettings", modelPrincipale.getControllerPopup());
     }
 }

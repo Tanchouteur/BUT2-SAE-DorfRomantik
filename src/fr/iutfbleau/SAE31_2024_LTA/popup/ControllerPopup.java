@@ -1,37 +1,47 @@
-package fr.iutfbleau.SAE31_2024_LTA.settings;
+package fr.iutfbleau.SAE31_2024_LTA.popup;
 
 import fr.iutfbleau.SAE31_2024_LTA.VuePrincipale;
 import fr.iutfbleau.SAE31_2024_LTA.config.ConfigManager;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 public class ControllerPopup extends AbstractAction {
-    private final VueSettings vueSettings;
-    private final JDialog settingsDialog;
+
     private final ConfigManager configManager;
+
+    private final JDialog settingsDialog;
+    private final VueSettingsPopup vueSettings;
+
+    private final JDialog tutoDialog;
+    private final VueTuto vueTuto;
 
     public ControllerPopup(VuePrincipale vuePrincipale, ConfigManager configManager) {
         this.configManager = configManager;
 
-        this.vueSettings = new VueSettings(this, vuePrincipale.getModelPrincipale());
+        this.vueSettings = new VueSettingsPopup(this, vuePrincipale.getModelPrincipale());
 
         settingsDialog = new JDialog(vuePrincipale, "Paramètres", true);
         settingsDialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-        settingsDialog.setSize((int) (vuePrincipale.getWidth() * 0.8), (int) (vuePrincipale.getHeight() * 0.8));
+        settingsDialog.setSize(700, 500);
         settingsDialog.setLocationRelativeTo(vuePrincipale);
-
         settingsDialog.add(vueSettings);
+
+        this.vueTuto = new VueTuto(this, vuePrincipale.getModelPrincipale());
+        this.tutoDialog = new JDialog(vuePrincipale, "Tutoriel", true);
+        tutoDialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+        tutoDialog.setSize(700, 500);
+        tutoDialog.setLocationRelativeTo(vuePrincipale);
+        tutoDialog.add(vueTuto);
+
     }
 
-    public ActionListener closePopup(){
-        if (settingsDialog != null) {
-            if (settingsDialog.isVisible()) {
-                settingsDialog.setVisible(false);
+    public void closePopup(JDialog popupDialog){
+        if (popupDialog != null) {
+            if (popupDialog.isVisible()) {
+                popupDialog.setVisible(false);
             }
         }
-        return null;
     }
 
 
@@ -48,8 +58,22 @@ public class ControllerPopup extends AbstractAction {
         return null;
     }
 
+    public void showTutoDialog() {
+        if (tutoDialog != null) {
+            tutoDialog.setVisible(true);
+            vueTuto.setVisible(true);
+        }
+    }
+
     @Override
     public void actionPerformed(ActionEvent e) {
         showSettingsDialog();
+    }
+
+    public JDialog getSettingsDialog() {
+        return settingsDialog;
+    }
+    public JDialog getTutoDialog() {
+        return settingsDialog;
     }
 }

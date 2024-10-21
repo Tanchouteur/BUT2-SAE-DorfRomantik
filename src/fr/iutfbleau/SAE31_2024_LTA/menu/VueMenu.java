@@ -70,6 +70,11 @@ public class VueMenu extends JPanel {
 
         initSidebarComponent();
         layeredPane.add(sidebarPanel, Integer.valueOf(1));
+
+        if (modelPrincipale.getConfigManager().isShowTutorialPopup()){
+            modelPrincipale.getControllerPopup().showTutoDialog();
+        }
+        modelPrincipale.getVuePrincipale().setActionMap();
     }
 
     public void updateMenu() {
@@ -201,7 +206,7 @@ public class VueMenu extends JPanel {
                 BorderFactory.createLineBorder(greyColor, 1, true),
                 BorderFactory.createEmptyBorder(10, 20, 10, 20)
         ));
-        settingsButton.addActionListener(modelPrincipale.getVuePrincipale().getControllerPopup());
+        settingsButton.addActionListener(modelPrincipale.getControllerPopup());
         settingsButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
 
 

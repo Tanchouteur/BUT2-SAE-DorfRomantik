@@ -1,7 +1,6 @@
-package fr.iutfbleau.SAE31_2024_LTA.settings;
+package fr.iutfbleau.SAE31_2024_LTA.popup;
 
 import fr.iutfbleau.SAE31_2024_LTA.ModelPrincipale;
-import fr.iutfbleau.SAE31_2024_LTA.VuePrincipale;
 import fr.iutfbleau.SAE31_2024_LTA.config.ConfigManager;
 import fr.iutfbleau.SAE31_2024_LTA.menu.ControllerMenuCard;
 
@@ -9,12 +8,12 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 
-public class VueSettings extends JPanel {
+public class VueSettingsPopup extends JPanel {
     private final JSlider musicVolumeSlider;
     private final JSlider effectsVolumeSlider;
     private final ModelPrincipale modelPrincipale;
 
-    public VueSettings(ControllerPopup controllerPopup, ModelPrincipale modelPrincipale) {
+    public VueSettingsPopup(ControllerPopup controllerPopup, ModelPrincipale modelPrincipale) {
         this.modelPrincipale = modelPrincipale;
         ConfigManager configManager = modelPrincipale.getConfigManager();
         setLayout(null);
@@ -107,12 +106,12 @@ public class VueSettings extends JPanel {
     }
 
     private void onResume(ControllerPopup controllerPopup) {
-        controllerPopup.closePopup();
+        controllerPopup.closePopup(controllerPopup.getSettingsDialog());
     }
 
     private void onQuit(ControllerPopup controllerPopup) {
         ControllerMenuCard controllerMenuCard = new ControllerMenuCard(modelPrincipale);
-        controllerPopup.closePopup();
+        controllerPopup.closePopup(controllerPopup.getSettingsDialog());
         controllerMenuCard.goMenu();
     }
 

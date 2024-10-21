@@ -9,6 +9,7 @@ import fr.iutfbleau.SAE31_2024_LTA.media.MediaPlayerManager;
 import fr.iutfbleau.SAE31_2024_LTA.media.ModelMediaLoader;
 import fr.iutfbleau.SAE31_2024_LTA.menu.ModelMenu;
 import fr.iutfbleau.SAE31_2024_LTA.partieJouer.ModelPartieJouer;
+import fr.iutfbleau.SAE31_2024_LTA.popup.ControllerPopup;
 
 import javax.imageio.ImageIO;
 import javax.sound.sampled.*;
@@ -37,6 +38,8 @@ public class ModelPrincipale {
     private int selectedSeed;
     private int seedIndex;
 
+    private final ControllerPopup controllerPopup;
+
     public ModelPrincipale() {
         configManager = new ConfigManager();
         bdd = new ModelBDD();
@@ -45,11 +48,13 @@ public class ModelPrincipale {
         modelMediaLoader = new ModelMediaLoader();
 
         vuePrincipale = createView();
-
+        controllerPopup = new ControllerPopup(vuePrincipale, configManager);
         modelMenu = new ModelMenu(this);
         modelPartieJouer = new ModelPartieJouer(this);
 
         vuePrincipale.setVisible(true);
+
+
 
         this.modelEndGame = new ModelEndGame();
     }
@@ -84,7 +89,6 @@ public class ModelPrincipale {
 
     public void setSelectedSeed(int seed) {
         selectedSeed = seed;
-
     }
 
     public void setPlayerName(String playerName) {
@@ -121,5 +125,9 @@ public class ModelPrincipale {
 
     public ConfigManager getConfigManager() {
         return configManager;
+    }
+
+    public ControllerPopup getControllerPopup() {
+        return controllerPopup;
     }
 }
