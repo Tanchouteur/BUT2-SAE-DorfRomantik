@@ -23,10 +23,10 @@ public class ModelMatrice {
         boolean use2=false;
         if (this.getNordOuest(tuile) && (!use1 || !use2)) {
             System.out.println("ici1");
-            if (tuile.getIndexcouleur1()==this.listTuilesPosee[x-1][y-1].getComposition()[3] ||
-                    tuile.getIndexcouleur2()==this.listTuilesPosee[x-1][y-1].getComposition()[3]) {
+            if (tuile.getIndexcouleur1()==this.listTuilesPosee[x-1][y-1].getComposition()[1] ||
+                    tuile.getIndexcouleur2()==this.listTuilesPosee[x-1][y-1].getComposition()[1]) {
                 System.out.println("la1");
-                int couleur = this.listTuilesPosee[x-1][y-1].getComposition()[3];
+                int couleur = this.listTuilesPosee[x-1][y-1].getComposition()[1];
                 for (int i=0;i< modelListePoche.getNbPoches();i++) {
                     if (couleur==modelListePoche.getListePoche()[i].getCouleur()) {
                         System.out.println("couleur1");
@@ -52,10 +52,10 @@ public class ModelMatrice {
         }
         if (this.getNord(tuile) && (!use1 || !use2)) {
             System.out.println("ici2");
-            if (tuile.getIndexcouleur1()==this.listTuilesPosee[x-2][y].getComposition()[4] ||
-                    tuile.getIndexcouleur2()==this.listTuilesPosee[x-2][y].getComposition()[4]) {
+            if (tuile.getIndexcouleur1()==this.listTuilesPosee[x-2][y].getComposition()[0] ||
+                    tuile.getIndexcouleur2()==this.listTuilesPosee[x-2][y].getComposition()[0]) {
                 System.out.println("la2");
-                int couleur = this.listTuilesPosee[x-2][y].getComposition()[4];
+                int couleur = this.listTuilesPosee[x-2][y].getComposition()[0];
                 for (int i=0;i< modelListePoche.getNbPoches();i++) {
                     if (couleur==modelListePoche.getListePoche()[i].getCouleur()) {
                         System.out.println("couleur2");
@@ -114,10 +114,10 @@ public class ModelMatrice {
         }
         if (this.getSudEst(tuile) && (!use1 || !use2)) {
             System.out.println("ici4");
-            if (tuile.getIndexcouleur1()==this.listTuilesPosee[x+1][y+1].getComposition()[0] ||
-                    tuile.getIndexcouleur2()==this.listTuilesPosee[x+1][y+1].getComposition()[0]) {
+            if (tuile.getIndexcouleur1()==this.listTuilesPosee[x+1][y+1].getComposition()[4] ||
+                    tuile.getIndexcouleur2()==this.listTuilesPosee[x+1][y+1].getComposition()[4]) {
                 System.out.println("la4");
-                int couleur = this.listTuilesPosee[x+1][y+1].getComposition()[0];
+                int couleur = this.listTuilesPosee[x+1][y+1].getComposition()[3];
                 for (int i=0;i< modelListePoche.getNbPoches();i++) {
                     if (couleur==modelListePoche.getListePoche()[i].getCouleur()) {
                         System.out.println("couleur4");
@@ -143,10 +143,10 @@ public class ModelMatrice {
         }
         if (this.getSud(tuile) && (!use1 || !use2)) {
             System.out.println("ici5");
-            if (tuile.getIndexcouleur1()==this.listTuilesPosee[x+2][y].getComposition()[1] ||
-                    tuile.getIndexcouleur2()==this.listTuilesPosee[x+2][y].getComposition()[1]) {
+            if (tuile.getIndexcouleur1()==this.listTuilesPosee[x+2][y].getComposition()[3] ||
+                    tuile.getIndexcouleur2()==this.listTuilesPosee[x+2][y].getComposition()[3]) {
                 System.out.println("la5");
-                int couleur = this.listTuilesPosee[x+2][y].getComposition()[1];
+                int couleur = this.listTuilesPosee[x+2][y].getComposition()[4];
                 for (int i=0;i< modelListePoche.getNbPoches();i++) {
                     if (couleur==modelListePoche.getListePoche()[i].getCouleur()) {
                         System.out.println("couleur5");
@@ -172,9 +172,10 @@ public class ModelMatrice {
         }
         if (this.getSudOuest(tuile) && (!use1 || !use2)) {
             System.out.println("ici6");
-            if (tuile.getIndexcouleur1()==this.listTuilesPosee[x+1][y-1].getComposition()[2] || tuile.getIndexcouleur2()==this.listTuilesPosee[x+1][y-1].getComposition()[2]) {
+            if (tuile.getIndexcouleur1()==this.listTuilesPosee[x+1][y-1].getComposition()[2] ||
+                    tuile.getIndexcouleur2()==this.listTuilesPosee[x+1][y-1].getComposition()[2]) {
                 System.out.println("la6");
-                int couleur = this.listTuilesPosee[x+1][y-1].getComposition()[2];
+                int couleur = this.listTuilesPosee[x+1][y-1].getComposition()[5];
                 for (int i=0;i< modelListePoche.getNbPoches();i++) {
                     if (couleur==modelListePoche.getListePoche()[i].getCouleur()) {
                         System.out.println("couleur6");
@@ -214,8 +215,13 @@ public class ModelMatrice {
             }
         }
         modelJeux.setScore(modelJeux.getScore()+1);
+        int[] comp = modelJeux.getListTuiles().getFirst().getComposition();
+        for (int i=0; i<comp.length; i++) {
+            System.out.println(comp[i]);
+        }
         modelJeux.getListTuiles().removeFirst();
 
+        System.out.println(modelJeux.getScore());
         modelJeux.getVueJeux().updatePlayerInfo();
         modelJeux.getVueJeux().setDirty();
         //modelJeux.getVueJeux().repaint();
