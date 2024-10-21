@@ -99,6 +99,8 @@ public class VueJeux extends JLayeredPane {
             }
             if (modelJeux.getListTuiles().isEmpty() && !end) {
                 end = true;
+                modelJeux.setUndo(false);
+                modelJeux.setUndoActivate(false);
                 this.updatePreviewTuileList();
                 modelJeux.createEndView();
                 modelJeux.getVueScoreScreen().setBounds(getWidth() - 400, 100, 350, 600);

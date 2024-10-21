@@ -37,12 +37,7 @@ public class ModelMatrice {
             modelJeux.setUndo(false);
         }
 
-        modelJeux.setTuileUndoAble(modelJeux.getListTuiles().getFirst());
-        modelJeux.getListTuiles().removeFirst();
-        System.out.println(modelJeux.getScore());
-        System.out.println(modelListePoche.getScore());
-        modelJeux.getVueJeux().updatePlayerInfo();
-        modelJeux.getVueJeux().setDirty();
+
 
         boolean use1=false;
         boolean use2=false;
@@ -241,17 +236,15 @@ public class ModelMatrice {
             }
         }
         modelJeux.setScore();
-        int[] comp = modelJeux.getListTuiles().getFirst().getComposition();
-        for (int i=0; i<comp.length; i++) {
-            System.out.println(comp[i]);
-        }
-        modelJeux.getListTuiles().removeFirst();
 
-        System.out.println(modelJeux.getScore());
-        System.out.println(modelListePoche.getScore());
+        modelJeux.getListTuiles().removeFirst();
+        if (!modelJeux.getListTuiles().isEmpty()) {
+            modelJeux.setTuileUndoAble(modelJeux.getListTuiles().getFirst());
+            modelJeux.getListTuiles().removeFirst();
+        }
+
         modelJeux.getVueJeux().updatePlayerInfo();
         modelJeux.getVueJeux().setDirty();
-        //modelJeux.getVueJeux().repaint();
     }
 
 
@@ -261,7 +254,9 @@ public class ModelMatrice {
     }
 
     public void deleteButton(int x,int y){
-        modelJeux.getVueJeux().remove(this.listTuilesPosee[x][y].getVueTuile());
+        if (modelJeux.isUndo()) {
+            modelJeux.getVueJeux().remove(this.listTuilesPosee[x][y].getVueTuile());
+        }
         this.listTuilesPosee[x][y].setVueTuile(null);
         this.listTuilesPosee[x][y] = null;
         for (int row = 0; row < listTuilesPosee.length; row++) {
