@@ -32,6 +32,7 @@ public class ModelJeux {
         createFirstTuile();
 
         setScore(0);
+        vueJeux.updatePreviewTuileList();
         createButton();
     }
 
