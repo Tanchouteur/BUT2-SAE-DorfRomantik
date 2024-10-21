@@ -69,7 +69,7 @@ public class VueJeux extends JLayeredPane {
                         if (!tuile.isButton()) {
                             tuile.createVueTuile(x, y, tuileSize);
                             this.add(tuile.getVueTuile(), Integer.valueOf(0));
-                            this.updatePreviewTuile();
+                            this.updatePreviewTuileList();
                         } else if (!modelJeux.getListTuiles().isEmpty()) {
                             tuile.createVueTuile(x, y, tuileSize / 2);
                             this.add(tuile.getVueTuile(), Integer.valueOf(0));
@@ -80,7 +80,7 @@ public class VueJeux extends JLayeredPane {
                         if (!tuile.isButton()) {
 
                             tuile.getVueTuile().updateTuile(x, y, tuileSize);
-
+                            this.updatePreviewTuileList();
                         } else if (!modelJeux.getListTuiles().isEmpty()) {
                             tuile.getVueTuile().updateTuile(x, y, tuileSize / 2);
                         }
@@ -122,7 +122,7 @@ public class VueJeux extends JLayeredPane {
         //repaint();
     }
 
-    public void updatePreviewTuile(){
+    public void updatePreviewTuileList(){
 
         if (!modelJeux.getListTuiles().isEmpty()) {
             for (int row = modelJeux.getListTuiles().size() - 1; row >= 0; row--) {

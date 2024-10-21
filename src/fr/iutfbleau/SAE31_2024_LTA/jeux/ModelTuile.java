@@ -126,7 +126,7 @@ public class ModelTuile {
                 }
             }
         }
-        vueJeux.updatePreviewTuile();
+        vueJeux.updatePreviewTuileList();
     }
     public int getX() {
         return this.x;
