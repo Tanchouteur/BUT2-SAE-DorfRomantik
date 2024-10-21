@@ -34,7 +34,7 @@ public class ModelMatrice {
         /*boolean use1=false;
         boolean use2=false;
 
-        if (this.getNordOuest(tuile) && (!use1 || !use2)) {
+        if (this.isNordOuest(tuile) && (!use1 || !use2)) {
             System.out.println("ici1");
             if (tuile.getIndexcouleur1()==this.listTuilesPosee[x-1][y-1].getComposition()[1] ||
                     tuile.getIndexcouleur2()==this.listTuilesPosee[x-1][y-1].getComposition()[1]) {
@@ -63,8 +63,8 @@ public class ModelMatrice {
             }
 
         }
-        if (this.getNord(tuile) && (!use1 || !use2)) {
-            System.out.println("ici2");
+        if (this.isNord(tuile) && (!use1 || !use2)) {
+            System.out.println("ici0");
             if (tuile.getIndexcouleur1()==this.listTuilesPosee[x-2][y].getComposition()[0] ||
                     tuile.getIndexcouleur2()==this.listTuilesPosee[x-2][y].getComposition()[0]) {
                 System.out.println("la2");
@@ -93,8 +93,8 @@ public class ModelMatrice {
 
         }
 
-        if (this.getNordEst(tuile) && (!use1 || !use2)) {
-            System.out.println("ici3");
+        if (this.isNordEst(tuile) && (!use1 || !use2)) {
+            System.out.println("ici5");
             if (tuile.getIndexcouleur1()==this.listTuilesPosee[x-1][y+1].getComposition()[5] ||
                     tuile.getIndexcouleur2()==this.listTuilesPosee[x-1][y+1].getComposition()[5]) {
                 System.out.println("la3");
@@ -125,7 +125,7 @@ public class ModelMatrice {
             }
 
         }
-        if (this.getSudEst(tuile) && (!use1 || !use2)) {
+        if (this.isSudEst(tuile) && (!use1 || !use2)) {
             System.out.println("ici4");
             if (tuile.getIndexcouleur1()==this.listTuilesPosee[x+1][y+1].getComposition()[4] ||
                     tuile.getIndexcouleur2()==this.listTuilesPosee[x+1][y+1].getComposition()[4]) {
@@ -154,8 +154,8 @@ public class ModelMatrice {
             }
 
         }
-        if (this.getSud(tuile) && (!use1 || !use2)) {
-            System.out.println("ici5");
+        if (this.isSud(tuile) && (!use1 || !use2)) {
+            System.out.println("ici3");
             if (tuile.getIndexcouleur1()==this.listTuilesPosee[x+2][y].getComposition()[3] ||
                     tuile.getIndexcouleur2()==this.listTuilesPosee[x+2][y].getComposition()[3]) {
                 System.out.println("la5");
@@ -183,8 +183,8 @@ public class ModelMatrice {
             }
 
         }
-        if (this.getSudOuest(tuile) && (!use1 || !use2)) {
-            System.out.println("ici6");
+        if (this.isSudOuest(tuile) && (!use1 || !use2)) {
+            System.out.println("ici2");
             if (tuile.getIndexcouleur1()==this.listTuilesPosee[x+1][y-1].getComposition()[2] ||
                     tuile.getIndexcouleur2()==this.listTuilesPosee[x+1][y-1].getComposition()[2]) {
                 System.out.println("la6");
@@ -245,16 +245,16 @@ public class ModelMatrice {
         }
     }
 
-    public boolean getNordOuest(ModelTuile tuile){
+    public boolean isNordOuest(ModelTuile tuile) {
         int x = tuile.getX();
         int y = tuile.getY();
-        if(this.listTuilesPosee[x-1][y-1] == null){
+        if (this.listTuilesPosee[x - 1][y - 1] == null) {
             return false;
         }
         return true;
     }
 
-    public boolean getNord(ModelTuile tuile){
+    public boolean isNord(ModelTuile tuile){
         int x = tuile.getX();
         int y = tuile.getY();
         if(this.listTuilesPosee[x-2][y] == null){
@@ -263,7 +263,7 @@ public class ModelMatrice {
         return true;
     }
 
-    public boolean getNordEst(ModelTuile tuile){
+    public boolean isNordEst(ModelTuile tuile){
         int x = tuile.getX();
         int y = tuile.getY();
         if(this.listTuilesPosee[x-1][y+1] == null){
@@ -272,7 +272,7 @@ public class ModelMatrice {
         return true;
     }
 
-    public boolean getSudOuest(ModelTuile tuile){
+    public boolean isSudOuest(ModelTuile tuile){
         int x = tuile.getX();
         int y = tuile.getY();
         if(this.listTuilesPosee[x+1][y-1] == null){
@@ -281,7 +281,7 @@ public class ModelMatrice {
         return true;
     }
 
-    public boolean getSud(ModelTuile tuile){
+    public boolean isSud(ModelTuile tuile){
         int x = tuile.getX();
         int y = tuile.getY();
         if(this.listTuilesPosee[x+2][y] == null){
@@ -290,7 +290,7 @@ public class ModelMatrice {
         return true;
     }
 
-    public boolean getSudEst(ModelTuile tuile){
+    public boolean isSudEst(ModelTuile tuile){
         int x = tuile.getX();
         int y = tuile.getY();
         if(this.listTuilesPosee[x+1][y+1] == null){
@@ -298,6 +298,41 @@ public class ModelMatrice {
         }
         return true;
     }
+
+    // Il faut éventuellement verifier si la tuile demandee existe avec un isPosition ou alors le mettre dans cette methode.
+
+    public ModelTuile getNordOuest(ModelTuile tuile){
+        int x = tuile.getX();
+        int y = tuile.getY();
+        return this.listTuilesPosee[x-1][y-1];
+    }
+    public ModelTuile getNord(ModelTuile tuile){
+        int x = tuile.getX();
+        int y = tuile.getY();
+        return this.listTuilesPosee[x-2][y];
+    }
+    public ModelTuile getNordEst(ModelTuile tuile){
+        int x = tuile.getX();
+        int y = tuile.getY();
+        return this.listTuilesPosee[x-1][y+1];
+    }
+
+    public ModelTuile getSudOuest(ModelTuile tuile){
+        int x = tuile.getX();
+        int y = tuile.getY();
+        return this.listTuilesPosee[x+1][y-1];
+    }
+    public ModelTuile getSud(ModelTuile tuile){
+        int x = tuile.getX();
+        int y = tuile.getY();
+        return this.listTuilesPosee[x+2][y];
+    }
+    public ModelTuile getSudEst(ModelTuile tuile){
+        int x = tuile.getX();
+        int y = tuile.getY();
+        return this.listTuilesPosee[x+1][y+1];
+    }
+
 
     public ModelTuile[][] getListTuilesPosee() {
         return this.listTuilesPosee;

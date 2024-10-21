@@ -96,27 +96,27 @@ public class ModelJeux {
 
                 if (tuile != null && !tuile.isButton()) {
 
-                    if (!getModelMatrice().getNordOuest(tuile)) {
+                    if (!getModelMatrice().isNordOuest(tuile)) {
                         modelMatrice.poseeButton(row-1, col-1, new ModelTuile());
                     }
 
-                    if (!getModelMatrice().getNord(tuile)) {
+                    if (!getModelMatrice().isNord(tuile)) {
                         modelMatrice.poseeButton(row-2,col, new ModelTuile());
                     }
 
-                    if (!getModelMatrice().getNordEst(tuile)) {
+                    if (!getModelMatrice().isNordEst(tuile)) {
                         modelMatrice.poseeButton(row-1,col+1, new ModelTuile());
                     }
 
-                    if (!getModelMatrice().getSudOuest(tuile)) {
+                    if (!getModelMatrice().isSudOuest(tuile)) {
                         modelMatrice.poseeButton(row+1,col-1, new ModelTuile());
                     }
 
-                    if (!getModelMatrice().getSud(tuile)) {
+                    if (!getModelMatrice().isSud(tuile)) {
                         modelMatrice.poseeButton(row+2,col, new ModelTuile());
                     }
 
-                    if (!getModelMatrice().getSudEst(tuile)) {
+                    if (!getModelMatrice().isSudEst(tuile)) {
                         modelMatrice.poseeButton(row+1,col+1, new ModelTuile());
                     }
                 }
