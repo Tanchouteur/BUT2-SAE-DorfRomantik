@@ -1,15 +1,19 @@
 package fr.iutfbleau.SAE31_2024_LTA.config;
 
 import fr.iutfbleau.SAE31_2024_LTA.ModelPrincipale;
+import fr.iutfbleau.SAE31_2024_LTA.popup.ControllerPopup;
 
 public class ConfigManager {
 
     private final Configuration configuration;
     private final ConfigFileHandler fileHandler;
 
-    public ConfigManager(ModelPrincipale modelPrincipale) {
+    public ConfigManager(ControllerPopup controllerPopup) {
         this.fileHandler = new ConfigFileHandler();
-        this.configuration = fileHandler.loadConfiguration(modelPrincipale);
+        this.configuration = fileHandler.loadConfiguration();
+        if (this.isTuto()){
+            controllerPopup.showTutoDialog(this);
+        }
     }
 
     public int getVolumeEffet() {
@@ -39,12 +43,12 @@ public class ConfigManager {
         fileHandler.saveConfiguration(configuration);
     }
 
-    public boolean isShowTutorialPopup() {
-        return configuration.isShowTutorialPopup();
+    public boolean isTuto() {
+        return configuration.isTuto();
     }
 
-    public void setShowTutorialPopup(boolean show) {
-        configuration.setShowTutorialPopup(show);
+    public void setTuto(boolean show) {
+        configuration.setTuto(show);
         fileHandler.saveConfiguration(configuration);
     }
 }

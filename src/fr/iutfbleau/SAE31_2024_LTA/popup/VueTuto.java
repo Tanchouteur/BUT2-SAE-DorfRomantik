@@ -1,6 +1,6 @@
 package fr.iutfbleau.SAE31_2024_LTA.popup;
 
-import fr.iutfbleau.SAE31_2024_LTA.ModelPrincipale;
+import fr.iutfbleau.SAE31_2024_LTA.config.ConfigManager;
 
 import javax.swing.*;
 import java.awt.*;
@@ -8,13 +8,22 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
 public class VueTuto extends JPanel {
-    VueTuto(ControllerPopup controllerPopup, ModelPrincipale modelPrincipale) {
+    private final JCheckBox showAtStartupCheckBox;
+
+    VueTuto(ControllerPopup controllerPopup, ConfigManager configManager) {
+        showAtStartupCheckBox = new JCheckBox("Montrer au démarrage", configManager.isTuto());
+        styleCheckBox(showAtStartupCheckBox);
+        showAtStartupCheckBox.setBounds(180, 300, 220, 30);
+        showAtStartupCheckBox.addActionListener(e -> onShowAtStartupChange(configManager));
+        add(showAtStartupCheckBox);
 
         JButton resumeButton = new JButton("Resume");
         styleButton(resumeButton);
         resumeButton.setBounds(200, 350, 180, 50);
         resumeButton.addActionListener(e -> onResume(controllerPopup));
         add(resumeButton);
+
+
     }
     private void styleButton(JButton button) {
         button.setBackground(new Color(60, 60, 60));
@@ -40,7 +49,18 @@ public class VueTuto extends JPanel {
         });
     }
 
+    private void styleCheckBox(JCheckBox checkBox) {
+        checkBox.setBackground(new Color(60, 60, 60));
+        checkBox.setForeground(Color.WHITE);
+        checkBox.setFocusPainted(false);
+        checkBox.setFont(new Font("Arial", Font.PLAIN, 14));
+        checkBox.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
+    }
+
     private void onResume(ControllerPopup controllerPopup) {
         controllerPopup.closePopup(controllerPopup.getTutoDialog());
+    }
+    private void onShowAtStartupChange(ConfigManager configManager) {
+        configManager.setTuto(showAtStartupCheckBox.isSelected());
     }
 }

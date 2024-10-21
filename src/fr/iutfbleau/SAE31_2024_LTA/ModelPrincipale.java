@@ -41,14 +41,15 @@ public class ModelPrincipale {
     private final ControllerPopup controllerPopup;
 
     public ModelPrincipale() {
-        configManager = new ConfigManager(this);
+
         bdd = new ModelBDD();
 
-        mediaPlayerManager = new MediaPlayerManager(this);
-        modelMediaLoader = new ModelMediaLoader();
 
         vuePrincipale = createView();
-        controllerPopup = new ControllerPopup(vuePrincipale, configManager);
+        controllerPopup = new ControllerPopup(vuePrincipale);
+        configManager = new ConfigManager(controllerPopup);
+        mediaPlayerManager = new MediaPlayerManager(this);
+        modelMediaLoader = new ModelMediaLoader();
         modelMenu = new ModelMenu(this);
         modelPartieJouer = new ModelPartieJouer(this);
 

@@ -5,14 +5,14 @@ public class Configuration {
     private int volumeEffet;
     private int volumeMusique;
     private String playerName;
-    private boolean showTutorialPopup;
+    private boolean tuto;
 
     public Configuration() {
         //cest les valeurs par défault
         this.volumeEffet = 95;
         this.volumeMusique = 95;
         this.playerName = "player";
-        this.showTutorialPopup = true;
+        this.tuto = true;
     }
 
     public int getVolumeEffet() {
@@ -39,11 +39,11 @@ public class Configuration {
         this.playerName = playerName;
     }
 
-    public boolean isShowTutorialPopup() {
-        return showTutorialPopup;
+    public boolean isTuto() {
+        return tuto;
     }
 
-    public void setShowTutorialPopup(boolean showTutorialPopup) {
-        this.showTutorialPopup = showTutorialPopup;
+    public void setTuto(boolean showTutorialPopup) {
+        this.tuto = showTutorialPopup;
     }
 }

@@ -15,7 +15,7 @@ public class ConfigFileHandler {
         properties.setProperty("volumeEffet", Integer.toString(configuration.getVolumeEffet()));
         properties.setProperty("volumeMusique", Integer.toString(configuration.getVolumeMusique()));
         properties.setProperty("playerName", configuration.getPlayerName());
-        properties.setProperty("showTutoPopup", Boolean.toString(configuration.isShowTutorialPopup()));
+        properties.setProperty("tuto", Boolean.toString(configuration.isTuto()));
 
         try (FileOutputStream output = new FileOutputStream(CONFIG_FILE_PATH)) {
             properties.store(output, "Configuration Settings");
@@ -25,7 +25,7 @@ public class ConfigFileHandler {
         }
     }
 
-    public Configuration loadConfiguration(ModelPrincipale modelPrincipale) {
+    public Configuration loadConfiguration() {
         Properties properties = new Properties();
         Configuration config = new Configuration();
 
@@ -36,11 +36,7 @@ public class ConfigFileHandler {
             config.setVolumeEffet(Integer.parseInt(properties.getProperty("volumeEffet", "100")));
             config.setVolumeMusique(Integer.parseInt(properties.getProperty("volumeMusique", "100")));
             config.setPlayerName(properties.getProperty("playerName", "Player Name..."));
-            config.setShowTutorialPopup(Boolean.parseBoolean(properties.getProperty("showTutorialPopup")));
-
-            if (config.isShowTutorialPopup()){
-                modelPrincipale.getControllerPopup().showTutoDialog();
-            }
+            config.setTuto(Boolean.parseBoolean(properties.getProperty("tuto")));
 
         } catch (IOException e) {
             System.err.println("Erreur lors du chargement de la configuration : " + e.getMessage());
