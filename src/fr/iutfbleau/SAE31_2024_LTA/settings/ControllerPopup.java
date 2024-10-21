@@ -1,18 +1,21 @@
 package fr.iutfbleau.SAE31_2024_LTA.settings;
 
 import fr.iutfbleau.SAE31_2024_LTA.VuePrincipale;
+import fr.iutfbleau.SAE31_2024_LTA.config.ConfigManager;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class ControllerPopup extends AbstractAction {
-    VueSettings vueSettings;
-    JDialog settingsDialog;
-    VuePrincipale vuePrincipale;
-    public ControllerPopup(VuePrincipale vuePrincipale){
-        this.vuePrincipale = vuePrincipale;
-        vueSettings = new VueSettings(this, vuePrincipale);
+    private final VueSettings vueSettings;
+    private final JDialog settingsDialog;
+    private final ConfigManager configManager;
+
+    public ControllerPopup(VuePrincipale vuePrincipale, ConfigManager configManager) {
+        this.configManager = configManager;
+
+        this.vueSettings = new VueSettings(this, vuePrincipale.getModelPrincipale());
 
         settingsDialog = new JDialog(vuePrincipale, "Paramètres", true);
         settingsDialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
@@ -35,8 +38,8 @@ public class ControllerPopup extends AbstractAction {
     public Action showSettingsDialog() {
         if (settingsDialog != null) {
             if (!settingsDialog.isVisible()) {
-                vueSettings.setMusicVolume(vuePrincipale.getModelPrincipale().getModelMediaLoader().getVolumeMusic());
-                vueSettings.setEffectsVolume(vuePrincipale.getModelPrincipale().getModelMediaLoader().getVolumeEffect());
+                vueSettings.setMusicVolume(configManager.getVolumeMusique());
+                vueSettings.setEffectsVolume(configManager.getVolumeEffet());
                 settingsDialog.setVisible(true);
             }else {{
                 settingsDialog.setVisible(false);

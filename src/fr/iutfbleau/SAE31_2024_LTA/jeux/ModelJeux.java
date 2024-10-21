@@ -13,6 +13,7 @@ public class ModelJeux {
     private final ModelMatrice modelMatrice;
     private final ModelListePoche modelListePoche;
     private final LinkedList<ModelTuile> listTuiles;
+    private boolean undoActivate = false;
     private boolean undo = false;
     private ModelTuile tuileUndoAble;
 
@@ -167,6 +168,14 @@ public class ModelJeux {
 
     public void setUndo(boolean undo) {
         this.undo = undo;
+    }
+
+    public boolean isUndoActivate() {
+        return undoActivate;
+    }
+
+    public void setUndoActivate(boolean undoActivate) {
+        this.undoActivate = undoActivate;
     }
 
     public ModelTuile getTuileUndoAble() {

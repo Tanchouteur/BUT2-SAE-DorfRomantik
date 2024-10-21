@@ -21,6 +21,7 @@ public class VueTuile extends JComponent {
         this.yPoints = new int[6];
 
         updateTuile( centerX, centerY, radius);
+        this.setCursor(new Cursor(Cursor.HAND_CURSOR));
     }
 
     public ModelTuile getModelTuile() {

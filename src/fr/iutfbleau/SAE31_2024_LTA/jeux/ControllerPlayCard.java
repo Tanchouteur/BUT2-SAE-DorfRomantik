@@ -55,6 +55,7 @@ public class ControllerPlayCard implements ActionListener {
                 }
 
                 modelPrincipale.setPlayerName(playerName);
+                modelPrincipale.getConfigManager().setPlayerName(playerName);
                 modelPrincipale.setSelectedSeed(seed);
 
 

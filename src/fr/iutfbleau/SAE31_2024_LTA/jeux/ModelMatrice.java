@@ -14,11 +14,14 @@ public class ModelMatrice {
     }
 
     public void undoLastTuile() {
-        modelJeux.addFirstListTuiles(modelJeux.getTuileUndoAble());
-        deleteButton(modelJeux.getTuileUndoAble().getX(),modelJeux.getTuileUndoAble().getY());
-        modelJeux.getVueJeux().updatePreviewTuileList();
+        if (!modelJeux.isUndo()) {
+            modelJeux.addFirstListTuiles(modelJeux.getTuileUndoAble());
+            deleteButton(modelJeux.getTuileUndoAble().getX(), modelJeux.getTuileUndoAble().getY());
+            modelJeux.getVueJeux().updatePreviewTuileList();
 
-        modelJeux.createButton();
+            modelJeux.createButton();
+            modelJeux.setUndo(true);
+        }
     }
 
     public void poseeTuile(int x,int y){
@@ -26,10 +29,19 @@ public class ModelMatrice {
         this.listTuilesPosee[x][y] = tuile;
         this.listTuilesPosee[x][y].setCoordonner(x, y);
 
-        if (!modelJeux.isUndo() && x != 50 && y != 50){
+        if (!modelJeux.isUndoActivate() && x != 50 && y != 50){
             modelJeux.getVueJeux().addMouseListener(new ControllerPoseTuile(modelJeux, tuile));
-            modelJeux.setUndo(true);
+            modelJeux.setUndoActivate(true);
         }
+        if (modelJeux.isUndo()){
+            modelJeux.setUndo(false);
+        }
+
+        modelJeux.setTuileUndoAble(modelJeux.getListTuiles().getFirst());
+        modelJeux.getListTuiles().removeFirst();
+        System.out.println(modelJeux.getScore());
+        modelJeux.getVueJeux().updatePlayerInfo();
+        modelJeux.getVueJeux().setDirty();
 
         boolean use1=false;
         boolean use2=false;
@@ -232,12 +244,6 @@ public class ModelMatrice {
         for (int i=0; i<comp.length; i++) {
             System.out.println(comp[i]);
         }
-        modelJeux.setTuileUndoAble(modelJeux.getListTuiles().getFirst());
-        modelJeux.getListTuiles().removeFirst();
-        System.out.println(modelJeux.getScore());
-        modelJeux.getVueJeux().updatePlayerInfo();
-        modelJeux.getVueJeux().setDirty();
-        //modelJeux.getVueJeux().repaint();
     }
 
 

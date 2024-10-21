@@ -19,9 +19,7 @@ public class ControllerPoseTuile implements MouseListener {
     }
 
     @Override
-    public void mouseClicked(MouseEvent e) {
-
-    }
+    public void mouseClicked(MouseEvent e) {    }
 
     @Override
     public void mousePressed(MouseEvent e) {
@@ -43,7 +41,7 @@ public class ControllerPoseTuile implements MouseListener {
                 }
             }
         }
-        if (e.getButton() == 3 && modelJeux.isUndo()){ //3 c'est clic gauche je crois
+        if (e.getButton() == 3 && modelJeux.isUndoActivate()){ //3 c'est clic gauche je crois
             modelJeux.getModelMatrice().undoLastTuile();
         }
         clicked = false;

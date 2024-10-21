@@ -92,7 +92,8 @@ public class MediaPlayerManager {
             setClipVolume(modelPrincipale.getModelMediaLoader().getClipsTuiles()[i], level);
         }
         setClipVolume(modelPrincipale.getModelMediaLoader().getClicAudioClip(), level);
-        modelPrincipale.getModelMediaLoader().setVolumeEffect(levelP);
+        //modelPrincipale.getModelMediaLoader().setVolumeEffect(levelP);
+        modelPrincipale.getConfigManager().setVolumeEffet(levelP);
     }
 
     public void setVolumeMusique(int levelP) {
@@ -101,7 +102,8 @@ public class MediaPlayerManager {
             setClipVolume(modelPrincipale.getModelMediaLoader().getGameMusicClips().get(i), level);
         }
         setClipVolume(modelPrincipale.getModelMediaLoader().getMenuMusicClip(), level);
-        modelPrincipale.getModelMediaLoader().setVolumeMusic(levelP);
+        //modelPrincipale.getModelMediaLoader().setVolumeMusic(levelP);
+        modelPrincipale.getConfigManager().setVolumeMusique(levelP);
     }
 
     public float getClipVolume(Clip clip) {
