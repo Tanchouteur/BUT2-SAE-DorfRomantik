@@ -34,7 +34,7 @@ public class ModelJeux {
 
         createFirstTuile();
 
-        setScore(0);
+        setScore();
         vueJeux.updatePreviewTuileList();
         createButton();
     }
@@ -154,8 +154,8 @@ public class ModelJeux {
         return this.score;
     }
 
-    public void setScore(int score) {
-        this.score = score;
+    public void setScore() {
+        this.score=modelListePoche.getScore();
     }
 
     public ModelListePoche getModelListePoche() {
