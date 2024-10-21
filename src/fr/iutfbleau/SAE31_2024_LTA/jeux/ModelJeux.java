@@ -13,6 +13,7 @@ public class ModelJeux {
     private final ModelMatrice modelMatrice;
     private final ModelListePoche modelListePoche;
     private final LinkedList<ModelTuile> listTuiles;
+    private boolean undo = false;
 
     private int score = 0;
 
@@ -152,5 +153,13 @@ public class ModelJeux {
 
     public ModelListePoche getModelListePoche() {
         return modelListePoche;
+    }
+
+    public boolean isUndo() {
+        return undo;
+    }
+
+    public void setUndo(boolean undo) {
+        this.undo = undo;
     }
 }

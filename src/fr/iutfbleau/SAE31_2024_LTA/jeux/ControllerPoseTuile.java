@@ -33,15 +33,18 @@ public class ControllerPoseTuile implements MouseListener {
 
         Object source = e.getSource();
         if (source instanceof VueTuile btnCliked && clicked) {
+            if (btnCliked.getModelTuile().isButton() && e.getButton() == 1) {
+                if (!modelJeux.getListTuiles().isEmpty()) {
+                    modelJeux.playTuileSound(modelJeux.getListTuiles().getFirst().getSoundIndex());
 
-            if (!modelJeux.getListTuiles().isEmpty()) {
-                modelJeux.playTuileSound(modelJeux.getListTuiles().getFirst().getSoundIndex());
-
-                modelJeux.getModelMatrice().poseeTuile(buttonTuile.getX(), buttonTuile.getY());
-                modelJeux.createButton();
-                modelJeux.getVueJeux().updateTuile(btnCliked);
+                    modelJeux.getModelMatrice().poseeTuile(buttonTuile.getX(), buttonTuile.getY());
+                    modelJeux.createButton();
+                    modelJeux.getVueJeux().updateTuile(btnCliked);
+                }
             }
-
+        }
+        if (e.getButton() == 3){ //3 c'est clic gauche je crois
+            modelJeux.getModelMatrice().undoLastTuile();
         }
         clicked = false;
         modelJeux.getVueJeux().unsetPreviewOnButton(modeleTuilePreviewed);

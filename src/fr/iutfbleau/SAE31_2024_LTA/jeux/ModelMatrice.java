@@ -18,6 +18,9 @@ public class ModelMatrice {
         this.listTuilesPosee[x][y] = tuile;
         this.listTuilesPosee[x][y].setCoordonner(x, y);
 
+        if (!modelJeux.isUndo()){
+            modelJeux.getVueJeux().addMouseListener(new ControllerPoseTuile(modelJeux, tuile));
+        }
 
         boolean use1=false;
         boolean use2=false;
@@ -293,5 +296,9 @@ public class ModelMatrice {
 
     public ModelTuile[][] getListTuilesPosee() {
         return this.listTuilesPosee;
+    }
+
+    public void undoLastTuile() {
+        System.out.println("undo");
     }
 }

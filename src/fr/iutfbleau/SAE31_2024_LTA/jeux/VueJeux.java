@@ -84,6 +84,7 @@ public class VueJeux extends JLayeredPane {
                             this.add(tuile.getVueTuile(), Integer.valueOf(0));
                             tuile.getVueTuile().addMouseListener(new ControllerPoseTuile(modelJeux, tuile));
                         }
+
                     } else if (tuile != null && tuile.getVueTuile() != null) {
 
                         if (!tuile.isButton()) {
