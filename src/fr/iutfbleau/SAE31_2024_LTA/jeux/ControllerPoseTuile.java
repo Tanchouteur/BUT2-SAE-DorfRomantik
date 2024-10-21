@@ -28,25 +28,27 @@ public class ControllerPoseTuile implements MouseListener {
 
     @Override
     public void mouseReleased(MouseEvent e) {
+        if (clicked) {
+            Object source = e.getSource();
 
-        Object source = e.getSource();
-        if (source instanceof VueTuile btnCliked && clicked) {
-            if (btnCliked.getModelTuile().isButton() && e.getButton() == 1) {
-                if (!modelJeux.getListTuiles().isEmpty()) {
+            if (source instanceof VueTuile) {
+                VueTuile btnHovered = (VueTuile) source;
+
+                if (e.getButton() == MouseEvent.BUTTON1 && !modelJeux.getListTuiles().isEmpty()) {
                     modelJeux.playTuileSound(modelJeux.getListTuiles().getFirst().getSoundIndex());
+                    modelJeux.getModelMatrice().deleteTuile(btnHovered.getModelTuile());
+                    modelJeux.getModelMatrice().poseTuile(btnHovered.getX(), btnHovered.getY());
+                    modelJeux.getVueJeux().updatePreviewTuileList();
+                }
 
-                    modelJeux.getModelMatrice().poseeTuile(buttonTuile.getX(), buttonTuile.getY());
-                    modelJeux.createButton();
-                    modelJeux.getVueJeux().updateTuile(btnCliked);
+                if (e.getButton() == MouseEvent.BUTTON3 && modelJeux.isUndoActivate()) {
+                    modelJeux.undoLastTuile();
                 }
             }
+
+            clicked = false;
+            modelJeux.getVueJeux().unsetPreviewOnButton(modeleTuilePreviewed);
         }
-        if (e.getButton() == 3 && modelJeux.isUndoActivate() && !modelJeux.getListTuiles().isEmpty()){ //3 c'est clic gauche je crois
-            modelJeux.undoLastTuile();
-        }
-        clicked = false;
-        modelJeux.getVueJeux().unsetPreviewOnButton(modeleTuilePreviewed);
-        //modelJeux.getVueJeux().repaint();
     }
 
     @Override
@@ -54,7 +56,7 @@ public class ControllerPoseTuile implements MouseListener {
         clicked = true;
 
         Object source = e.getSource();
-        if (source instanceof VueTuile btnHovered && clicked) {
+        if (source instanceof VueTuile btnHovered) {
             modeleTuilePreviewed = modelJeux.getVueJeux().setPreviewOnButton(btnHovered);
         }
     }

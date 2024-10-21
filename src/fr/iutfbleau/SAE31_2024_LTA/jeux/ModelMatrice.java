@@ -1,340 +1,110 @@
 package fr.iutfbleau.SAE31_2024_LTA.jeux;
 
+import java.awt.Point;
+import java.util.HashMap;
+import java.util.Map;
+
 public class ModelMatrice {
 
-    private final ModelTuile[][] listTuilesPosee;
+    private Map<Point, ModelTuile> tuilesPartie;
     private final ModelJeux modelJeux;
     private final ModelListePoche modelListePoche;
 
     public ModelMatrice(ModelJeux modelJeux) {
-        this.listTuilesPosee = new ModelTuile[101][101];
         this.modelJeux = modelJeux;
         this.modelListePoche = new ModelListePoche(modelJeux);
-
+        this.tuilesPartie = new HashMap<>(); // Utilisation d'une HashMap pour les tuiles
     }
 
-    public void poseeTuile(int x,int y){
+    public void poseTuile(int x, int y) {
         ModelTuile tuile = modelJeux.getListTuiles().getFirst();
-        this.listTuilesPosee[x][y] = tuile;
-        this.listTuilesPosee[x][y].setCoordonner(x, y);
-        modelJeux.setTuileUndoAble(modelJeux.getListTuiles().getFirst());
+
+        this.tuilesPartie.put(new Point(x, y), tuile);
+        this.tuilesPartie.get(new Point(x, y)).setCoordonner(x, y);
+        modelJeux.setTuileUndoAble(tuile);
         modelJeux.getListTuiles().removeFirst();
 
-        if (x != 50 && y != 50){
-            modelJeux.getVueJeux().addMouseListener(new ControllerPoseTuile(modelJeux, tuile));
-        }
-
-        if (!modelJeux.isUndoActivate()){
+        if (!modelJeux.isUndoActivate() && x != 0 && y != 0) {
             modelJeux.setUndoActivate(true);
         }
-        if (modelJeux.isUndo()){
+        if (modelJeux.isUndo()) {
             modelJeux.setUndo(false);
         }
-
-        /*boolean use1=false;
-        boolean use2=false;
-
-        if (this.isNordOuest(tuile) && (!use1 || !use2)) {
-            System.out.println("ici1");
-            if (tuile.getIndexcouleur1()==this.listTuilesPosee[x-1][y-1].getComposition()[1] ||
-                    tuile.getIndexcouleur2()==this.listTuilesPosee[x-1][y-1].getComposition()[1]) {
-                System.out.println("la1");
-                int couleur = this.listTuilesPosee[x-1][y-1].getComposition()[1];
-                for (int i=0;i< modelListePoche.getNbPoches();i++) {
-                    if (couleur==modelListePoche.getListePoche()[i].getCouleur()) {
-                        System.out.println("couleur1");
-                        for (int j=0;j<modelListePoche.getListePoche()[i].getLength();j++) {
-                            if (this.listTuilesPosee[x-1][y-1]==modelListePoche.getListePoche()[i].getTuiles()[j] && (!use1 || !use2)) {
-                                if (tuile.getIndexcouleur1()==couleur && !use1) {
-                                    modelListePoche.addTuilePoche(modelListePoche.getListePoche()[i], tuile);
-                                    use1 = true;
-                                    if (tuile.getIndexcouleur2()==tuile.getIndexcouleur1()) {
-                                        use2 = true;
-                                    }
-                                }
-                                if (tuile.getIndexcouleur2()==couleur && !use2) {
-                                    modelListePoche.addTuilePoche(modelListePoche.getListePoche()[i], tuile);
-                                    use2 = true;
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-
-        }
-        if (this.isNord(tuile) && (!use1 || !use2)) {
-            System.out.println("ici0");
-            if (tuile.getIndexcouleur1()==this.listTuilesPosee[x-2][y].getComposition()[0] ||
-                    tuile.getIndexcouleur2()==this.listTuilesPosee[x-2][y].getComposition()[0]) {
-                System.out.println("la2");
-                int couleur = this.listTuilesPosee[x-2][y].getComposition()[0];
-                for (int i=0;i< modelListePoche.getNbPoches();i++) {
-                    if (couleur==modelListePoche.getListePoche()[i].getCouleur()) {
-                        System.out.println("couleur2");
-                        for (int j=0;j<modelListePoche.getListePoche()[i].getLength();j++) {
-                            if (this.listTuilesPosee[x-2][y]==modelListePoche.getListePoche()[i].getTuiles()[j] && (!use1 || !use2)) {
-                                if (tuile.getIndexcouleur1()==couleur && !use1) {
-                                    modelListePoche.addTuilePoche(modelListePoche.getListePoche()[i], tuile);
-                                    use1 = true;
-                                    if (tuile.getIndexcouleur2()==tuile.getIndexcouleur1()) {
-                                        use2 = true;
-                                    }
-                                }
-                                if (tuile.getIndexcouleur2()==couleur && !use2) {
-                                    modelListePoche.addTuilePoche(modelListePoche.getListePoche()[i], tuile);
-                                    use2 = true;
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-
-        }
-
-        if (this.isNordEst(tuile) && (!use1 || !use2)) {
-            System.out.println("ici5");
-            if (tuile.getIndexcouleur1()==this.listTuilesPosee[x-1][y+1].getComposition()[5] ||
-                    tuile.getIndexcouleur2()==this.listTuilesPosee[x-1][y+1].getComposition()[5]) {
-                System.out.println("la3");
-                int couleur = this.listTuilesPosee[x-1][y+1].getComposition()[5];
-                for (int i=0;i< modelListePoche.getNbPoches();i++) {
-                    if (couleur==modelListePoche.getListePoche()[i].getCouleur()) {
-                        System.out.println("couleur3");
-                        for (int j=0;j<modelListePoche.getListePoche()[i].getLength();j++) {
-                            if (this.listTuilesPosee[x-1][y+1]==modelListePoche.getListePoche()[i].getTuiles()[j] && (!use1 || !use2)) {
-                                System.out.println("poche3");
-                                if (tuile.getIndexcouleur1()==couleur && !use1) {
-                                    modelListePoche.addTuilePoche(modelListePoche.getListePoche()[i], tuile);
-                                    use1 = true;
-                                    System.out.println("points3");
-                                    if (tuile.getIndexcouleur2()==tuile.getIndexcouleur1()) {
-                                        use2 = true;
-                                    }
-                                }
-                                if (tuile.getIndexcouleur2()==couleur && !use2) {
-                                    modelListePoche.addTuilePoche(modelListePoche.getListePoche()[i], tuile);
-                                    use2 = true;
-                                    System.out.println("points3");
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-
-        }
-        if (this.isSudEst(tuile) && (!use1 || !use2)) {
-            System.out.println("ici4");
-            if (tuile.getIndexcouleur1()==this.listTuilesPosee[x+1][y+1].getComposition()[4] ||
-                    tuile.getIndexcouleur2()==this.listTuilesPosee[x+1][y+1].getComposition()[4]) {
-                System.out.println("la4");
-                int couleur = this.listTuilesPosee[x+1][y+1].getComposition()[3];
-                for (int i=0;i< modelListePoche.getNbPoches();i++) {
-                    if (couleur==modelListePoche.getListePoche()[i].getCouleur()) {
-                        System.out.println("couleur4");
-                        for (int j=0;j<modelListePoche.getListePoche()[i].getLength();j++) {
-                            if (this.listTuilesPosee[x+1][y+1]==modelListePoche.getListePoche()[i].getTuiles()[j] && (!use1 || !use2)) {
-                                if (tuile.getIndexcouleur1()==couleur && !use1) {
-                                    modelListePoche.addTuilePoche(modelListePoche.getListePoche()[i], tuile);
-                                    use1 = true;
-                                    if (tuile.getIndexcouleur2()==tuile.getIndexcouleur1()) {
-                                        use2 = true;
-                                    }
-                                }
-                                if (tuile.getIndexcouleur2()==couleur && !use2) {
-                                    modelListePoche.addTuilePoche(modelListePoche.getListePoche()[i], tuile);
-                                    use2 = true;
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-
-        }
-        if (this.isSud(tuile) && (!use1 || !use2)) {
-            System.out.println("ici3");
-            if (tuile.getIndexcouleur1()==this.listTuilesPosee[x+2][y].getComposition()[3] ||
-                    tuile.getIndexcouleur2()==this.listTuilesPosee[x+2][y].getComposition()[3]) {
-                System.out.println("la5");
-                int couleur = this.listTuilesPosee[x+2][y].getComposition()[4];
-                for (int i=0;i< modelListePoche.getNbPoches();i++) {
-                    if (couleur==modelListePoche.getListePoche()[i].getCouleur()) {
-                        System.out.println("couleur5");
-                        for (int j=0;j<modelListePoche.getListePoche()[i].getLength();j++) {
-                            if (this.listTuilesPosee[x+2][y]==modelListePoche.getListePoche()[i].getTuiles()[j] && (!use1 || !use2)) {
-                                if (tuile.getIndexcouleur1()==couleur && !use1) {
-                                    modelListePoche.addTuilePoche(modelListePoche.getListePoche()[i], tuile);
-                                    use1 = true;
-                                    if (tuile.getIndexcouleur2()==tuile.getIndexcouleur1()) {
-                                        use2 = true;
-                                    }
-                                }
-                                if (tuile.getIndexcouleur2()==couleur && !use2) {
-                                    modelListePoche.addTuilePoche(modelListePoche.getListePoche()[i], tuile);
-                                    use2 = true;
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-
-        }
-        if (this.isSudOuest(tuile) && (!use1 || !use2)) {
-            System.out.println("ici2");
-            if (tuile.getIndexcouleur1()==this.listTuilesPosee[x+1][y-1].getComposition()[2] ||
-                    tuile.getIndexcouleur2()==this.listTuilesPosee[x+1][y-1].getComposition()[2]) {
-                System.out.println("la6");
-                int couleur = this.listTuilesPosee[x+1][y-1].getComposition()[5];
-                for (int i=0;i< modelListePoche.getNbPoches();i++) {
-                    if (couleur==modelListePoche.getListePoche()[i].getCouleur()) {
-                        System.out.println("couleur6");
-                        for (int j=0;j<modelListePoche.getListePoche()[i].getLength();j++) {
-                            if (this.listTuilesPosee[x+1][y-1]==modelListePoche.getListePoche()[i].getTuiles()[j] && (!use1 || !use2)) {
-                                if (tuile.getIndexcouleur1()==couleur && !use1) {
-                                    modelListePoche.addTuilePoche(modelListePoche.getListePoche()[i], tuile);
-                                    use1 = true;
-                                    if (tuile.getIndexcouleur2()==tuile.getIndexcouleur1()) {
-                                        use2 = true;
-                                    }
-                                }
-                                if (tuile.getIndexcouleur2()==couleur && !use2) {
-                                    modelListePoche.addTuilePoche(modelListePoche.getListePoche()[i], tuile);
-                                    use2 = true;
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-
-        }else {
-            if (tuile.getIndexcouleur1()==tuile.getIndexcouleur2() && !use1) {
-                modelListePoche.addListePoche(tuile.getIndexcouleur1());
-                System.out.println("rien1");
-            }
-            else {
-                if (!use1) {
-                    modelListePoche.addListePoche(tuile.getIndexcouleur1());
-                    System.out.println("rien2");
-                }
-                if (!use2) {
-                    modelListePoche.addListePoche(tuile.getIndexcouleur2());
-                    System.out.println("rien3");
-                }
-            }
-        }*/
-
-        modelJeux.getVueJeux().setDirty();
+        modelJeux.deleteButtons();
+        modelJeux.createButton();
     }
 
-
-    public void poseeButton(int x,int y, ModelTuile tuile){
-        this.listTuilesPosee[x][y] = tuile;
-        this.listTuilesPosee[x][y].setCoordonner(x, y);
+    public void deleteTuile(ModelTuile tuile) {
+        modelJeux.getVueJeux().remove(tuile.getVueTuile());
+        this.tuilesPartie.remove(new Point(tuile.getX(), tuile.getY()));
     }
 
-    public void deleteTuile(int x, int y){
-        if (this.listTuilesPosee[x][y].getVueTuile() != null){
-            modelJeux.getVueJeux().remove(this.listTuilesPosee[x][y].getVueTuile());
-            this.listTuilesPosee[x][y].setVueTuile(null);
-            this.listTuilesPosee[x][y] = null;
-        }
+    public void poseeButton(int x, int y, ModelTuile tuile) {
+        tuile.setCoordonner(x, y);
+        this.tuilesPartie.put(new Point(x, y), tuile);
     }
+
+    public ModelTuile getTuileAt(int x, int y) {
+        Point point = new Point(x, y);
+        return tuilesPartie.get(point);
+    }
+
+    public boolean isOccupied(int x, int y) {
+        ModelTuile tuile = tuilesPartie.get(new Point(x, y));
+        return tuile != null;
+    }
+
 
     public boolean isNordOuest(ModelTuile tuile) {
-        int x = tuile.getX();
-        int y = tuile.getY();
-        if (this.listTuilesPosee[x - 1][y - 1] == null) {
-            return false;
-        }
-        return true;
+        return this.tuilesPartie.containsKey(new Point(tuile.getX() - 1, tuile.getY() - 1));
     }
 
-    public boolean isNord(ModelTuile tuile){
-        int x = tuile.getX();
-        int y = tuile.getY();
-        if(this.listTuilesPosee[x-2][y] == null){
-            return false;
-        }
-        return true;
+    public boolean isNord(ModelTuile tuile) {
+        return this.tuilesPartie.containsKey(new Point(tuile.getX() - 2, tuile.getY()));
     }
 
-    public boolean isNordEst(ModelTuile tuile){
-        int x = tuile.getX();
-        int y = tuile.getY();
-        if(this.listTuilesPosee[x-1][y+1] == null){
-            return false;
-        }
-        return true;
+    public boolean isNordEst(ModelTuile tuile) {
+        return this.tuilesPartie.containsKey(new Point(tuile.getX() - 1, tuile.getY() + 1));
     }
 
-    public boolean isSudOuest(ModelTuile tuile){
-        int x = tuile.getX();
-        int y = tuile.getY();
-        if(this.listTuilesPosee[x+1][y-1] == null){
-            return false;
-        }
-        return true;
+    public boolean isSudOuest(ModelTuile tuile) {
+        return this.tuilesPartie.containsKey(new Point(tuile.getX() + 1, tuile.getY() - 1));
     }
 
-    public boolean isSud(ModelTuile tuile){
-        int x = tuile.getX();
-        int y = tuile.getY();
-        if(this.listTuilesPosee[x+2][y] == null){
-            return false;
-        }
-        return true;
+    public boolean isSud(ModelTuile tuile) {
+        return this.tuilesPartie.containsKey(new Point(tuile.getX() + 2, tuile.getY()));
     }
 
-    public boolean isSudEst(ModelTuile tuile){
-        int x = tuile.getX();
-        int y = tuile.getY();
-        if(this.listTuilesPosee[x+1][y+1] == null){
-            return false;
-        }
-        return true;
+    public boolean isSudEst(ModelTuile tuile) {
+        return this.tuilesPartie.containsKey(new Point(tuile.getX() + 1, tuile.getY() + 1));
     }
 
     // Il faut éventuellement verifier si la tuile demandee existe avec un isPosition ou alors le mettre dans cette methode.
-
-    public ModelTuile getNordOuest(ModelTuile tuile){
-        int x = tuile.getX();
-        int y = tuile.getY();
-        return this.listTuilesPosee[x-1][y-1];
-    }
-    public ModelTuile getNord(ModelTuile tuile){
-        int x = tuile.getX();
-        int y = tuile.getY();
-        return this.listTuilesPosee[x-2][y];
-    }
-    public ModelTuile getNordEst(ModelTuile tuile){
-        int x = tuile.getX();
-        int y = tuile.getY();
-        return this.listTuilesPosee[x-1][y+1];
+    public ModelTuile getNordOuest(ModelTuile tuile) {
+        return this.tuilesPartie.get(new Point(tuile.getX() - 1, tuile.getY() - 1));
     }
 
-    public ModelTuile getSudOuest(ModelTuile tuile){
-        int x = tuile.getX();
-        int y = tuile.getY();
-        return this.listTuilesPosee[x+1][y-1];
-    }
-    public ModelTuile getSud(ModelTuile tuile){
-        int x = tuile.getX();
-        int y = tuile.getY();
-        return this.listTuilesPosee[x+2][y];
-    }
-    public ModelTuile getSudEst(ModelTuile tuile){
-        int x = tuile.getX();
-        int y = tuile.getY();
-        return this.listTuilesPosee[x+1][y+1];
+    public ModelTuile getNord(ModelTuile tuile) {
+        return this.tuilesPartie.get(new Point(tuile.getX() - 2, tuile.getY()));
     }
 
+    public ModelTuile getNordEst(ModelTuile tuile) {
+        return this.tuilesPartie.get(new Point(tuile.getX() - 1, tuile.getY() + 1));
+    }
 
-    public ModelTuile[][] getListTuilesPosee() {
-        return this.listTuilesPosee;
+    public ModelTuile getSudOuest(ModelTuile tuile) {
+        return this.tuilesPartie.get(new Point(tuile.getX() + 1, tuile.getY() - 1));
+    }
+
+    public ModelTuile getSud(ModelTuile tuile) {
+        return this.tuilesPartie.get(new Point(tuile.getX() + 2, tuile.getY()));
+    }
+
+    public ModelTuile getSudEst(ModelTuile tuile) {
+        return this.tuilesPartie.get(new Point(tuile.getX() + 1, tuile.getY() + 1));
+    }
+
+    public Map<Point, ModelTuile> getTuilesPartie() {
+        return this.tuilesPartie;
     }
 }
