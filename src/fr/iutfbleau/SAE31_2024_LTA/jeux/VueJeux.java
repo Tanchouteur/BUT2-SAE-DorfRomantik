@@ -94,6 +94,11 @@ public class VueJeux extends JLayeredPane {
                 modelJeux.getVueScoreScreen().setBounds(getWidth() - 400, 100, 350, 600);
                 deletePlayerInfo();
                 this.add(modelJeux.getVueScoreScreen(), Integer.valueOf(1));
+                addComponentListener(new java.awt.event.ComponentAdapter() {
+                    public void componentResized(java.awt.event.ComponentEvent evt) {
+                        modelJeux.getVueScoreScreen().setBounds(getWidth() - 400, 100, 350, 600);
+                    }
+                });
             }
         }
     }
