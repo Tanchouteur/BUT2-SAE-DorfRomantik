@@ -42,15 +42,21 @@ public class VueSettingsPopup extends JPanel {
         musicVolumeSlider.addChangeListener(new ControllerVolumeChange(configManager, 0));
         effectsVolumeSlider.addChangeListener(new ControllerVolumeChange(configManager, 1));
 
+        JButton tutoButton = new JButton("Tutoriel");
+        styleButton(tutoButton);
+        tutoButton.setBounds(20, 350, 180, 50);
+        tutoButton.addActionListener(e -> onTuto(controllerPopup));
+        add(tutoButton);
+
         JButton resumeButton = new JButton("Resume");
         styleButton(resumeButton);
-        resumeButton.setBounds(200, 350, 180, 50);
+        resumeButton.setBounds(230, 350, 180, 50);
         resumeButton.addActionListener(e -> onResume(controllerPopup));
         add(resumeButton);
 
-        JButton quitButton = new JButton("Quit");
+        JButton quitButton = new JButton("Menu");
         styleButton(quitButton);
-        quitButton.setBounds(420, 350, 180, 50);
+        quitButton.setBounds(450, 350, 180, 50);
         quitButton.addActionListener(e -> onQuit(controllerPopup));
         add(quitButton);
 
@@ -103,6 +109,11 @@ public class VueSettingsPopup extends JPanel {
                 button.setBackground(new Color(60, 60, 60));
             }
         });
+    }
+
+    private void onTuto(ControllerPopup controllerPopup) {
+        controllerPopup.closePopup(controllerPopup.getSettingsDialog());
+        controllerPopup.showTutoDialog(modelPrincipale.getConfigManager());
     }
 
     private void onResume(ControllerPopup controllerPopup) {

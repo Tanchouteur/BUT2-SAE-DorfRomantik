@@ -85,7 +85,8 @@ public class ControllerPopup extends AbstractAction {
     public JDialog getSettingsDialog() {
         return settingsDialog;
     }
+
     public JDialog getTutoDialog() {
-        return settingsDialog;
+        return this.tutoDialog;
     }
 }

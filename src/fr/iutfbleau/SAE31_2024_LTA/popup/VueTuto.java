@@ -11,15 +11,18 @@ public class VueTuto extends JPanel {
     private final JCheckBox showAtStartupCheckBox;
 
     VueTuto(ControllerPopup controllerPopup, ConfigManager configManager) {
+        setLayout(null);
+        setBackground(new Color(168, 168, 168));
+        setSize(new Dimension(controllerPopup.getTutoDialog().getWidth(), controllerPopup.getTutoDialog().getHeight()));
         showAtStartupCheckBox = new JCheckBox("Montrer au démarrage", configManager.isTuto());
         styleCheckBox(showAtStartupCheckBox);
-        showAtStartupCheckBox.setBounds(180, 300, 220, 30);
+        showAtStartupCheckBox.setBounds(20, this.getHeight()-100, 220, 30);
         showAtStartupCheckBox.addActionListener(e -> onShowAtStartupChange(configManager));
         add(showAtStartupCheckBox);
 
         JButton resumeButton = new JButton("Resume");
         styleButton(resumeButton);
-        resumeButton.setBounds(200, 350, 180, 50);
+        resumeButton.setBounds(this.getWidth()-220, this.getHeight()-110, 180, 50);
         resumeButton.addActionListener(e -> onResume(controllerPopup));
         add(resumeButton);
 
