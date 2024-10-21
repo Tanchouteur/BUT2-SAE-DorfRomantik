@@ -6,8 +6,8 @@ import java.awt.*;
 public class VueJeux extends JLayeredPane {
 
     private final ModelJeux modelJeux;
-    private int offsetX = 0;
-    private int offsetY = 0;
+     int offsetX = 0;
+     int offsetY = 0;
 
     // Taille des tuiles
     private final int tuileSize = 50;
@@ -66,7 +66,7 @@ public class VueJeux extends JLayeredPane {
 
                     if (tuile != null && tuile.getVueTuile() == null) {
 
-                        if (!tuile.isButton()) {
+                        /*if (!tuile.isButton()) {
                             tuile.createVueTuile(x, y, tuileSize);
                             this.add(tuile.getVueTuile(), Integer.valueOf(0));
                             this.updatePreviewTuile();
@@ -74,7 +74,7 @@ public class VueJeux extends JLayeredPane {
                             tuile.createVueTuile(x, y, tuileSize / 2);
                             this.add(tuile.getVueTuile(), Integer.valueOf(0));
                             tuile.getVueTuile().addMouseListener(new ControllerPoseTuile(modelJeux, tuile));
-                        }
+                        }*/
                     } else if (tuile != null && tuile.getVueTuile() != null) {
 
                         if (!tuile.isButton()) {
