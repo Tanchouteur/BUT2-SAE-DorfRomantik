@@ -245,6 +245,13 @@ public class ModelMatrice {
         for (int i=0; i<comp.length; i++) {
             System.out.println(comp[i]);
         }
+        modelJeux.getListTuiles().removeFirst();
+
+        System.out.println(modelJeux.getScore());
+        System.out.println(modelListePoche.getScore());
+        modelJeux.getVueJeux().updatePlayerInfo();
+        modelJeux.getVueJeux().setDirty();
+        //modelJeux.getVueJeux().repaint();
     }
 
 
