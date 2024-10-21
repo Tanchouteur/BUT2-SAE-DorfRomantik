@@ -80,7 +80,7 @@ public class VueJeux extends JLayeredPane {
                         if (!tuile.isButton()) {
 
                             tuile.getVueTuile().updateTuile(x, y, tuileSize);
-                            this.updatePreviewTuileList();
+
                         } else if (!modelJeux.getListTuiles().isEmpty()) {
                             tuile.getVueTuile().updateTuile(x, y, tuileSize / 2);
                         }
@@ -89,6 +89,7 @@ public class VueJeux extends JLayeredPane {
             }
             if (modelJeux.getListTuiles().isEmpty() && !end) {
                 end = true;
+                this.updatePreviewTuileList();
                 modelJeux.createEndView();
                 modelJeux.getVueScoreScreen().setBounds(getWidth() - 400, 100, 350, 600);
                 deletePlayerInfo();
