@@ -110,9 +110,9 @@ public class ModelTuile {
         if(decaler>0) {
             int tmp = this.composition[0];
             for (int i = 0; i < composition.length - 1; i++) {
-                this.composition[i] = this.composition[i + decaler];
+                this.composition[i] = this.composition[i + 1];
                 if(i == composition.length-2){
-                    this.composition[i+decaler] = tmp;
+                    this.composition[i+1] = tmp;
                 }
             }
         }
@@ -120,9 +120,9 @@ public class ModelTuile {
         else{
             int tmp = this.composition[this.composition.length-1];
             for (int i = composition.length - 1; i > 0 ; i--) {
-                this.composition[i] = this.composition[i + decaler];
+                this.composition[i] = this.composition[i - 1];
                 if(i == 1){
-                    this.composition[i+decaler] = tmp;
+                    this.composition[i-1] = tmp;
                 }
             }
         }
