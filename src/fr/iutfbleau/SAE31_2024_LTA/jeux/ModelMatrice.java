@@ -13,17 +13,27 @@ public class ModelMatrice {
 
     }
 
+    public void undoLastTuile() {
+        modelJeux.addFirstListTuiles(modelJeux.getTuileUndoAble());
+        deleteButton(modelJeux.getTuileUndoAble().getX(),modelJeux.getTuileUndoAble().getY());
+        modelJeux.getVueJeux().updatePreviewTuileList();
+
+        modelJeux.createButton();
+    }
+
     public void poseeTuile(int x,int y){
         ModelTuile tuile = modelJeux.getListTuiles().getFirst();
         this.listTuilesPosee[x][y] = tuile;
         this.listTuilesPosee[x][y].setCoordonner(x, y);
 
-        if (!modelJeux.isUndo()){
+        if (!modelJeux.isUndo() && x != 50 && y != 50){
             modelJeux.getVueJeux().addMouseListener(new ControllerPoseTuile(modelJeux, tuile));
+            modelJeux.setUndo(true);
         }
 
         boolean use1=false;
         boolean use2=false;
+
         if (this.getNordOuest(tuile) && (!use1 || !use2)) {
             System.out.println("ici1");
             if (tuile.getIndexcouleur1()==this.listTuilesPosee[x-1][y-1].getComposition()[1] ||
@@ -222,8 +232,8 @@ public class ModelMatrice {
         for (int i=0; i<comp.length; i++) {
             System.out.println(comp[i]);
         }
+        modelJeux.setTuileUndoAble(modelJeux.getListTuiles().getFirst());
         modelJeux.getListTuiles().removeFirst();
-
         System.out.println(modelJeux.getScore());
         modelJeux.getVueJeux().updatePlayerInfo();
         modelJeux.getVueJeux().setDirty();
@@ -237,7 +247,16 @@ public class ModelMatrice {
     }
 
     public void deleteButton(int x,int y){
+        modelJeux.getVueJeux().remove(this.listTuilesPosee[x][y].getVueTuile());
+        this.listTuilesPosee[x][y].setVueTuile(null);
         this.listTuilesPosee[x][y] = null;
+        for (int row = 0; row < listTuilesPosee.length; row++) {
+            for (int col = 0; col < listTuilesPosee[row].length; col++) {
+                if (listTuilesPosee[row][col] != null && listTuilesPosee[row][col].isButton()){
+                    deleteButton(row,col);
+                }
+            }
+        }
     }
 
     public boolean getNordOuest(ModelTuile tuile){
@@ -296,9 +315,5 @@ public class ModelMatrice {
 
     public ModelTuile[][] getListTuilesPosee() {
         return this.listTuilesPosee;
-    }
-
-    public void undoLastTuile() {
-        System.out.println("undo");
     }
 }

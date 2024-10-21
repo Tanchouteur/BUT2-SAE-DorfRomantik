@@ -43,7 +43,7 @@ public class ControllerPoseTuile implements MouseListener {
                 }
             }
         }
-        if (e.getButton() == 3){ //3 c'est clic gauche je crois
+        if (e.getButton() == 3 && modelJeux.isUndo()){ //3 c'est clic gauche je crois
             modelJeux.getModelMatrice().undoLastTuile();
         }
         clicked = false;
