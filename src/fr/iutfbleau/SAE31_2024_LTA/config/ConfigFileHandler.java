@@ -36,7 +36,7 @@ public class ConfigFileHandler {
             config.setVolumeEffet(Integer.parseInt(properties.getProperty("volumeEffet", "100")));
             config.setVolumeMusique(Integer.parseInt(properties.getProperty("volumeMusique", "100")));
             config.setPlayerName(properties.getProperty("playerName", "Player Name..."));
-            config.setTuto(Boolean.parseBoolean(properties.getProperty("tuto")));
+            config.setTuto(Boolean.parseBoolean(properties.getProperty("tuto", "true")));
 
         } catch (IOException e) {
             System.err.println("Erreur lors du chargement de la configuration : " + e.getMessage());
