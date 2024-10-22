@@ -66,6 +66,16 @@ public class StyleComponent {
         return label;
     }
 
+    public static JLabel setStyleLabelScore(JLabel label, int fontSize) {
+        label.setForeground(Color.WHITE);
+        label.setFont(new Font("Arial", Font.PLAIN, fontSize));
+        label.setBorder(BorderFactory.createLineBorder(new Color(90, 90, 90), 2));
+        label.setBorder(BorderFactory.createCompoundBorder(
+                BorderFactory.createLineBorder(new Color(90, 90, 90), 2, true),
+                BorderFactory.createEmptyBorder(10, 20, 10, 20)));
+        return label;
+    }
+
     public static JTextField setStyleTextField(JTextField textField, int fontSize){
         textField.setFont(new Font("Arial", Font.PLAIN, fontSize));
         textField.setForeground(Color.GRAY);
@@ -106,7 +116,7 @@ public class StyleComponent {
         return comboBox;
     }
 
-    public static JLabel setStyleImageTitre(ImageIcon logoTitre){
+    public static JLabel setStyleImageTitre(){
         ImageIcon logoIcon = new ImageIcon(Objects.requireNonNull(StyleComponent.class.getResource("/Images/Titre.png")));
         Image image = logoIcon.getImage();
         Image resizedImage = image.getScaledInstance(180, 110, java.awt.Image.SCALE_SMOOTH);

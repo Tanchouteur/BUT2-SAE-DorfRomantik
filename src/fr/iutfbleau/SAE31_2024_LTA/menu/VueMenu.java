@@ -14,6 +14,7 @@ import java.util.List;
 import java.util.Objects;
 
 import static fr.iutfbleau.SAE31_2024_LTA.miseEnForme.StyleComponent.setStyleButton;
+import static fr.iutfbleau.SAE31_2024_LTA.miseEnForme.StyleComponent.setStyleImageTitre;
 
 public class VueMenu extends JPanel {
     private JTextField playerNameInput;
@@ -78,7 +79,7 @@ public class VueMenu extends JPanel {
 
     public void updateMenu() {
         int widthSidebar = 450;
-        int heightSidebar = 600;
+        int heightSidebar = 630;
         backgroundImage.setSize(getWidth(), getHeight());
         layeredPane.setBounds(0, 0, modelPrincipale.getVuePrincipale().getWidth(), modelPrincipale.getVuePrincipale().getHeight());
         sidebarPanel.setBounds(getWidth() - 550, (getHeight() - heightSidebar) / 2, widthSidebar, heightSidebar); // centrer verticalement et coler a droite
@@ -88,7 +89,6 @@ public class VueMenu extends JPanel {
      * Initialise la barre latérale avec les composants nécessaires.
      */
     private void initSidebarComponent() {
-        Color greyColor = new Color(44, 44, 44, 255);
         int buttonFontSize = 30;
 
         sidebarPanel = new JPanel(new GridBagLayout());
@@ -102,7 +102,7 @@ public class VueMenu extends JPanel {
         gbc.gridx = 0;
 
 
-        sidebarPanel.add(logoLabel, gbc);
+        sidebarPanel.add(setStyleImageTitre(), gbc);
 
         playerNameInput = new JTextField("Player Name", 15);
         playerNameInput.addFocusListener(new ControllerFocus(this, modelPrincipale));
