@@ -20,7 +20,7 @@ public class ControllerMenuCard implements ActionListener {
         modelPrincipale.getMediaPlayerManager().startClip(modelPrincipale.getModelMediaLoader().getClicAudioClip(), false);
         modelPrincipale.getMediaPlayerManager().startClip(modelPrincipale.getModelMediaLoader().getMenuMusicClip(), true);
 
-        vuePrincipale.getCardLayout().show(vuePrincipale.getFramePane(), "menu");
+        vuePrincipale.getPrincipaleLayeredPane().getMainPanel().getCardLayout().show(vuePrincipale.getPrincipaleLayeredPane().getMainPanel(), "menu");
 
         vuePrincipale.setTitle("DorfJavatik - Menu");
     }
@@ -33,7 +33,7 @@ public class ControllerMenuCard implements ActionListener {
         modelPrincipale.getMediaPlayerManager().startClip(modelPrincipale.getModelMediaLoader().getClicAudioClip(), false);
         modelPrincipale.getMediaPlayerManager().startClip(modelPrincipale.getModelMediaLoader().getMenuMusicClip(), true);
 
-        vuePrincipale.getCardLayout().show(vuePrincipale.getFramePane(), "menu");
+        vuePrincipale.getPrincipaleLayeredPane().getMainPanel().getCardLayout().show(vuePrincipale.getPrincipaleLayeredPane().getMainPanel(), "menu");
 
         vuePrincipale.setTitle("DorfJavatik - Menu");
     }

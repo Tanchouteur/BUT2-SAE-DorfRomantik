@@ -16,7 +16,7 @@ public class ControllerPartieJouerBTN implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         modelPrincipale.getBdd().updateBdd();
-        vuePrincipale.getCardLayout().show(vuePrincipale.getFramePane(), "partieJouer");
+        vuePrincipale.getPrincipaleLayeredPane().getMainPanel().getCardLayout().show(vuePrincipale.getPrincipaleLayeredPane().getMainPanel(), "partieJouer");
         vuePrincipale.setTitle("DorfJavatik - Liste des parties jouer");
     }
 }
