@@ -23,5 +23,6 @@ public class ModelMenu {
         vueMenu = new VueMenu(modelPrincipale);
         modelPrincipale.getVuePrincipale().getPrincipaleLayeredPane().getMainPanel().add(vueMenu, "menu");
         modelPrincipale.getVuePrincipale().getPrincipaleLayeredPane().getMainCardLayout().show(modelPrincipale.getVuePrincipale().getPrincipaleLayeredPane().getMainPanel(), "menu");
+        modelPrincipale.createPartieJouer();
     }
 }

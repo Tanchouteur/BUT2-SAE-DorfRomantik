@@ -19,8 +19,9 @@ public class VueSettingsPopup extends JPanel {
         this.modelPrincipale = modelPrincipale;
         ConfigManager configManager = modelPrincipale.getConfigManager();
         setLayout(null);
-
+        setOpaque(false);
         this.setSize(700,430);
+        this.setBackground(StyleComponent.getPopupColor());
         updateVueSettings();
 
         JLabel settingsLabel = new JLabel("Paramètres");
@@ -57,11 +58,9 @@ public class VueSettingsPopup extends JPanel {
         add(setStyleButton(resumeButton,18));
 
         JButton quitButton = new JButton("Menu");
-        quitButton.setBounds(440, 350, 200, 50);
+        quitButton.setBounds(460, 350, 200, 50);
         quitButton.addActionListener(e -> onQuit(controllerPopup));
         add(setStyleButton(quitButton,18));
-
-        this.setBackground(StyleComponent.getPopupColor());
     }
 
     public void updateVueSettings(){

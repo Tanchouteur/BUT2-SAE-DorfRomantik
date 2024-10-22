@@ -22,7 +22,7 @@ public class VueMenu extends JPanel {
     private final ModelPrincipale modelPrincipale;
     private final JLabel backgroundImage;
     private JPanel sidebarPanel;
-    private JLayeredPane layeredPane;
+    private final JLayeredPane layeredPane;
 
     public VueMenu(ModelPrincipale modelPrincipale) {
         this.modelPrincipale = modelPrincipale;
@@ -118,7 +118,7 @@ public class VueMenu extends JPanel {
         if (modelPrincipale.getBdd().updateBdd()) {
             listeTuiles = modelPrincipale.getBdd().getListeTuiles();
             for (BddListeTuiles tuile : listeTuiles) {
-                String suiteName = "";
+                String suiteName;
                 if (tuile.getId() != -1) {
                     suiteName = String.valueOf(tuile.getId());
                 } else {
@@ -159,9 +159,7 @@ public class VueMenu extends JPanel {
 
         gbc.gridy = 6;
         sidebarPanel.add(setStyleButton(quitButton,buttonFontSize), gbc);
-
     }
-
 
     public JComboBox<String> getSuiteSelector() {
         return suiteSelector;

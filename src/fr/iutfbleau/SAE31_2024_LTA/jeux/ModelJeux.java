@@ -22,14 +22,16 @@ public class ModelJeux {
 
     private int score = 0;
 
+    private static final int nombreTuile = 50;
+
     public ModelJeux(ModelPrincipale modelPrincipale, int seed) {
         this.modelPrincipale = modelPrincipale;
         this.modelListePoche = new ModelListePoche(this);
         this.modelMatrice = new ModelMatrice(this);
         listTuiles = new LinkedList<>();
 
-        for (int i = 10; i >= 0; i--) {
-            ModelTuile tuile = new ModelTuile(seed*i, false);
+        for (int i = nombreTuile; i >= 0; i--) {
+            ModelTuile tuile = new ModelTuile(seed*i, false,false);
             listTuiles.add(tuile);
         }
 
@@ -72,7 +74,7 @@ public class ModelJeux {
             ModelTuile tuile = entry.getValue();
 
             if (tuile != null && !tuile.isButton()) {
-                // verifie si chaque position est disponible et l'ajoute à la liste
+                // verifie si chaque position est disponible et l'ajoute à la liste pour print les bouttons
                 if (tryCreateButton(point.x - 1, point.y - 1)) {  // Nord-Ouest
                     pointsToAdd.add(new Point(point.x - 1, point.y - 1));
                 }

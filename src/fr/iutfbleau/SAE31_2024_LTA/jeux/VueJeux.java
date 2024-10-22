@@ -1,13 +1,16 @@
 package fr.iutfbleau.SAE31_2024_LTA.jeux;
 
+import fr.iutfbleau.SAE31_2024_LTA.layers.VuePrincipale;
+
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionListener;
 import java.util.List; // Importer la bonne classe List
 import java.util.ArrayList; // Importer ArrayList
 import java.util.Map; // Pour les Map
 
-import static fr.iutfbleau.SAE31_2024_LTA.miseEnForme.StyleComponent.getPanelColor;
-import static fr.iutfbleau.SAE31_2024_LTA.miseEnForme.StyleComponent.setStyleLabel;
+import static fr.iutfbleau.SAE31_2024_LTA.miseEnForme.StyleComponent.*;
+
 
 public class VueJeux extends JLayeredPane {
 
@@ -21,6 +24,8 @@ public class VueJeux extends JLayeredPane {
     private boolean end = false, dirty = false;
     private JPanel infoPanel;
     private JLabel currentScore;
+
+    private JButton centrer;
 
     public VueJeux(ModelJeux modelJeux) {
         setLayout(null);
@@ -44,6 +49,12 @@ public class VueJeux extends JLayeredPane {
         repaint();
     }
 
+    private void centrer() {
+        offsetX = 0;
+        offsetY = 0;
+        repaint();
+    }
+
     private void createFirstTuile() {
         int x = (getWidth() / 2) - (3 * 50 / 2) * 50;
         int y = (getHeight() / 2) - 50 - 7 * 50;
@@ -63,7 +74,14 @@ public class VueJeux extends JLayeredPane {
         if (modelJeux.getListTuiles().isEmpty() && !end) {
             endGame();
         }
-
+        if (offsetX > modelJeux.getModelPrincipale().getVuePrincipale().getWidth()/2 || offsetY > modelJeux.getModelPrincipale().getVuePrincipale().getHeight()/2 || offsetX < -modelJeux.getModelPrincipale().getVuePrincipale().getWidth()/2 || offsetY < -modelJeux.getModelPrincipale().getVuePrincipale().getHeight()/2){
+            if (infoPanel.getComponentCount() == 3) {
+                centrer.setBounds((VuePrincipale.frameWidth / 2) - 200, 100, 200, 50);
+                infoPanel.add(setStyleButtonInGame(centrer, 34));
+            }
+        }else if (infoPanel.getComponentCount() == 4) {
+            infoPanel.remove(centrer);
+        }
     }
 
     private void renderTuiles() {
@@ -131,11 +149,15 @@ public class VueJeux extends JLayeredPane {
         modelJeux.getVueScoreScreen().setBounds(getWidth() - (modelJeux.getVueScoreScreen().getWidthSidebar()+20), (this.getHeight()-modelJeux.getVueScoreScreen().getHeightSidebar())/2, modelJeux.getVueScoreScreen().getWidthSidebar(), modelJeux.getVueScoreScreen().getHeightSidebar());
         deletePlayerInfo();
         add(modelJeux.getVueScoreScreen(), Integer.valueOf(1));
-    } //Sa sa marche
+    }
 
     public void updateOffsets(int deltaX, int deltaY) {
-        offsetX += deltaX;
-        offsetY += deltaY;
+        if (offsetX+deltaX < 3365 && offsetX+deltaX > -3365) {
+            offsetX += deltaX;
+        }
+        if (offsetY+deltaY < 3365 && offsetY+deltaY > -3365) {
+            offsetY += deltaY;
+        }
     }
 
     public void updatePreviewTuileList() {
@@ -144,9 +166,15 @@ public class VueJeux extends JLayeredPane {
                 remove(tuilePreview[i].getVueTuile());
             }
             if (i < modelJeux.getListTuiles().size()) {
-                ModelTuile tuile = new ModelTuile(modelJeux.getListTuiles().get(i).getSeed(), false);
-                tuile.setComposition(modelJeux.getListTuiles().get(i).getComposition());
-                tuile.createVueTuile(60, getHeight() - (5 * (modelJeux.getListTuiles().size() - i) + 20), 50);
+                ModelTuile tuile;
+                if (i == 0) {
+                    tuile = new ModelTuile(modelJeux.getListTuiles().get(i).getSeed(), false,true);
+                    tuile.setComposition(modelJeux.getListTuiles().get(i).getComposition());
+                }else {
+                    tuile = new ModelTuile(modelJeux.getListTuiles().get(i).getSeed(), true,false);
+                }
+
+                tuile.createVueTuile(60, getHeight() - (5 * (modelJeux.getListTuiles().size() - i) + 45), 50);
                 tuilePreview[i] = tuile;
                 add(tuilePreview[i].getVueTuile(), Integer.valueOf(modelJeux.getListTuiles().size() - i));
             }
@@ -157,12 +185,12 @@ public class VueJeux extends JLayeredPane {
         }
         modelJeux.createButton();
         repaint();
-    }//Sa sa marche
+    }
 
     public ModelTuile setPreviewOnButton(VueTuile btnHovered) {
         if (btnHovered.getModelTuile().isButton() && !modelJeux.getListTuiles().isEmpty()) {
 
-            ModelTuile previewTuile = new ModelTuile(modelJeux.getListTuiles().getFirst().getSeed(), true);
+            ModelTuile previewTuile = new ModelTuile(modelJeux.getListTuiles().getFirst().getSeed(), false,false);
             previewTuile.setComposition(modelJeux.getListTuiles().getFirst().getComposition());
 
             int centerX = getWidth() / 2;
@@ -182,38 +210,47 @@ public class VueJeux extends JLayeredPane {
 
             previewTuile.createVueTuile(x, y, (int) (tuileSize*0.8));
             add(previewTuile.getVueTuile(), Integer.valueOf(1));
-
+            //this.remove(btnHovered);
             repaint();
 
             return previewTuile;
         }
         return null;
-    } //Sa sa marche
+    }
 
     public void unsetPreviewOnButton(ModelTuile previewTuile) {
         if (previewTuile != null) {
             remove(previewTuile.getVueTuile());
         }
         repaint();
-    } //Sa sa marche
+    }
 
     public void createPlayerInfo() {
-        infoPanel = new JPanel(new BorderLayout());
-        infoPanel.setBackground(getPanelColor());
-        infoPanel.setBounds(30, 30, 550, 50);
-
+        infoPanel = new JPanel();
+        infoPanel.setLayout(null);
+        infoPanel.setBackground(new Color(40, 40, 40, 0));
+        infoPanel.setBounds(0, 0, modelJeux.getModelPrincipale().getVuePrincipale().getWidth(), modelJeux.getModelPrincipale().getVuePrincipale().getHeight());
+        infoPanel.setOpaque(false);
         JLabel playerNameLabel = new JLabel(modelJeux.getModelPrincipale().getPlayerName());
-        JLabel bestScoreLabel = new JLabel("Ton record : " + modelJeux.getModelPrincipale().getModelPartieJouer()
+        playerNameLabel.setBounds(30,30,200,50);
+        infoPanel.add(setStyleLabelScore(playerNameLabel,18));
+
+        JLabel bestScoreLabel = new JLabel("Record " + modelJeux.getModelPrincipale().getModelPartieJouer()
                 .getVuePartieJouer().getControllerSearchPartieJouer().searchPartieOfPlayer(
                         modelJeux.getModelPrincipale().getPlayerName(), modelJeux.getModelPrincipale().getSelectedSeed()) + " Points");
+        bestScoreLabel.setBounds(250,30,250,50);
+        infoPanel.add(setStyleLabelScore(bestScoreLabel,16));
 
-        currentScore = new JLabel("Score : " + modelJeux.getScore() + " Points");
+        currentScore = new JLabel("Score " + modelJeux.getScore() + " Points");
+        currentScore.setBounds(520,30,250,50);
+        infoPanel.add(setStyleLabelScore(currentScore,18));
 
-        infoPanel.add(setStyleLabel(playerNameLabel,24), BorderLayout.WEST);
-        infoPanel.add(setStyleLabel(bestScoreLabel,18), BorderLayout.CENTER);
-        infoPanel.add(setStyleLabel(currentScore,18), BorderLayout.EAST);
-        add(infoPanel, Integer.valueOf(2));
-    } //Sa sa marche
+        centrer = new JButton("Centrer");
+        centrer.addActionListener(e -> centrer());
+
+
+        this.add(infoPanel, Integer.valueOf(2));
+    }
 
     public void updatePlayerInfo() {
         deletePlayerInfo();
@@ -223,5 +260,5 @@ public class VueJeux extends JLayeredPane {
     public void deletePlayerInfo() {
         infoPanel.removeAll();
         remove(infoPanel);
-    } //Sa je sais pas
+    }
 }

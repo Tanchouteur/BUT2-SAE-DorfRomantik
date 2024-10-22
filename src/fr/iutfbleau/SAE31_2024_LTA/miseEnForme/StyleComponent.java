@@ -39,6 +39,21 @@ public class StyleComponent {
         return button;
     }
 
+    public static JButton setStyleButtonInGame(JButton button, int fontSize) {
+        button.setBackground(new Color(237, 237, 237, 255));
+        button.setForeground(new Color(45, 47, 55));
+        button.setFocusPainted(false);
+        button.setFont(new Font("Arial", Font.BOLD, fontSize));
+        button.setBorder(BorderFactory.createLineBorder(new Color(57, 61, 89), 2));
+        button.setBorder(BorderFactory.createCompoundBorder(
+                BorderFactory.createLineBorder(new Color(90, 90, 90), 2, true),
+                BorderFactory.createEmptyBorder(10, 20, 10, 20)));
+        button.setCursor(new Cursor(Cursor.HAND_CURSOR));
+
+        button.addMouseListener(new BrighterHoverJComponent(button));
+        return button;
+    }
+
     public static JCheckBox setStyleCheckBox(JCheckBox checkBox) {
         checkBox.setBackground(getButtonColor());
         checkBox.setForeground(Color.WHITE);
@@ -66,13 +81,40 @@ public class StyleComponent {
         return label;
     }
 
+    public static JLabel setStyleLabelSucces(JLabel label, int fontSize) {
+        label.setForeground(new Color(22, 76, 0));
+        label.setOpaque(false);
+        label.setBackground(new Color(0, 81, 4, 102));
+        label.setSize(600,50);
+        label.setFont(new Font("Arial", Font.BOLD, fontSize));
+        label.setBorder(BorderFactory.createLineBorder(new Color(90, 90, 90), 2));
+        label.setBorder(BorderFactory.createCompoundBorder(
+                BorderFactory.createLineBorder(new Color(90, 90, 90), 2, true),
+                BorderFactory.createEmptyBorder(10, 20, 10, 20)));
+        return label;
+    }
+
+    public static JLabel setStyleLabelErreur(JLabel label, int fontSize) {
+        label.setForeground(new Color(97, 0, 0));
+        label.setOpaque(false);
+        label.setBackground(new Color(122, 0, 0, 111));
+        label.setFont(new Font("Arial", Font.BOLD, fontSize));
+        label.setBorder(BorderFactory.createLineBorder(new Color(90, 90, 90), 2));
+        label.setBorder(BorderFactory.createCompoundBorder(
+                BorderFactory.createLineBorder(new Color(90, 90, 90), 2, true),
+                BorderFactory.createEmptyBorder(10, 20, 10, 20)));
+        return label;
+    }
+
     public static JLabel setStyleLabelScore(JLabel label, int fontSize) {
-        label.setForeground(Color.WHITE);
+        label.setForeground(new Color(45, 45, 45));
+        label.setBackground(new Color(0, 14, 90, 56));
         label.setFont(new Font("Arial", Font.PLAIN, fontSize));
         label.setBorder(BorderFactory.createLineBorder(new Color(90, 90, 90), 2));
         label.setBorder(BorderFactory.createCompoundBorder(
                 BorderFactory.createLineBorder(new Color(90, 90, 90), 2, true),
                 BorderFactory.createEmptyBorder(10, 20, 10, 20)));
+        label.setOpaque(true);
         return label;
     }
 
@@ -125,4 +167,6 @@ public class StyleComponent {
         logoLabel.setBorder(BorderFactory.createEmptyBorder(10, 0, 10, 0));
         return logoLabel;
     }
+
+
 }

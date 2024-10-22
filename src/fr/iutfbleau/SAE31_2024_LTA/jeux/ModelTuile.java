@@ -15,14 +15,15 @@ public class ModelTuile {
 
     private final boolean button;
     private boolean preview = false;
+    private boolean suivante;
 
     private VueTuile vueTuile;
 
     private int soundIndex;
 
-    public ModelTuile(int seed, boolean preview) {//Tuile de jeux
+    public ModelTuile(int seed, boolean preview, boolean suivante) {//Tuile de jeux
         composition = new int[6];
-
+        this.suivante = suivante;
         Random random = new Random();
         this.seed = seed;
         this.preview = preview;
@@ -80,12 +81,6 @@ public class ModelTuile {
     }
 
     public ModelTuile() {//Tuile grise qui sert de bouton
-        composition = new int[6];
-
-        for (int i = 0; i < 6; i++) {
-            composition[i] = 5;
-        }
-
         button = true;
     }
 
@@ -172,5 +167,9 @@ public class ModelTuile {
 
     public void setVueTuile(VueTuile vueTuile) {
         this.vueTuile = vueTuile;
+    }
+
+    public boolean isSuivante() {
+        return suivante;
     }
 }

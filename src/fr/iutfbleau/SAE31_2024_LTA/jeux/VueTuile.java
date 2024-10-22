@@ -1,7 +1,10 @@
 package fr.iutfbleau.SAE31_2024_LTA.jeux;
 
+import fr.iutfbleau.SAE31_2024_LTA.layers.VuePrincipale;
+
 import javax.swing.*;
 import java.awt.*;
+import java.util.Arrays;
 
 public class VueTuile extends JComponent {
 
@@ -51,45 +54,62 @@ public class VueTuile extends JComponent {
 
     @Override
     public void paintComponent(Graphics g) {
-
         super.paintComponent(g);
         Graphics2D g2d = (Graphics2D) g;
 
-        int[] composition = modelTuile.getComposition();
+        g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 
-        Color[] colorPalette = new Color[6];
-        if (!modelTuile.isPreview()) {//Si c'est une tuile normal
-            colorPalette[0] = new Color(30, 142, 216);
-            colorPalette[1] = new Color(119, 119, 119);
-            colorPalette[2] = new Color(235, 222, 33);
-            colorPalette[3] = new Color(119, 198, 119);
-            colorPalette[4] = new Color(20, 119, 69);
-            colorPalette[5] = new Color(181, 181, 181);
-        }else {
-            colorPalette[0] = new Color(30, 142, 216, 200);
-            colorPalette[1] = new Color(119, 119, 119, 200);
-            colorPalette[2] = new Color(235, 222, 33, 200);
-            colorPalette[3] = new Color(119, 198, 119, 200);
-            colorPalette[4] = new Color(20, 119, 69, 200);
-            colorPalette[5] = new Color(181, 181, 181, 200);
+        if (modelTuile.isSuivante()){
+            g2d.scale(1, 0.5);
         }
 
-        for (int i = 0; i < 6; i++) {
-            int[] xPoints = {
-                    polygon.xpoints[i],
-                    polygon.xpoints[(i + 1) % 6],
-                    centerX
-            };
-            int[] yPoints = {
-                    polygon.ypoints[i],
-                    polygon.ypoints[(i + 1) % 6],
-                    centerY
-            };
+        if (!modelTuile.isButton()) {
+            int[] composition = modelTuile.getComposition();
+            Color[] colorPalette = new Color[6];
 
-            g2d.setColor(colorPalette[composition[i]]);
-            g2d.fillPolygon(xPoints, yPoints, 3);
+            if (!modelTuile.isPreview()) {
+                colorPalette[0] = new Color(30, 142, 216);
+                colorPalette[1] = new Color(119, 119, 119);
+                colorPalette[2] = new Color(235, 222, 33);
+                colorPalette[3] = new Color(119, 198, 119);
+                colorPalette[4] = new Color(20, 119, 69);
+
+                //dessiné les tuiles avec leurs compositions
+                for (int i = 0; i < 6; i++) {
+                    int[] xPoints = {
+                            polygon.xpoints[i],
+                            polygon.xpoints[(i + 1) % 6],
+                            centerX
+                    };
+                    int[] yPoints = {
+                            polygon.ypoints[i],
+                            polygon.ypoints[(i + 1) % 6],
+                            centerY
+                    };
+
+                    g2d.setColor(colorPalette[composition[i]]);
+                    g2d.fillPolygon(xPoints, yPoints, 3);
+                }
+
+                g2d.setColor(new Color(64, 64, 64, 226));
+                g2d.setStroke(new BasicStroke(1));
+                g2d.drawPolygon(polygon);
+            } else {
+                g2d.scale(1, 0.5);
+                g2d.setColor(new Color(124, 124, 124));
+                g2d.fillPolygon(polygon);
+            }
+
+            g2d.setColor(new Color(51, 51, 51));
+            g2d.drawPolygon(polygon);
+            g2d.setStroke(new BasicStroke(3));
+            g2d.drawLine(polygon.xpoints[0], polygon.ypoints[0], polygon.xpoints[1], polygon.ypoints[1]);
+            g2d.drawLine(polygon.xpoints[1], polygon.ypoints[1], polygon.xpoints[2], polygon.ypoints[2]);
+            g2d.drawLine(polygon.xpoints[2], polygon.ypoints[2], polygon.xpoints[3], polygon.ypoints[3]);
+
+        } else {
+            g2d.setColor(new Color(151, 151, 151));
+            g2d.fillPolygon(polygon);
         }
-        g2d.setColor(Color.BLACK);
-        g2d.drawPolygon(polygon);
     }
 }
