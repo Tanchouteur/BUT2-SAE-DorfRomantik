@@ -10,15 +10,12 @@ public class ModelBDD {
     private List<BddListeTuiles> listeTuiles; //chaque object des listes contients une ligne de la table
     private List<BddPartieJouer> partieJouees;
 
-    public ModelBDD() {
+    public void conextionBdd(){
         try {
             // Connexion à la base de données
             this.db = DriverManager.getConnection(
                     "jdbc:mariadb://dwarves.iut-fbleau.fr:3306/tanchou",
                     "tanchou", "MotdepasseUpec77**");
-
-
-
 
         } catch (SQLException e) {
             System.err.println("Erreur de connexion BDD");
@@ -26,6 +23,9 @@ public class ModelBDD {
     }
 
     public boolean updateBdd(){
+        if (db == null){
+            conextionBdd();
+        }
         if (db!=null) {
             this.listeTuiles = getAllListe();
             this.partieJouees = getAllPartieJouer();

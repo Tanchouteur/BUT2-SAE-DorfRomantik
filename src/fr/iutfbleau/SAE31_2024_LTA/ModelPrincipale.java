@@ -33,7 +33,6 @@ public class ModelPrincipale {
 
         bdd = new ModelBDD();
 
-
         vuePrincipale = createView();
         controllerPopup = new ControllerPopup(vuePrincipale);
         configManager = new ConfigManager(controllerPopup);
@@ -47,6 +46,10 @@ public class ModelPrincipale {
 
     private VuePrincipale createView(){
         return new VuePrincipale(this);
+    }
+
+    private void createWaitScreen(){
+
     }
 
     public VuePrincipale getVuePrincipale() {
