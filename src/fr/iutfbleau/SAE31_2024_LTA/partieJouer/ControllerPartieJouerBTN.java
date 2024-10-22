@@ -1,7 +1,7 @@
 package fr.iutfbleau.SAE31_2024_LTA.partieJouer;
 
 import fr.iutfbleau.SAE31_2024_LTA.ModelPrincipale;
-import fr.iutfbleau.SAE31_2024_LTA.VuePrincipale;
+import fr.iutfbleau.SAE31_2024_LTA.layers.VuePrincipale;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;

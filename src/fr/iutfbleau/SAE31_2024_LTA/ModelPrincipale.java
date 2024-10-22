@@ -3,20 +3,12 @@ package fr.iutfbleau.SAE31_2024_LTA;
 import fr.iutfbleau.SAE31_2024_LTA.Bdd.ModelBDD;
 import fr.iutfbleau.SAE31_2024_LTA.config.ConfigManager;
 import fr.iutfbleau.SAE31_2024_LTA.jeux.ModelJeux;
+import fr.iutfbleau.SAE31_2024_LTA.layers.VuePrincipale;
 import fr.iutfbleau.SAE31_2024_LTA.media.MediaPlayerManager;
 import fr.iutfbleau.SAE31_2024_LTA.media.ModelMediaLoader;
 import fr.iutfbleau.SAE31_2024_LTA.menu.ModelMenu;
 import fr.iutfbleau.SAE31_2024_LTA.partieJouer.ModelPartieJouer;
 import fr.iutfbleau.SAE31_2024_LTA.popup.ControllerPopup;
-
-import javax.imageio.ImageIO;
-import javax.sound.sampled.*;
-import java.awt.*;
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.net.URL;
 
 public class ModelPrincipale {
     private final ConfigManager configManager;

@@ -3,7 +3,7 @@ package fr.iutfbleau.SAE31_2024_LTA.jeux;
 import fr.iutfbleau.SAE31_2024_LTA.Bdd.BddListeTuiles;
 import fr.iutfbleau.SAE31_2024_LTA.ModelPrincipale;
 import fr.iutfbleau.SAE31_2024_LTA.menu.VueMenu;
-import fr.iutfbleau.SAE31_2024_LTA.VuePrincipale;
+import fr.iutfbleau.SAE31_2024_LTA.layers.VuePrincipale;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;

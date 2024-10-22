@@ -1,6 +1,4 @@
-package fr.iutfbleau.SAE31_2024_LTA;
-
-import fr.iutfbleau.SAE31_2024_LTA.layer.MainPanel;
+package fr.iutfbleau.SAE31_2024_LTA.layers;
 
 import javax.swing.*;
 import java.awt.*;

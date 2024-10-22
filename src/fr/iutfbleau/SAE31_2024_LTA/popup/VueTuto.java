@@ -1,12 +1,10 @@
 package fr.iutfbleau.SAE31_2024_LTA.popup;
 
-import fr.iutfbleau.SAE31_2024_LTA.ModelPrincipale;
-import fr.iutfbleau.SAE31_2024_LTA.VuePrincipale;
+import fr.iutfbleau.SAE31_2024_LTA.layers.VuePrincipale;
 import fr.iutfbleau.SAE31_2024_LTA.config.ConfigManager;
 import fr.iutfbleau.SAE31_2024_LTA.miseEnForme.StyleComponent;
 
 import javax.swing.*;
-import java.awt.*;
 
 import static fr.iutfbleau.SAE31_2024_LTA.miseEnForme.StyleComponent.setStyleCheckBox;
 

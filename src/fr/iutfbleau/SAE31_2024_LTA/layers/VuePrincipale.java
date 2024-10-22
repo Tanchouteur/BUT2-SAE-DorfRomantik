@@ -1,4 +1,6 @@
-package fr.iutfbleau.SAE31_2024_LTA;
+package fr.iutfbleau.SAE31_2024_LTA.layers;
+
+import fr.iutfbleau.SAE31_2024_LTA.ModelPrincipale;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
