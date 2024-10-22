@@ -1,7 +1,10 @@
 package fr.iutfbleau.SAE31_2024_LTA.miseEnForme;
 
 import javax.swing.*;
+import javax.swing.event.PopupMenuEvent;
+import javax.swing.event.PopupMenuListener;
 import java.awt.*;
+import java.util.Objects;
 
 public class StyleComponent {
 
@@ -15,6 +18,10 @@ public class StyleComponent {
 
     public static Color getPanelColor() {
         return new Color(193, 193, 193, 89);
+    }
+
+    public static Color getTextFieldColor(){
+        return new Color(207, 207, 207);
     }
 
     public static JButton setStyleButton(JButton button, int fontSize) {
@@ -57,5 +64,55 @@ public class StyleComponent {
         label.setForeground(Color.WHITE);
         label.setFont(new Font("Arial", Font.PLAIN, fontSize));
         return label;
+    }
+
+    public static JTextField setStyleTextField(JTextField textField, int fontSize){
+        textField.setFont(new Font("Arial", Font.PLAIN, fontSize));
+        textField.setForeground(Color.GRAY);
+        textField.setBackground(getTextFieldColor());
+        textField.setBorder(BorderFactory.createCompoundBorder(
+                BorderFactory.createLineBorder(getTextFieldColor(), 1, true),
+                BorderFactory.createEmptyBorder(7, 7, 7, 7)
+        ));
+        textField.setCursor(new Cursor(Cursor.TEXT_CURSOR));
+        return textField;
+    }
+
+    public static JComboBox setStyleComboBox(JComboBox comboBox, int fontSize, JPanel vue){
+        comboBox.setFont(new Font("Arial", Font.BOLD, fontSize));//24 en général
+        comboBox.setBackground(Color.WHITE);
+        comboBox.setForeground(Color.BLACK);
+        comboBox.setBorder(BorderFactory.createCompoundBorder(
+                BorderFactory.createLineBorder(getTextFieldColor(), 1, true),
+                BorderFactory.createEmptyBorder(0, 0, 0, 0)
+        ));
+        comboBox.setCursor(new Cursor(Cursor.HAND_CURSOR));
+
+        comboBox.addPopupMenuListener(new PopupMenuListener() {
+            @Override
+            public void popupMenuWillBecomeVisible(PopupMenuEvent e) {
+                vue.repaint();
+            }
+            @Override
+            public void popupMenuWillBecomeInvisible(PopupMenuEvent e) {
+                vue.repaint();
+            }
+            @Override
+            public void popupMenuCanceled(PopupMenuEvent e) {
+                vue.repaint();
+            }
+        });
+
+        return comboBox;
+    }
+
+    public static JLabel setStyleImageTitre(ImageIcon logoTitre){
+        ImageIcon logoIcon = new ImageIcon(Objects.requireNonNull(StyleComponent.class.getResource("/Images/Titre.png")));
+        Image image = logoIcon.getImage();
+        Image resizedImage = image.getScaledInstance(180, 110, java.awt.Image.SCALE_SMOOTH);
+        ImageIcon resizedIcon = new ImageIcon(resizedImage);
+        JLabel logoLabel = new JLabel(resizedIcon);
+        logoLabel.setBorder(BorderFactory.createEmptyBorder(10, 0, 10, 0));
+        return logoLabel;
     }
 }
