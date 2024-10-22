@@ -1,5 +1,8 @@
 package fr.iutfbleau.SAE31_2024_LTA.Bdd;
 
+import fr.iutfbleau.SAE31_2024_LTA.layers.VuePrincipale;
+import fr.iutfbleau.SAE31_2024_LTA.popup.PopupBd;
+
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -9,22 +12,49 @@ public class ModelBDD {
     private Connection db;
     private List<BddListeTuiles> listeTuiles; //chaque object des listes contients une ligne de la table
     private List<BddPartieJouer> partieJouees;
+    private VuePrincipale vuePrincipale;
+    private boolean connected = false;
+    private boolean inConnexion = false;
 
-    public void conextionBdd(){
-        try {
-            // Connexion à la base de données
-            this.db = DriverManager.getConnection(
+    public ModelBDD(VuePrincipale vuePrincipale) {
+        this.vuePrincipale = vuePrincipale;
+        connexionBdd();
+    }
+
+    public void connexionBdd(){
+        new Thread(() -> {
+            PopupBd popupBd = null;
+            try {// Connexion à la base de données
+
+                inConnexion = true;
+                popupBd = new PopupBd();
+                this.db = DriverManager.getConnection(
                     "jdbc:mariadb://dwarves.iut-fbleau.fr:3306/tanchou",
                     "tanchou", "MotdepasseUpec77**");
 
-        } catch (SQLException e) {
-            System.err.println("Erreur de connexion BDD");
-        }
+            } catch (SQLException e) {
+                System.err.println("Erreur de connexion BDD");
+            }
+            if (db != null) {
+                connected = true;
+            }
+            vuePrincipale.getPrincipaleLayeredPane().remove(popupBd);
+            inConnexion = false;
+            popupBd = new PopupBd(connected);
+            vuePrincipale.getPrincipaleLayeredPane().add(popupBd,Integer.valueOf(3));
+            try {
+                Thread.sleep(3000);
+            } catch (InterruptedException ignored) {
+
+            }
+            vuePrincipale.getPrincipaleLayeredPane().remove(popupBd);
+            vuePrincipale.getPrincipaleLayeredPane().repaint();
+        }).start();
     }
 
     public boolean updateBdd(){
-        if (db == null){
-            conextionBdd();
+        if (!connected) {
+            connexionBdd();
         }
         if (db!=null) {
             this.listeTuiles = getAllListe();
@@ -131,5 +161,13 @@ public class ModelBDD {
         ps.setInt(3, listeTuileId);
 
         ResultSet rs = ps.executeQuery();
+    }
+
+    public boolean isInConnexion() {
+        return inConnexion;
+    }
+
+    public void setInConnexion(boolean inConnexion) {
+        this.inConnexion = inConnexion;
     }
 }

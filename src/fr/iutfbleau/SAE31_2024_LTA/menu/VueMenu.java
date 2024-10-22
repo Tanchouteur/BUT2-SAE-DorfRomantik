@@ -118,7 +118,7 @@ public class VueMenu extends JPanel {
         if (modelPrincipale.getBdd().updateBdd()) {
             listeTuiles = modelPrincipale.getBdd().getListeTuiles();
             for (BddListeTuiles tuile : listeTuiles) {
-                String suiteName = "";
+                String suiteName;
                 if (tuile.getId() != -1) {
                     suiteName = String.valueOf(tuile.getId());
                 } else {

@@ -17,23 +17,23 @@ public class VuePrincipale extends JFrame {
     public static int frameWidth;
     public static int frameHeight;
 
+    public static int screenWidth;
+    public static int screenHeight;
+
     public VuePrincipale(ModelPrincipale modelPrincipale) {
+        this.modelPrincipale = modelPrincipale;
+        setTitle("DorfRomantique Alpha");
+
         Toolkit toolkit = Toolkit.getDefaultToolkit();
 
         Dimension screenSize = toolkit.getScreenSize();
-        int dpi = toolkit.getScreenResolution();
+        setSize(screenSize);
+        screenWidth = screenSize.width;
+        screenHeight = screenSize.height;
 
-        double scaleFactor = dpi / 96.0; // 96 DPI est souvent considéré comme 100% (100%)
+        frameWidth = this.getSize().width;
+        frameHeight = this.getSize().height;
 
-        int adjustedWidth = (int) (screenSize.width / scaleFactor);
-        int adjustedHeight = (int) (screenSize.height / scaleFactor);
-
-        frameWidth = adjustedWidth;
-        frameHeight = adjustedHeight;
-
-        this.modelPrincipale = modelPrincipale;
-        setTitle("DorfRomantique Alpha");
-        setSize(adjustedWidth,adjustedHeight);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
         setMinimumSize(new Dimension(900,600));
@@ -60,6 +60,8 @@ public class VuePrincipale extends JFrame {
         });
     }
     public void updateSize(){
+        frameWidth = this.getWidth();
+        frameHeight = this.getHeight();
         this.getPrincipaleLayeredPane().getMainPanel().setSize(this.getWidth(),this.getHeight());
     }
 

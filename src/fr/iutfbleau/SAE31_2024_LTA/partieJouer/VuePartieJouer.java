@@ -100,7 +100,15 @@ public class VuePartieJouer extends JPanel {
      * Charge les valeurs des parties jouées dans le tableau.
      */
     private void initTableValue(DefaultTableModel tableModel) {
-
+        if (modelPrincipale.getBdd().isInConnexion()){
+            while (modelPrincipale.getBdd().isInConnexion()){
+                try {
+                    Thread.sleep(350);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
         List<BddPartieJouer> allParties = modelPartieJouer.getAllParties();
         if (allParties != null) {
             for (BddPartieJouer partie : allParties) {

@@ -7,10 +7,9 @@ class ControlerMain {
 
     private static volatile boolean isLoading = true;
     private static ModelPrincipale modelPrincipale;
-    private static LoadingFrame loadingFrame;
 
     public static void main(String[] args) {
-        loadingFrame = new LoadingFrame();
+        LoadingFrame loadingFrame = new LoadingFrame();
         new Thread(() -> {
             modelPrincipale = new ModelPrincipale();
             isLoading = false;

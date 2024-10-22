@@ -17,7 +17,7 @@ public class ModelPrincipale {
 
     private final ModelBDD bdd;
 
-    private final ModelPartieJouer modelPartieJouer;
+    private ModelPartieJouer modelPartieJouer;
     private final ModelMenu modelMenu;
     private ModelJeux modelJeux;
 
@@ -30,26 +30,23 @@ public class ModelPrincipale {
     private final ControllerPopup controllerPopup;
 
     public ModelPrincipale() {
-
-        bdd = new ModelBDD();
-
         vuePrincipale = createView();
         controllerPopup = new ControllerPopup(vuePrincipale);
         configManager = new ConfigManager(controllerPopup);
         mediaPlayerManager = new MediaPlayerManager(this);
         modelMediaLoader = new ModelMediaLoader();
-        modelMenu = new ModelMenu(this);
-        modelPartieJouer = new ModelPartieJouer(this);
 
+        bdd = new ModelBDD(getVuePrincipale());
+        modelMenu = new ModelMenu(this);
         vuePrincipale.setVisible(true);
+    }
+
+    public void createPartieJouer() {
+        modelPartieJouer = new ModelPartieJouer(this);
     }
 
     private VuePrincipale createView(){
         return new VuePrincipale(this);
-    }
-
-    private void createWaitScreen(){
-
     }
 
     public VuePrincipale getVuePrincipale() {
