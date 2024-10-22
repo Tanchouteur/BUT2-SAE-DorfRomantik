@@ -74,7 +74,6 @@ public class VueTuile extends JComponent {
             colorPalette[5] = new Color(181, 181, 181, 200);
         }
 
-
         for (int i = 0; i < 6; i++) {
             int[] xPoints = {
                     polygon.xpoints[i],
@@ -90,9 +89,7 @@ public class VueTuile extends JComponent {
             g2d.setColor(colorPalette[composition[i]]);
             g2d.fillPolygon(xPoints, yPoints, 3);
         }
-
         g2d.setColor(Color.BLACK);
         g2d.drawPolygon(polygon);
-
     }
 }

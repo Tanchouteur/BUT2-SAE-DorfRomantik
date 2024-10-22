@@ -3,7 +3,8 @@ package fr.iutfbleau.SAE31_2024_LTA.jeux;
 import fr.iutfbleau.SAE31_2024_LTA.ModelPrincipale;
 import fr.iutfbleau.SAE31_2024_LTA.endGame.VueScoreScreen;
 
-import java.util.LinkedList;
+import java.awt.Point;
+import java.util.*;
 
 public class ModelJeux {
     private VueJeux vueJeux;
@@ -12,7 +13,9 @@ public class ModelJeux {
     private final ModelPrincipale modelPrincipale;
     private final ModelMatrice modelMatrice;
     private final ModelListePoche modelListePoche;
-    private final LinkedList<ModelTuile> listTuiles;
+
+    private final LinkedList<ModelTuile> listTuiles;//Liste de tuile généré
+
     private boolean undoActivate = false;
     private boolean undo = false;
     private ModelTuile tuileUndoAble;
@@ -32,34 +35,7 @@ public class ModelJeux {
 
         createView();
 
-        createFirstTuile();
-
-        setScore(0);
         vueJeux.updatePreviewTuileList();
-        createButton();
-    }
-
-    private void createFirstTuile() {
-
-        int centerX = vueJeux.getX() / 2;
-        int centerY = vueJeux.getHeight() / 2;
-
-        int tuileCentreRow = 50;
-        int tuileCentreCol = 50;
-
-        int initialOffsetX = centerX - (3 * 50 / 2) * tuileCentreCol;
-        int initialOffsetY = centerY - 50-7 * tuileCentreRow;
-
-        int totalOffsetX = initialOffsetX;
-        int totalOffsetY = initialOffsetY;
-
-        int x = totalOffsetX + 50 * (3 * 50 / 2);
-        int y = totalOffsetY + 50 * 43;
-
-        listTuiles.getFirst().createVueTuile(x,y,50);
-        vueJeux.add(listTuiles.getFirst().getVueTuile());
-        modelMatrice.poseeTuile(50, 50);// Pose de la tuile centrale
-        vueJeux.repaint();
     }
 
     private void createView(){
@@ -89,52 +65,56 @@ public class ModelJeux {
     }
 
     public void createButton() {
-        for (int row = 0; row < modelMatrice.getListTuilesPosee().length; row++) {
-            for (int col = 0; col < modelMatrice.getListTuilesPosee()[row].length; col++) {
+        List<Point> pointsToAdd = new ArrayList<>(); // Liste pour stocker les points à ajouter
 
-                ModelTuile tuile = modelMatrice.getListTuilesPosee()[row][col];
+        for (Map.Entry<Point, ModelTuile> entry : modelMatrice.getTuilesPartie().entrySet()) {
+            Point point = entry.getKey();
+            ModelTuile tuile = entry.getValue();
 
-                if (tuile != null && !tuile.isButton()) {
-
-                    if (!getModelMatrice().isNordOuest(tuile)) {
-                        modelMatrice.poseeButton(row-1, col-1, new ModelTuile());
-                    }
-
-                    if (!getModelMatrice().isNord(tuile)) {
-                        modelMatrice.poseeButton(row-2,col, new ModelTuile());
-                    }
-
-                    if (!getModelMatrice().isNordEst(tuile)) {
-                        modelMatrice.poseeButton(row-1,col+1, new ModelTuile());
-                    }
-
-                    if (!getModelMatrice().isSudOuest(tuile)) {
-                        modelMatrice.poseeButton(row+1,col-1, new ModelTuile());
-                    }
-
-                    if (!getModelMatrice().isSud(tuile)) {
-                        modelMatrice.poseeButton(row+2,col, new ModelTuile());
-                    }
-
-                    if (!getModelMatrice().isSudEst(tuile)) {
-                        modelMatrice.poseeButton(row+1,col+1, new ModelTuile());
-                    }
+            if (tuile != null && !tuile.isButton()) {
+                // verifie si chaque position est disponible et l'ajoute à la liste
+                if (tryCreateButton(point.x - 1, point.y - 1)) {  // Nord-Ouest
+                    pointsToAdd.add(new Point(point.x - 1, point.y - 1));
+                }
+                if (tryCreateButton(point.x , point.y - 2)) {      // Nord
+                    pointsToAdd.add(new Point(point.x , point.y - 2));
+                }
+                if (tryCreateButton(point.x - 1, point.y + 1)) {  // Nord-Est
+                    pointsToAdd.add(new Point(point.x - 1, point.y + 1));
+                }
+                if (tryCreateButton(point.x + 1, point.y - 1)) {  // Sud-Ouest
+                    pointsToAdd.add(new Point(point.x + 1, point.y - 1));
+                }
+                if (tryCreateButton(point.x , point.y + 2)) {      // Sud
+                    pointsToAdd.add(new Point(point.x , point.y + 2));
+                }
+                if (tryCreateButton(point.x + 1, point.y + 1)) {  // Sud-Est
+                    pointsToAdd.add(new Point(point.x + 1, point.y + 1));
                 }
             }
+        }
+
+
+        for (Point newPoint : pointsToAdd) {
+            modelMatrice.poseeButton(newPoint.x, newPoint.y, new ModelTuile());
         }
     }
 
+    private boolean tryCreateButton(int x, int y) {
+        return !modelMatrice.isOccupied(x, y);
+    }
+
+
     public void deleteButtons() {
-        for (int row = 0; row < modelMatrice.getListTuilesPosee().length; row++) {
-            for (int col = 0; col < modelMatrice.getListTuilesPosee()[row].length; col++) {
+        Map<Point, ModelTuile> tuiles = modelMatrice.getTuilesPartie();
 
-                ModelTuile tuile = modelMatrice.getListTuilesPosee()[row][col];
-
-                if (tuile != null && tuile.isButton()) {
-                    modelMatrice.deleteTuile(row, col);
-                }
+        for (ModelTuile tuile : tuiles.values()) {
+            if (tuile.isButton() && tuile.getVueTuile() != null) {
+                vueJeux.remove(tuile.getVueTuile());
             }
         }
+
+        tuiles.values().removeIf(ModelTuile::isButton);
     }
 
     public void playTuileSound(int soundIndex) {
@@ -173,18 +153,17 @@ public class ModelJeux {
         this.undoActivate = undoActivate;
     }
 
-
-
     public void setTuileUndoAble(ModelTuile tuileUndoAble) {
         this.tuileUndoAble = tuileUndoAble;
     }
+
     public void undoLastTuile() {
         if (!undo) {
             listTuiles.addFirst(tuileUndoAble);
             deleteButtons();
-            modelMatrice.deleteTuile(tuileUndoAble.getX(), tuileUndoAble.getY());
+            modelMatrice.deleteTuile(tuileUndoAble);
             getVueJeux().updatePreviewTuileList();
-
+            tuileUndoAble.setVueTuile(null);
             createButton();
             undo = true;
         }

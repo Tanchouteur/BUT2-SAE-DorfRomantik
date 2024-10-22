@@ -6,15 +6,13 @@ import java.awt.event.MouseListener;
 public class ControllerPoseTuile implements MouseListener {
 
     private final ModelJeux modelJeux;
-    private final ModelTuile buttonTuile;
 
     private ModelTuile modeleTuilePreviewed;
 
     private boolean clicked = false;
 
-    ControllerPoseTuile(ModelJeux modelJeux, ModelTuile buttonTuile) {
+    ControllerPoseTuile(ModelJeux modelJeux) {
         this.modelJeux = modelJeux;
-        this.buttonTuile = buttonTuile;
 
     }
 
@@ -28,25 +26,23 @@ public class ControllerPoseTuile implements MouseListener {
 
     @Override
     public void mouseReleased(MouseEvent e) {
-
-        Object source = e.getSource();
-        if (source instanceof VueTuile btnCliked && clicked) {
-            if (btnCliked.getModelTuile().isButton() && e.getButton() == 1) {
-                if (!modelJeux.getListTuiles().isEmpty()) {
+        if (clicked) {
+            Object source = e.getSource();
+            modelJeux.getVueJeux().unsetPreviewOnButton(modeleTuilePreviewed);
+            if (source instanceof VueTuile btnHovered) {
+                modelJeux.createButton();
+                if (e.getButton() == MouseEvent.BUTTON1 && !modelJeux.getListTuiles().isEmpty()) {
                     modelJeux.playTuileSound(modelJeux.getListTuiles().getFirst().getSoundIndex());
-
-                    modelJeux.getModelMatrice().poseeTuile(buttonTuile.getX(), buttonTuile.getY());
-                    modelJeux.createButton();
-                    modelJeux.getVueJeux().updateTuile(btnCliked);
+                    modelJeux.getModelMatrice().deleteTuile(btnHovered.getModelTuile());
+                    modelJeux.getModelMatrice().poseTuile(btnHovered.getModelTuile().getX(), btnHovered.getModelTuile().getY());
+                    modelJeux.getVueJeux().updatePreviewTuileList();
                 }
             }
+            if (e.getButton() == MouseEvent.BUTTON3 && modelJeux.isUndoActivate()) {
+                modelJeux.undoLastTuile();
+            }
+            clicked = false;
         }
-        if (e.getButton() == 3 && modelJeux.isUndoActivate() && !modelJeux.getListTuiles().isEmpty()){ //3 c'est clic gauche je crois
-            modelJeux.undoLastTuile();
-        }
-        clicked = false;
-        modelJeux.getVueJeux().unsetPreviewOnButton(modeleTuilePreviewed);
-        //modelJeux.getVueJeux().repaint();
     }
 
     @Override
@@ -54,7 +50,7 @@ public class ControllerPoseTuile implements MouseListener {
         clicked = true;
 
         Object source = e.getSource();
-        if (source instanceof VueTuile btnHovered && clicked) {
+        if (source instanceof VueTuile btnHovered) {
             modeleTuilePreviewed = modelJeux.getVueJeux().setPreviewOnButton(btnHovered);
         }
     }
