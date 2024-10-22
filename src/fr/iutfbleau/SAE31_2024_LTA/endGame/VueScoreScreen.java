@@ -5,11 +5,15 @@ import fr.iutfbleau.SAE31_2024_LTA.menu.ControllerMenuCard;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.Objects;
 
 public class VueScoreScreen extends JPanel {
     private JPanel sidebarPanel;
-    ModelPrincipale modelPrincipale;
+    private final ModelPrincipale modelPrincipale;
+    private final int widthSidebar, heightSidebar;
     public VueScoreScreen(ModelPrincipale modelPrincipale) {
+        widthSidebar = 450;
+        heightSidebar = 600;
         setLayout(new BorderLayout());
         this.modelPrincipale = modelPrincipale;
         initSidebarComponent();
@@ -30,6 +34,14 @@ public class VueScoreScreen extends JPanel {
         gbc.fill = GridBagConstraints.HORIZONTAL;
         gbc.weightx = 0.0;
         gbc.gridx = 0;
+
+        ImageIcon logoIcon = new ImageIcon(Objects.requireNonNull(getClass().getResource("/Images/Titre.png")));
+        Image image = logoIcon.getImage();
+        Image resizedImage = image.getScaledInstance(180, 110, java.awt.Image.SCALE_SMOOTH);
+        ImageIcon resizedIcon = new ImageIcon(resizedImage);
+        JLabel logoLabel = new JLabel(resizedIcon);
+        logoLabel.setBorder(BorderFactory.createEmptyBorder(10, 0, 10, 0));
+        sidebarPanel.add(logoLabel, gbc);
 
         JLabel scoreLabel = getjLabel(labelMenuFont, buttonMenuFont, greyColor);
         gbc.gridy = 1;
@@ -102,5 +114,13 @@ public class VueScoreScreen extends JPanel {
         button.setPreferredSize(new Dimension(440, 80));
         button.setFocusPainted(false);
         button.setBorder(BorderFactory.createLineBorder(greyColor, 8, true));
+    }
+
+    public int getWidthSidebar() {
+        return widthSidebar;
+    }
+
+    public int getHeightSidebar() {
+        return heightSidebar;
     }
 }

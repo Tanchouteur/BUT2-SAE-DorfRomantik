@@ -14,6 +14,7 @@ public class VueTuto extends JPanel {
         setLayout(null);
         setBackground(new Color(168, 168, 168));
         setSize(new Dimension(controllerPopup.getTutoDialog().getWidth(), controllerPopup.getTutoDialog().getHeight()));
+
         showAtStartupCheckBox = new JCheckBox("Montrer au démarrage", configManager.isTuto());
         styleCheckBox(showAtStartupCheckBox);
         showAtStartupCheckBox.setBounds(20, this.getHeight()-100, 220, 30);

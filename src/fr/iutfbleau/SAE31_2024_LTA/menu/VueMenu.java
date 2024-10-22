@@ -74,10 +74,11 @@ public class VueMenu extends JPanel {
     }
 
     public void updateMenu() {
+        int widthSidebar = 450;
+        int heightSidebar = 600;
         backgroundImage.setSize(getWidth(), getHeight());
         layeredPane.setBounds(0, 0, modelPrincipale.getVuePrincipale().getWidth(), modelPrincipale.getVuePrincipale().getHeight());
-        sidebarPanel.setBounds(getWidth() - 470, (getHeight() - 520) / 2, 400, 500);
-        //repaint();
+        sidebarPanel.setBounds(getWidth() - 550, (getHeight() - heightSidebar) / 2, widthSidebar, heightSidebar); // centrer verticalement et coler a droite
     }
 
     /**
@@ -98,6 +99,15 @@ public class VueMenu extends JPanel {
         gbc.weightx = 0.0;
         gbc.gridx = 0;
 
+        ImageIcon logoIcon = new ImageIcon(Objects.requireNonNull(getClass().getResource("/Images/Titre.png")));
+        Image image = logoIcon.getImage();
+        Image resizedImage = image.getScaledInstance(180, 110, java.awt.Image.SCALE_SMOOTH);
+        ImageIcon resizedIcon = new ImageIcon(resizedImage);
+        JLabel logoLabel = new JLabel(resizedIcon);
+        logoLabel.setBorder(BorderFactory.createEmptyBorder(10, 0, 10, 0));
+        sidebarPanel.add(logoLabel, gbc);
+
+
         playerNameInput = new JTextField("Player Name", 15);
         playerNameInput.setFont(inputMenuFont);
         playerNameInput.setForeground(Color.GRAY);
@@ -111,7 +121,7 @@ public class VueMenu extends JPanel {
         playerNameInput.setText(modelPrincipale.getConfigManager().getPlayerName());
         playerNameInput.setCursor(new Cursor(Cursor.TEXT_CURSOR));
 
-        gbc.gridy = 0;
+        gbc.gridy = 1;
         sidebarPanel.add(playerNameInput, gbc);
 
         suiteSelector = new JComboBox<>();
@@ -159,7 +169,7 @@ public class VueMenu extends JPanel {
 
         suiteSelector.setCursor(new Cursor(Cursor.HAND_CURSOR));
 
-        gbc.gridy = 1;
+        gbc.gridy = 2;
         sidebarPanel.add(suiteSelector, gbc);
 
         JButton playButton = new JButton("Jouer");
@@ -174,7 +184,7 @@ public class VueMenu extends JPanel {
         playButton.addActionListener(new ControllerPlayCard(modelPrincipale, listeTuiles));
         playButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
 
-        gbc.gridy = 2;
+        gbc.gridy = 3;
         sidebarPanel.add(playButton, gbc);
 
 
@@ -190,7 +200,7 @@ public class VueMenu extends JPanel {
         partieJouerBtn.addActionListener(new ControllerPartieJouerBTN(modelPrincipale));
         partieJouerBtn.setCursor(new Cursor(Cursor.HAND_CURSOR));
 
-        gbc.gridy = 3;
+        gbc.gridy = 4;
         sidebarPanel.add(partieJouerBtn, gbc);
 
         JButton settingsButton = new JButton("Paramètres");
@@ -206,7 +216,7 @@ public class VueMenu extends JPanel {
         settingsButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
 
 
-        gbc.gridy = 4;
+        gbc.gridy = 5;
         sidebarPanel.add(settingsButton, gbc);
 
         JButton quitButton = new JButton("Quitter");
@@ -220,7 +230,7 @@ public class VueMenu extends JPanel {
         ));
         quitButton.addActionListener(e -> System.exit(0));
         quitButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
-        gbc.gridy = 5;
+        gbc.gridy = 6;
         sidebarPanel.add(quitButton, gbc);
 
     }

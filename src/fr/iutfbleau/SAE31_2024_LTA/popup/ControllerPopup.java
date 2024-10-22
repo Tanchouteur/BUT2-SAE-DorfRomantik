@@ -26,12 +26,13 @@ public class ControllerPopup extends AbstractAction {
         settingsDialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
         settingsDialog.setSize(700, 500);
         settingsDialog.setLocationRelativeTo(vuePrincipale);
-
+        settingsDialog.setResizable(false);
 
 
         this.tutoDialog = new JDialog(vuePrincipale, "Tutoriel", true);
         tutoDialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
         tutoDialog.setSize(700, 500);
+        tutoDialog.setResizable(false);
         tutoDialog.setLocationRelativeTo(vuePrincipale);
 
 
