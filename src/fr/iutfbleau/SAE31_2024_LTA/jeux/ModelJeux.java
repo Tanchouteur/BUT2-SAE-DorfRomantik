@@ -40,7 +40,7 @@ public class ModelJeux {
 
     private void createView(){
         this.vueJeux = new VueJeux(this);
-        modelPrincipale.getVuePrincipale().add(vueJeux, "jeux");
+        modelPrincipale.getVuePrincipale().getPrincipaleLayeredPane().getMainPanel().add(vueJeux, "jeux");
     }
 
     public void createEndView(){

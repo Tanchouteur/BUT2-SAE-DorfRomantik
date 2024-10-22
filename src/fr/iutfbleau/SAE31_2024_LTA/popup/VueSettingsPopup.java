@@ -7,7 +7,6 @@ import fr.iutfbleau.SAE31_2024_LTA.miseEnForme.StyleComponent;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.*;
 
 import static fr.iutfbleau.SAE31_2024_LTA.miseEnForme.StyleComponent.*;
 
@@ -20,67 +19,67 @@ public class VueSettingsPopup extends JPanel {
         this.modelPrincipale = modelPrincipale;
         ConfigManager configManager = modelPrincipale.getConfigManager();
         setLayout(null);
-        setBackground(StyleComponent.getPopupColor());
+
+        this.setSize(700,430);
+        updateVueSettings();
+
+        JLabel settingsLabel = new JLabel("Paramètres");
+        settingsLabel.setBounds((getWidth()-190)/2,20,190,50);
+        add(setStyleLabelScore(settingsLabel,24));
 
         musicVolumeSlider = new JSlider(35, 100, configManager.getVolumeMusique());
-        musicVolumeSlider.setBounds(200, 100, 400, 40);
+        musicVolumeSlider.setBounds(250, 100, 350, 40);
         add(setStyleSlider(musicVolumeSlider));
 
         effectsVolumeSlider = new JSlider(35, 100, configManager.getVolumeEffet());
-        effectsVolumeSlider.setBounds(200, 200, 400, 40);
+        effectsVolumeSlider.setBounds(250, 200, 350, 40);
         add(setStyleSlider(effectsVolumeSlider));
 
         JLabel musicLabel = new JLabel("Musique Volume:");
-        musicLabel.setBounds(50, 100, 150, 40);
+        musicLabel.setBounds(50, 100, 200, 40);
         add(setStyleLabel(musicLabel,19));
 
         JLabel effectsLabel = new JLabel("Effets Volume:");
-        effectsLabel.setBounds(50, 200, 150, 40);
+        effectsLabel.setBounds(50, 200, 200, 40);
         add(setStyleLabel(effectsLabel,19));
 
         musicVolumeSlider.addChangeListener(new ControllerVolumeChange(configManager, 0));
         effectsVolumeSlider.addChangeListener(new ControllerVolumeChange(configManager, 1));
 
         JButton tutoButton = new JButton("Tutoriel");
-        tutoButton.setBounds(20, 350, 180, 50);
+        tutoButton.setBounds(20, 350, 200, 50);
         tutoButton.addActionListener(e -> onTuto(controllerPopup));
         add(setStyleButton(tutoButton,18));
 
         JButton resumeButton = new JButton("Resume");
-        resumeButton.setBounds(230, 350, 180, 50);
+        resumeButton.setBounds(240, 350, 200, 50);
         resumeButton.addActionListener(e -> onResume(controllerPopup));
         add(setStyleButton(resumeButton,18));
 
         JButton quitButton = new JButton("Menu");
-        quitButton.setBounds(450, 350, 180, 50);
+        quitButton.setBounds(440, 350, 200, 50);
         quitButton.addActionListener(e -> onQuit(controllerPopup));
         add(setStyleButton(quitButton,18));
 
-        addKeyListener(new KeyAdapter() {
-            @Override
-            public void keyPressed(KeyEvent e) {
-                if (e.getKeyCode() == KeyEvent.VK_ESCAPE) {
-                    onResume(controllerPopup);
-                }
-            }
-        });
+        this.setBackground(StyleComponent.getPopupColor());
+    }
 
-        setFocusable(true);
-        requestFocusInWindow();
+    public void updateVueSettings(){
+        this.setBounds((modelPrincipale.getVuePrincipale().getWidth()-this.getWidth())/2,(modelPrincipale.getVuePrincipale().getHeight()-this.getHeight())/2,getWidth(),getHeight());
     }
 
     private void onTuto(ControllerPopup controllerPopup) {
-        controllerPopup.closePopup(controllerPopup.getSettingsDialog());
+        controllerPopup.closeSettings();
         controllerPopup.showTutoDialog(modelPrincipale.getConfigManager());
     }
 
     private void onResume(ControllerPopup controllerPopup) {
-        controllerPopup.closePopup(controllerPopup.getSettingsDialog());
+        controllerPopup.closeSettings();
     }
 
     private void onQuit(ControllerPopup controllerPopup) {
         ControllerMenuCard controllerMenuCard = new ControllerMenuCard(modelPrincipale);
-        controllerPopup.closePopup(controllerPopup.getSettingsDialog());
+        controllerPopup.closeSettings();
         controllerMenuCard.goMenu();
     }
 

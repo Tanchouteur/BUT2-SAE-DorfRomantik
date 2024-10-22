@@ -63,7 +63,7 @@ public class ControllerPlayCard implements ActionListener {
                 modelPrincipale.getMediaPlayerManager().startClip(modelPrincipale.getModelMediaLoader().getGameMusicClips(),0);
 
                 modelPrincipale.createJeux();
-                vuePrincipale.getCardLayout().show(vuePrincipale.getFramePane(), "jeux");
+                vuePrincipale.getPrincipaleLayeredPane().getMainPanel().getCardLayout().show(vuePrincipale.getPrincipaleLayeredPane().getMainPanel(), "jeux");
             }
         }
         vuePrincipale.setTitle("DorfJavatik - Jeux en cours...  0 points");

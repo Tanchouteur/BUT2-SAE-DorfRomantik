@@ -13,7 +13,7 @@ public class StyleComponent {
     }
 
     public static Color getPopupColor() {
-        return new Color(30, 30, 30);
+        return new Color(30, 30, 30, 95);
     }
 
     public static Color getPanelColor() {
