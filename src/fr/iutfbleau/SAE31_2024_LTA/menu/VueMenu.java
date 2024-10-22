@@ -3,6 +3,7 @@ package fr.iutfbleau.SAE31_2024_LTA.menu;
 import fr.iutfbleau.SAE31_2024_LTA.Bdd.BddListeTuiles;
 import fr.iutfbleau.SAE31_2024_LTA.ModelPrincipale;
 import fr.iutfbleau.SAE31_2024_LTA.jeux.ControllerPlayCard;
+import fr.iutfbleau.SAE31_2024_LTA.miseEnForme.StyleComponent;
 import fr.iutfbleau.SAE31_2024_LTA.partieJouer.ControllerPartieJouerBTN;
 
 import javax.swing.*;
@@ -11,6 +12,9 @@ import javax.swing.event.PopupMenuListener;
 import java.awt.*;
 import java.util.List;
 import java.util.Objects;
+
+import static fr.iutfbleau.SAE31_2024_LTA.miseEnForme.StyleComponent.setStyleButton;
+import static fr.iutfbleau.SAE31_2024_LTA.miseEnForme.StyleComponent.setStyleImageTitre;
 
 public class VueMenu extends JPanel {
     private JTextField playerNameInput;
@@ -74,22 +78,21 @@ public class VueMenu extends JPanel {
     }
 
     public void updateMenu() {
+        int widthSidebar = 450;
+        int heightSidebar = 630;
         backgroundImage.setSize(getWidth(), getHeight());
         layeredPane.setBounds(0, 0, modelPrincipale.getVuePrincipale().getWidth(), modelPrincipale.getVuePrincipale().getHeight());
-        sidebarPanel.setBounds(getWidth() - 470, (getHeight() - 520) / 2, 400, 500);
-        //repaint();
+        sidebarPanel.setBounds(getWidth() - 550, (getHeight() - heightSidebar) / 2, widthSidebar, heightSidebar); // centrer verticalement et coler a droite
     }
 
     /**
      * Initialise la barre latérale avec les composants nécessaires.
      */
     private void initSidebarComponent() {
-        Color greyColor = new Color(44, 44, 44, 255);
-        Font buttonMenuFont = new Font("Arial", Font.BOLD, 30);
-        Font inputMenuFont = new Font("Arial", Font.BOLD, 24);
+        int buttonFontSize = 30;
 
         sidebarPanel = new JPanel(new GridBagLayout());
-        sidebarPanel.setBackground(new Color(193, 193, 193, 89));
+        sidebarPanel.setBackground(StyleComponent.getPanelColor());
         sidebarPanel.setOpaque(true);
 
         GridBagConstraints gbc = new GridBagConstraints();
@@ -98,26 +101,17 @@ public class VueMenu extends JPanel {
         gbc.weightx = 0.0;
         gbc.gridx = 0;
 
-        playerNameInput = new JTextField("Player Name", 15);
-        playerNameInput.setFont(inputMenuFont);
-        playerNameInput.setForeground(Color.GRAY);
-        playerNameInput.setBackground(new Color(245, 245, 245, 216));
-        playerNameInput.setBorder(BorderFactory.createCompoundBorder(
-                BorderFactory.createLineBorder(greyColor, 1, true),
-                BorderFactory.createEmptyBorder(7, 7, 7, 7)
-        ));
 
+        sidebarPanel.add(setStyleImageTitre(), gbc);
+
+        playerNameInput = new JTextField("Player Name", 15);
         playerNameInput.addFocusListener(new ControllerFocus(this, modelPrincipale));
         playerNameInput.setText(modelPrincipale.getConfigManager().getPlayerName());
-        playerNameInput.setCursor(new Cursor(Cursor.TEXT_CURSOR));
 
-        gbc.gridy = 0;
-        sidebarPanel.add(playerNameInput, gbc);
+        gbc.gridy = 1;
+        sidebarPanel.add(StyleComponent.setStyleTextField(playerNameInput,22), gbc);
 
         suiteSelector = new JComboBox<>();
-        suiteSelector.setFont(inputMenuFont);
-        suiteSelector.setBackground(Color.WHITE);
-        suiteSelector.setForeground(Color.BLACK);
         suiteSelector.addItem("Choisir une suite...");
 
         List<BddListeTuiles> listeTuiles;
@@ -138,90 +132,33 @@ public class VueMenu extends JPanel {
             listeTuiles = null;
         }
 
-        suiteSelector.setBorder(BorderFactory.createCompoundBorder(
-                BorderFactory.createLineBorder(greyColor, 1, true),
-                BorderFactory.createEmptyBorder(0, 0, 0, 0)
-        ));
-        suiteSelector.addPopupMenuListener(new PopupMenuListener() {
-            @Override
-            public void popupMenuWillBecomeVisible(PopupMenuEvent e) {
-                repaint();
-            }
-            @Override
-            public void popupMenuWillBecomeInvisible(PopupMenuEvent e) {
-                repaint();
-            }
-            @Override
-            public void popupMenuCanceled(PopupMenuEvent e) {
-                repaint();
-            }
-        });
-
-        suiteSelector.setCursor(new Cursor(Cursor.HAND_CURSOR));
-
-        gbc.gridy = 1;
-        sidebarPanel.add(suiteSelector, gbc);
+        gbc.gridy = 2;
+        sidebarPanel.add(StyleComponent.setStyleComboBox(suiteSelector,24,this), gbc);
 
         JButton playButton = new JButton("Jouer");
-        playButton.setFont(buttonMenuFont);
-        playButton.setBackground(greyColor);
-        playButton.setForeground(Color.WHITE);
-        playButton.setFocusPainted(false);
-        playButton.setBorder(BorderFactory.createCompoundBorder(
-                BorderFactory.createLineBorder(greyColor, 1, true),
-                BorderFactory.createEmptyBorder(10, 20, 10, 20)
-        ));
         playButton.addActionListener(new ControllerPlayCard(modelPrincipale, listeTuiles));
-        playButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
 
-        gbc.gridy = 2;
-        sidebarPanel.add(playButton, gbc);
+        gbc.gridy = 3;
+        sidebarPanel.add(setStyleButton(playButton,buttonFontSize), gbc);
 
 
         JButton partieJouerBtn = new JButton("Partie Jouer");
-        partieJouerBtn.setFont(buttonMenuFont);
-        partieJouerBtn.setBackground(greyColor);
-        partieJouerBtn.setForeground(Color.WHITE);
-        partieJouerBtn.setFocusPainted(false);
-        partieJouerBtn.setBorder(BorderFactory.createCompoundBorder(
-                BorderFactory.createLineBorder(greyColor, 1, true),
-                BorderFactory.createEmptyBorder(10, 20, 10, 20)
-        ));
         partieJouerBtn.addActionListener(new ControllerPartieJouerBTN(modelPrincipale));
-        partieJouerBtn.setCursor(new Cursor(Cursor.HAND_CURSOR));
-
-        gbc.gridy = 3;
-        sidebarPanel.add(partieJouerBtn, gbc);
-
-        JButton settingsButton = new JButton("Paramètres");
-        settingsButton.setFont(buttonMenuFont);
-        settingsButton.setBackground(greyColor);
-        settingsButton.setForeground(Color.WHITE);
-        settingsButton.setFocusPainted(false);
-        settingsButton.setBorder(BorderFactory.createCompoundBorder(
-                BorderFactory.createLineBorder(greyColor, 1, true),
-                BorderFactory.createEmptyBorder(10, 20, 10, 20)
-        ));
-        settingsButton.addActionListener(modelPrincipale.getControllerPopup());
-        settingsButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
-
 
         gbc.gridy = 4;
-        sidebarPanel.add(settingsButton, gbc);
+        sidebarPanel.add(setStyleButton(partieJouerBtn,buttonFontSize), gbc);
+
+        JButton settingsButton = new JButton("Paramètres");
+        settingsButton.addActionListener(modelPrincipale.getControllerPopup());
+
+        gbc.gridy = 5;
+        sidebarPanel.add(setStyleButton(settingsButton,buttonFontSize), gbc);
 
         JButton quitButton = new JButton("Quitter");
-        quitButton.setFont(buttonMenuFont);
-        quitButton.setBackground(greyColor);
-        quitButton.setForeground(Color.WHITE);
-        quitButton.setFocusPainted(false);
-        quitButton.setBorder(BorderFactory.createCompoundBorder(
-                BorderFactory.createLineBorder(greyColor, 1, true),
-                BorderFactory.createEmptyBorder(10, 20, 10, 20)
-        ));
         quitButton.addActionListener(e -> System.exit(0));
-        quitButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
-        gbc.gridy = 5;
-        sidebarPanel.add(quitButton, gbc);
+
+        gbc.gridy = 6;
+        sidebarPanel.add(setStyleButton(quitButton,buttonFontSize), gbc);
 
     }
 

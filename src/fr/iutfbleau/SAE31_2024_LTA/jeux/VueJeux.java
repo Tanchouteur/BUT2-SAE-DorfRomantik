@@ -125,7 +125,7 @@ public class VueJeux extends JLayeredPane {
         modelJeux.setUndoActivate(false);
         updatePreviewTuileList();
         modelJeux.createEndView();
-        modelJeux.getVueScoreScreen().setBounds(getWidth() - 400, 100, 350, 600);
+        modelJeux.getVueScoreScreen().setBounds(getWidth() - (modelJeux.getVueScoreScreen().getWidthSidebar()+20), (this.getHeight()-modelJeux.getVueScoreScreen().getHeightSidebar())/2, modelJeux.getVueScoreScreen().getWidthSidebar(), modelJeux.getVueScoreScreen().getHeightSidebar());
         deletePlayerInfo();
         add(modelJeux.getVueScoreScreen(), Integer.valueOf(1));
     } //Sa sa marche
