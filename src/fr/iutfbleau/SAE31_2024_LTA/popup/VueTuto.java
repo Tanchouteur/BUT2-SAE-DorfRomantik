@@ -7,20 +7,27 @@ import fr.iutfbleau.SAE31_2024_LTA.miseEnForme.StyleComponent;
 import javax.swing.*;
 
 import static fr.iutfbleau.SAE31_2024_LTA.miseEnForme.StyleComponent.setStyleCheckBox;
+import static fr.iutfbleau.SAE31_2024_LTA.miseEnForme.StyleComponent.setStyleLabelScore;
 
 public class VueTuto extends JPanel {
     private final JCheckBox showAtStartupCheckBox;
 
     VueTuto(ControllerPopup controllerPopup, ConfigManager configManager) {
         setLayout(null);
-        setBackground(StyleComponent.getPopupColor());
+        this.setBackground(StyleComponent.getPopupColor());
         setSize(controllerPopup.getVuePrincipale().getWidth()/2,controllerPopup.getVuePrincipale().getHeight()/2);
+
+        JLabel tutoLabel = new JLabel("Tutoriel");
+        tutoLabel.setBounds((getWidth()-190)/2,20,190,50);
+        add(setStyleLabelScore(tutoLabel,24));
+
         showAtStartupCheckBox = new JCheckBox("Montrer au démarrage", configManager.isTuto());
         setStyleCheckBox(showAtStartupCheckBox);
-        showAtStartupCheckBox.setBounds(20, this.getHeight()-100, 220, 30);
+        showAtStartupCheckBox.setBounds(20, this.getHeight()-100, 220, 50);
         showAtStartupCheckBox.addActionListener(e -> onShowAtStartupChange(configManager));
         add(showAtStartupCheckBox);
         updateVueTuto(controllerPopup.getVuePrincipale());
+
         JButton resumeButton = new JButton("Resume");
         resumeButton = StyleComponent.setStyleButton(resumeButton,18);
         resumeButton.setBounds(this.getWidth()-220, this.getHeight()-110, 180, 50);

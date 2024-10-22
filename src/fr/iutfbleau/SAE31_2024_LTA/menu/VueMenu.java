@@ -22,7 +22,7 @@ public class VueMenu extends JPanel {
     private final ModelPrincipale modelPrincipale;
     private final JLabel backgroundImage;
     private JPanel sidebarPanel;
-    private JLayeredPane layeredPane;
+    private final JLayeredPane layeredPane;
 
     public VueMenu(ModelPrincipale modelPrincipale) {
         this.modelPrincipale = modelPrincipale;
@@ -159,9 +159,7 @@ public class VueMenu extends JPanel {
 
         gbc.gridy = 6;
         sidebarPanel.add(setStyleButton(quitButton,buttonFontSize), gbc);
-
     }
-
 
     public JComboBox<String> getSuiteSelector() {
         return suiteSelector;

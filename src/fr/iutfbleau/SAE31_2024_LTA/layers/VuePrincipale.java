@@ -14,6 +14,9 @@ public class VuePrincipale extends JFrame {
     private final PrincipaleLayeredPane principaleLayeredPane;
     ModelPrincipale modelPrincipale;
 
+    public static int frameWidth;
+    public static int frameHeight;
+
     public VuePrincipale(ModelPrincipale modelPrincipale) {
         Toolkit toolkit = Toolkit.getDefaultToolkit();
 
@@ -24,6 +27,9 @@ public class VuePrincipale extends JFrame {
 
         int adjustedWidth = (int) (screenSize.width / scaleFactor);
         int adjustedHeight = (int) (screenSize.height / scaleFactor);
+
+        frameWidth = adjustedWidth;
+        frameHeight = adjustedHeight;
 
         this.modelPrincipale = modelPrincipale;
         setTitle("DorfRomantique Alpha");

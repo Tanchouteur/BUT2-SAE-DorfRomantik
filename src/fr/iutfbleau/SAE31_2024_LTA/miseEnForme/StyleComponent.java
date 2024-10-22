@@ -67,7 +67,8 @@ public class StyleComponent {
     }
 
     public static JLabel setStyleLabelScore(JLabel label, int fontSize) {
-        label.setForeground(Color.WHITE);
+        label.setForeground(new Color(45, 45, 45));
+        label.setBackground(new Color(18, 18, 18, 255));
         label.setFont(new Font("Arial", Font.PLAIN, fontSize));
         label.setBorder(BorderFactory.createLineBorder(new Color(90, 90, 90), 2));
         label.setBorder(BorderFactory.createCompoundBorder(
