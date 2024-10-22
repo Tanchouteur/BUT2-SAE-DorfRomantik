@@ -6,6 +6,9 @@ import java.util.List; // Importer la bonne classe List
 import java.util.ArrayList; // Importer ArrayList
 import java.util.Map; // Pour les Map
 
+import static fr.iutfbleau.SAE31_2024_LTA.miseEnForme.StyleComponent.getPanelColor;
+import static fr.iutfbleau.SAE31_2024_LTA.miseEnForme.StyleComponent.setStyleLabel;
+
 public class VueJeux extends JLayeredPane {
 
     private final ModelJeux modelJeux;
@@ -196,31 +199,21 @@ public class VueJeux extends JLayeredPane {
 
     public void createPlayerInfo() {
         infoPanel = new JPanel(new BorderLayout());
-        infoPanel.setBackground(new Color(112, 112, 112, 181));
+        infoPanel.setBackground(getPanelColor());
         infoPanel.setBounds(30, 30, 550, 50);
 
-        JLabel playerNameLabel = createLabel(modelJeux.getModelPrincipale().getPlayerName(), 24);
-        JLabel bestScoreLabel = createLabel("Ton record : " + modelJeux.getModelPrincipale().getModelPartieJouer()
+        JLabel playerNameLabel = new JLabel(modelJeux.getModelPrincipale().getPlayerName());
+        JLabel bestScoreLabel = new JLabel("Ton record : " + modelJeux.getModelPrincipale().getModelPartieJouer()
                 .getVuePartieJouer().getControllerSearchPartieJouer().searchPartieOfPlayer(
-                        modelJeux.getModelPrincipale().getPlayerName(), modelJeux.getModelPrincipale().getSelectedSeed()) + " Points", 18);
-        currentScore = createLabel("Score : " + modelJeux.getScore() + " Points", 18);
+                        modelJeux.getModelPrincipale().getPlayerName(), modelJeux.getModelPrincipale().getSelectedSeed()) + " Points");
 
-        infoPanel.add(playerNameLabel, BorderLayout.WEST);
-        infoPanel.add(bestScoreLabel, BorderLayout.CENTER);
-        infoPanel.add(currentScore, BorderLayout.EAST);
+        currentScore = new JLabel("Score : " + modelJeux.getScore() + " Points");
+
+        infoPanel.add(setStyleLabel(playerNameLabel,24), BorderLayout.WEST);
+        infoPanel.add(setStyleLabel(bestScoreLabel,18), BorderLayout.CENTER);
+        infoPanel.add(setStyleLabel(currentScore,18), BorderLayout.EAST);
         add(infoPanel, Integer.valueOf(2));
     } //Sa sa marche
-
-    private JLabel createLabel(String text, int fontSize) {
-        JLabel label = new JLabel(text);
-        label.setFont(new Font("Arial", Font.BOLD, fontSize));
-        label.setForeground(Color.WHITE);
-        label.setBorder(BorderFactory.createCompoundBorder(
-                BorderFactory.createLineBorder(new Color(44, 44, 44, 255), 1, true),
-                BorderFactory.createEmptyBorder(7, 7, 7, 7)
-        ));
-        return label;
-    }
 
     public void updatePlayerInfo() {
         deletePlayerInfo();
@@ -228,7 +221,7 @@ public class VueJeux extends JLayeredPane {
     }
 
     public void deletePlayerInfo() {
+        infoPanel.removeAll();
         remove(infoPanel);
-        dirty = true;
     } //Sa je sais pas
 }

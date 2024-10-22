@@ -1,27 +1,17 @@
 package fr.iutfbleau.SAE31_2024_LTA;
 
-import fr.iutfbleau.SAE31_2024_LTA.popup.ControllerPopup;
-
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.io.IOException;
 import java.net.URL;
 
-/**
- * La classe VuePrincipale représente la fenêtre principale de l'application DorfRomantique.
- */
-public class VuePrincipale extends JFrame {
-    private final CardLayout cardLayout;
-    private final Container framePane;
 
+public class VuePrincipale extends JFrame {
+    private final PrincipaleLayeredPane principaleLayeredPane;
     ModelPrincipale modelPrincipale;
-    /**
-     * Constructeur de la classe VuePrincipale. Initialise la fenêtre,
-     * les composants et les vues de l'application.
-     */
+
     public VuePrincipale(ModelPrincipale modelPrincipale) {
         this.modelPrincipale = modelPrincipale;
         setTitle("DorfRomantique Alpha");
@@ -30,6 +20,7 @@ public class VuePrincipale extends JFrame {
         setLocationRelativeTo(null);
         setMinimumSize(new Dimension(900,600));
         setResizable(true);
+        setLayout(new BorderLayout());
 
         try {
             URL logoUrl = getClass().getResource("/Images/logo.png");
@@ -42,19 +33,20 @@ public class VuePrincipale extends JFrame {
             System.out.println("logo err : " + e);
         }
 
-        cardLayout = new CardLayout();
-        setLayout(cardLayout);
-
-        framePane = getContentPane();
-
+        principaleLayeredPane = new PrincipaleLayeredPane();
+        this.add(principaleLayeredPane, BorderLayout.CENTER);
     }
 
     public CardLayout getCardLayout() {
-        return cardLayout;
+        return principaleLayeredPane.getCardLayout();
     }
 
     public Container getFramePane() {
-        return framePane;
+        return principaleLayeredPane.getMainPanel();
+    }
+
+    public JPanel getMainPanel() {
+        return principaleLayeredPane.getMainPanel();
     }
 
     public ModelPrincipale getModelPrincipale() {
