@@ -18,7 +18,6 @@ public class ModelMatrice {
 
     public void poseTuile(int x, int y) {
         ModelTuile tuile = modelJeux.getListTuiles().getFirst();
-
         this.tuilesPartie.put(new Point(x, y), tuile);
         this.tuilesPartie.get(new Point(x, y)).setCoordonner(x, y);
         modelJeux.setTuileUndoAble(tuile);
@@ -30,8 +29,6 @@ public class ModelMatrice {
         if (modelJeux.isUndo()) {
             modelJeux.setUndo(false);
         }
-        modelJeux.deleteButtons();
-        modelJeux.createButton();
     }
 
     public void deleteTuile(ModelTuile tuile) {
@@ -40,13 +37,8 @@ public class ModelMatrice {
     }
 
     public void poseeButton(int x, int y, ModelTuile tuile) {
-        tuile.setCoordonner(x, y);
         this.tuilesPartie.put(new Point(x, y), tuile);
-    }
-
-    public ModelTuile getTuileAt(int x, int y) {
-        Point point = new Point(x, y);
-        return tuilesPartie.get(point);
+        this.tuilesPartie.get(new Point(x, y)).setCoordonner(x, y);
     }
 
     public boolean isOccupied(int x, int y) {

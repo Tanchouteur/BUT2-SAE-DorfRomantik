@@ -36,7 +36,6 @@ public class ModelJeux {
         createView();
 
         vueJeux.updatePreviewTuileList();
-        createButton();
     }
 
     private void createView(){
@@ -73,12 +72,12 @@ public class ModelJeux {
             ModelTuile tuile = entry.getValue();
 
             if (tuile != null && !tuile.isButton()) {
-                // Vérifie si chaque position est disponible et l'ajoute à la liste
+                // verifie si chaque position est disponible et l'ajoute à la liste
                 if (tryCreateButton(point.x - 1, point.y - 1)) {  // Nord-Ouest
                     pointsToAdd.add(new Point(point.x - 1, point.y - 1));
                 }
-                if (tryCreateButton(point.x - 2, point.y)) {      // Nord
-                    pointsToAdd.add(new Point(point.x - 2, point.y));
+                if (tryCreateButton(point.x , point.y - 2)) {      // Nord
+                    pointsToAdd.add(new Point(point.x , point.y - 2));
                 }
                 if (tryCreateButton(point.x - 1, point.y + 1)) {  // Nord-Est
                     pointsToAdd.add(new Point(point.x - 1, point.y + 1));
@@ -86,8 +85,8 @@ public class ModelJeux {
                 if (tryCreateButton(point.x + 1, point.y - 1)) {  // Sud-Ouest
                     pointsToAdd.add(new Point(point.x + 1, point.y - 1));
                 }
-                if (tryCreateButton(point.x + 2, point.y)) {      // Sud
-                    pointsToAdd.add(new Point(point.x + 2, point.y));
+                if (tryCreateButton(point.x , point.y + 2)) {      // Sud
+                    pointsToAdd.add(new Point(point.x , point.y + 2));
                 }
                 if (tryCreateButton(point.x + 1, point.y + 1)) {  // Sud-Est
                     pointsToAdd.add(new Point(point.x + 1, point.y + 1));
@@ -107,13 +106,15 @@ public class ModelJeux {
 
 
     public void deleteButtons() {
-        modelMatrice.getTuilesPartie().values().removeIf(ModelTuile::isButton);
-        for (ModelTuile tuile : listTuiles) {
+        Map<Point, ModelTuile> tuiles = modelMatrice.getTuilesPartie();
+
+        for (ModelTuile tuile : tuiles.values()) {
             if (tuile.isButton() && tuile.getVueTuile() != null) {
                 vueJeux.remove(tuile.getVueTuile());
             }
         }
 
+        tuiles.values().removeIf(ModelTuile::isButton);
     }
 
     public void playTuileSound(int soundIndex) {
@@ -162,7 +163,7 @@ public class ModelJeux {
             deleteButtons();
             modelMatrice.deleteTuile(tuileUndoAble);
             getVueJeux().updatePreviewTuileList();
-
+            tuileUndoAble.setVueTuile(null);
             createButton();
             undo = true;
         }

@@ -2,7 +2,9 @@ package fr.iutfbleau.SAE31_2024_LTA.jeux;
 
 import javax.swing.*;
 import java.awt.*;
-import java.util.Map;
+import java.util.List; // Importer la bonne classe List
+import java.util.ArrayList; // Importer ArrayList
+import java.util.Map; // Pour les Map
 
 public class VueJeux extends JLayeredPane {
 
@@ -35,6 +37,7 @@ public class VueJeux extends JLayeredPane {
         });
 
         createFirstTuile();
+        this.addMouseListener(new ControllerPoseTuile(modelJeux));
         repaint();
     }
 
@@ -45,7 +48,7 @@ public class VueJeux extends JLayeredPane {
         tuile.createVueTuile(x, y, tuileSize);
         add(tuile.getVueTuile());
         modelJeux.getModelMatrice().poseTuile(0, 0);
-        this.addMouseListener(new ControllerPoseTuile(modelJeux, tuile));
+
         repaint();
     }
 
@@ -71,10 +74,16 @@ public class VueJeux extends JLayeredPane {
         int totalOffsetX = initialOffsetX + offsetX;
         int totalOffsetY = initialOffsetY + offsetY;
 
+        List<ModelTuile> tuilesToRender = new ArrayList<>();
 
         for (Map.Entry<Point, ModelTuile> entry : tuiles.entrySet()) {
             ModelTuile tuile = entry.getValue();
+            if (tuile != null) {
+                tuilesToRender.add(tuile);
+            }
+        }
 
+        for (ModelTuile tuile : tuilesToRender) {
             int col = tuile.getX();
             int row = tuile.getY();
 
@@ -87,34 +96,31 @@ public class VueJeux extends JLayeredPane {
         }
     }
 
-
     private void updateTuileView(ModelTuile tuile, int x, int y) {
-
-        if (tuile != null && tuile.getVueTuile() == null) {
-
-            if (!tuile.isButton()) {
-                tuile.createVueTuile(x, y, tuileSize);
-                this.add(tuile.getVueTuile(), Integer.valueOf(0));
-                this.updatePreviewTuileList();
-            } else if (!modelJeux.getListTuiles().isEmpty()) {
-                tuile.createVueTuile(x, y, tuileSize / 2);
-                this.add(tuile.getVueTuile(), Integer.valueOf(0));
-                tuile.getVueTuile().addMouseListener(new ControllerPoseTuile(modelJeux, tuile));
-            }
-
-        } else if (tuile != null && tuile.getVueTuile() != null) {
-
-            if (!tuile.isButton()) {
-                tuile.getVueTuile().updateTuile(x, y, tuileSize);
-            } else if (!modelJeux.getListTuiles().isEmpty()) {
-                tuile.getVueTuile().updateTuile(x, y, tuileSize / 2);
+        if (tuile != null) {
+            if (tuile.getVueTuile() == null) {
+                if (!tuile.isButton()) {
+                    tuile.createVueTuile(x, y, tuileSize);
+                    this.add(tuile.getVueTuile(), Integer.valueOf(0));
+                    this.updatePreviewTuileList();
+                } else if (!modelJeux.getListTuiles().isEmpty()) {
+                    tuile.createVueTuile(x, y, tuileSize / 2);
+                    this.add(tuile.getVueTuile(), Integer.valueOf(0));
+                    tuile.getVueTuile().addMouseListener(new ControllerPoseTuile(modelJeux));
+                }
+            } else {
+                if (!tuile.isButton()) {
+                    tuile.getVueTuile().updateTuile(x, y, tuileSize);
+                } else if (!modelJeux.getListTuiles().isEmpty()) {
+                    tuile.getVueTuile().updateTuile(x, y, tuileSize / 2);
+                }
             }
         }
-
     }
 
     private void endGame() {
         end = true;
+        modelJeux.deleteButtons();
         modelJeux.setUndo(false);
         modelJeux.setUndoActivate(false);
         updatePreviewTuileList();
@@ -142,11 +148,11 @@ public class VueJeux extends JLayeredPane {
                 add(tuilePreview[i].getVueTuile(), Integer.valueOf(modelJeux.getListTuiles().size() - i));
             }
         }
-        modelJeux.deleteButtons();
         if (modelJeux.getListTuiles().isEmpty()) {
             modelJeux.createEndView();
             add(modelJeux.getVueScoreScreen(), Integer.valueOf(2));
         }
+        modelJeux.createButton();
         repaint();
     }//Sa sa marche
 

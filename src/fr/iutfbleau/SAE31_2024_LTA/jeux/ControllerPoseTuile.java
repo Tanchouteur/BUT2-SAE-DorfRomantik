@@ -6,15 +6,13 @@ import java.awt.event.MouseListener;
 public class ControllerPoseTuile implements MouseListener {
 
     private final ModelJeux modelJeux;
-    private final ModelTuile buttonTuile;
 
     private ModelTuile modeleTuilePreviewed;
 
     private boolean clicked = false;
 
-    ControllerPoseTuile(ModelJeux modelJeux, ModelTuile buttonTuile) {
+    ControllerPoseTuile(ModelJeux modelJeux) {
         this.modelJeux = modelJeux;
-        this.buttonTuile = buttonTuile;
 
     }
 
@@ -30,24 +28,24 @@ public class ControllerPoseTuile implements MouseListener {
     public void mouseReleased(MouseEvent e) {
         if (clicked) {
             Object source = e.getSource();
-
+            modelJeux.getVueJeux().unsetPreviewOnButton(modeleTuilePreviewed);
             if (source instanceof VueTuile) {
                 VueTuile btnHovered = (VueTuile) source;
-
+                modelJeux.createButton();
                 if (e.getButton() == MouseEvent.BUTTON1 && !modelJeux.getListTuiles().isEmpty()) {
                     modelJeux.playTuileSound(modelJeux.getListTuiles().getFirst().getSoundIndex());
                     modelJeux.getModelMatrice().deleteTuile(btnHovered.getModelTuile());
-                    modelJeux.getModelMatrice().poseTuile(btnHovered.getX(), btnHovered.getY());
+                    modelJeux.getModelMatrice().poseTuile(btnHovered.getModelTuile().getX(), btnHovered.getModelTuile().getY());
                     modelJeux.getVueJeux().updatePreviewTuileList();
                 }
 
-                if (e.getButton() == MouseEvent.BUTTON3 && modelJeux.isUndoActivate()) {
-                    modelJeux.undoLastTuile();
-                }
-            }
 
+            }
+            if (e.getButton() == MouseEvent.BUTTON3 && modelJeux.isUndoActivate()) {
+                modelJeux.undoLastTuile();
+            }
             clicked = false;
-            modelJeux.getVueJeux().unsetPreviewOnButton(modeleTuilePreviewed);
+
         }
     }
 
