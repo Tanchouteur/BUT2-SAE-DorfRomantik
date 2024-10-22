@@ -3,6 +3,7 @@ package fr.iutfbleau.SAE31_2024_LTA.menu;
 import fr.iutfbleau.SAE31_2024_LTA.Bdd.BddListeTuiles;
 import fr.iutfbleau.SAE31_2024_LTA.ModelPrincipale;
 import fr.iutfbleau.SAE31_2024_LTA.jeux.ControllerPlayCard;
+import fr.iutfbleau.SAE31_2024_LTA.miseEnForme.StyleComponent;
 import fr.iutfbleau.SAE31_2024_LTA.partieJouer.ControllerPartieJouerBTN;
 
 import javax.swing.*;
@@ -90,7 +91,7 @@ public class VueMenu extends JPanel {
         Font inputMenuFont = new Font("Arial", Font.BOLD, 24);
 
         sidebarPanel = new JPanel(new GridBagLayout());
-        sidebarPanel.setBackground(new Color(193, 193, 193, 89));
+        sidebarPanel.setBackground(StyleComponent.getPanelColor());
         sidebarPanel.setOpaque(true);
 
         GridBagConstraints gbc = new GridBagConstraints();

@@ -3,10 +3,13 @@ package fr.iutfbleau.SAE31_2024_LTA.popup;
 import fr.iutfbleau.SAE31_2024_LTA.ModelPrincipale;
 import fr.iutfbleau.SAE31_2024_LTA.config.ConfigManager;
 import fr.iutfbleau.SAE31_2024_LTA.menu.ControllerMenuCard;
+import fr.iutfbleau.SAE31_2024_LTA.miseEnForme.StyleComponent;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
+
+import static fr.iutfbleau.SAE31_2024_LTA.miseEnForme.StyleComponent.*;
 
 public class VueSettingsPopup extends JPanel {
     private final JSlider musicVolumeSlider;
@@ -17,48 +20,41 @@ public class VueSettingsPopup extends JPanel {
         this.modelPrincipale = modelPrincipale;
         ConfigManager configManager = modelPrincipale.getConfigManager();
         setLayout(null);
-        setBackground(new Color(30, 30, 30));
+        setBackground(StyleComponent.getPopupColor());
 
         musicVolumeSlider = new JSlider(35, 100, configManager.getVolumeMusique());
         musicVolumeSlider.setBounds(200, 100, 400, 40);
-        styleSlider(musicVolumeSlider);
-        add(musicVolumeSlider);
+        add(setStyleSlider(musicVolumeSlider));
 
         effectsVolumeSlider = new JSlider(35, 100, configManager.getVolumeEffet());
         effectsVolumeSlider.setBounds(200, 200, 400, 40);
-        styleSlider(effectsVolumeSlider);
-        add(effectsVolumeSlider);
+        add(setStyleSlider(effectsVolumeSlider));
 
         JLabel musicLabel = new JLabel("Musique Volume:");
-        styleLabel(musicLabel);
         musicLabel.setBounds(50, 100, 150, 40);
-        add(musicLabel);
+        add(setStyleLabel(musicLabel,19));
 
         JLabel effectsLabel = new JLabel("Effets Volume:");
-        styleLabel(effectsLabel);
         effectsLabel.setBounds(50, 200, 150, 40);
-        add(effectsLabel);
+        add(setStyleLabel(effectsLabel,19));
 
         musicVolumeSlider.addChangeListener(new ControllerVolumeChange(configManager, 0));
         effectsVolumeSlider.addChangeListener(new ControllerVolumeChange(configManager, 1));
 
         JButton tutoButton = new JButton("Tutoriel");
-        styleButton(tutoButton);
         tutoButton.setBounds(20, 350, 180, 50);
         tutoButton.addActionListener(e -> onTuto(controllerPopup));
-        add(tutoButton);
+        add(setStyleButton(tutoButton,18));
 
         JButton resumeButton = new JButton("Resume");
-        styleButton(resumeButton);
         resumeButton.setBounds(230, 350, 180, 50);
         resumeButton.addActionListener(e -> onResume(controllerPopup));
-        add(resumeButton);
+        add(setStyleButton(resumeButton,18));
 
         JButton quitButton = new JButton("Menu");
-        styleButton(quitButton);
         quitButton.setBounds(450, 350, 180, 50);
         quitButton.addActionListener(e -> onQuit(controllerPopup));
-        add(quitButton);
+        add(setStyleButton(quitButton,18));
 
         addKeyListener(new KeyAdapter() {
             @Override
@@ -71,44 +67,6 @@ public class VueSettingsPopup extends JPanel {
 
         setFocusable(true);
         requestFocusInWindow();
-    }
-
-    private void styleSlider(JSlider slider) {
-        slider.setBackground(new Color(45, 45, 45));
-        slider.setForeground(Color.WHITE);
-        slider.setPaintTrack(true);
-        slider.setPaintTicks(true);
-        slider.setMajorTickSpacing(10);
-        slider.setMinorTickSpacing(1);
-    }
-
-    private void styleLabel(JLabel label) {
-        label.setForeground(Color.WHITE);
-        label.setFont(new Font("Arial", Font.PLAIN, 18));
-    }
-
-    private void styleButton(JButton button) {
-        button.setBackground(new Color(60, 60, 60));
-        button.setForeground(Color.WHITE);
-        button.setFocusPainted(false);
-        button.setFont(new Font("Arial", Font.BOLD, 16));
-        button.setBorder(BorderFactory.createLineBorder(new Color(90, 90, 90), 2));
-        button.setBorder(BorderFactory.createCompoundBorder(
-                BorderFactory.createLineBorder(new Color(90, 90, 90), 2, true),
-                BorderFactory.createEmptyBorder(10, 20, 10, 20)));
-        button.setCursor(new Cursor(Cursor.HAND_CURSOR));
-
-        button.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseEntered(MouseEvent e) {
-                button.setBackground(new Color(80, 80, 80));
-            }
-
-            @Override
-            public void mouseExited(MouseEvent e) {
-                button.setBackground(new Color(60, 60, 60));
-            }
-        });
     }
 
     private void onTuto(ControllerPopup controllerPopup) {
