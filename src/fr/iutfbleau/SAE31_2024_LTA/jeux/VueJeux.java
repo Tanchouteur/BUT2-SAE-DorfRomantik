@@ -182,7 +182,7 @@ public class VueJeux extends JLayeredPane {
 
             previewTuile.createVueTuile(x, y, (int) (tuileSize*0.8));
             add(previewTuile.getVueTuile(), Integer.valueOf(1));
-
+            //this.remove(btnHovered);
             repaint();
 
             return previewTuile;
