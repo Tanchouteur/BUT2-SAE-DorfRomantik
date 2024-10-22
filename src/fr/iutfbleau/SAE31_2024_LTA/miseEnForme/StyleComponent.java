@@ -39,6 +39,21 @@ public class StyleComponent {
         return button;
     }
 
+    public static JButton setStyleButtonInGame(JButton button, int fontSize) {
+        button.setBackground(new Color(237, 237, 237, 255));
+        button.setForeground(new Color(45, 47, 55));
+        button.setFocusPainted(false);
+        button.setFont(new Font("Arial", Font.BOLD, fontSize));
+        button.setBorder(BorderFactory.createLineBorder(new Color(57, 61, 89), 2));
+        button.setBorder(BorderFactory.createCompoundBorder(
+                BorderFactory.createLineBorder(new Color(90, 90, 90), 2, true),
+                BorderFactory.createEmptyBorder(10, 20, 10, 20)));
+        button.setCursor(new Cursor(Cursor.HAND_CURSOR));
+
+        button.addMouseListener(new BrighterHoverJComponent(button));
+        return button;
+    }
+
     public static JCheckBox setStyleCheckBox(JCheckBox checkBox) {
         checkBox.setBackground(getButtonColor());
         checkBox.setForeground(Color.WHITE);
@@ -93,7 +108,7 @@ public class StyleComponent {
 
     public static JLabel setStyleLabelScore(JLabel label, int fontSize) {
         label.setForeground(new Color(45, 45, 45));
-        label.setBackground(new Color(18, 18, 18, 255));
+        label.setBackground(new Color(0, 14, 90, 56));
         label.setFont(new Font("Arial", Font.PLAIN, fontSize));
         label.setBorder(BorderFactory.createLineBorder(new Color(90, 90, 90), 2));
         label.setBorder(BorderFactory.createCompoundBorder(

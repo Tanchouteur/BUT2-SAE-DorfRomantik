@@ -74,13 +74,14 @@ public class VueJeux extends JLayeredPane {
         if (modelJeux.getListTuiles().isEmpty() && !end) {
             endGame();
         }
-        if (offsetX > 1000 || offsetY > 1000 || offsetX < -1000 || offsetY < -1000 && infoPanel.getComponentCount() == 3){
-            infoPanel.add(setStyleButton(centrer,34));
-            System.out.println(offsetX + " " + offsetY + " centrer ");
+        if (offsetX > modelJeux.getModelPrincipale().getVuePrincipale().getWidth()/2 || offsetY > modelJeux.getModelPrincipale().getVuePrincipale().getHeight()/2 || offsetX < -modelJeux.getModelPrincipale().getVuePrincipale().getWidth()/2 || offsetY < -modelJeux.getModelPrincipale().getVuePrincipale().getHeight()/2){
+            if (infoPanel.getComponentCount() == 3) {
+                centrer.setBounds((VuePrincipale.frameWidth / 2) - 200, 100, 200, 50);
+                infoPanel.add(setStyleButtonInGame(centrer, 34));
+            }
         }else if (infoPanel.getComponentCount() == 4) {
             infoPanel.remove(centrer);
         }
-
     }
 
     private void renderTuiles() {
@@ -234,19 +235,19 @@ public class VueJeux extends JLayeredPane {
         playerNameLabel.setBounds(30,30,200,50);
         infoPanel.add(setStyleLabelScore(playerNameLabel,18));
 
-        JLabel bestScoreLabel = new JLabel("Ton record : " + modelJeux.getModelPrincipale().getModelPartieJouer()
+        JLabel bestScoreLabel = new JLabel("Record " + modelJeux.getModelPrincipale().getModelPartieJouer()
                 .getVuePartieJouer().getControllerSearchPartieJouer().searchPartieOfPlayer(
                         modelJeux.getModelPrincipale().getPlayerName(), modelJeux.getModelPrincipale().getSelectedSeed()) + " Points");
-        bestScoreLabel.setBounds(250,30,150,50);
+        bestScoreLabel.setBounds(250,30,250,50);
         infoPanel.add(setStyleLabelScore(bestScoreLabel,16));
 
-        currentScore = new JLabel("Score : " + modelJeux.getScore() + " Points");
-        currentScore.setBounds(420,30,150,50);
+        currentScore = new JLabel("Score " + modelJeux.getScore() + " Points");
+        currentScore.setBounds(520,30,250,50);
         infoPanel.add(setStyleLabelScore(currentScore,18));
 
         centrer = new JButton("Centrer");
         centrer.addActionListener(e -> centrer());
-        centrer.setBounds((getWidth()/2)-200, 100, 200, 50);
+
 
         this.add(infoPanel, Integer.valueOf(2));
     }
