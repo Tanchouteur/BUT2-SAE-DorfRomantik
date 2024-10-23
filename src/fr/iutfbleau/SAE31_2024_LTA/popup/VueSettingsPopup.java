@@ -14,6 +14,7 @@ public class VueSettingsPopup extends JPanel {
     private final JSlider musicVolumeSlider;
     private final JSlider effectsVolumeSlider;
     private final ModelPrincipale modelPrincipale;
+    private boolean open = false;
 
     public VueSettingsPopup(ControllerPopup controllerPopup, ModelPrincipale modelPrincipale) {
         this.modelPrincipale = modelPrincipale;
@@ -22,7 +23,7 @@ public class VueSettingsPopup extends JPanel {
         setOpaque(false);
         this.setSize(700,430);
         this.setBackground(StyleComponent.getPopupColor());
-        updateVueSettings();
+        this.updateVueSettings();
 
         JLabel settingsLabel = new JLabel("Paramètres");
         settingsLabel.setBounds((getWidth()-190)/2,20,190,50);
@@ -64,7 +65,11 @@ public class VueSettingsPopup extends JPanel {
     }
 
     public void updateVueSettings(){
-        this.setBounds((modelPrincipale.getVuePrincipale().getWidth()-this.getWidth())/2,(modelPrincipale.getVuePrincipale().getHeight()-this.getHeight())/2,getWidth(),getHeight());
+        if (!open){
+            this.setBounds((modelPrincipale.getVuePrincipale().getWidth()-this.getWidth())/2,-this.getHeight(),getWidth(),getHeight());
+        }else {
+            this.setBounds((modelPrincipale.getVuePrincipale().getWidth()-this.getWidth())/2, (modelPrincipale.getVuePrincipale().getHeight()-this.getHeight())/2,getWidth(),getHeight());
+        }
     }
 
     private void onTuto(ControllerPopup controllerPopup) {
@@ -86,8 +91,8 @@ public class VueSettingsPopup extends JPanel {
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
         Graphics2D g2d = (Graphics2D) g;
-        Color color1 = new Color(45, 45, 45);
-        Color color2 = new Color(30, 30, 30);
+        Color color1 = new Color(45, 45, 45, 118);
+        Color color2 = new Color(99, 99, 99,100);
         int width = getWidth();
         int height = getHeight();
 
@@ -104,5 +109,12 @@ public class VueSettingsPopup extends JPanel {
         effectsVolumeSlider.setValue(volume);
     }
 
+    public boolean isOpen() {
+        return open;
+    }
+
+    public void setOpen(boolean open) {
+        this.open = open;
+    }
 }
 

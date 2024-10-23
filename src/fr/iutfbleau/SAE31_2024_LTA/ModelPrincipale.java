@@ -34,6 +34,7 @@ public class ModelPrincipale {
         controllerPopup = new ControllerPopup(vuePrincipale);
         configManager = new ConfigManager(controllerPopup);
         mediaPlayerManager = new MediaPlayerManager(this);
+        controllerPopup.createSettings();
         modelMediaLoader = new ModelMediaLoader();
 
         bdd = new ModelBDD(getVuePrincipale());

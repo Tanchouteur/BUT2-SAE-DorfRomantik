@@ -15,7 +15,7 @@ public class VueTuto extends JPanel {
     VueTuto(ControllerPopup controllerPopup, ConfigManager configManager) {
         setLayout(null);
         this.setBackground(StyleComponent.getPopupColor());
-        setSize(controllerPopup.getVuePrincipale().getWidth()/2,controllerPopup.getVuePrincipale().getHeight()/2);
+        setSize(700,430);
 
         JLabel tutoLabel = new JLabel("Tutoriel");
         tutoLabel.setBounds((getWidth()-190)/2,20,190,50);
@@ -39,11 +39,12 @@ public class VueTuto extends JPanel {
     private void onResume(ControllerPopup controllerPopup) {
         controllerPopup.closeTuto();
     }
+
     private void onShowAtStartupChange(ConfigManager configManager) {
         configManager.setTuto(showAtStartupCheckBox.isSelected());
     }
 
     public void updateVueTuto(VuePrincipale vuePrincipale) {
-        this.setBounds((vuePrincipale.getWidth()-this.getWidth())/2,(vuePrincipale.getHeight()-this.getHeight())/2,getWidth(),getHeight());
+        this.setBounds((vuePrincipale.getWidth()-this.getWidth())/2,-this.getHeight(),getWidth(),getHeight());
     }
 }
