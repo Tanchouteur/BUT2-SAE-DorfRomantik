@@ -186,7 +186,7 @@ public class VueJeux extends JLayeredPane {
                     tuile = new ModelTuile(modelJeux.getListTuiles().get(i).getSeed(), true, false, modelJeux.isAA());
                 }
                 if(i<oracle){
-                    tuile.createVueTuile(60, getHeight() - ((modelJeux.getListTuiles().size() - i) + (oracle)*45), 50, modelJeux.isAA());
+                    tuile.createVueTuile(60, getHeight() - (5 * (modelJeux.getListTuiles().size()) - i*45 + 45*2), 50, modelJeux.isAA());
                     tuilePreview[i] = tuile;
                     add(tuilePreview[i].getVueTuile(), Integer.valueOf(modelJeux.getListTuiles().size() - i));
                 }
