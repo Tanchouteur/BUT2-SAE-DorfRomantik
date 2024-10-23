@@ -14,6 +14,8 @@ public class VueSettingsPopup extends JPanel {
     private final JSlider musicVolumeSlider;
     private final JSlider effectsVolumeSlider;
     private final ModelPrincipale modelPrincipale;
+    private boolean open = false;
+    private JCheckBox AACheckBox;
 
     public VueSettingsPopup(ControllerPopup controllerPopup, ModelPrincipale modelPrincipale) {
         this.modelPrincipale = modelPrincipale;
@@ -22,30 +24,36 @@ public class VueSettingsPopup extends JPanel {
         setOpaque(false);
         this.setSize(700,430);
         this.setBackground(StyleComponent.getPopupColor());
-        updateVueSettings();
+        this.updateVueSettings();
 
         JLabel settingsLabel = new JLabel("Paramètres");
         settingsLabel.setBounds((getWidth()-190)/2,20,190,50);
-        add(setStyleLabelScore(settingsLabel,24));
+        add(StyleComponent.setStyleLabelWhite(settingsLabel,24));
 
-        musicVolumeSlider = new JSlider(35, 100, configManager.getVolumeMusique());
+        musicVolumeSlider = new JSlider(40, 100, configManager.getVolumeMusique());
         musicVolumeSlider.setBounds(250, 100, 350, 40);
         add(setStyleSlider(musicVolumeSlider));
 
-        effectsVolumeSlider = new JSlider(35, 100, configManager.getVolumeEffet());
+        effectsVolumeSlider = new JSlider(40, 100, configManager.getVolumeEffet());
         effectsVolumeSlider.setBounds(250, 200, 350, 40);
         add(setStyleSlider(effectsVolumeSlider));
 
         JLabel musicLabel = new JLabel("Musique Volume:");
-        musicLabel.setBounds(50, 100, 200, 40);
-        add(setStyleLabel(musicLabel,19));
+        musicLabel.setBounds(30, 100, 200, 40);
+        add(setStyleLabelWhite(musicLabel,19));
 
         JLabel effectsLabel = new JLabel("Effets Volume:");
-        effectsLabel.setBounds(50, 200, 200, 40);
-        add(setStyleLabel(effectsLabel,19));
+        effectsLabel.setBounds(30, 200, 200, 40);
+        add(setStyleLabelWhite(effectsLabel,19));
 
-        musicVolumeSlider.addChangeListener(new ControllerVolumeChange(configManager, 0));
-        effectsVolumeSlider.addChangeListener(new ControllerVolumeChange(configManager, 1));
+        musicVolumeSlider.addChangeListener(new ControllerVolumeChange(configManager, 0,modelPrincipale));
+        effectsVolumeSlider.addChangeListener(new ControllerVolumeChange(configManager, 1,modelPrincipale));
+
+        AACheckBox = new JCheckBox("Anti-Aliasing", configManager.isAA());
+        setStyleCheckBox(AACheckBox);
+        AACheckBox.setBounds(20, this.getHeight()-140, 220, 50);
+        AACheckBox.addActionListener(e -> onAntiAliasingChange(configManager));
+        add(AACheckBox);
 
         JButton tutoButton = new JButton("Tutoriel");
         tutoButton.setBounds(20, 350, 200, 50);
@@ -63,13 +71,21 @@ public class VueSettingsPopup extends JPanel {
         add(setStyleButton(quitButton,18));
     }
 
+    public void onAntiAliasingChange(ConfigManager configManager){
+        configManager.setAA(AACheckBox.isSelected());
+    }
+
     public void updateVueSettings(){
-        this.setBounds((modelPrincipale.getVuePrincipale().getWidth()-this.getWidth())/2,(modelPrincipale.getVuePrincipale().getHeight()-this.getHeight())/2,getWidth(),getHeight());
+        if (!open){
+            this.setBounds((modelPrincipale.getVuePrincipale().getWidth()-this.getWidth())/2,-this.getHeight(),getWidth(),getHeight());
+        }else {
+            this.setBounds((modelPrincipale.getVuePrincipale().getWidth()-this.getWidth())/2, (modelPrincipale.getVuePrincipale().getHeight()-this.getHeight())/2,getWidth(),getHeight());
+        }
     }
 
     private void onTuto(ControllerPopup controllerPopup) {
         controllerPopup.closeSettings();
-        controllerPopup.showTutoDialog(modelPrincipale.getConfigManager());
+        controllerPopup.showTutoDialog();
     }
 
     private void onResume(ControllerPopup controllerPopup) {
@@ -86,8 +102,8 @@ public class VueSettingsPopup extends JPanel {
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
         Graphics2D g2d = (Graphics2D) g;
-        Color color1 = new Color(45, 45, 45);
-        Color color2 = new Color(30, 30, 30);
+        Color color1 = new Color(45, 45, 45, 118);
+        Color color2 = new Color(99, 99, 99,100);
         int width = getWidth();
         int height = getHeight();
 
@@ -104,5 +120,12 @@ public class VueSettingsPopup extends JPanel {
         effectsVolumeSlider.setValue(volume);
     }
 
+    public boolean isOpen() {
+        return open;
+    }
+
+    public void setOpen(boolean open) {
+        this.open = open;
+    }
 }
 

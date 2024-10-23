@@ -3,6 +3,7 @@ package fr.iutfbleau.SAE31_2024_LTA.partieJouer;
 import fr.iutfbleau.SAE31_2024_LTA.menu.ControllerMenuCard;
 import fr.iutfbleau.SAE31_2024_LTA.Bdd.BddPartieJouer;
 import fr.iutfbleau.SAE31_2024_LTA.ModelPrincipale;
+import fr.iutfbleau.SAE31_2024_LTA.miseEnForme.StyleComponent;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
@@ -37,10 +38,12 @@ public class VuePartieJouer extends JPanel {
         contentPane.setPreferredSize(new Dimension(1750, 900));
 
         JPanel sidebar = createSidebar();
+
         contentPane.add(sidebar, BorderLayout.EAST);
 
         tableView = createTableView();
         JScrollPane scrollPane = new JScrollPane(tableView);
+
         contentPane.add(scrollPane, BorderLayout.CENTER);
 
         add(contentPane, BorderLayout.CENTER);
@@ -55,7 +58,7 @@ public class VuePartieJouer extends JPanel {
         sidebar.setPreferredSize(new Dimension(300, getHeight()));
 
         JLabel searchLabel = new JLabel("Rechercher une partie");
-        searchLabel.setFont(new Font("Arial", Font.BOLD, 20));
+        searchLabel.setBounds(modelPrincipale.getVuePrincipale().getWidth()-200,30,180,50);
 
         searchField = new JTextField(20);
         searchField.setMaximumSize(new Dimension(200, 30));
@@ -71,15 +74,15 @@ public class VuePartieJouer extends JPanel {
         
         if (modelPrincipale.getBdd().updateBdd()) {
             sidebar.add(Box.createVerticalStrut(20));
-            sidebar.add(searchLabel);
+            sidebar.add(StyleComponent.setStyleLabel(searchLabel,18));
             sidebar.add(Box.createVerticalStrut(20));
-            sidebar.add(searchField);
+            sidebar.add(StyleComponent.setStyleTextField(searchField,18));
             sidebar.add(Box.createVerticalStrut(20));
-            sidebar.add(searchButton);
+            sidebar.add(StyleComponent.setStyleButton(searchButton,19));
         }
         sidebar.add(Box.createVerticalStrut(20));
-        sidebar.add(menuButton);
-
+        sidebar.add(StyleComponent.setStyleButton(menuButton,19));
+        sidebar.setBackground(StyleComponent.getPanelColor());
         return sidebar;
     }
 
@@ -87,7 +90,7 @@ public class VuePartieJouer extends JPanel {
      * Crée un tableau Swing (JTable) pour afficher les parties jouées.
      */
     private JTable createTableView() {
-        String[] columnNames = {"Joueur", "Score", "Suite"};
+        String[] columnNames = {"Joueur", "Suite", "Score"};
         DefaultTableModel tableModel = new DefaultTableModel(columnNames, 0);
         JTable table = new JTable(tableModel);
 

@@ -3,6 +3,7 @@ package fr.iutfbleau.SAE31_2024_LTA.jeux;
 import fr.iutfbleau.SAE31_2024_LTA.ModelPrincipale;
 import fr.iutfbleau.SAE31_2024_LTA.endGame.VueScoreScreen;
 
+import javax.swing.*;
 import java.awt.Point;
 import java.util.*;
 
@@ -22,7 +23,7 @@ public class ModelJeux {
 
     private int score = 0;
 
-    private static final int nombreTuile = 50;
+    private static final int nombreTuile = 5;
 
     public ModelJeux(ModelPrincipale modelPrincipale, int seed) {
         this.modelPrincipale = modelPrincipale;
@@ -31,7 +32,7 @@ public class ModelJeux {
         listTuiles = new LinkedList<>();
 
         for (int i = nombreTuile; i >= 0; i--) {
-            ModelTuile tuile = new ModelTuile(seed*i, false,false);
+            ModelTuile tuile = new ModelTuile(seed*i, false,false,modelPrincipale.getConfigManager().isAA());
             listTuiles.add(tuile);
         }
 
@@ -47,6 +48,7 @@ public class ModelJeux {
 
     public void createEndView(){
         this.vueScoreScreen = new VueScoreScreen(modelPrincipale);
+        this.getVueScoreScreen().setBounds(vueJeux.getWidth(), (vueJeux.getHeight()-this.getVueScoreScreen().getHeightSidebar())/2, this.getVueScoreScreen().getWidthSidebar(), this.getVueScoreScreen().getHeightSidebar());
     }
 
     public LinkedList<ModelTuile> getListTuiles() {
@@ -159,7 +161,7 @@ public class ModelJeux {
         this.tuileUndoAble = tuileUndoAble;
     }
 
-    public void undoLastTuile() {
+    public Action undoLastTuile() {
         if (!undo) {
             listTuiles.addFirst(tuileUndoAble);
             deleteButtons();
@@ -168,6 +170,12 @@ public class ModelJeux {
             tuileUndoAble.setVueTuile(null);
             createButton();
             undo = true;
+            tuileUndoAble.setOnBoard(false);
         }
+        return null;
+    }
+
+    public boolean isAA() {
+        return modelPrincipale.getConfigManager().isAA();
     }
 }

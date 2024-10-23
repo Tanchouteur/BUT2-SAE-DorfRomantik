@@ -11,7 +11,7 @@ public class ControllerPoseTuile implements MouseListener {
 
     private boolean clicked = false;
 
-    ControllerPoseTuile(ModelJeux modelJeux) {
+    public ControllerPoseTuile(ModelJeux modelJeux) {
         this.modelJeux = modelJeux;
 
     }

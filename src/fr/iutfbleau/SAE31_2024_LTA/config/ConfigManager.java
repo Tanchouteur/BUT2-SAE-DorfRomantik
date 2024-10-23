@@ -10,9 +10,7 @@ public class ConfigManager {
     public ConfigManager(ControllerPopup controllerPopup) {
         this.fileHandler = new ConfigFileHandler();
         this.configuration = fileHandler.loadConfiguration();
-        if (this.isTuto()){
-            controllerPopup.showTutoDialog(this);
-        }
+
     }
 
     public int getVolumeEffet() {
@@ -49,5 +47,13 @@ public class ConfigManager {
     public void setTuto(boolean show) {
         configuration.setTuto(show);
         fileHandler.saveConfiguration(configuration);
+    }
+
+    public boolean isAA(){
+        return configuration.isAA();
+    }
+
+    public void setAA(boolean isActivate) {
+        configuration.setAA(isActivate);
     }
 }

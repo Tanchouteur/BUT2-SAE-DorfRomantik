@@ -6,44 +6,71 @@ import fr.iutfbleau.SAE31_2024_LTA.miseEnForme.StyleComponent;
 
 import javax.swing.*;
 
+import java.awt.*;
+import java.util.Objects;
+
 import static fr.iutfbleau.SAE31_2024_LTA.miseEnForme.StyleComponent.setStyleCheckBox;
 import static fr.iutfbleau.SAE31_2024_LTA.miseEnForme.StyleComponent.setStyleLabelScore;
 
-public class VueTuto extends JPanel {
+public class VueTuto extends JLayeredPane {
     private final JCheckBox showAtStartupCheckBox;
 
     VueTuto(ControllerPopup controllerPopup, ConfigManager configManager) {
         setLayout(null);
         this.setBackground(StyleComponent.getPopupColor());
-        setSize(controllerPopup.getVuePrincipale().getWidth()/2,controllerPopup.getVuePrincipale().getHeight()/2);
+        setSize(700,430);
 
         JLabel tutoLabel = new JLabel("Tutoriel");
         tutoLabel.setBounds((getWidth()-190)/2,20,190,50);
-        add(setStyleLabelScore(tutoLabel,24));
+        add(setStyleLabelScore(tutoLabel,24),Integer.valueOf(1));
 
-        showAtStartupCheckBox = new JCheckBox("Montrer au démarrage", configManager.isTuto());
-        setStyleCheckBox(showAtStartupCheckBox);
-        showAtStartupCheckBox.setBounds(20, this.getHeight()-100, 220, 50);
+        this.add(createImageTuto(700,430),Integer.valueOf(0));
+
+        showAtStartupCheckBox = setStyleCheckBox(new JCheckBox("Montrer au démarrage", configManager.isTuto()));
+        showAtStartupCheckBox.setBounds(60, this.getHeight()-60, 220, 50);
         showAtStartupCheckBox.addActionListener(e -> onShowAtStartupChange(configManager));
-        add(showAtStartupCheckBox);
-        updateVueTuto(controllerPopup.getVuePrincipale());
+        add(showAtStartupCheckBox,Integer.valueOf(1));
 
-        JButton resumeButton = new JButton("Resume");
-        resumeButton = StyleComponent.setStyleButton(resumeButton,18);
-        resumeButton.setBounds(this.getWidth()-220, this.getHeight()-110, 180, 50);
+        JButton resumeButton = StyleComponent.setStyleButton(new JButton("Resume"),18);
+        resumeButton.setBounds(this.getWidth()-240, this.getHeight()-60, 180, 50);
         resumeButton.addActionListener(e -> onResume(controllerPopup));
-        add(resumeButton);
+        add(resumeButton ,Integer.valueOf(1));
 
+        updateVueTuto(controllerPopup.getVuePrincipale());
+    }
+
+    private JLabel createImageTuto(int maxWidth, int maxHeight) {
+        ImageIcon tutoIcon = new ImageIcon(Objects.requireNonNull(StyleComponent.class.getResource("/Images/tuto.png")));
+        Image image = tutoIcon.getImage();
+
+        int originalWidth = image.getWidth(null);
+        int originalHeight = image.getHeight(null);
+
+        double widthRatio = (double) maxWidth / originalWidth;
+        double heightRatio = (double) maxHeight / originalHeight;
+        double ratio = Math.min(widthRatio, heightRatio);
+
+        int newWidth = (int) (originalWidth * ratio);
+        int newHeight = (int) (originalHeight * ratio);
+
+        Image resizedImage = image.getScaledInstance(newWidth, newHeight, java.awt.Image.SCALE_SMOOTH);
+        ImageIcon resizedIcon = new ImageIcon(resizedImage);
+
+        JLabel logoLabel = new JLabel(resizedIcon);
+        logoLabel.setBorder(BorderFactory.createEmptyBorder(10, 0, 10, 0));
+        logoLabel.setBounds(0, 0, newWidth, newHeight);
+        return logoLabel;
     }
 
     private void onResume(ControllerPopup controllerPopup) {
         controllerPopup.closeTuto();
     }
+
     private void onShowAtStartupChange(ConfigManager configManager) {
         configManager.setTuto(showAtStartupCheckBox.isSelected());
     }
 
     public void updateVueTuto(VuePrincipale vuePrincipale) {
-        this.setBounds((vuePrincipale.getWidth()-this.getWidth())/2,(vuePrincipale.getHeight()-this.getHeight())/2,getWidth(),getHeight());
+        this.setBounds((vuePrincipale.getWidth()-this.getWidth())/2,-this.getHeight(),getWidth(),getHeight());
     }
 }

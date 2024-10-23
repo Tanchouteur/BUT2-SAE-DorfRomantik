@@ -29,7 +29,10 @@ public class ControllerMenuCard implements ActionListener {
     public void actionPerformed(ActionEvent event) {
         VuePrincipale vuePrincipale = modelPrincipale.getVuePrincipale();
 
-        modelPrincipale.getMediaPlayerManager().stopClip(modelPrincipale.getModelMediaLoader().getGameMusicClips());
+        for (int i = 0; i < modelPrincipale.getModelMediaLoader().getGameMusicClips().size(); i++){
+            modelPrincipale.getMediaPlayerManager().stopClip(modelPrincipale.getModelMediaLoader().getGameMusicClips().get(i));
+        }
+
         modelPrincipale.getMediaPlayerManager().startClip(modelPrincipale.getModelMediaLoader().getClicAudioClip(), false);
         modelPrincipale.getMediaPlayerManager().startClip(modelPrincipale.getModelMediaLoader().getMenuMusicClip(), true);
 
