@@ -6,6 +6,9 @@ import fr.iutfbleau.SAE31_2024_LTA.miseEnForme.StyleComponent;
 
 import javax.swing.*;
 
+import java.awt.*;
+import java.util.Objects;
+
 import static fr.iutfbleau.SAE31_2024_LTA.miseEnForme.StyleComponent.setStyleCheckBox;
 import static fr.iutfbleau.SAE31_2024_LTA.miseEnForme.StyleComponent.setStyleLabelScore;
 
@@ -20,6 +23,15 @@ public class VueTuto extends JPanel {
         JLabel tutoLabel = new JLabel("Tutoriel");
         tutoLabel.setBounds((getWidth()-190)/2,20,190,50);
         add(setStyleLabelScore(tutoLabel,24));
+
+        ImageIcon tutoIcon = new ImageIcon(Objects.requireNonNull(StyleComponent.class.getResource("/Images/tuto.png")));
+        Image image = tutoIcon.getImage();
+        Image resizedImage = image.getScaledInstance(200, 150, java.awt.Image.SCALE_SMOOTH);
+        ImageIcon resizedIcon = new ImageIcon(resizedImage);
+        JLabel logoLabel = new JLabel(resizedIcon);
+        logoLabel.setBorder(BorderFactory.createEmptyBorder(10, 0, 10, 0));
+        logoLabel.setBounds((getWidth()-190)/2,40,200,150);
+        this.add(logoLabel);
 
         showAtStartupCheckBox = new JCheckBox("Montrer au démarrage", configManager.isTuto());
         setStyleCheckBox(showAtStartupCheckBox);
