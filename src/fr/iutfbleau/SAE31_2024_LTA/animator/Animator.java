@@ -12,7 +12,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class Animator {
-    public static void moveTo(JPanel panel, int startX, int startY, int endX, int endY, int duration, boolean amortie) {
+    public static void moveTo(JComponent panel, int startX, int startY, int endX, int endY, int duration, boolean amortie) {
         Timer timer = new Timer(10, null);
         final long startTime = System.currentTimeMillis();
         panel.setLocation(startX, startY);

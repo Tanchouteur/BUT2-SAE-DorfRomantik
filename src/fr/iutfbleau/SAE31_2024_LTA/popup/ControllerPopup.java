@@ -1,5 +1,6 @@
 package fr.iutfbleau.SAE31_2024_LTA.popup;
 
+import fr.iutfbleau.SAE31_2024_LTA.ModelPrincipale;
 import fr.iutfbleau.SAE31_2024_LTA.animator.Animator;
 import fr.iutfbleau.SAE31_2024_LTA.layers.VuePrincipale;
 import fr.iutfbleau.SAE31_2024_LTA.config.ConfigManager;
@@ -54,9 +55,9 @@ public class ControllerPopup extends AbstractAction {
         return null;
     }
 
-    public void showTutoDialog(ConfigManager configManager) {
+    public void showTutoDialog() {
         if (vueTuto == null) {
-            this.vueTuto = new VueTuto(this,configManager);
+            this.vueTuto = new VueTuto(this,this.configManager);
             vuePrincipale.getPrincipaleLayeredPane().add(vueTuto, Integer.valueOf(2));
         }
         Animator.moveTo(vueTuto , (vuePrincipale.getWidth()-vueTuto.getWidth())/2,vueTuto.getY() ,(vuePrincipale.getWidth()-vueTuto.getWidth())/2,(vuePrincipale.getHeight()-vueTuto.getHeight())/2, 600,true);

@@ -85,7 +85,7 @@ public class VueSettingsPopup extends JPanel {
 
     private void onTuto(ControllerPopup controllerPopup) {
         controllerPopup.closeSettings();
-        controllerPopup.showTutoDialog(modelPrincipale.getConfigManager());
+        controllerPopup.showTutoDialog();
     }
 
     private void onResume(ControllerPopup controllerPopup) {

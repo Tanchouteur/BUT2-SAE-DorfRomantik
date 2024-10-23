@@ -10,9 +10,6 @@ public class ConfigManager {
     public ConfigManager(ControllerPopup controllerPopup) {
         this.fileHandler = new ConfigFileHandler();
         this.configuration = fileHandler.loadConfiguration();
-        if (this.isTuto()){
-            controllerPopup.showTutoDialog(this);
-        }
 
     }
 
