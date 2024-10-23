@@ -61,6 +61,11 @@ public class VueTuile extends JComponent {
 
         if (modelTuile.isSuivante()){
             g2d.scale(1, 0.5);
+            g2d.setColor(new Color(0x333333));
+            g2d.setStroke(new BasicStroke(3));
+            g2d.drawLine(polygon.xpoints[0], polygon.ypoints[0], polygon.xpoints[1], polygon.ypoints[1]);
+            g2d.drawLine(polygon.xpoints[1], polygon.ypoints[1], polygon.xpoints[2], polygon.ypoints[2]);
+            g2d.drawLine(polygon.xpoints[2], polygon.ypoints[2], polygon.xpoints[3], polygon.ypoints[3]);
         }
 
         if (!modelTuile.isButton()) {
@@ -95,7 +100,13 @@ public class VueTuile extends JComponent {
                 g2d.setStroke(new BasicStroke(1));
                 g2d.drawPolygon(polygon);
             } else {
-                g2d.scale(1, 0.5);
+                g2d.scale(1, 0.5); //effet 3D
+                g2d.setColor(new Color(0x333333));
+                g2d.setStroke(new BasicStroke(3));
+                g2d.drawLine(polygon.xpoints[0], polygon.ypoints[0], polygon.xpoints[1], polygon.ypoints[1]);
+                g2d.drawLine(polygon.xpoints[1], polygon.ypoints[1], polygon.xpoints[2], polygon.ypoints[2]);
+                g2d.drawLine(polygon.xpoints[2], polygon.ypoints[2], polygon.xpoints[3], polygon.ypoints[3]);
+
                 g2d.setColor(new Color(124, 124, 124));
                 g2d.fillPolygon(polygon);
             }
@@ -109,7 +120,7 @@ public class VueTuile extends JComponent {
                 g2d.drawLine(polygon.xpoints[2], polygon.ypoints[2], polygon.xpoints[3], polygon.ypoints[3]);
             }
         } else {
-            g2d.setColor(new Color(151, 151, 151));
+                        g2d.setColor(new Color(151, 151, 151));
             g2d.fillPolygon(polygon);
         }
     }

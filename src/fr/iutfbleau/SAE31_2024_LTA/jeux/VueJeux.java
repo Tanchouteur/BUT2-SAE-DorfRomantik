@@ -147,9 +147,9 @@ public class VueJeux extends JLayeredPane {
         modelJeux.setUndoActivate(false);
         updatePreviewTuileList();
         modelJeux.createEndView();
-        modelJeux.getVueScoreScreen().setBounds(getWidth() - (modelJeux.getVueScoreScreen().getWidthSidebar()+20), (this.getHeight()-modelJeux.getVueScoreScreen().getHeightSidebar())/2, modelJeux.getVueScoreScreen().getWidthSidebar(), modelJeux.getVueScoreScreen().getHeightSidebar());
         deletePlayerInfo();
         add(modelJeux.getVueScoreScreen(), Integer.valueOf(1));
+        Animator.moveTo(modelJeux.getVueScoreScreen() ,modelJeux.getVueScoreScreen().getX(), modelJeux.getVueScoreScreen().getY(), this.getWidth() - (modelJeux.getVueScoreScreen().getWidthSidebar()+20), modelJeux.getVueScoreScreen().getY(), 500,true);
     }
 
     public void updateOffsets(int deltaX, int deltaY) {

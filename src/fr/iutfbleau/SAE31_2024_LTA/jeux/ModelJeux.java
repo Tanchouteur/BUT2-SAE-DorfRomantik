@@ -23,7 +23,7 @@ public class ModelJeux {
 
     private int score = 0;
 
-    private static final int nombreTuile = 50;
+    private static final int nombreTuile = 5;
 
     public ModelJeux(ModelPrincipale modelPrincipale, int seed) {
         this.modelPrincipale = modelPrincipale;
@@ -48,6 +48,7 @@ public class ModelJeux {
 
     public void createEndView(){
         this.vueScoreScreen = new VueScoreScreen(modelPrincipale);
+        this.getVueScoreScreen().setBounds(vueJeux.getWidth(), (vueJeux.getHeight()-this.getVueScoreScreen().getHeightSidebar())/2, this.getVueScoreScreen().getWidthSidebar(), this.getVueScoreScreen().getHeightSidebar());
     }
 
     public LinkedList<ModelTuile> getListTuiles() {

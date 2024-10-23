@@ -99,8 +99,8 @@ public class Animator {
             int col = vueTuile.getModelTuile().getX();
             int row = vueTuile.getModelTuile().getY();
 
-            int x = (totalOffsetX + col * (3 * 50 / 2))-25;
-            int y = (totalOffsetY + row * 43)-5;
+            int x = (totalOffsetX + col * (3 * 50 / 2))-40;
+            int y = (totalOffsetY + row * 43)-10;
 
             int newX = (int) (startX + easedProgress * (x - startX));
             int newY = (int) (startY + easedProgress * (y - startY));
