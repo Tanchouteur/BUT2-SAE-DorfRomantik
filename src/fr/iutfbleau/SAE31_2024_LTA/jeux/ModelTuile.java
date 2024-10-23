@@ -22,7 +22,7 @@ public class ModelTuile {
 
     private int soundIndex;
 
-    public ModelTuile(int seed, boolean preview, boolean suivante) {//Tuile de jeux
+    public ModelTuile(int seed, boolean preview, boolean suivante, boolean AntiAliasing) {//Tuile de jeux
         composition = new int[6];
         this.suivante = suivante;
         Random random = new Random();
@@ -86,9 +86,9 @@ public class ModelTuile {
     }
 
     // Méthode pour définir les coordonnées du polygone visuelement
-    public void createVueTuile(int centerX, int centerY, int radius) {
+    public void createVueTuile(int centerX, int centerY, int radius, boolean isAA) {
 
-        vueTuile = new VueTuile(this, centerX, centerY, radius);
+        vueTuile = new VueTuile(this, centerX, centerY, radius, isAA);
     }
 
     public int[] getComposition() {

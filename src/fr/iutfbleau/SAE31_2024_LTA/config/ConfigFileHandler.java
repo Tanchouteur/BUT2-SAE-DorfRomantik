@@ -35,7 +35,7 @@ public class ConfigFileHandler {
             config.setVolumeMusique(Integer.parseInt(properties.getProperty("volumeMusique", "100")));
             config.setPlayerName(properties.getProperty("playerName", "Player Name..."));
             config.setTuto(Boolean.parseBoolean(properties.getProperty("tuto", "true")));
-            config.setTuto(Boolean.parseBoolean(properties.getProperty("AntiAliasing", "false")));
+            config.setAA(Boolean.parseBoolean(properties.getProperty("AntiAliasing", "false")));
 
         } catch (IOException e) {
             System.err.println("Erreur lors du chargement de la configuration : " + e.getMessage());

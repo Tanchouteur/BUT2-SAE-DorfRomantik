@@ -15,6 +15,7 @@ public class VueSettingsPopup extends JPanel {
     private final JSlider effectsVolumeSlider;
     private final ModelPrincipale modelPrincipale;
     private boolean open = false;
+    private JCheckBox AACheckBox;
 
     public VueSettingsPopup(ControllerPopup controllerPopup, ModelPrincipale modelPrincipale) {
         this.modelPrincipale = modelPrincipale;
@@ -48,6 +49,12 @@ public class VueSettingsPopup extends JPanel {
         musicVolumeSlider.addChangeListener(new ControllerVolumeChange(configManager, 0));
         effectsVolumeSlider.addChangeListener(new ControllerVolumeChange(configManager, 1));
 
+        AACheckBox = new JCheckBox("Anti-Aliasing", configManager.isAA());
+        setStyleCheckBox(AACheckBox);
+        AACheckBox.setBounds(20, this.getHeight()-140, 220, 50);
+        AACheckBox.addActionListener(e -> onAntiAliasingChange(configManager));
+        add(AACheckBox);
+
         JButton tutoButton = new JButton("Tutoriel");
         tutoButton.setBounds(20, 350, 200, 50);
         tutoButton.addActionListener(e -> onTuto(controllerPopup));
@@ -62,6 +69,10 @@ public class VueSettingsPopup extends JPanel {
         quitButton.setBounds(460, 350, 200, 50);
         quitButton.addActionListener(e -> onQuit(controllerPopup));
         add(setStyleButton(quitButton,18));
+    }
+
+    public void onAntiAliasingChange(ConfigManager configManager){
+        configManager.setAA(AACheckBox.isSelected());
     }
 
     public void updateVueSettings(){

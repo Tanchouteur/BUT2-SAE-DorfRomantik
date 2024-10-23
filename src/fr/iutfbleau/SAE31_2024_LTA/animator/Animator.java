@@ -82,6 +82,7 @@ public class Animator {
         final long startTime = System.currentTimeMillis();
         vueTuile.setLocation(startX, startY);
         timer.addActionListener(e -> {
+            vueJeux.getModelJeux().setUndoActivate(false);
             long elapsed = System.currentTimeMillis() - startTime;
             double progress = Math.min(1.0, (double) elapsed / duration);
 
@@ -111,6 +112,7 @@ public class Animator {
             if (progress >= 1.0) {
                 timer.stop();
                 vueTuile.getModelTuile().setOnBoard(true);
+                vueJeux.getModelJeux().setUndoActivate(true);
             }
         });
         timer.start();

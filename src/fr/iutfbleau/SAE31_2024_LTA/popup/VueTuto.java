@@ -26,6 +26,7 @@ public class VueTuto extends JPanel {
         showAtStartupCheckBox.setBounds(20, this.getHeight()-100, 220, 50);
         showAtStartupCheckBox.addActionListener(e -> onShowAtStartupChange(configManager));
         add(showAtStartupCheckBox);
+
         updateVueTuto(controllerPopup.getVuePrincipale());
 
         JButton resumeButton = new JButton("Resume");

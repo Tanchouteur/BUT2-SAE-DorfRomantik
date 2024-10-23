@@ -1,10 +1,7 @@
 package fr.iutfbleau.SAE31_2024_LTA.jeux;
 
-import fr.iutfbleau.SAE31_2024_LTA.layers.VuePrincipale;
-
 import javax.swing.*;
 import java.awt.*;
-import java.util.Arrays;
 
 public class VueTuile extends JComponent {
 
@@ -17,13 +14,15 @@ public class VueTuile extends JComponent {
 
     private int centerX, centerY;
 
-    VueTuile(ModelTuile modelTuile, int centerX, int centerY, int radius) {
-        this.modelTuile = modelTuile;
+    private boolean AA;
 
+    VueTuile(ModelTuile modelTuile, int centerX, int centerY, int radius, boolean AA) {
+        this.modelTuile = modelTuile;
+        this.AA = AA;
         this.xPoints = new int[6];
         this.yPoints = new int[6];
 
-        updateTuile( centerX, centerY, radius);
+        updateTuile( centerX, centerY, radius, AA);
         this.setCursor(new Cursor(Cursor.HAND_CURSOR));
     }
 
@@ -47,8 +46,9 @@ public class VueTuile extends JComponent {
         return new Polygon(xPoints, yPoints, 6);
     }
 
-    public void updateTuile(int centerX, int centerY, int radius) {
+    public void updateTuile(int centerX, int centerY, int radius, boolean AA) {
         polygon = createHexagon(radius);
+        this.AA = AA;
         this.setBounds(centerX-radius, centerY-radius, radius*2, radius*2);
     }
 
@@ -57,8 +57,9 @@ public class VueTuile extends JComponent {
         super.paintComponent(g);
         Graphics2D g2d = (Graphics2D) g;
 
-
-        g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+        if (AA){
+            g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+        }
 
         if (modelTuile.isSuivante()){
             g2d.scale(1, 0.5);

@@ -21,7 +21,7 @@ public class VueJeux extends JLayeredPane {
 
     private final int tuileSize = 50, hexHeight = tuileSize - 7;
     private final ModelTuile[] tuilePreview;
-    private boolean end = false, dirty = false;
+    private boolean end = false;
     private JPanel infoPanel;
     private JLabel currentScore;
 
@@ -59,7 +59,7 @@ public class VueJeux extends JLayeredPane {
         int x = (getWidth() / 2) - (3 * 50 / 2) * 50;
         int y = (getHeight() / 2) - 50 - 7 * 50;
         ModelTuile tuile = modelJeux.getListTuiles().getFirst();
-        tuile.createVueTuile(x, y, tuileSize);
+        tuile.createVueTuile(x, y, tuileSize, modelJeux.isAA());
         add(tuile.getVueTuile());
         modelJeux.getModelMatrice().poseTuile(0, 0);
         modelJeux.getModelMatrice().getTuilesPartie().get(new Point(0,0)).setOnBoard(true);
@@ -121,20 +121,20 @@ public class VueJeux extends JLayeredPane {
         if (tuile != null) {
             if (tuile.getVueTuile() == null) { //si c'est une nouvelle tuile
                 if (!tuile.isButton() && !tuile.isOnBoard()) {
-                    tuile.createVueTuile(60, getHeight() - (5 * modelJeux.getListTuiles().size() + 45), tuileSize);
+                    tuile.createVueTuile(60, getHeight() - (5 * modelJeux.getListTuiles().size() + 45), tuileSize, modelJeux.isAA());
                     this.add(tuile.getVueTuile(), Integer.valueOf(0));
                     this.updatePreviewTuileList();
                     Animator.moveToTuile(tuile.getVueTuile(),60,tuile.getVueTuile().getY(),500, this);
                 } else if (!modelJeux.getListTuiles().isEmpty() && tuile.isButton()) {
-                    tuile.createVueTuile(x, y, tuileSize / 2);
+                    tuile.createVueTuile(x, y, tuileSize / 2, modelJeux.isAA());
                     this.add(tuile.getVueTuile(), Integer.valueOf(0));
                     tuile.getVueTuile().addMouseListener(new ControllerPoseTuile(modelJeux));
                 }
             } else { //si c'est une ancienne tuile qu'on déplace
                 if (!tuile.isButton() && tuile.isOnBoard()) {
-                    tuile.getVueTuile().updateTuile(x, y, tuileSize);
+                    tuile.getVueTuile().updateTuile(x, y, tuileSize,modelJeux.isAA());
                 } else if (!modelJeux.getListTuiles().isEmpty() && tuile.isButton()) {
-                    tuile.getVueTuile().updateTuile(x, y, tuileSize / 2);
+                    tuile.getVueTuile().updateTuile(x, y, tuileSize / 2, modelJeux.isAA());
                 }
             }
         }
@@ -177,13 +177,13 @@ public class VueJeux extends JLayeredPane {
             if (i < modelJeux.getListTuiles().size()) {
                 ModelTuile tuile;
                 if (i == 0) {
-                    tuile = new ModelTuile(modelJeux.getListTuiles().get(i).getSeed(), false,true);
+                    tuile = new ModelTuile(modelJeux.getListTuiles().get(i).getSeed(), false, true, modelJeux.isAA());
                     tuile.setComposition(modelJeux.getListTuiles().get(i).getComposition());
                 }else {
-                    tuile = new ModelTuile(modelJeux.getListTuiles().get(i).getSeed(), true,false);
+                    tuile = new ModelTuile(modelJeux.getListTuiles().get(i).getSeed(), true, false, modelJeux.isAA());
                 }
 
-                tuile.createVueTuile(60, getHeight() - (5 * (modelJeux.getListTuiles().size() - i) + 45), 50);
+                tuile.createVueTuile(60, getHeight() - (5 * (modelJeux.getListTuiles().size() - i) + 45), 50, modelJeux.isAA());
                 tuilePreview[i] = tuile;
                 add(tuilePreview[i].getVueTuile(), Integer.valueOf(modelJeux.getListTuiles().size() - i));
             }
@@ -199,7 +199,7 @@ public class VueJeux extends JLayeredPane {
     public ModelTuile setPreviewOnButton(VueTuile btnHovered) {
         if (btnHovered.getModelTuile().isButton() && !modelJeux.getListTuiles().isEmpty()) {
 
-            ModelTuile previewTuile = new ModelTuile(modelJeux.getListTuiles().getFirst().getSeed(), false,false);
+            ModelTuile previewTuile = new ModelTuile(modelJeux.getListTuiles().getFirst().getSeed(), false, false, modelJeux.isAA());
             previewTuile.setComposition(modelJeux.getListTuiles().getFirst().getComposition());
 
             int centerX = getWidth() / 2;
@@ -217,7 +217,7 @@ public class VueJeux extends JLayeredPane {
             int x = totalOffsetX + col * (3 * tuileSize / 2);
             int y = totalOffsetY + row * hexHeight;
 
-            previewTuile.createVueTuile(x, y, (int) (tuileSize*0.8));
+            previewTuile.createVueTuile(x, y, (int) (tuileSize*0.8), modelJeux.isAA());
             add(previewTuile.getVueTuile(), Integer.valueOf(1));
             repaint();
 
@@ -268,5 +268,9 @@ public class VueJeux extends JLayeredPane {
     public void deletePlayerInfo() {
         infoPanel.removeAll();
         remove(infoPanel);
+    }
+
+    public ModelJeux getModelJeux(){
+        return this.modelJeux;
     }
 }

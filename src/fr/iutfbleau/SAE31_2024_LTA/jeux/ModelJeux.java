@@ -32,7 +32,7 @@ public class ModelJeux {
         listTuiles = new LinkedList<>();
 
         for (int i = nombreTuile; i >= 0; i--) {
-            ModelTuile tuile = new ModelTuile(seed*i, false,false);
+            ModelTuile tuile = new ModelTuile(seed*i, false,false,modelPrincipale.getConfigManager().isAA());
             listTuiles.add(tuile);
         }
 
@@ -172,5 +172,9 @@ public class ModelJeux {
             undo = true;
             tuileUndoAble.setOnBoard(false);
         }
+    }
+
+    public boolean isAA() {
+        return modelPrincipale.getConfigManager().isAA();
     }
 }
