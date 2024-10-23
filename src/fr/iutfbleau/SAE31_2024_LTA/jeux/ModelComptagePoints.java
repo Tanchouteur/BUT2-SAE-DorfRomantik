@@ -1,4 +1,5 @@
 package fr.iutfbleau.SAE31_2024_LTA.jeux;
+import java.util.ArrayList;
 
 public class ModelComptagePoints {
 
@@ -50,40 +51,61 @@ public class ModelComptagePoints {
 
     public static int updatePoche(int points, ModelTuile tuile, ModelTuile[] voisin) {
         boolean[] correspond = correspondVoisins(tuile, voisin);
-        boolean use1 = false;
-        boolean use2 = false;
+        ArrayList<ModelPoche> couleur1 = new ArrayList<>();
+        ArrayList<ModelPoche> couleur2 = new ArrayList<>();
+
         for (int i = 0; i < voisin.length; i++) {
             if (correspond[i]) {
                 ModelPoche poche= comparaisonPoche(tuile, voisin[i], i);
                 if (tuile.getIndexcouleur1()!=tuile.getIndexcouleur2()) {
-                    if (tuile.getIndexcouleur1() == poche.getCouleur() && use1 == false) {
-                        use1 = true;
+                    if (tuile.getIndexcouleur1() == poche.getCouleur()) {
+                        couleur1.add(poche);
                         points=enleverPoint(points, poche);
-                        tuile.setPoche1(poche);
+
                     }
-                    if (tuile.getIndexcouleur2() == poche.getCouleur() && use2 == false) {
-                        use2 = true;
+                    if (tuile.getIndexcouleur2() == poche.getCouleur()) {
+                        couleur2.add(poche);
                         points = enleverPoint(points, poche);
-                        tuile.setPoche2(poche);
+
                     }
                 }
                 else {
-                    if (!use1) {
-                        use1 = true;
-                        use2 = true;
+                    if (tuile.getIndexcouleur1() == poche.getCouleur()) {
+                        couleur1.add(poche);
+                        couleur2.add(poche);
                         points = enleverPoint(points, poche);
-                        tuile.setPoche1(poche);
-                        tuile.setPoche2(poche);
+
                     }
                 }
 
             }
         }
-        if (!use1) {
+        if (couleur1.isEmpty()) {
             tuile.setPoche1(new ModelPoche(tuile.getIndexcouleur1(), tuile));
         }
-        if (!use2) {
+        if (couleur2.isEmpty()) {
             tuile.setPoche2(new ModelPoche(tuile.getIndexcouleur2(), tuile));
+        }
+        if (tuile.getIndexcouleur1()!= tuile.getIndexcouleur2()) {
+
+            if (couleur1.size() > 1) {
+                for (int i = 1; i < couleur1.size(); i++) {
+
+                }
+            }
+
+            if (couleur2.size() > 1) {
+                for (int i = 1; i < couleur2.size(); i++) {
+
+                }
+            }
+        }
+        else {
+            tuile.setPoche1(couleur1.get(0));
+            tuile.setPoche2(couleur2.get(0));
+            for (int i = 1; i < couleur1.size(); i++) {
+
+            }
         }
         if (tuile.getIndexcouleur1() != tuile.getIndexcouleur2()) {
             points += ajoutPoint(points, tuile.getPoche()[0]);
