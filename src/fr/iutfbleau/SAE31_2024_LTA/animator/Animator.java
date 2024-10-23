@@ -7,6 +7,7 @@ import fr.iutfbleau.SAE31_2024_LTA.jeux.VueTuile;
 import fr.iutfbleau.SAE31_2024_LTA.layers.VuePrincipale;
 
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -23,26 +24,6 @@ public class Animator {
                 if (alpha >= 1f) {
                     alpha = 1f;
                     ((Timer) e.getSource()).stop();
-                }
-                component.setOpaque(true);
-                component.repaint();
-            }
-        });
-        timer.start();
-    }
-
-    // Méthode pour faire un fade
-    public static void fadeOut(JComponent component, int duration) {
-        Timer timer = new Timer(duration / 20, new ActionListener() {
-            float alpha = 1f;
-
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                alpha -= 0.05f;
-                if (alpha <= 0f) {
-                    alpha = 0f;
-                    ((Timer) e.getSource()).stop();
-                    component.setVisible(false);
                 }
                 component.setOpaque(true);
                 component.repaint();

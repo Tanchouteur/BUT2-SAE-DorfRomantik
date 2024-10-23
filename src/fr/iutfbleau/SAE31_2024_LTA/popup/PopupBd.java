@@ -9,36 +9,25 @@ import java.awt.*;
 
 public class PopupBd extends JPanel {
 
-    public PopupBd(Boolean connected){
+    public PopupBd(String message,Boolean good){
         setLayout(null);
         setOpaque(false);
         setBackground(new Color(255,255,255,0));
 
-        setBounds(0,0, VuePrincipale.frameWidth, 80);
+        setBounds((VuePrincipale.frameWidth -600)/2,30, 600, 50);
 
         JLabel label = new JLabel();
-        label.setBounds((VuePrincipale.frameWidth -600)/2, 30, 650, 50);
+        label.setSize(new Dimension(600,50));
+        label.setBounds(0 ,0, 600, 50);
 
-        if (connected){
-            label.setText("Connection à la base de donnée Réussi");
+        label.setText(message);
+
+        if (good){
             this.add(StyleComponent.setStyleLabelSucces(label,24));
         }else {
-            label.setText("Connection à la base de donnée Echouer");
             this.add(StyleComponent.setStyleLabelErreur(label,24));
         }
 
-        Animator.fadeIn(this,500);
-    }
-    public PopupBd(){
-        setLayout(null);
-        setOpaque(false);
-        setBackground(new Color(255,255,255,0));
-        setBounds(0,0, VuePrincipale.frameWidth, VuePrincipale.frameHeight);
-        JLabel label = new JLabel();
-        label.setBounds((VuePrincipale.frameWidth -600)/2, 30, 650, 50);
-
-        label.setText("Connection à la base de donnée en cours...");
-        this.add(StyleComponent.setStyleLabelScore(label,26));
         Animator.fadeIn(this,500);
     }
 }

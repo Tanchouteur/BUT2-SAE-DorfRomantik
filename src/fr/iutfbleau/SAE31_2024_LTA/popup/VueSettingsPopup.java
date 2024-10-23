@@ -46,8 +46,8 @@ public class VueSettingsPopup extends JPanel {
         effectsLabel.setBounds(50, 200, 200, 40);
         add(setStyleLabel(effectsLabel,19));
 
-        musicVolumeSlider.addChangeListener(new ControllerVolumeChange(configManager, 0));
-        effectsVolumeSlider.addChangeListener(new ControllerVolumeChange(configManager, 1));
+        musicVolumeSlider.addChangeListener(new ControllerVolumeChange(configManager, 0,modelPrincipale));
+        effectsVolumeSlider.addChangeListener(new ControllerVolumeChange(configManager, 1,modelPrincipale));
 
         AACheckBox = new JCheckBox("Anti-Aliasing", configManager.isAA());
         setStyleCheckBox(AACheckBox);

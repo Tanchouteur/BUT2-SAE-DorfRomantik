@@ -12,7 +12,7 @@ public class ModelBDD {
     private Connection db;
     private List<BddListeTuiles> listeTuiles; //chaque object des listes contients une ligne de la table
     private List<BddPartieJouer> partieJouees;
-    private VuePrincipale vuePrincipale;
+    private final VuePrincipale vuePrincipale;
     private boolean connected = false;
     private boolean inConnexion = false;
 
@@ -23,11 +23,12 @@ public class ModelBDD {
 
     public void connexionBdd(){
         new Thread(() -> {
+            String message = "Connexion bd...";
             PopupBd popupBd = null;
             try {// Connexion à la base de données
 
                 inConnexion = true;
-                popupBd = new PopupBd();
+                popupBd = new PopupBd(message,true);
 
                 this.db = DriverManager.getConnection(
                     "jdbc:mariadb://dwarves.iut-fbleau.fr:3306/tanchou",
@@ -41,8 +42,16 @@ public class ModelBDD {
             }
             vuePrincipale.getPrincipaleLayeredPane().remove(popupBd);
             inConnexion = false;
-            popupBd = new PopupBd(connected);
+
+            if (connected) {
+                message="Connection à la base de donnée réussi";
+            }else {
+                message="Connection à la base de donnée échouer";
+            }
+
+            popupBd = new PopupBd(message,connected);
             vuePrincipale.getPrincipaleLayeredPane().add(popupBd,Integer.valueOf(3));
+
             try {
                 Thread.sleep(3000);
             } catch (InterruptedException ignored) {
@@ -170,9 +179,5 @@ public class ModelBDD {
 
     public boolean isInConnexion() {
         return inConnexion;
-    }
-
-    public void setInConnexion(boolean inConnexion) {
-        this.inConnexion = inConnexion;
     }
 }

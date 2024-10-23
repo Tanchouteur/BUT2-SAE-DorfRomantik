@@ -31,12 +31,12 @@ public class ModelPrincipale {
 
     public ModelPrincipale() {
         vuePrincipale = createView();
+        mediaPlayerManager = new MediaPlayerManager(this);
         controllerPopup = new ControllerPopup(vuePrincipale);
         configManager = new ConfigManager(controllerPopup);
-        mediaPlayerManager = new MediaPlayerManager(this);
-        controllerPopup.createSettings();
+        
         modelMediaLoader = new ModelMediaLoader();
-
+        controllerPopup.createSettings();
         bdd = new ModelBDD(getVuePrincipale());
         modelMenu = new ModelMenu(this);
         vuePrincipale.setVisible(true);

@@ -11,15 +11,21 @@ import java.sql.SQLException;
 public class ControllerSaveGame implements ActionListener {
     private final ModelBDD modelBDD;
     private final ModelPrincipale modelPrincipale;
-    private VueScoreScreen vueScoreScreen;
+    private final VueScoreScreen vueScoreScreen;
+
     public ControllerSaveGame(ModelPrincipale modelPrincipale, VueScoreScreen vueScoreScreen) {
         this.vueScoreScreen = vueScoreScreen;
-        modelBDD = modelPrincipale.getBdd();
+        this.modelBDD = modelPrincipale.getBdd();
         this.modelPrincipale = modelPrincipale;
+        saveInBdd();
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
+        saveInBdd();
+    }
+
+    public void saveInBdd(){
         boolean saved = false;
         try {
             saved = modelBDD.saveGame(modelPrincipale.getPlayerName(), modelPrincipale.getModelJeux().getScore(),modelPrincipale.getSeedIndex());
@@ -30,6 +36,11 @@ public class ControllerSaveGame implements ActionListener {
             vueScoreScreen.getSaveBddButton().setText("Sauvegarder !");
             vueScoreScreen.getSaveBddButton().setEnabled(false);
             vueScoreScreen.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
+        }else {
+            vueScoreScreen.getSaveBddButton().setText("Re-essayer");
+            vueScoreScreen.getSaveBddButton().setEnabled(true);
+            vueScoreScreen.setCursor(new Cursor(Cursor.HAND_CURSOR));
+            vueScoreScreen.getSaveBddButton().addActionListener(this);
         }
     }
 }

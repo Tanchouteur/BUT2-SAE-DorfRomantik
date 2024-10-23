@@ -13,6 +13,7 @@ public class ConfigManager {
         if (this.isTuto()){
             controllerPopup.showTutoDialog(this);
         }
+
     }
 
     public int getVolumeEffet() {

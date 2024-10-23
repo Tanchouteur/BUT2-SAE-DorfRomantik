@@ -44,11 +44,12 @@ public class VueScoreScreen extends JPanel {
 
         saveBddButton = new JButton();
         if (modelPrincipale.getBdd().updateBdd()) {
-            saveBddButton.addActionListener(new ControllerSaveGame(modelPrincipale, this));
-            saveBddButton.setText("Save in Cloud");
+            saveBddButton.setText("Sauvegarde en cours...");
         }else {
             saveBddButton.setText("Hors Ligne...");
         }
+        saveBddButton.setEnabled(false);
+        new ControllerSaveGame(modelPrincipale, this);
 
         gbc.gridy = 2;
         sidebarPanel.add(setStyleButton(saveBddButton,buttonFontSize), gbc);

@@ -28,6 +28,8 @@ public class ControllerPopup extends AbstractAction {
             vuePrincipale.getPrincipaleLayeredPane().add(vueSettings, Integer.valueOf(1));
             if (this.configManager == null) {
                 this.configManager = vuePrincipale.getModelPrincipale().getConfigManager();
+                vuePrincipale.getModelPrincipale().getMediaPlayerManager().setVolumeMusique(configManager.getVolumeMusique());
+                vuePrincipale.getModelPrincipale().getMediaPlayerManager().setVolumeEffect(configManager.getVolumeEffet());
             }
             vueSettings.setMusicVolume(configManager.getVolumeMusique());
             vueSettings.setEffectsVolume(configManager.getVolumeEffet());
