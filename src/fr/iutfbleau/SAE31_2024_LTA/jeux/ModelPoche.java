@@ -1,33 +1,28 @@
 package fr.iutfbleau.SAE31_2024_LTA.jeux;
+import java.util.ArrayList;
 
 public class ModelPoche {
     private final int couleur;
-    private final ModelTuile[] tuiles;
-    private int length;
+    private final ArrayList<ModelTuile> tuiles;
+
 
     public ModelPoche(int couleur, ModelTuile tuile) {
         this.couleur = couleur;
-        this.tuiles = new ModelTuile[50];
-        this.tuiles[0] = tuile;
-        this.length = 1;
+        this.tuiles = new ArrayList<>();
+        this.tuiles.add(tuile);
+
 
     }
 
-    public ModelTuile[] getTuiles() {
+    public ArrayList<ModelTuile> getTuiles() {
         return tuiles;
     }
 
-    public int getLength() {
-        return this.length;
-    }
 
-    private void incrementLength() {
-        this.length++;
-    }
 
     public void addTuile(ModelTuile m) {
-        this.tuiles[this.length] = m;
-        incrementLength();
+        this.tuiles.add(m);
+
     }
 
     public int getCouleur() {

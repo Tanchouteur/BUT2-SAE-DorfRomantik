@@ -89,18 +89,48 @@ public class ModelComptagePoints {
         if (tuile.getIndexcouleur1()!= tuile.getIndexcouleur2()) {
 
             if (couleur1.size() > 1) {
+                tuile.setPoche1(couleur1.get(0));
                 for (int i = 1; i < couleur1.size(); i++) {
+                    ModelPoche changementPoche= couleur1.get(i);
+                    for (int j = 0;i<changementPoche.getTuiles().size(); i++) {
+                        if (changementPoche.getTuiles().get(j).getPoche()[0].getCouleur()==tuile.getIndexcouleur1()) {
+                            changementPoche.getTuiles().get(j).setPoche1(changementPoche);
+                        }
+                        if (changementPoche.getTuiles().get(j).getPoche()[1].getCouleur()==tuile.getIndexcouleur2()) {
+                            changementPoche.getTuiles().get(j).setPoche2(changementPoche);
+                        }
 
+                    }
                 }
             }
 
             if (couleur2.size() > 1) {
+                tuile.setPoche2(couleur2.get(0));
                 for (int i = 1; i < couleur2.size(); i++) {
+                    ModelPoche changementPoche= couleur2.get(i);
+                    for (int j = 0;i<changementPoche.getTuiles().size(); i++) {
+                        if (changementPoche.getTuiles().get(j).getPoche()[0].getCouleur()==tuile.getIndexcouleur1()) {
+                            changementPoche.getTuiles().get(j).setPoche1(changementPoche);
+                        }
+                        if (changementPoche.getTuiles().get(j).getPoche()[1].getCouleur()==tuile.getIndexcouleur2()) {
+                            changementPoche.getTuiles().get(j).setPoche2(changementPoche);
+                        }
 
+                    }
                 }
+            }
+            if (couleur1.size()==1) {
+                tuile.setPoche1(couleur1.get(0));
+                couleur1.get(0).addTuile(tuile);
+            }
+            if (couleur2.size()==1) {
+                tuile.setPoche2(couleur2.get(0));
+                couleur2.get(0).addTuile(tuile);
             }
         }
         else {
+            //if (couleur1.)
+
             tuile.setPoche1(couleur1.get(0));
             tuile.setPoche2(couleur2.get(0));
             for (int i = 1; i < couleur1.size(); i++) {
@@ -109,13 +139,12 @@ public class ModelComptagePoints {
         }
         if (tuile.getIndexcouleur1() != tuile.getIndexcouleur2()) {
             points += ajoutPoint(points, tuile.getPoche()[0]);
-            System.out.println(points);
             points += ajoutPoint(points, tuile.getPoche()[1]);
-            System.out.println(points);
+
         }
         else {
             points = ajoutPoint(points, tuile.getPoche()[0]);
-            System.out.println(points);
+
         }
         return points;
 
