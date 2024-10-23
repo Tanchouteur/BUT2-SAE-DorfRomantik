@@ -28,23 +28,23 @@ public class VueSettingsPopup extends JPanel {
 
         JLabel settingsLabel = new JLabel("Paramètres");
         settingsLabel.setBounds((getWidth()-190)/2,20,190,50);
-        add(setStyleLabelScore(settingsLabel,24));
+        add(StyleComponent.setStyleLabelWhite(settingsLabel,24));
 
-        musicVolumeSlider = new JSlider(35, 100, configManager.getVolumeMusique());
+        musicVolumeSlider = new JSlider(40, 100, configManager.getVolumeMusique());
         musicVolumeSlider.setBounds(250, 100, 350, 40);
         add(setStyleSlider(musicVolumeSlider));
 
-        effectsVolumeSlider = new JSlider(35, 100, configManager.getVolumeEffet());
+        effectsVolumeSlider = new JSlider(40, 100, configManager.getVolumeEffet());
         effectsVolumeSlider.setBounds(250, 200, 350, 40);
         add(setStyleSlider(effectsVolumeSlider));
 
         JLabel musicLabel = new JLabel("Musique Volume:");
-        musicLabel.setBounds(50, 100, 200, 40);
-        add(setStyleLabel(musicLabel,19));
+        musicLabel.setBounds(30, 100, 200, 40);
+        add(setStyleLabelWhite(musicLabel,19));
 
         JLabel effectsLabel = new JLabel("Effets Volume:");
-        effectsLabel.setBounds(50, 200, 200, 40);
-        add(setStyleLabel(effectsLabel,19));
+        effectsLabel.setBounds(30, 200, 200, 40);
+        add(setStyleLabelWhite(effectsLabel,19));
 
         musicVolumeSlider.addChangeListener(new ControllerVolumeChange(configManager, 0,modelPrincipale));
         effectsVolumeSlider.addChangeListener(new ControllerVolumeChange(configManager, 1,modelPrincipale));

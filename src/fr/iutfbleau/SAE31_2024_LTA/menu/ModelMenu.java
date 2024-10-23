@@ -26,7 +26,6 @@ public class ModelMenu {
         modelPrincipale.createPartieJouer();
         if (modelPrincipale.getConfigManager().isTuto()){
             modelPrincipale.getControllerPopup().showTutoDialog();
-            System.out.println("tuto");
         }
     }
 }

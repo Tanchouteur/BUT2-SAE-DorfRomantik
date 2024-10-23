@@ -1,9 +1,9 @@
 package fr.iutfbleau.SAE31_2024_LTA.jeux;
 
 import fr.iutfbleau.SAE31_2024_LTA.ModelPrincipale;
-import fr.iutfbleau.SAE31_2024_LTA.animator.Animator;
 import fr.iutfbleau.SAE31_2024_LTA.endGame.VueScoreScreen;
 
+import javax.swing.*;
 import java.awt.Point;
 import java.util.*;
 
@@ -161,7 +161,7 @@ public class ModelJeux {
         this.tuileUndoAble = tuileUndoAble;
     }
 
-    public void undoLastTuile() {
+    public Action undoLastTuile() {
         if (!undo) {
             listTuiles.addFirst(tuileUndoAble);
             deleteButtons();
@@ -172,6 +172,7 @@ public class ModelJeux {
             undo = true;
             tuileUndoAble.setOnBoard(false);
         }
+        return null;
     }
 
     public boolean isAA() {

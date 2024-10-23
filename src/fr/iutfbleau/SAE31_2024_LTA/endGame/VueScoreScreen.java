@@ -62,7 +62,7 @@ public class VueScoreScreen extends JPanel {
 
         JButton settingsButton = new JButton("Paramètres");
 
-        settingsButton.addActionListener(modelPrincipale.getControllerPopup());
+        settingsButton.addActionListener(modelPrincipale.getControllerInputMap());
 
         gbc.gridy = 4;
         sidebarPanel.add(setStyleButton(settingsButton,buttonFontSize), gbc);

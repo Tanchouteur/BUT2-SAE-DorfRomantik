@@ -10,8 +10,8 @@ public class Configuration {
 
     public Configuration() {
         //cest les valeurs par défault
-        this.volumeEffet = 95;
-        this.volumeMusique = 95;
+        this.volumeEffet = 80;
+        this.volumeMusique = 80;
         this.playerName = "player";
         this.tuto = true;
         this.AA = false;

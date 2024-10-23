@@ -8,6 +8,7 @@ import fr.iutfbleau.SAE31_2024_LTA.media.MediaPlayerManager;
 import fr.iutfbleau.SAE31_2024_LTA.media.ModelMediaLoader;
 import fr.iutfbleau.SAE31_2024_LTA.menu.ModelMenu;
 import fr.iutfbleau.SAE31_2024_LTA.partieJouer.ModelPartieJouer;
+import fr.iutfbleau.SAE31_2024_LTA.popup.ControllerInputMap;
 import fr.iutfbleau.SAE31_2024_LTA.popup.ControllerPopup;
 
 public class ModelPrincipale {
@@ -28,6 +29,7 @@ public class ModelPrincipale {
     private int seedIndex;
 
     private final ControllerPopup controllerPopup;
+    private final ControllerInputMap controllerInputMap;
 
     public ModelPrincipale() {
         vuePrincipale = createView();
@@ -36,6 +38,8 @@ public class ModelPrincipale {
         configManager = new ConfigManager(controllerPopup);
         
         modelMediaLoader = new ModelMediaLoader();
+
+        controllerInputMap = new ControllerInputMap(this,"main");
         controllerPopup.createSettings();
         bdd = new ModelBDD(getVuePrincipale());
         modelMenu = new ModelMenu(this);
@@ -112,5 +116,9 @@ public class ModelPrincipale {
 
     public ControllerPopup getControllerPopup() {
         return controllerPopup;
+    }
+
+    public ControllerInputMap getControllerInputMap() {
+        return controllerInputMap;
     }
 }

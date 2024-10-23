@@ -31,8 +31,8 @@ public class ConfigFileHandler {
             properties.load(input);
 
             // Lecture des parametre
-            config.setVolumeEffet(Integer.parseInt(properties.getProperty("volumeEffet", "100")));
-            config.setVolumeMusique(Integer.parseInt(properties.getProperty("volumeMusique", "100")));
+            config.setVolumeEffet(Integer.parseInt(properties.getProperty("volumeEffet", "80")));
+            config.setVolumeMusique(Integer.parseInt(properties.getProperty("volumeMusique", "80")));
             config.setPlayerName(properties.getProperty("playerName", "Player Name..."));
             config.setTuto(Boolean.parseBoolean(properties.getProperty("tuto", "true")));
             config.setAA(Boolean.parseBoolean(properties.getProperty("AntiAliasing", "false")));

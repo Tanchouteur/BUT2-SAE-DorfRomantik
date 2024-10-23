@@ -1,6 +1,7 @@
 package fr.iutfbleau.SAE31_2024_LTA.layers;
 
 import fr.iutfbleau.SAE31_2024_LTA.ModelPrincipale;
+import fr.iutfbleau.SAE31_2024_LTA.popup.ControllerInputMap;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -22,7 +23,7 @@ public class VuePrincipale extends JFrame {
 
     public VuePrincipale(ModelPrincipale modelPrincipale) {
         this.modelPrincipale = modelPrincipale;
-        setTitle("DorfRomantique Alpha");
+        setTitle("DorfRomantique");
 
         Toolkit toolkit = Toolkit.getDefaultToolkit();
 
@@ -75,8 +76,12 @@ public class VuePrincipale extends JFrame {
 
     public void setActionMap(){
         InputMap inputMap = getRootPane().getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW);
-        inputMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), "openSettings");
         ActionMap actionMap = getRootPane().getActionMap();
-        actionMap.put("openSettings", modelPrincipale.getControllerPopup());
+
+        inputMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), "toggleSettings");
+        actionMap.put("toggleSettings", new ControllerInputMap(modelPrincipale,"toggleSettingsAction"));
+
+        inputMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_Z, KeyEvent.CTRL_DOWN_MASK), "undo");
+        actionMap.put("undo", new ControllerInputMap(modelPrincipale, "undo"));
     }
 }

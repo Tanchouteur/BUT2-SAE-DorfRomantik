@@ -1,14 +1,12 @@
 package fr.iutfbleau.SAE31_2024_LTA.popup;
 
-import fr.iutfbleau.SAE31_2024_LTA.ModelPrincipale;
 import fr.iutfbleau.SAE31_2024_LTA.animator.Animator;
 import fr.iutfbleau.SAE31_2024_LTA.layers.VuePrincipale;
 import fr.iutfbleau.SAE31_2024_LTA.config.ConfigManager;
 
 import javax.swing.*;
-import java.awt.event.ActionEvent;
 
-public class ControllerPopup extends AbstractAction {
+public class ControllerPopup  {
 
     private ConfigManager configManager;
 
@@ -43,6 +41,7 @@ public class ControllerPopup extends AbstractAction {
 
         }
     }
+
     public void closeTuto(){
         if (vueTuto != null) {
             Animator.moveTo(vueTuto , (vuePrincipale.getWidth()-vueTuto.getWidth())/2,vueTuto.getY() ,(vuePrincipale.getWidth()-vueTuto.getWidth())/2,-vueTuto.getHeight(), 600,true);
@@ -61,11 +60,6 @@ public class ControllerPopup extends AbstractAction {
             vuePrincipale.getPrincipaleLayeredPane().add(vueTuto, Integer.valueOf(2));
         }
         Animator.moveTo(vueTuto , (vuePrincipale.getWidth()-vueTuto.getWidth())/2,vueTuto.getY() ,(vuePrincipale.getWidth()-vueTuto.getWidth())/2,(vuePrincipale.getHeight()-vueTuto.getHeight())/2, 600,true);
-    }
-
-    @Override
-    public void actionPerformed(ActionEvent e) {
-        togleSettingsDialog();
     }
 
     public VuePrincipale getVuePrincipale(){
