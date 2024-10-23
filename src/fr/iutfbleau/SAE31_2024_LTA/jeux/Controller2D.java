@@ -26,8 +26,8 @@ public class Controller2D extends MouseAdapter {
             dragging = true;
             startX = e.getX();
             startY = e.getY();
+            vueJeux.setCursor(new Cursor(MOVE_CURSOR));
         }
-        vueJeux.setCursor(new Cursor(MOVE_CURSOR));
         vueJeux.repaint();
     }
 

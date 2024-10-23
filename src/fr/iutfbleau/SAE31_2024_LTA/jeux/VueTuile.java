@@ -102,11 +102,12 @@ public class VueTuile extends JComponent {
 
             g2d.setColor(new Color(51, 51, 51));
             g2d.drawPolygon(polygon);
-            g2d.setStroke(new BasicStroke(3));
-            g2d.drawLine(polygon.xpoints[0], polygon.ypoints[0], polygon.xpoints[1], polygon.ypoints[1]);
-            g2d.drawLine(polygon.xpoints[1], polygon.ypoints[1], polygon.xpoints[2], polygon.ypoints[2]);
-            g2d.drawLine(polygon.xpoints[2], polygon.ypoints[2], polygon.xpoints[3], polygon.ypoints[3]);
-
+            if (modelTuile.isOnBoard()) {
+                g2d.setStroke(new BasicStroke(3));
+                g2d.drawLine(polygon.xpoints[0], polygon.ypoints[0], polygon.xpoints[1], polygon.ypoints[1]);
+                g2d.drawLine(polygon.xpoints[1], polygon.ypoints[1], polygon.xpoints[2], polygon.ypoints[2]);
+                g2d.drawLine(polygon.xpoints[2], polygon.ypoints[2], polygon.xpoints[3], polygon.ypoints[3]);
+            }
         } else {
             g2d.setColor(new Color(151, 151, 151));
             g2d.fillPolygon(polygon);

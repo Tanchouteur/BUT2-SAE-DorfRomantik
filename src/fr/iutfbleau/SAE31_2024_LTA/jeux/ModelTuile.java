@@ -16,6 +16,7 @@ public class ModelTuile {
     private final boolean button;
     private boolean preview = false;
     private boolean suivante;
+    private boolean onBoard = false;
 
     private VueTuile vueTuile;
 
@@ -171,5 +172,13 @@ public class ModelTuile {
 
     public boolean isSuivante() {
         return suivante;
+    }
+
+    public boolean isOnBoard() {
+        return onBoard;
+    }
+
+    public void setOnBoard(boolean onBoard) {
+        this.onBoard = onBoard;
     }
 }

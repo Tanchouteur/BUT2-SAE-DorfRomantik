@@ -1,10 +1,10 @@
 package fr.iutfbleau.SAE31_2024_LTA.jeux;
 
+import fr.iutfbleau.SAE31_2024_LTA.animator.Animator;
 import fr.iutfbleau.SAE31_2024_LTA.layers.VuePrincipale;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionListener;
 import java.util.List; // Importer la bonne classe List
 import java.util.ArrayList; // Importer ArrayList
 import java.util.Map; // Pour les Map
@@ -62,7 +62,7 @@ public class VueJeux extends JLayeredPane {
         tuile.createVueTuile(x, y, tuileSize);
         add(tuile.getVueTuile());
         modelJeux.getModelMatrice().poseTuile(0, 0);
-
+        modelJeux.getModelMatrice().getTuilesPartie().get(new Point(0,0)).setOnBoard(true);
         repaint();
     }
 
@@ -119,20 +119,21 @@ public class VueJeux extends JLayeredPane {
 
     private void updateTuileView(ModelTuile tuile, int x, int y) {
         if (tuile != null) {
-            if (tuile.getVueTuile() == null) {
-                if (!tuile.isButton()) {
-                    tuile.createVueTuile(x, y, tuileSize);
+            if (tuile.getVueTuile() == null) { //si c'est une nouvelle tuile
+                if (!tuile.isButton() && !tuile.isOnBoard()) {
+                    tuile.createVueTuile(60, getHeight() - (5 * modelJeux.getListTuiles().size() + 45), tuileSize);
                     this.add(tuile.getVueTuile(), Integer.valueOf(0));
                     this.updatePreviewTuileList();
-                } else if (!modelJeux.getListTuiles().isEmpty()) {
+                    Animator.moveToTuile(tuile.getVueTuile(),60,tuile.getVueTuile().getY(),500, this);
+                } else if (!modelJeux.getListTuiles().isEmpty() && tuile.isButton()) {
                     tuile.createVueTuile(x, y, tuileSize / 2);
                     this.add(tuile.getVueTuile(), Integer.valueOf(0));
                     tuile.getVueTuile().addMouseListener(new ControllerPoseTuile(modelJeux));
                 }
-            } else {
-                if (!tuile.isButton()) {
+            } else { //si c'est une ancienne tuile qu'on déplace
+                if (!tuile.isButton() && tuile.isOnBoard()) {
                     tuile.getVueTuile().updateTuile(x, y, tuileSize);
-                } else if (!modelJeux.getListTuiles().isEmpty()) {
+                } else if (!modelJeux.getListTuiles().isEmpty() && tuile.isButton()) {
                     tuile.getVueTuile().updateTuile(x, y, tuileSize / 2);
                 }
             }
@@ -158,6 +159,14 @@ public class VueJeux extends JLayeredPane {
         if (offsetY+deltaY < 3365 && offsetY+deltaY > -3365) {
             offsetY += deltaY;
         }
+    }
+
+    public int getOffsetX(){
+        return this.offsetX;
+    }
+
+    public int getOffsetY(){
+        return this.offsetY;
     }
 
     public void updatePreviewTuileList() {
@@ -210,7 +219,6 @@ public class VueJeux extends JLayeredPane {
 
             previewTuile.createVueTuile(x, y, (int) (tuileSize*0.8));
             add(previewTuile.getVueTuile(), Integer.valueOf(1));
-            //this.remove(btnHovered);
             repaint();
 
             return previewTuile;

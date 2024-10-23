@@ -1,6 +1,7 @@
 package fr.iutfbleau.SAE31_2024_LTA.jeux;
 
 import fr.iutfbleau.SAE31_2024_LTA.ModelPrincipale;
+import fr.iutfbleau.SAE31_2024_LTA.animator.Animator;
 import fr.iutfbleau.SAE31_2024_LTA.endGame.VueScoreScreen;
 
 import java.awt.Point;
@@ -168,6 +169,7 @@ public class ModelJeux {
             tuileUndoAble.setVueTuile(null);
             createButton();
             undo = true;
+            tuileUndoAble.setOnBoard(false);
         }
     }
 }
