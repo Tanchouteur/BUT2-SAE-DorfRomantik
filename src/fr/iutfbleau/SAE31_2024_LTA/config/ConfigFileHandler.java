@@ -14,9 +14,10 @@ public class ConfigFileHandler {
         properties.setProperty("volumeMusique", Integer.toString(configuration.getVolumeMusique()));
         properties.setProperty("playerName", configuration.getPlayerName());
         properties.setProperty("tuto", Boolean.toString(configuration.isTuto()));
+        properties.setProperty("AntiAliasing", Boolean.toString(configuration.isAA()));
 
         try (FileOutputStream output = new FileOutputStream(CONFIG_FILE_PATH)) {
-            properties.store(output, "Configuration Settings");
+            properties.store(output, "Configuration Settings by Louis for SAE31_2024_LTA");
         } catch (IOException e) {
             System.err.println("Erreur lors de l'enregistrement de la configuration : " + e.getMessage());
         }
@@ -34,6 +35,7 @@ public class ConfigFileHandler {
             config.setVolumeMusique(Integer.parseInt(properties.getProperty("volumeMusique", "100")));
             config.setPlayerName(properties.getProperty("playerName", "Player Name..."));
             config.setTuto(Boolean.parseBoolean(properties.getProperty("tuto", "true")));
+            config.setTuto(Boolean.parseBoolean(properties.getProperty("AntiAliasing", "false")));
 
         } catch (IOException e) {
             System.err.println("Erreur lors du chargement de la configuration : " + e.getMessage());

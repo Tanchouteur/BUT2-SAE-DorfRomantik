@@ -50,4 +50,12 @@ public class ConfigManager {
         configuration.setTuto(show);
         fileHandler.saveConfiguration(configuration);
     }
+
+    public boolean isAA(){
+        return configuration.isAA();
+    }
+
+    public void setAA(boolean isActivate) {
+        configuration.setAA(isActivate);
+    }
 }

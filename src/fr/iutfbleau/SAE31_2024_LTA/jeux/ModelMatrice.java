@@ -32,8 +32,10 @@ public class ModelMatrice {
     }
 
     public void deleteTuile(ModelTuile tuile) {
-        modelJeux.getVueJeux().remove(tuile.getVueTuile());
-        this.tuilesPartie.remove(new Point(tuile.getX(), tuile.getY()));
+        if (!tuilesPartie.isEmpty() && tuile != null &&tuile.getVueTuile() != null) {
+            modelJeux.getVueJeux().remove(tuile.getVueTuile());
+            this.tuilesPartie.remove(new Point(tuile.getX(), tuile.getY()));
+        }
     }
 
     public void poseeButton(int x, int y, ModelTuile tuile) {
