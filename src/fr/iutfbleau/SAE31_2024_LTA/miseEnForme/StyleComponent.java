@@ -76,7 +76,7 @@ public class StyleComponent {
     }
 
     public static JLabel setStyleLabel(JLabel label, int fontSize) {
-        label.setForeground(Color.WHITE);
+        label.setForeground(new Color(0x232323));
         label.setFont(new Font("Arial", Font.PLAIN, fontSize));
         return label;
     }

@@ -28,6 +28,7 @@ public class ModelBDD {
 
                 inConnexion = true;
                 popupBd = new PopupBd();
+
                 this.db = DriverManager.getConnection(
                     "jdbc:mariadb://dwarves.iut-fbleau.fr:3306/tanchou",
                     "tanchou", "MotdepasseUpec77**");
@@ -154,13 +155,17 @@ public class ModelBDD {
         return null;
     }
 
-    public void saveGame(String playerName, int score, int listeTuileId) throws SQLException {
+    public boolean saveGame(String playerName, int score, int listeTuileId) throws SQLException {
         PreparedStatement ps = db.prepareStatement("INSERT INTO tanchou.PartieJouer (PlayerName, Score, ListeTuile) VALUES (?, ?, ?)");
         ps.setString(1, playerName);
         ps.setInt(2, score);
         ps.setInt(3, listeTuileId);
-
-        ResultSet rs = ps.executeQuery();
+        try {
+            ResultSet rs = ps.executeQuery();
+            return true;
+        }catch (SQLException e){
+            return false;
+        }
     }
 
     public boolean isInConnexion() {
