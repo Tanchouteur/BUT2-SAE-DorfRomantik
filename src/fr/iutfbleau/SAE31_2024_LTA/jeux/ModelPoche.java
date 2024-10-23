@@ -5,10 +5,11 @@ public class ModelPoche {
     private final ModelTuile[] tuiles;
     private int length;
 
-    public ModelPoche(int couleur) {
+    public ModelPoche(int couleur, ModelTuile tuile) {
         this.couleur = couleur;
         this.tuiles = new ModelTuile[50];
-        this.length = 0;
+        this.tuiles[0] = tuile;
+        this.length = 1;
 
     }
 

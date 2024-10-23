@@ -8,11 +8,11 @@ public class ModelMatrice {
 
     private Map<Point, ModelTuile> tuilesPartie;
     private final ModelJeux modelJeux;
-    private final ModelListePoche modelListePoche;
+
 
     public ModelMatrice(ModelJeux modelJeux) {
         this.modelJeux = modelJeux;
-        this.modelListePoche = new ModelListePoche(modelJeux);
+
         this.tuilesPartie = new HashMap<>(); // Utilisation d'une HashMap pour les tuiles
     }
 
@@ -52,19 +52,19 @@ public class ModelMatrice {
     }
 
     public boolean isNord(ModelTuile tuile) {
-        return this.tuilesPartie.containsKey(new Point(tuile.getX() - 2, tuile.getY()));
+        return this.tuilesPartie.containsKey(new Point(tuile.getX() , tuile.getY() - 2));
     }
 
     public boolean isNordEst(ModelTuile tuile) {
-        return this.tuilesPartie.containsKey(new Point(tuile.getX() - 1, tuile.getY() + 1));
-    }
-
-    public boolean isSudOuest(ModelTuile tuile) {
         return this.tuilesPartie.containsKey(new Point(tuile.getX() + 1, tuile.getY() - 1));
     }
 
+    public boolean isSudOuest(ModelTuile tuile) {
+        return this.tuilesPartie.containsKey(new Point(tuile.getX() - 1, tuile.getY() + 1));
+    }
+
     public boolean isSud(ModelTuile tuile) {
-        return this.tuilesPartie.containsKey(new Point(tuile.getX() + 2, tuile.getY()));
+        return this.tuilesPartie.containsKey(new Point(tuile.getX() , tuile.getY() + 2));
     }
 
     public boolean isSudEst(ModelTuile tuile) {
@@ -77,25 +77,72 @@ public class ModelMatrice {
     }
 
     public ModelTuile getNord(ModelTuile tuile) {
-        return this.tuilesPartie.get(new Point(tuile.getX() - 2, tuile.getY()));
+        return this.tuilesPartie.get(new Point(tuile.getX() , tuile.getY() - 2));
     }
 
     public ModelTuile getNordEst(ModelTuile tuile) {
-        return this.tuilesPartie.get(new Point(tuile.getX() - 1, tuile.getY() + 1));
-    }
-
-    public ModelTuile getSudOuest(ModelTuile tuile) {
         return this.tuilesPartie.get(new Point(tuile.getX() + 1, tuile.getY() - 1));
     }
 
+    public ModelTuile getSudOuest(ModelTuile tuile) {
+        return this.tuilesPartie.get(new Point(tuile.getX() - 1, tuile.getY() + 1));
+    }
+
     public ModelTuile getSud(ModelTuile tuile) {
-        return this.tuilesPartie.get(new Point(tuile.getX() + 2, tuile.getY()));
+        return this.tuilesPartie.get(new Point(tuile.getX() , tuile.getY() + 2));
     }
 
     public ModelTuile getSudEst(ModelTuile tuile) {
         return this.tuilesPartie.get(new Point(tuile.getX() + 1, tuile.getY() + 1));
     }
 
+    public ModelTuile[] getVoisins(ModelTuile tuile) {
+        ModelTuile[] voisins = new ModelTuile[6];
+
+        if (this.isSudEst(tuile) ) {  //trouve bien
+            if (!this.getSudEst(tuile).isButton()) {
+                voisins[0] = this.getSudEst(tuile);
+            }
+
+        }
+
+        if (this.isSud(tuile) ) {    // n'arrive pas à le trouver
+            if (!this.getSud(tuile).isButton()) {
+                voisins[1] = this.getSud(tuile);
+            }
+
+        }
+
+        if (this.isSudOuest(tuile)) {   //trouve deux voisins alors que 1 seul
+            if (!this.getSudOuest(tuile).isButton()) {
+                voisins[2] = this.getSudOuest(tuile);
+            }
+
+        }
+
+        if (this.isNordOuest(tuile)) {   //trouve deux voisins alors que 1 seul
+            if (!this.getNordOuest(tuile).isButton()) {
+                voisins[3] = this.getNordOuest(tuile);
+
+            }
+
+        }
+
+        if (this.isNord(tuile)) {  //n'arrive pas à le trouver
+            if (!this.getNord(tuile).isButton()) {
+                voisins[4] = this.getNord(tuile);
+            }
+        }
+
+
+        if (this.isNordEst(tuile)) {   //trouve 1 seul mais pas le bon endroit
+            if (!this.getNordEst(tuile).isButton()) {
+                voisins[5] = this.getNordEst(tuile);
+            }
+        }
+        return voisins;
+
+    }
     public Map<Point, ModelTuile> getTuilesPartie() {
         return this.tuilesPartie;
     }

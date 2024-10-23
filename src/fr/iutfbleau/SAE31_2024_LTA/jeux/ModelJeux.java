@@ -12,7 +12,7 @@ public class ModelJeux {
 
     private final ModelPrincipale modelPrincipale;
     private final ModelMatrice modelMatrice;
-    private final ModelListePoche modelListePoche;
+
 
     private final LinkedList<ModelTuile> listTuiles;//Liste de tuile généré
 
@@ -26,7 +26,7 @@ public class ModelJeux {
 
     public ModelJeux(ModelPrincipale modelPrincipale, int seed) {
         this.modelPrincipale = modelPrincipale;
-        this.modelListePoche = new ModelListePoche(this);
+
         this.modelMatrice = new ModelMatrice(this);
         listTuiles = new LinkedList<>();
 
@@ -135,9 +135,7 @@ public class ModelJeux {
         this.score = score;
     }
 
-    public ModelListePoche getModelListePoche() {
-        return modelListePoche;
-    }
+
 
     public boolean isUndo() {
         return undo;

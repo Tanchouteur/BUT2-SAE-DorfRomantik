@@ -8,6 +8,8 @@ public class ModelTuile {
     private int Indexcouleur1;
     private int Indexcouleur2;
 
+    private ModelPoche[] inpoche;
+
     private int seed;
 
     private int x;
@@ -171,5 +173,20 @@ public class ModelTuile {
 
     public boolean isSuivante() {
         return suivante;
+    }
+
+    public void setPoche(ModelPoche poche1,ModelPoche poche2) {
+        this.inpoche[0] = poche1;
+        this.inpoche[1] = poche2;
+    }
+    public void setPoche1(ModelPoche poche) {
+        this.inpoche[0]=poche;
+
+    }
+    public void setPoche2(ModelPoche poche) {
+        this.inpoche[1]=poche;
+    }
+    public ModelPoche[] getPoche() {
+        return inpoche;
     }
 }
