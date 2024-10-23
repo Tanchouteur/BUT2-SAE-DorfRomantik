@@ -12,26 +12,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class Animator {
-
-    // Méthode pour faire un fade
-    public static void fadeIn(JComponent component, int duration) {
-        Timer timer = new Timer(duration / 20, new ActionListener() {
-            float alpha = 0f;
-
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                alpha += 0.05f;
-                if (alpha >= 1f) {
-                    alpha = 1f;
-                    ((Timer) e.getSource()).stop();
-                }
-                component.setOpaque(true);
-                component.repaint();
-            }
-        });
-        timer.start();
-    }
-
     public static void moveTo(JPanel panel, int startX, int startY, int endX, int endY, int duration, boolean amortie) {
         Timer timer = new Timer(10, null);
         final long startTime = System.currentTimeMillis();

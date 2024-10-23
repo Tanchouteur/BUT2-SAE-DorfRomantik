@@ -1,6 +1,5 @@
 package fr.iutfbleau.SAE31_2024_LTA.popup;
 
-import fr.iutfbleau.SAE31_2024_LTA.animator.Animator;
 import fr.iutfbleau.SAE31_2024_LTA.layers.VuePrincipale;
 import fr.iutfbleau.SAE31_2024_LTA.miseEnForme.StyleComponent;
 
@@ -28,6 +27,6 @@ public class PopupBd extends JPanel {
             this.add(StyleComponent.setStyleLabelErreur(label,24));
         }
 
-        Animator.fadeIn(this,500);
+        repaint();
     }
 }
