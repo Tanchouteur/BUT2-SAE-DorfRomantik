@@ -12,7 +12,7 @@ public class ControllerVolumeChange implements ChangeListener {
     private final ConfigManager configManager;
     private final ModelPrincipale modelPrincipale;
     public ControllerVolumeChange(ConfigManager configManager, int groupToChange, ModelPrincipale modelPrincipal) {
-        this.type = groupToChange; // si grouToChange = 0 c'est les musique, si c'est 1 c'est les effets
+        this.type = groupToChange; // si groupToChange = 0 c'est les musique, si c'est 1 c'est les effets
         this.configManager = configManager;
         this.modelPrincipale = modelPrincipal;
     }
