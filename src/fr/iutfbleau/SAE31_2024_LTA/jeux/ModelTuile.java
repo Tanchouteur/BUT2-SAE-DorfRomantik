@@ -25,6 +25,7 @@ public class ModelTuile {
 
     public ModelTuile(int seed, boolean preview, boolean suivante) {//Tuile de jeux
         composition = new int[6];
+        this.inpoche = new ModelPoche[2];
         this.suivante = suivante;
         Random random = new Random();
         this.seed = seed;
