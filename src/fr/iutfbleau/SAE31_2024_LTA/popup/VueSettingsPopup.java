@@ -89,7 +89,7 @@ public class VueSettingsPopup extends JPanel {
     }
 
     private void onResume(ControllerPopup controllerPopup) {
-        controllerPopup.closeSettings();
+        controllerPopup.togleSettingsDialog();
     }
 
     private void onQuit(ControllerPopup controllerPopup) {

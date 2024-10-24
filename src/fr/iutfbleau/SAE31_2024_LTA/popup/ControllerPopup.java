@@ -38,8 +38,8 @@ public class ControllerPopup  {
     public void closeSettings(){
         if (vueSettings != null) {
             Animator.moveTo(vueSettings , (vuePrincipale.getWidth()-vueSettings.getWidth())/2, vueSettings.getY()  ,(vuePrincipale.getWidth()-vueSettings.getWidth())/2,-vueSettings.getHeight(), 800,true);
-
         }
+        vueSettings.setOpen(false);
     }
 
     public void closeTuto(){

@@ -13,7 +13,7 @@ class ControlerMain {
         new Thread(() -> {
             modelPrincipale = new ModelPrincipale();
             isLoading = false;
-        }).start();
+        }).start(); // On lance le chargement du modèle en parallèle
 
         while (isLoading) {
             try {
