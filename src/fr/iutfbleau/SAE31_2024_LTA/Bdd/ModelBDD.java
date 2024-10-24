@@ -10,11 +10,12 @@ import java.util.List;
 public class ModelBDD {
 
     private Connection db;
-    private List<BddListeTuiles> listeTuiles; //chaque object des listes contients une ligne de la table
+    private List<BddListeTuiles> listeTuiles;
     private List<BddPartieJouer> partieJouees;
     private final VuePrincipale vuePrincipale;
     private boolean connected = false;
     private boolean inConnexion = false;
+    private boolean gameSaved = false;
 
     public ModelBDD(VuePrincipale vuePrincipale) {
         this.vuePrincipale = vuePrincipale;
@@ -67,14 +68,21 @@ public class ModelBDD {
             connexionBdd();
         }
         if (db!=null) {
-            this.listeTuiles = getAllListe();
-            this.partieJouees = getAllPartieJouer();
+            if (inConnexion){
+                while (inConnexion){
+                    try {
+                        Thread.sleep(200);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
             return true;
         }
         return false;
     }
 
-    private List<BddListeTuiles> getAllListe() {
+    public List<BddListeTuiles> getAllListe() {
         if (db!=null) {
             List<BddListeTuiles> seeds = new ArrayList<>();
             String query = "SELECT id, seed, BestScore FROM ListeTuiles";
@@ -98,7 +106,7 @@ public class ModelBDD {
         return null;
     }
 
-    private List<BddPartieJouer> getAllPartieJouer() {
+    public List<BddPartieJouer> getAllPartieJouer() {
         if (db!=null) {
             List<BddPartieJouer> parties = new ArrayList<>();
             String query = "SELECT id, PlayerName, Score, ListeTuile FROM PartieJouer";
@@ -127,6 +135,15 @@ public class ModelBDD {
 
     public BddListeTuiles getListeTuileById(int id) throws SQLException {
         if (db!=null) {
+            if (inConnexion){
+                while (inConnexion){
+                    try {
+                        Thread.sleep(200);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
             PreparedStatement ps = db.prepareStatement("SELECT * FROM ListeTuiles WHERE id = ?");
             ps.setInt(1, id);
             ResultSet rs = ps.executeQuery();
@@ -146,17 +163,13 @@ public class ModelBDD {
         return null;
     }
 
-    public List<BddListeTuiles> getListeTuiles() {
-        return this.listeTuiles;
-    }
-
-
-    public List<BddPartieJouer> getPartieJouer() {
-        return this.partieJouees;
-    }
-
     public Integer getBestScoreSeed(int seed) {
+        if (db == null) {
+            return null;
+        }
+        List<BddListeTuiles> listeTuiles = getAllListe();
         for (BddListeTuiles tuile : listeTuiles) {
+
             if (tuile.getSeed() == seed) {
                 return tuile.getBestScore();
             }
@@ -165,6 +178,9 @@ public class ModelBDD {
     }
 
     public boolean saveGame(String playerName, int score, int listeTuileId) throws SQLException {
+        if (gameSaved) {
+            return true;
+        }
         if (db == null) {
             return false;
         }
@@ -173,12 +189,9 @@ public class ModelBDD {
         ps.setString(1, playerName);
         ps.setInt(2, score);
         ps.setInt(3, listeTuileId);
-        try {
-            ResultSet rs = ps.executeQuery();
-            return true;
-        }catch (SQLException e){
-            return false;
-        }
+        ps.executeQuery();
+        gameSaved = true;
+        return true;
     }
 
     public boolean isInConnexion() {

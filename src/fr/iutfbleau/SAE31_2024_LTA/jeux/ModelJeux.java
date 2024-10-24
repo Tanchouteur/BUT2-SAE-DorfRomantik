@@ -5,6 +5,7 @@ import fr.iutfbleau.SAE31_2024_LTA.endGame.VueScoreScreen;
 
 import javax.swing.*;
 import java.awt.Point;
+import java.sql.SQLException;
 import java.util.*;
 
 public class ModelJeux {
@@ -46,7 +47,7 @@ public class ModelJeux {
         modelPrincipale.getVuePrincipale().getPrincipaleLayeredPane().getMainPanel().add(vueJeux, "jeux");
     }
 
-    public void createEndView(){
+    public void createEndView() {
         this.vueScoreScreen = new VueScoreScreen(modelPrincipale);
         this.getVueScoreScreen().setBounds(vueJeux.getWidth(), (vueJeux.getHeight()-this.getVueScoreScreen().getHeightSidebar())/2, this.getVueScoreScreen().getWidthSidebar(), this.getVueScoreScreen().getHeightSidebar());
     }

@@ -116,16 +116,16 @@ public class VueMenu extends JPanel {
 
         List<BddListeTuiles> listeTuiles;
         if (modelPrincipale.getBdd().updateBdd()) {
-            listeTuiles = modelPrincipale.getBdd().getListeTuiles();
-            for (BddListeTuiles tuile : listeTuiles) {
+            listeTuiles = modelPrincipale.getBdd().getAllListe();
+            for (BddListeTuiles tuileListSeed : listeTuiles) {
                 String suiteName;
-                if (tuile.getId() != -1) {
-                    suiteName = String.valueOf(tuile.getId());
+                if (tuileListSeed.getId() != -1) {
+                    suiteName = String.valueOf(tuileListSeed.getId());
                 } else {
                     suiteName = "Aléatoire";
                 }
                 suiteSelector.addItem("Suite : " + suiteName + " - BestScore: " +
-                        (tuile.getBestScore() != null ? tuile.getBestScore() : "N/A"));
+                        (tuileListSeed.getBestScore() != null ? tuileListSeed.getBestScore() : "N/A"));
             }
         }else {
             suiteSelector.addItem("Suite : Aléatoire");

@@ -5,6 +5,7 @@ import fr.iutfbleau.SAE31_2024_LTA.menu.ControllerMenuCard;
 
 import javax.swing.*;
 import java.awt.*;
+import java.sql.SQLException;
 
 import static fr.iutfbleau.SAE31_2024_LTA.miseEnForme.StyleComponent.*;
 
@@ -16,7 +17,7 @@ public class VueScoreScreen extends JPanel {
 
     public VueScoreScreen(ModelPrincipale modelPrincipale) {
         widthSidebar = 450;
-        heightSidebar = 600;
+        heightSidebar = 700;
         setLayout(new BorderLayout());
         this.modelPrincipale = modelPrincipale;
         initSidebarComponent();
@@ -38,8 +39,18 @@ public class VueScoreScreen extends JPanel {
 
         sidebarPanel.add(setStyleImageTitre(), gbc);
 
-        JLabel scoreLabel = new JLabel("Score : "+modelPrincipale.getModelJeux().getScore() +" Points");
+        JLabel globalScoreLabel;
+        if (modelPrincipale.getBdd().getBestScoreSeed(modelPrincipale.getSelectedSeed()) != null){
+             globalScoreLabel = new JLabel("Global best : "+modelPrincipale.getBdd().getBestScoreSeed(modelPrincipale.getSelectedSeed()) +" Points");
+        }else {
+             globalScoreLabel = new JLabel("Indisponible");
+        }
+
         gbc.gridy = 1;
+        sidebarPanel.add(setStyleLabelScore(globalScoreLabel, 30), gbc);
+
+        JLabel scoreLabel = new JLabel("Score : "+modelPrincipale.getModelJeux().getScore() +" Points");
+        gbc.gridy = 2;
         sidebarPanel.add(setStyleLabelScore(scoreLabel, 32), gbc);
 
         saveBddButton = new JButton();
@@ -51,27 +62,27 @@ public class VueScoreScreen extends JPanel {
         saveBddButton.setEnabled(false);
         new ControllerSaveGame(modelPrincipale, this);
 
-        gbc.gridy = 2;
+        gbc.gridy = 3;
         sidebarPanel.add(setStyleButton(saveBddButton,buttonFontSize), gbc);
 
         JButton menuButton = new JButton("Menu");
 
         menuButton.addActionListener(new ControllerMenuCard(modelPrincipale));
-        gbc.gridy = 3;
+        gbc.gridy = 4;
         sidebarPanel.add(setStyleButton(menuButton,buttonFontSize), gbc);
 
         JButton settingsButton = new JButton("Paramètres");
 
         settingsButton.addActionListener(modelPrincipale.getControllerInputMap());
 
-        gbc.gridy = 4;
+        gbc.gridy = 5;
         sidebarPanel.add(setStyleButton(settingsButton,buttonFontSize), gbc);
 
         JButton quitButton = new JButton("Quitter");
 
         quitButton.addActionListener(e -> System.exit(0));
 
-        gbc.gridy = 5;
+        gbc.gridy = 6;
         sidebarPanel.add(setStyleButton(quitButton,buttonFontSize), gbc);
     }
 

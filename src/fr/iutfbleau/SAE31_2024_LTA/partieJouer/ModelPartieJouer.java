@@ -18,7 +18,7 @@ public class ModelPartieJouer {
 
     public List<BddPartieJouer> getAllParties() {
         if (modelPrincipale.getBdd().updateBdd()) {
-            List<BddPartieJouer> listParties = modelPrincipale.getBdd().getPartieJouer().stream()
+            List<BddPartieJouer> listParties = modelPrincipale.getBdd().getAllPartieJouer().stream()
                     .sorted((p1, p2) -> Integer.compare(p2.getScore(), p1.getScore()))
                     .collect(Collectors.toList());
             return listParties;
@@ -28,7 +28,7 @@ public class ModelPartieJouer {
 
     public List<BddPartieJouer> getFilteredParties(String playerName) {
         if (modelPrincipale.getBdd().updateBdd()) {
-            return modelPrincipale.getBdd().getPartieJouer().stream()
+            return modelPrincipale.getBdd().getAllPartieJouer().stream()
                     .filter(partie -> partie.getPlayerName().equalsIgnoreCase(playerName))
                     .sorted((p1, p2) -> Integer.compare(p2.getScore(), p1.getScore()))
                     .collect(Collectors.toList());

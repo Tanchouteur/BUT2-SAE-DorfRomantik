@@ -21,9 +21,7 @@ public class VueInfoPanel extends javax.swing.JPanel {
         playerNameLabel.setBounds(30,30,200,50);
         this.add(setStyleLabelScore(playerNameLabel,18));
 
-        JLabel bestScoreLabel = new JLabel("Record " + modelJeux.getModelPrincipale().getModelPartieJouer()
-                .getVuePartieJouer().getControllerSearchPartieJouer().searchPartieOfPlayer(
-                        modelJeux.getModelPrincipale().getPlayerName(), modelJeux.getModelPrincipale().getSelectedSeed()) + " Points");
+        JLabel bestScoreLabel = new JLabel("Record " + modelJeux.getModelPrincipale().getModelPartieJouer().getVuePartieJouer().getControllerSearchPartieJouer().searchPartieOfPlayer(modelJeux.getModelPrincipale().getPlayerName(), modelJeux.getModelPrincipale().getSelectedSeed()) + " Points");
         bestScoreLabel.setBounds(250,30,250,50);
         this.add(setStyleLabelScore(bestScoreLabel,16));
 
