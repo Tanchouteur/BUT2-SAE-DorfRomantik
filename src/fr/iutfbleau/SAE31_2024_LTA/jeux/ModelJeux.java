@@ -169,6 +169,9 @@ public class ModelJeux {
             getVueJeux().updatePreviewTuileList();
             tuileUndoAble.setVueTuile(null);
             createButton();
+
+            //Alexis ici
+
             undo = true;
             tuileUndoAble.setOnBoard(false);
         }

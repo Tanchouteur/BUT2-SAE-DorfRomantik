@@ -5,9 +5,6 @@ import java.util.Random;
 public class ModelTuile {
     private int[] composition;
 
-    private int Indexcouleur1;
-    private int Indexcouleur2;
-
     private int seed;
 
     private int x;
@@ -20,63 +17,19 @@ public class ModelTuile {
 
     private VueTuile vueTuile;
 
+    private TuileRandomFactory tuileRandomFactory;
+
     private int soundIndex;
 
     public ModelTuile(int seed, boolean preview, boolean suivante, boolean AntiAliasing) {//Tuile de jeux
-        composition = new int[6];
+        this.composition = new int[6];
         this.suivante = suivante;
-        Random random = new Random();
+
+        this.tuileRandomFactory = new TuileRandomFactory(seed);
         this.seed = seed;
         this.preview = preview;
-        random.setSeed(seed);
 
-        int[] indexBiome = new int[5];
-        indexBiome[0] = 0; //Mer
-        indexBiome[1] = 1; //Montagne
-        indexBiome[2] = 2; //Champ
-        indexBiome[3] = 3; //Plaine
-        indexBiome[4] = 4; //Foret
-
-        int indexCouleur1 = indexBiome[random.nextInt(indexBiome.length)];
-        int indexCouleur2 = indexBiome[random.nextInt(indexBiome.length)];
-
-        if (indexCouleur1 == indexCouleur2){
-            random = new Random();
-            random.setSeed(seed+2);
-            indexCouleur2 = indexBiome[random.nextInt(indexBiome.length)];
-        }
-
-        int territory = random.nextInt(composition.length-1);
-        int taille1 = random.nextInt(composition.length+1);
-        int decalage = random.nextInt(composition.length);
-        int taille2 = 6 - taille1;
-
-        for (int i = 0; i < taille1; i++) {
-            composition[decalage] = indexCouleur1;
-            decalage = (decalage + 1) % 6;
-        }
-        for (int i = 0; i < taille2; i++) {
-            composition[decalage] = indexCouleur2;
-            decalage = (decalage + 1) % 6;
-        }
-        if (taille1!=6 && taille2!=6){
-            this.Indexcouleur1 = indexCouleur1;
-            this.Indexcouleur2 = indexCouleur2;
-        }
-        else {
-            if (taille1==6){
-                this.Indexcouleur1 = indexCouleur1;
-                this.Indexcouleur2 = indexCouleur1;
-            }
-            else {
-                this.Indexcouleur1 = indexCouleur2;
-                this.Indexcouleur2 = indexCouleur2;
-            }
-        }
-        if (taille1 > 3)
-            soundIndex = indexCouleur1;
-        else
-            soundIndex = indexCouleur2;
+        composition = tuileRandomFactory.getComposition();
 
         button = false;
     }
@@ -148,7 +101,7 @@ public class ModelTuile {
     }
 
     public int getSoundIndex() {
-        return soundIndex;
+        return tuileRandomFactory.getSoundIndex();
     }
 
     public boolean isPreview() {
@@ -160,10 +113,10 @@ public class ModelTuile {
     }
 
     public int getIndexcouleur1() {
-        return Indexcouleur1;
+        return tuileRandomFactory.getIndexcouleur1();
     }
     public int getIndexcouleur2() {
-        return Indexcouleur2;
+        return tuileRandomFactory.getIndexcouleur2();
     }
 
     public void setVueTuile(VueTuile vueTuile) {
