@@ -144,8 +144,6 @@ public class VueJeux extends JLayeredPane {
     private void endGame() {
         end = true;
         modelJeux.deleteButtons();
-        modelJeux.setUndo(false);
-        modelJeux.setUndoActivate(false);
         updatePreviewTuileList();
         repaint();
         modelJeux.createEndView();

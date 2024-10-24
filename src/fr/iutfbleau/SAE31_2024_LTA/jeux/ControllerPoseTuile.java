@@ -28,9 +28,14 @@ public class ControllerPoseTuile implements MouseListener {
     public void mouseReleased(MouseEvent e) {
         if (clicked) {
             Object source = e.getSource();
+
+            if (modelJeux.getListTuiles().isEmpty()) {
+                modelJeux.setUndo(false);
+                modelJeux.setUndoActivate(false);
+            }
             modelJeux.getVueJeux().unsetPreviewOnButton(modeleTuilePreviewed);
             if (source instanceof VueTuile btnHovered) {
-                modelJeux.createButton();
+                //modelJeux.createButton();
                 if (e.getButton() == MouseEvent.BUTTON1 && !modelJeux.getListTuiles().isEmpty()) {
                     modelJeux.playTuileSound(modelJeux.getListTuiles().getFirst().getSoundIndex());
                     modelJeux.getModelMatrice().deleteTuile(btnHovered.getModelTuile());
