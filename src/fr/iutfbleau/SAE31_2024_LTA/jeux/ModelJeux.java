@@ -19,7 +19,7 @@ public class ModelJeux {
     private boolean undoActivate = false;
     private boolean undo = false;
     private ModelTuile tuileUndoAble;
-
+    private int lastscore;
     private int score = 0;
 
     private static final int nombreTuile = 50;
@@ -167,5 +167,12 @@ public class ModelJeux {
             createButton();
             undo = true;
         }
+    }
+    public void setLastscore(int points) {
+        this.lastscore = points;
+    }
+
+    public int getLastscore() {
+        return this.lastscore;
     }
 }

@@ -21,12 +21,14 @@ public class ModelMatrice {
         this.tuilesPartie.put(new Point(x, y), tuile);
         this.tuilesPartie.get(new Point(x, y)).setCoordonner(x, y);
         modelJeux.setTuileUndoAble(tuile);
+        modelJeux.setLastscore(modelJeux.getScore());
         ModelTuile[] voisin = getVoisins(tuile);
         modelJeux.setScore(ModelComptagePoints.updatePoche(modelJeux.getScore(),tuile,voisin));
         modelJeux.getListTuiles().removeFirst();
 
         if (!modelJeux.isUndoActivate() && x != 0 && y != 0) {
             modelJeux.setUndoActivate(true);
+
         }
         if (modelJeux.isUndo()) {
             modelJeux.setUndo(false);

@@ -29,4 +29,13 @@ public class ModelPoche {
         return this.couleur;
     }
 
+    public void removeTuile(ModelTuile m) {
+        for (ModelTuile tuile : tuiles) {
+            if (tuile.equals(m)) {
+                tuiles.remove(tuile);
+
+            }
+        }
+    }
+
 }
