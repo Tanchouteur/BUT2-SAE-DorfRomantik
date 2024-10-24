@@ -23,7 +23,7 @@ public class ModelJeux {
     private int lastscore;
     private int score = 0;
 
-    private static final int nombreTuile = 5;
+    private static final int nombreTuile = 50;
 
     public ModelJeux(ModelPrincipale modelPrincipale, int seed) {
         this.modelPrincipale = modelPrincipale;
@@ -163,7 +163,9 @@ public class ModelJeux {
         if (!undo) {
             listTuiles.addFirst(tuileUndoAble);
             deleteButtons();
+
             modelMatrice.deleteTuile(tuileUndoAble);
+            setScore(ModelComptagePoints.UndoPocheTuile(getScore(),listTuiles.getFirst(),modelMatrice));
             getVueJeux().updatePreviewTuileList();
             tuileUndoAble.setVueTuile(null);
             createButton();

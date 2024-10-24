@@ -1,6 +1,7 @@
 package fr.iutfbleau.SAE31_2024_LTA.jeux;
 import java.util.ArrayList;
 
+
 public class ModelPoche {
     private final int couleur;
     private final ArrayList<ModelTuile> tuiles;
@@ -30,12 +31,45 @@ public class ModelPoche {
     }
 
     public void removeTuile(ModelTuile m) {
-        for (ModelTuile tuile : tuiles) {
-            if (tuile.equals(m)) {
-                tuiles.remove(tuile);
+        this.tuiles.remove(m);
 
+
+    }
+    public static ModelPoche createPocheVoisinProfondeur(ModelTuile m, ModelPoche poche, int couleur, ModelMatrice matrice) {
+        ArrayList<ModelTuile> visited = new ArrayList<>();
+        return createPocheVoisinProfondeur(m, poche, couleur, matrice, visited);
+    }
+
+    private static ModelPoche createPocheVoisinProfondeur(ModelTuile m, ModelPoche poche, int couleur, ModelMatrice matrice, ArrayList<ModelTuile> visited) {
+        // Vérifie si la tuile a déjà été visitée
+        if (visited.contains(m)) {
+            System.out.println("Tuile déjà visitée : " + m); // Log pour les tuiles déjà visitées
+            return poche; // Éviter les boucles infinies
+        }
+
+        // Marquer la tuile comme visitée
+        visited.add(m);
+        System.out.println("Visite de la tuile : " + m); // Log pour la tuile actuellement visitée
+
+        ModelTuile[] voisin = matrice.getVoisins(m);
+        boolean[] correspond = ModelComptagePoints.correspondVoisins(m, voisin);
+
+        for (int i = 0; i < correspond.length; i++) {
+            if (correspond[i]) {
+                System.out.println("Correspondance trouvée avec le voisin : " + voisin[i]); // Log pour les voisins correspondants
+
+                if (!poche.tuiles.contains(voisin[i])) {
+                    poche.addTuile(voisin[i]);
+                    System.out.println("Ajout de la tuile voisine : " + voisin[i]); // Log pour l'ajout d'une tuile
+
+                    // Appel récursif avec la tuile voisine
+                    return createPocheVoisinProfondeur(voisin[i], poche, couleur, matrice, visited);
+                }
             }
         }
+
+        return poche;
+
     }
 
 }
