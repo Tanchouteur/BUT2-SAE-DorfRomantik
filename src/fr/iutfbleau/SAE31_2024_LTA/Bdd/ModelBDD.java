@@ -32,7 +32,7 @@ public class ModelBDD {
 
                 this.db = DriverManager.getConnection(
                     "jdbc:mariadb://dwarves.iut-fbleau.fr:3306/tanchou",
-                    "tanchou", "MotdepasseUpec77**");
+                    "tanchou", "MotdepasseUpec77*");
 
             } catch (SQLException e) {
                 System.err.println("Erreur de connexion BDD");
@@ -165,6 +165,9 @@ public class ModelBDD {
     }
 
     public boolean saveGame(String playerName, int score, int listeTuileId) throws SQLException {
+        if (db == null) {
+            return false;
+        }
         PreparedStatement ps = db.prepareStatement("INSERT INTO tanchou.PartieJouer (PlayerName, Score, ListeTuile) VALUES (?, ?, ?)");
         ps.setString(1, playerName);
         ps.setInt(2, score);
