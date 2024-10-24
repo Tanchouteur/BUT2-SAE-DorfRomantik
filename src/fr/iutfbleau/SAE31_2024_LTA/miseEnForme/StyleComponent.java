@@ -65,19 +65,34 @@ public class StyleComponent {
     }
 
     public static JSlider setStyleSlider(JSlider slider) {
-        slider.setBackground(new Color(45, 45, 45));
+        slider.setBackground(new Color(45, 45, 45, 0));
         slider.setForeground(Color.WHITE);
         slider.setPaintTrack(true);
         slider.setPaintTicks(true);
         slider.setMajorTickSpacing(10);
         slider.setMinorTickSpacing(1);
         slider.addMouseListener(new BrighterHoverJComponent(slider));
+        slider.setBorder(BorderFactory.createCompoundBorder(
+                BorderFactory.createLineBorder(new Color(213, 213, 213, 255), 2, true),
+                BorderFactory.createEmptyBorder(10, 20, 10, 20)));
+        slider.setOpaque(false);
         return slider;
     }
 
     public static JLabel setStyleLabel(JLabel label, int fontSize) {
-        label.setForeground(Color.WHITE);
+        label.setForeground(new Color(0x232323));
         label.setFont(new Font("Arial", Font.PLAIN, fontSize));
+        return label;
+    }
+
+    public static JLabel setStyleLabelWhite(JLabel label, int fontSize) {
+        label = setStyleLabel(label, fontSize);
+        label.setForeground(Color.WHITE);
+        label.setBorder(BorderFactory.createLineBorder(new Color(228, 228, 228, 0), 2));
+        label.setBorder(BorderFactory.createCompoundBorder(
+                BorderFactory.createLineBorder(new Color(213, 213, 213, 255), 2, true),
+                BorderFactory.createEmptyBorder(10, 20, 10, 20)));
+        label.setOpaque(false);
         return label;
     }
 
@@ -107,8 +122,8 @@ public class StyleComponent {
     }
 
     public static JLabel setStyleLabelScore(JLabel label, int fontSize) {
-        label.setForeground(new Color(45, 45, 45));
-        label.setBackground(new Color(0, 14, 90, 56));
+        label.setForeground(new Color(67, 67, 67));
+        label.setBackground(new Color(0, 14, 90, 0));
         label.setFont(new Font("Arial", Font.PLAIN, fontSize));
         label.setBorder(BorderFactory.createLineBorder(new Color(90, 90, 90), 2));
         label.setBorder(BorderFactory.createCompoundBorder(
@@ -167,6 +182,4 @@ public class StyleComponent {
         logoLabel.setBorder(BorderFactory.createEmptyBorder(10, 0, 10, 0));
         return logoLabel;
     }
-
-
 }

@@ -12,6 +12,8 @@ public class VueScoreScreen extends JPanel {
     private JPanel sidebarPanel;
     private final ModelPrincipale modelPrincipale;
     private final int widthSidebar, heightSidebar;
+    private JButton saveBddButton;
+
     public VueScoreScreen(ModelPrincipale modelPrincipale) {
         widthSidebar = 450;
         heightSidebar = 600;
@@ -40,13 +42,14 @@ public class VueScoreScreen extends JPanel {
         gbc.gridy = 1;
         sidebarPanel.add(setStyleLabelScore(scoreLabel, 32), gbc);
 
-        JButton saveBddButton = new JButton();
+        saveBddButton = new JButton();
         if (modelPrincipale.getBdd().updateBdd()) {
-            saveBddButton.addActionListener(new ControllerSaveGame(modelPrincipale));
-            saveBddButton.setText("Save in Cloud");
+            saveBddButton.setText("Sauvegarde en cours...");
         }else {
             saveBddButton.setText("Hors Ligne...");
         }
+        saveBddButton.setEnabled(false);
+        new ControllerSaveGame(modelPrincipale, this);
 
         gbc.gridy = 2;
         sidebarPanel.add(setStyleButton(saveBddButton,buttonFontSize), gbc);
@@ -59,7 +62,7 @@ public class VueScoreScreen extends JPanel {
 
         JButton settingsButton = new JButton("Paramètres");
 
-        settingsButton.addActionListener(modelPrincipale.getControllerPopup());
+        settingsButton.addActionListener(modelPrincipale.getControllerInputMap());
 
         gbc.gridy = 4;
         sidebarPanel.add(setStyleButton(settingsButton,buttonFontSize), gbc);
@@ -78,5 +81,9 @@ public class VueScoreScreen extends JPanel {
 
     public int getHeightSidebar() {
         return heightSidebar;
+    }
+
+    public JButton getSaveBddButton(){
+        return this.saveBddButton;
     }
 }

@@ -1,51 +1,46 @@
 package fr.iutfbleau.SAE31_2024_LTA.jeux;
 
+import fr.iutfbleau.SAE31_2024_LTA.layers.VuePrincipale;
+
 import javax.swing.*;
 import java.awt.*;
 
+import static fr.iutfbleau.SAE31_2024_LTA.miseEnForme.StyleComponent.setStyleButtonInGame;
+import static fr.iutfbleau.SAE31_2024_LTA.miseEnForme.StyleComponent.setStyleLabelScore;
+
 public class VueInfoPanel extends javax.swing.JPanel {
     private final JLabel currentScore;
+    private JButton centrer;
+
     public VueInfoPanel(ModelJeux modelJeux) {
-        Color greyColor = new Color(44, 44, 44, 255);
-        Font buttonMenuFont = new Font("Arial", Font.BOLD, 18);
-        Font inputMenuFont = new Font("Arial", Font.BOLD, 24);
-
-        this.setLayout(new BorderLayout());
-        this.setBackground(new Color(112, 112, 112, 181));
-
+        this.setLayout(null);
+        this.setBackground(new Color(40, 40, 40, 10));
+        this.setBounds(0, 0, modelJeux.getModelPrincipale().getVuePrincipale().getWidth(), modelJeux.getModelPrincipale().getVuePrincipale().getHeight());
+        this.setOpaque(false);
         JLabel playerNameLabel = new JLabel(modelJeux.getModelPrincipale().getPlayerName());
-        playerNameLabel.setFont(inputMenuFont);
-        playerNameLabel.setForeground(Color.WHITE);
-        playerNameLabel.setBackground(greyColor);
-        playerNameLabel.setBorder(BorderFactory.createCompoundBorder(
-                BorderFactory.createLineBorder(greyColor, 1, true),
-                BorderFactory.createEmptyBorder(7, 7, 7, 7)
-        ));
+        playerNameLabel.setBounds(30,30,200,50);
+        this.add(setStyleLabelScore(playerNameLabel,18));
 
-        JLabel bestScoreLabel = new JLabel("Ton record : "+modelJeux.getModelPrincipale().getModelPartieJouer().getVuePartieJouer().getControllerSearchPartieJouer().searchPartieOfPlayer(modelJeux.getModelPrincipale().getPlayerName(),modelJeux.getModelPrincipale().getSelectedSeed())+" Points");
-        bestScoreLabel.setFont(buttonMenuFont);
-        bestScoreLabel.setBackground(greyColor);
-        bestScoreLabel.setForeground(Color.WHITE);
-        bestScoreLabel.setBorder(BorderFactory.createCompoundBorder(
-                BorderFactory.createLineBorder(greyColor, 1, true),
-                BorderFactory.createEmptyBorder(7, 10, 7, 10)
-        ));
+        JLabel bestScoreLabel = new JLabel("Record " + modelJeux.getModelPrincipale().getModelPartieJouer()
+                .getVuePartieJouer().getControllerSearchPartieJouer().searchPartieOfPlayer(
+                        modelJeux.getModelPrincipale().getPlayerName(), modelJeux.getModelPrincipale().getSelectedSeed()) + " Points");
+        bestScoreLabel.setBounds(250,30,250,50);
+        this.add(setStyleLabelScore(bestScoreLabel,16));
 
+        currentScore = new JLabel("Score " + modelJeux.getScore() + " Points");
+        currentScore.setBounds(520,30,250,50);
+        this.add(setStyleLabelScore(currentScore,18));
 
-        currentScore = new JLabel("Score : "+modelJeux.getScore()+" Points");
-        currentScore.setFont(buttonMenuFont);
-        currentScore.setBackground(greyColor);
-        currentScore.setForeground(Color.WHITE);
-        currentScore.setBorder(BorderFactory.createCompoundBorder(
-                BorderFactory.createLineBorder(greyColor, 1, true),
-                BorderFactory.createEmptyBorder(10, 10, 10, 10)
-        ));
-
-        this.add(playerNameLabel,BorderLayout.WEST);
-        this.add(bestScoreLabel,BorderLayout.CENTER);
-        this.add(currentScore,BorderLayout.EAST);
+        centrer = new JButton("Centrer");
+        centrer.addActionListener(e -> modelJeux.getVueJeux().centrer());
+        centrer.setBounds((VuePrincipale.frameWidth / 2) - 200, 100, 200, 50);
+        centrer = setStyleButtonInGame(centrer, 34);
     }
     public JLabel getCurrentScore() {
         return currentScore;
+    }
+
+    public JButton getCentrerButton() {
+        return centrer;
     }
 }

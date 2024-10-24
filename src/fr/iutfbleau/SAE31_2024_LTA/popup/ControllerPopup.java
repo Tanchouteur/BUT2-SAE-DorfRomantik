@@ -1,12 +1,12 @@
 package fr.iutfbleau.SAE31_2024_LTA.popup;
 
+import fr.iutfbleau.SAE31_2024_LTA.animator.Animator;
 import fr.iutfbleau.SAE31_2024_LTA.layers.VuePrincipale;
 import fr.iutfbleau.SAE31_2024_LTA.config.ConfigManager;
 
 import javax.swing.*;
-import java.awt.event.ActionEvent;
 
-public class ControllerPopup extends AbstractAction {
+public class ControllerPopup  {
 
     private ConfigManager configManager;
 
@@ -18,42 +18,48 @@ public class ControllerPopup extends AbstractAction {
 
     public ControllerPopup(VuePrincipale vuePrincipale) {
         this.vuePrincipale = vuePrincipale;
+
+    }
+
+    public void createSettings(){
+        if (vueSettings == null) {
+            this.vueSettings = new VueSettingsPopup(this, vuePrincipale.getModelPrincipale());
+            vuePrincipale.getPrincipaleLayeredPane().add(vueSettings, Integer.valueOf(1));
+            if (this.configManager == null) {
+                this.configManager = vuePrincipale.getModelPrincipale().getConfigManager();
+                vuePrincipale.getModelPrincipale().getMediaPlayerManager().setVolumeMusique(configManager.getVolumeMusique());
+                vuePrincipale.getModelPrincipale().getMediaPlayerManager().setVolumeEffect(configManager.getVolumeEffet());
+            }
+            vueSettings.setMusicVolume(configManager.getVolumeMusique());
+            vueSettings.setEffectsVolume(configManager.getVolumeEffet());
+        }
     }
 
     public void closeSettings(){
         if (vueSettings != null) {
-            vuePrincipale.getPrincipaleLayeredPane().remove(vueSettings);
+            Animator.moveTo(vueSettings , (vuePrincipale.getWidth()-vueSettings.getWidth())/2, vueSettings.getY()  ,(vuePrincipale.getWidth()-vueSettings.getWidth())/2,-vueSettings.getHeight(), 800,true);
+
         }
     }
+
     public void closeTuto(){
         if (vueTuto != null) {
-            vuePrincipale.getPrincipaleLayeredPane().remove(vueTuto);
+            Animator.moveTo(vueTuto , (vuePrincipale.getWidth()-vueTuto.getWidth())/2,vueTuto.getY() ,(vuePrincipale.getWidth()-vueTuto.getWidth())/2,-vueTuto.getHeight(), 600,true);
         }
     }
 
     public Action showSettingsDialog() {
-        if (vueSettings == null) {
-            this.vueSettings = new VueSettingsPopup(this, vuePrincipale.getModelPrincipale());
-        }
-            if (this.configManager == null) {
-                this.configManager = vuePrincipale.getModelPrincipale().getConfigManager();
-            }
-        vueSettings.setMusicVolume(configManager.getVolumeMusique());
-        vueSettings.setEffectsVolume(configManager.getVolumeEffet());
-        vuePrincipale.getPrincipaleLayeredPane().add(vueSettings, Integer.valueOf(1));
+            Animator.moveTo(vueSettings , (vuePrincipale.getWidth()-vueSettings.getWidth())/2, vueSettings.getY() ,(vuePrincipale.getWidth()-vueSettings.getWidth())/2,(vuePrincipale.getHeight()-vueSettings.getHeight())/2, 800,true);
+
         return null;
     }
 
-    public void showTutoDialog(ConfigManager configManager) {
+    public void showTutoDialog() {
         if (vueTuto == null) {
-            this.vueTuto = new VueTuto(this,configManager);
+            this.vueTuto = new VueTuto(this,this.configManager);
+            vuePrincipale.getPrincipaleLayeredPane().add(vueTuto, Integer.valueOf(2));
         }
-        vuePrincipale.getPrincipaleLayeredPane().add(vueTuto, Integer.valueOf(2));
-    }
-
-    @Override
-    public void actionPerformed(ActionEvent e) {
-        togleSettingsDialog();
+        Animator.moveTo(vueTuto , (vuePrincipale.getWidth()-vueTuto.getWidth())/2,vueTuto.getY() ,(vuePrincipale.getWidth()-vueTuto.getWidth())/2,(vuePrincipale.getHeight()-vueTuto.getHeight())/2, 600,true);
     }
 
     public VuePrincipale getVuePrincipale(){
@@ -61,10 +67,12 @@ public class ControllerPopup extends AbstractAction {
     }
 
     public void togleSettingsDialog() {
-        if (vuePrincipale.getPrincipaleLayeredPane().getComponentsInLayer(1).length == 0){
+        if (!vueSettings.isOpen()){
             showSettingsDialog();
+            vueSettings.setOpen(true);
         }else {
             closeSettings();
+            vueSettings.setOpen(false);
         }
         vuePrincipale.getPrincipaleLayeredPane().repaint();
     }

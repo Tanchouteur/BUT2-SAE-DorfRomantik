@@ -24,5 +24,8 @@ public class ModelMenu {
         modelPrincipale.getVuePrincipale().getPrincipaleLayeredPane().getMainPanel().add(vueMenu, "menu");
         modelPrincipale.getVuePrincipale().getPrincipaleLayeredPane().getMainCardLayout().show(modelPrincipale.getVuePrincipale().getPrincipaleLayeredPane().getMainPanel(), "menu");
         modelPrincipale.createPartieJouer();
+        if (modelPrincipale.getConfigManager().isTuto()){
+            modelPrincipale.getControllerPopup().showTutoDialog();
+        }
     }
 }

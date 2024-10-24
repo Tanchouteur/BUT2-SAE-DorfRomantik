@@ -1,8 +1,11 @@
 package fr.iutfbleau.SAE31_2024_LTA.jeux;
 
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+
+import static java.awt.Cursor.MOVE_CURSOR;
 
 public class Controller2D extends MouseAdapter {
     private final VueJeux vueJeux;
@@ -23,6 +26,7 @@ public class Controller2D extends MouseAdapter {
             dragging = true;
             startX = e.getX();
             startY = e.getY();
+            vueJeux.setCursor(new Cursor(MOVE_CURSOR));
         }
         vueJeux.repaint();
     }
@@ -47,6 +51,7 @@ public class Controller2D extends MouseAdapter {
     public void mouseReleased(MouseEvent e) {
         if (e.getButton() == MouseEvent.BUTTON1) {
             dragging = false;
+            vueJeux.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
         }
     }
 }

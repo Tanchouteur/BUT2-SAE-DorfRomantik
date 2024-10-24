@@ -18,12 +18,13 @@ public class ModelTuile {
     private final boolean button;
     private boolean preview = false;
     private boolean suivante;
+    private boolean onBoard = false;
 
     private VueTuile vueTuile;
 
     private int soundIndex;
 
-    public ModelTuile(int seed, boolean preview, boolean suivante) {//Tuile de jeux
+    public ModelTuile(int seed, boolean preview, boolean suivante, boolean AntiAliasing) {//Tuile de jeux
         composition = new int[6];
         this.inpoche = new ModelPoche[2];
         this.suivante = suivante;
@@ -88,9 +89,9 @@ public class ModelTuile {
     }
 
     // Méthode pour définir les coordonnées du polygone visuelement
-    public void createVueTuile(int centerX, int centerY, int radius) {
+    public void createVueTuile(int centerX, int centerY, int radius, boolean isAA) {
 
-        vueTuile = new VueTuile(this, centerX, centerY, radius);
+        vueTuile = new VueTuile(this, centerX, centerY, radius, isAA);
     }
 
     public int[] getComposition() {
@@ -192,4 +193,12 @@ public class ModelTuile {
     }
 
 
+
+    public boolean isOnBoard() {
+        return onBoard;
+    }
+
+    public void setOnBoard(boolean onBoard) {
+        this.onBoard = onBoard;
+    }
 }

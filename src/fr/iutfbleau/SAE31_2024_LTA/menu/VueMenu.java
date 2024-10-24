@@ -149,7 +149,7 @@ public class VueMenu extends JPanel {
         sidebarPanel.add(setStyleButton(partieJouerBtn,buttonFontSize), gbc);
 
         JButton settingsButton = new JButton("Paramètres");
-        settingsButton.addActionListener(modelPrincipale.getControllerPopup());
+        settingsButton.addActionListener(modelPrincipale.getControllerInputMap());
 
         gbc.gridy = 5;
         sidebarPanel.add(setStyleButton(settingsButton,buttonFontSize), gbc);

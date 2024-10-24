@@ -6,13 +6,15 @@ public class Configuration {
     private int volumeMusique;
     private String playerName;
     private boolean tuto;
+    private boolean AA;//anti aliasing
 
     public Configuration() {
         //cest les valeurs par défault
-        this.volumeEffet = 95;
-        this.volumeMusique = 95;
+        this.volumeEffet = 80;
+        this.volumeMusique = 80;
         this.playerName = "player";
         this.tuto = true;
+        this.AA = false;
     }
 
     public int getVolumeEffet() {
@@ -45,5 +47,13 @@ public class Configuration {
 
     public void setTuto(boolean showTutorialPopup) {
         this.tuto = showTutorialPopup;
+    }
+
+    public boolean isAA() {
+        return AA;
+    }
+
+    public void setAA(boolean AA) {
+        this.AA = AA;
     }
 }
