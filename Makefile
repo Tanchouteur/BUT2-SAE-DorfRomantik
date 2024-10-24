@@ -16,9 +16,7 @@ CLASSPATH = $(LIB_DIR)/mariadb-java-client-2.5.3.jar
 MAIN_CLASS = fr/iutfbleau/SAE31_2024_LTA/ControllerMain  # Corrected name
 
 # Liste des fichiers sources
-Bdd_FILES = $(BDD_DIR)BddListeTuiles.java \
-            $(BDD_DIR)BddPartieJouer.java \
-            $(BDD_DIR)ModelBDD.java
+Bdd_FILES =
 
 Config_FILES = $(SRC_DIR)config/ConfigFileHandler.java \
                $(SRC_DIR)config/ConfigManager.java \
@@ -63,17 +61,32 @@ Main_FILES = $(SRC_DIR)ControllerMain.java \
              $(SRC_DIR)VuePrincipale.java
 
 # Compilation des différents sous-dossiers dans OUT_DIR
-Bdd: $(Bdd_FILES)
-	javac -cp $(CLASSPATH) -d $(OUT_DIR) $(Bdd_FILES)
+
+
+
+BddListeTuiles : $(BDD_DIR)BddListeTuiles.java
+	javac -cp $(CLASSPATH) -d $(OUT_DIR) $(BDD_DIR)BddListeTuiles.java
+BddPartieJouer : BddListeTuiles $(BDD_DIR)BddPartieJouer.java
+	javac -cp $(CLASSPATH):$(OUT_DIR) -d $(OUT_DIR) $(BDD_DIR)BddPartieJouer.java
+ModelBDD : BddListeTuiles BddPartieJouer $(BDD_DIR)ModelBDD.java
+	javac -cp $(CLASSPATH):$(OUT_DIR) -d $(OUT_DIR) $(BDD_DIR)ModelBDD.java
+
+Bdd: BddListeTuiles BddPartieJouer ModelBDD
 
 Configuration : $(CONFIG_DIR)Configuration.java
 	javac -cp $(CLASSPATH) -d $(OUT_DIR) $(CONFIG_DIR)Configuration.java
 
-ConfigFileHandler: Configuration $(CONFIG_DIR)ConfigFileHandler.java
-	javac -cp $(CLASSPATH) -d $(OUT_DIR) $(CONFIG_DIR)ConfigFileHandler.java
+ConfigFileHandler: $(CONFIG_DIR)Configuration.java $(CONFIG_DIR)ConfigFileHandler.java
+	javac -cp $(CLASSPATH):$(OUT_DIR) -d $(OUT_DIR) $(CONFIG_DIR)ConfigFileHandler.java
+
+ConfigManager : $(CONFIG_DIR)Configuration.java $(CONFIG_DIR)ConfigManager.java
+	javac -cp $(CLASSPATH):$(OUT_DIR) -d $(OUT_DIR) $(CONFIG_DIR)ConfigManager.java
+
+config : Configuration ConfigFileHandler ConfigManager
 
 premier: $(JEUX_DIR)ModelTuile.java $(JEUX_DIR)VueTuile.java $(JEUX_DIR)VueJeux.java
 	javac -cp $(CLASSPATH) -d $(OUT_DIR) $(JEUX_DIR)ModelTuile.java $(JEUX_DIR)VueTuile.java $(JEUX_DIR)VueJeux.java
+
 
 # TOUT compiler
 compile: Bdd Configuration ConfigFileHandler #config endGame media partieJouer jeux menu popup main
