@@ -89,7 +89,7 @@ premier: $(JEUX_DIR)ModelTuile.java $(JEUX_DIR)VueTuile.java $(JEUX_DIR)VueJeux.
 
 
 # TOUT compiler
-compile: Bdd Configuration ConfigFileHandler #config endGame media partieJouer jeux menu popup main
+compile: Bdd config #config endGame media partieJouer jeux menu popup main
 
 run: compile
 	java -cp $(OUT_DIR):$(CLASSPATH) $(MAIN_CLASS)
