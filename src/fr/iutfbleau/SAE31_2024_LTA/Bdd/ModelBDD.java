@@ -36,6 +36,7 @@ public class ModelBDD {
                     "tanchou", "MotdepasseUpec77**");
 
             } catch (SQLException e) {
+                connected = false;
                 System.err.println("Erreur de connexion BDD");
             }
             if (db != null) {
@@ -68,15 +69,6 @@ public class ModelBDD {
             connexionBdd();
         }
         if (db!=null) {
-            if (inConnexion){
-                while (inConnexion){
-                    try {
-                        Thread.sleep(200);
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
-                }
-            }
             return true;
         }
         return false;
