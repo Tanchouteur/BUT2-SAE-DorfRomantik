@@ -39,7 +39,7 @@ public class ControllerSaveGame implements ActionListener {
             return;
         }
 
-        if (modelBDD.saveGame(modelPrincipale.getPlayerName(), modelPrincipale.getModelJeux().getScore(),modelPrincipale.getSeedIndex())){
+        if (modelBDD.saveGame(modelPrincipale.getPlayerName(), modelPrincipale.getModelJeux().getScore(),modelPrincipale.getSeedIndex()-1)){
             saved = true;
             vueScoreScreen.getSaveBddButton().setText("Sauvegarder !");
             vueScoreScreen.getSaveBddButton().setEnabled(false);
@@ -57,5 +57,13 @@ public class ControllerSaveGame implements ActionListener {
         vueScoreScreen.getSaveBddButton().setEnabled(true);
         vueScoreScreen.setCursor(new Cursor(Cursor.HAND_CURSOR));
         vueScoreScreen.getSaveBddButton().addActionListener(this);
+    }
+
+    public boolean isSaved() {
+        return saved;
+    }
+
+    public void setSaved(boolean saved) {
+        this.saved = saved;
     }
 }

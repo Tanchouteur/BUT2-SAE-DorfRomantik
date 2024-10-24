@@ -191,10 +191,18 @@ public class ModelBDD {
         ps.setInt(3, listeTuileId);
         ps.executeQuery();
         gameSaved = true;
+        ps.close();
+        db.close();
+        db = null;
+        connected = false;
         return true;
     }
 
     public boolean isInConnexion() {
         return inConnexion;
+    }
+
+    public void setGameSaved(boolean b) {
+        gameSaved = b;
     }
 }

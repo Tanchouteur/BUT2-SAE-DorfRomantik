@@ -119,12 +119,12 @@ public class VueMenu extends JPanel {
             listeTuiles = modelPrincipale.getBdd().getAllListe();
             for (BddListeTuiles tuileListSeed : listeTuiles) {
                 String suiteName;
-                if (tuileListSeed.getId() != -1) {
-                    suiteName = String.valueOf(tuileListSeed.getId());
+                if (tuileListSeed.getId() != -2) {
+                    suiteName = "Suite : " + tuileListSeed.getId();
                 } else {
-                    suiteName = "Aléatoire";
+                    suiteName = "Suite : Aléatoire";
                 }
-                suiteSelector.addItem("Suite : " + suiteName + " - BestScore: " +
+                suiteSelector.addItem(suiteName + " - BestScore: " +
                         (tuileListSeed.getBestScore() != null ? tuileListSeed.getBestScore() : "N/A"));
             }
         }else {
