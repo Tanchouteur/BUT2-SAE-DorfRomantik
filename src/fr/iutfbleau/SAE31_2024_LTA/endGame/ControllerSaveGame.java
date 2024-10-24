@@ -51,8 +51,6 @@ public class ControllerSaveGame implements ActionListener {
             return;
         }
 
-        System.out.println("" + saved);
-
         vueScoreScreen.getSaveBddButton().setText("Re-essayer");
         vueScoreScreen.getSaveBddButton().setEnabled(true);
         vueScoreScreen.setCursor(new Cursor(Cursor.HAND_CURSOR));
