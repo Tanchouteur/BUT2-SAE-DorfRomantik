@@ -165,6 +165,10 @@ public class ModelBDD {
     }
 
     public boolean saveGame(String playerName, int score, int listeTuileId) throws SQLException {
+        if (db == null) {
+            return false;
+        }
+
         PreparedStatement ps = db.prepareStatement("INSERT INTO tanchou.PartieJouer (PlayerName, Score, ListeTuile) VALUES (?, ?, ?)");
         ps.setString(1, playerName);
         ps.setInt(2, score);
