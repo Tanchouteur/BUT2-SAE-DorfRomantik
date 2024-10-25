@@ -61,25 +61,7 @@ public class ModelComptagePoints {
         return correspond;
     }
 
-    public static int changementPoche(ArrayList<ModelPoche> couleur, ModelTuile tuile, int points, ModelPoche poche ) {
 
-        for (int i = 0; i < couleur.size(); i++) {
-            ModelPoche changementPoche= couleur.get(i);
-            for (int j = 0;j<changementPoche.getTuiles().size(); j++) {
-                if (changementPoche.getTuiles().get(j).getPoche()[0].getCouleur()==tuile.getIndexcouleur1()) {
-                    changementPoche.getTuiles().get(j).setPoche1(poche);
-                    poche.addTuile(changementPoche.getTuiles().get(j));
-                }
-                if (changementPoche.getTuiles().get(j).getPoche()[1].getCouleur()==tuile.getIndexcouleur1()) {
-                    changementPoche.getTuiles().get(j).setPoche2(poche);
-                    poche.addTuile(changementPoche.getTuiles().get(j));
-                }
-
-            }
-        }
-        points = ajoutPoint(points,tuile.getPoche()[0]);
-        return points;
-    }
 
 
 
@@ -248,6 +230,7 @@ public class ModelComptagePoints {
 
 
     public static int UndoPocheTuile(int points, ModelTuile tuile, ModelMatrice matrice) {
+        System.out.println("tuile a enlever: "+tuile);
         ModelPoche poche1 = tuile.getPoche()[0];
         ModelPoche poche2 = tuile.getPoche()[1];
         if (poche2!=poche1) {
@@ -267,7 +250,7 @@ public class ModelComptagePoints {
             while (!poche1.getTuiles().isEmpty()) {
                 System.out.println("rentre poche1");
                 ModelPoche nouvellepoche = new ModelPoche(poche1.getCouleur(), poche1.getTuiles().get(0));
-                nouvellepoche = ModelPoche.createPocheVoisinProfondeur(poche1.getTuiles().get(0), nouvellepoche, poche1.getCouleur(), matrice);
+                nouvellepoche = ModelPoche.createPocheVoisinProfondeur(poche1.getTuiles().get(0), nouvellepoche, poche1.getCouleur(), matrice, tuile);
 
                 if (poche1.getTuiles().get(0).getPoche()[0].getCouleur() == poche1.getCouleur()) {
                     poche1.getTuiles().get(0).setPoche1(nouvellepoche);
@@ -295,7 +278,7 @@ public class ModelComptagePoints {
             while (!poche2.getTuiles().isEmpty()) {
                 System.out.println("rentre poche2");
                 ModelPoche nouvellepoche = new ModelPoche(poche2.getCouleur(), poche2.getTuiles().get(0));
-                nouvellepoche = ModelPoche.createPocheVoisinProfondeur(poche2.getTuiles().get(0), nouvellepoche, poche2.getCouleur(), matrice);
+                nouvellepoche = ModelPoche.createPocheVoisinProfondeur(poche2.getTuiles().get(0), nouvellepoche, poche2.getCouleur(), matrice, tuile);
 
                 if (poche2.getTuiles().get(0).getPoche()[0].getCouleur() == poche2.getCouleur()) {
                     poche2.getTuiles().get(0).setPoche1(nouvellepoche);
@@ -321,9 +304,9 @@ public class ModelComptagePoints {
         }
         else {
             while (!poche1.getTuiles().isEmpty()) {
-                System.out.println("rentre poche1");
+                System.out.println("rentre poche1 et 2");
                 ModelPoche nouvellepoche = new ModelPoche(poche1.getCouleur(), poche1.getTuiles().get(0));
-                nouvellepoche = ModelPoche.createPocheVoisinProfondeur(poche1.getTuiles().get(0), nouvellepoche, poche1.getCouleur(), matrice);
+                nouvellepoche = ModelPoche.createPocheVoisinProfondeur(poche1.getTuiles().get(0), nouvellepoche, poche1.getCouleur(), matrice, tuile);
 
                 if (poche1.getTuiles().get(0).getPoche()[0].getCouleur() == poche1.getCouleur()) {
                     poche1.getTuiles().get(0).setPoche1(nouvellepoche);

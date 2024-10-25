@@ -35,8 +35,9 @@ public class ModelPoche {
 
 
     }
-    public static ModelPoche createPocheVoisinProfondeur(ModelTuile m, ModelPoche poche, int couleur, ModelMatrice matrice) {
+    public static ModelPoche createPocheVoisinProfondeur(ModelTuile m, ModelPoche poche, int couleur, ModelMatrice matrice, ModelTuile tuileEnleve) {
         ArrayList<ModelTuile> visited = new ArrayList<>();
+        visited.add(tuileEnleve);
         return createPocheVoisinProfondeur(m, poche, couleur, matrice, visited);
     }
 
@@ -58,7 +59,7 @@ public class ModelPoche {
             if (correspond[i]) {
                 System.out.println("Correspondance trouvée avec le voisin : " + voisin[i]); // Log pour les voisins correspondants
 
-                if (!poche.tuiles.contains(voisin[i])) {
+                if (!poche.tuiles.contains(voisin[i]) && m.getComposition()[i] == poche.getCouleur()) {
                     poche.addTuile(voisin[i]);
                     System.out.println("Ajout de la tuile voisine : " + voisin[i]); // Log pour l'ajout d'une tuile
 
