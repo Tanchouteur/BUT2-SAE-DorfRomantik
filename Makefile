@@ -60,32 +60,37 @@ Main_FILES = $(SRC_DIR)ControllerMain.java \
              $(SRC_DIR)ModelPrincipale.java \
              $(SRC_DIR)VuePrincipale.java
 
-# Compilation des différents sous-dossiers dans OUT_DIR
 
-
-
-BddListeTuiles : $(BDD_DIR)BddListeTuiles.java
+BddListeTuiles.class :
 	javac -cp $(CLASSPATH) -d $(OUT_DIR) $(BDD_DIR)BddListeTuiles.java
-BddPartieJouer : BddListeTuiles $(BDD_DIR)BddPartieJouer.java
+BddPartieJouer.class : BddListeTuiles.class
 	javac -cp $(CLASSPATH):$(OUT_DIR) -d $(OUT_DIR) $(BDD_DIR)BddPartieJouer.java
-ModelBDD : BddListeTuiles BddPartieJouer $(BDD_DIR)ModelBDD.java
+ModelBDD.class : BddListeTuiles.class BddPartieJouer.class
 	javac -cp $(CLASSPATH):$(OUT_DIR) -d $(OUT_DIR) $(BDD_DIR)ModelBDD.java
 
-Bdd: BddListeTuiles BddPartieJouer ModelBDD
+Bdd: BddListeTuiles.class BddPartieJouer.class ModelBDD.class
 
-Configuration : $(CONFIG_DIR)Configuration.java
+Configuration.class :
 	javac -cp $(CLASSPATH) -d $(OUT_DIR) $(CONFIG_DIR)Configuration.java
-
-ConfigFileHandler: $(CONFIG_DIR)Configuration.java $(CONFIG_DIR)ConfigFileHandler.java
+ConfigFileHandler.class: Configuration.class
 	javac -cp $(CLASSPATH):$(OUT_DIR) -d $(OUT_DIR) $(CONFIG_DIR)ConfigFileHandler.java
 
-ConfigManager : $(CONFIG_DIR)Configuration.java $(CONFIG_DIR)ConfigManager.java
+#interdépendances entre ConfigManager -> ControllerPopup -> Vuetuto -> ConfigManager
+ConfigManager.class: Configuration.class ControllerPopup.class
 	javac -cp $(CLASSPATH):$(OUT_DIR) -d $(OUT_DIR) $(CONFIG_DIR)ConfigManager.java
 
-config : Configuration ConfigFileHandler ConfigManager
+config : Configuration.class ConfigFileHandler.class ConfigManager.class
 
-premier: $(JEUX_DIR)ModelTuile.java $(JEUX_DIR)VueTuile.java $(JEUX_DIR)VueJeux.java
-	javac -cp $(CLASSPATH) -d $(OUT_DIR) $(JEUX_DIR)ModelTuile.java $(JEUX_DIR)VueTuile.java $(JEUX_DIR)VueJeux.java
+ControllerPopup.class : VueTuto.class ConfigManager.class
+	javac -cp $(CLASSPATH):$(OUT_DIR) -d $(OUT_DIR) $(POPUP_DIR)ControllerPopup.java
+ControllerVolumeChange.class :
+	javac -cp $(CLASSPATH):$(OUT_DIR) -d $(OUT_DIR) $(POPUP_DIR)ControllerVolumeChange.java
+#pas possible pour le moment
+VueSettingsPopup.class :
+	javac -cp $(CLASSPATH) -d $(OUT_DIR) $(POPUP_DIR)VueSettingsPopup.java
+VueTuto.class : ConfigManager.class
+	javac -cp $(CLASSPATH):$(OUT_DIR) -d $(OUT_DIR) $(POPUP_DIR)VueTuto.java
+popup : ControllerPopup.class ControllerVolumeChange.class VueSettingsPopup.class VueTuto.class
 
 
 # TOUT compiler
