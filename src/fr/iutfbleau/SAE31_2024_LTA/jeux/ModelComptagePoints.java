@@ -165,7 +165,9 @@ public class ModelComptagePoints {
                         }
                         if (changementPoche.getTuiles().get(j).getPoche()[1].getCouleur()==tuile.getIndexcouleur1()) {
                             changementPoche.getTuiles().get(j).setPoche2(poche);
-                            poche.addTuile(changementPoche.getTuiles().get(j));
+                            if (changementPoche.getTuiles().get(j).getPoche()[0].getCouleur()!= changementPoche.getTuiles().get(j).getPoche()[1].getCouleur()) {
+                                poche.addTuile(changementPoche.getTuiles().get(j));
+                            }
                         }
 
                     }
@@ -179,13 +181,15 @@ public class ModelComptagePoints {
                 for (int i = 0; i < couleur2.size(); i++) {
                     ModelPoche changementPoche= couleur2.get(i);
                     for (int j = 0;j<changementPoche.getTuiles().size(); j++) {
-                        if (changementPoche.getTuiles().get(j).getPoche()[0].getCouleur()==tuile.getIndexcouleur1()) {
+                        if (changementPoche.getTuiles().get(j).getPoche()[0].getCouleur()==tuile.getIndexcouleur2()) {
                             changementPoche.getTuiles().get(j).setPoche1(poche);
                             poche.addTuile(changementPoche.getTuiles().get(j));
                         }
-                        if (changementPoche.getTuiles().get(j).getPoche()[1].getCouleur()==tuile.getIndexcouleur1()) {
+                        if (changementPoche.getTuiles().get(j).getPoche()[1].getCouleur()==tuile.getIndexcouleur2()) {
                             changementPoche.getTuiles().get(j).setPoche2(poche);
-                            poche.addTuile(changementPoche.getTuiles().get(j));
+                            if (changementPoche.getTuiles().get(j).getPoche()[0].getCouleur()!= changementPoche.getTuiles().get(j).getPoche()[1].getCouleur()) {
+                                poche.addTuile(changementPoche.getTuiles().get(j));
+                            }
                         }
 
                     }
@@ -219,7 +223,9 @@ public class ModelComptagePoints {
                         }
                         if (changementPoche.getTuiles().get(j).getPoche()[1].getCouleur()==tuile.getIndexcouleur1()) {
                             changementPoche.getTuiles().get(j).setPoche2(poche);
-                            poche.addTuile(changementPoche.getTuiles().get(j));
+                            if (changementPoche.getTuiles().get(j).getPoche()[0].getCouleur()!= changementPoche.getTuiles().get(j).getPoche()[1].getCouleur()) {
+                                poche.addTuile(changementPoche.getTuiles().get(j));
+                            }
                         }
 
                     }
@@ -257,59 +263,90 @@ public class ModelComptagePoints {
             points = enleverPoint(points, poche1);
             poche1.removeTuile(tuile);
         }
-        while (!poche1.getTuiles().isEmpty()) {
-            System.out.println("rentre poche1");
-            ModelPoche nouvellepoche = new ModelPoche(poche1.getCouleur(), poche1.getTuiles().get(0) );
-            nouvellepoche = ModelPoche.createPocheVoisinProfondeur( poche1.getTuiles().get(0), nouvellepoche,poche1.getCouleur(), matrice);
+        if (poche1!=poche2) {
+            while (!poche1.getTuiles().isEmpty()) {
+                System.out.println("rentre poche1");
+                ModelPoche nouvellepoche = new ModelPoche(poche1.getCouleur(), poche1.getTuiles().get(0));
+                nouvellepoche = ModelPoche.createPocheVoisinProfondeur(poche1.getTuiles().get(0), nouvellepoche, poche1.getCouleur(), matrice);
 
-            if (poche1.getTuiles().get(0).getPoche()[0].getCouleur() == poche1.getCouleur()) {
-                poche1.getTuiles().get(0).setPoche1(nouvellepoche);
-            }
-            if (poche1.getTuiles().get(0).getPoche()[1].getCouleur() == poche1.getCouleur()) {
-                poche1.getTuiles().get(0).setPoche2(nouvellepoche);
-            }
-            poche1.getTuiles().remove(poche1.getTuiles().get(0));
-            for (int i = poche1.getTuiles().size()-1; i >= 0; i--) {
-                if (nouvellepoche.getTuiles().contains(poche1.getTuiles().get(i))) {
-                    if (poche1.getTuiles().get(i).getPoche()[0].getCouleur() == poche1.getCouleur()) {
-                        poche1.getTuiles().get(i).setPoche1(nouvellepoche);
-                    }
-                    if (poche1.getTuiles().get(i).getPoche()[1].getCouleur() == poche1.getCouleur()) {
-                        poche1.getTuiles().get(i).setPoche2(nouvellepoche);
-                    }
-                    poche1.getTuiles().remove(i);
+                if (poche1.getTuiles().get(0).getPoche()[0].getCouleur() == poche1.getCouleur()) {
+                    poche1.getTuiles().get(0).setPoche1(nouvellepoche);
                 }
-            }
-            points = ajoutPoint(points, nouvellepoche);
-            System.out.println("taille nouvelle poche"+nouvellepoche.getTuiles().size());
+                if (poche1.getTuiles().get(0).getPoche()[1].getCouleur() == poche1.getCouleur()) {
+                    poche1.getTuiles().get(0).setPoche2(nouvellepoche);
+                }
+                poche1.getTuiles().remove(poche1.getTuiles().get(0));
+                for (int i = poche1.getTuiles().size() - 1; i >= 0; i--) {
+                    if (nouvellepoche.getTuiles().contains(poche1.getTuiles().get(i))) {
+                        if (poche1.getTuiles().get(i).getPoche()[0].getCouleur() == poche1.getCouleur()) {
+                            poche1.getTuiles().get(i).setPoche1(nouvellepoche);
+                        }
+                        if (poche1.getTuiles().get(i).getPoche()[1].getCouleur() == poche1.getCouleur()) {
+                            poche1.getTuiles().get(i).setPoche2(nouvellepoche);
+                        }
+                        poche1.getTuiles().remove(i);
+                    }
+                }
+                points = ajoutPoint(points, nouvellepoche);
+                System.out.println("taille nouvelle poche" + nouvellepoche.getTuiles().size());
 
+            }
+
+            while (!poche2.getTuiles().isEmpty()) {
+                System.out.println("rentre poche2");
+                ModelPoche nouvellepoche = new ModelPoche(poche2.getCouleur(), poche2.getTuiles().get(0));
+                nouvellepoche = ModelPoche.createPocheVoisinProfondeur(poche2.getTuiles().get(0), nouvellepoche, poche2.getCouleur(), matrice);
+
+                if (poche2.getTuiles().get(0).getPoche()[0].getCouleur() == poche2.getCouleur()) {
+                    poche2.getTuiles().get(0).setPoche1(nouvellepoche);
+                }
+                if (poche2.getTuiles().get(0).getPoche()[1].getCouleur() == poche2.getCouleur()) {
+                    poche2.getTuiles().get(0).setPoche2(nouvellepoche);
+                }
+                poche2.getTuiles().remove(poche2.getTuiles().get(0));
+                for (int i = poche2.getTuiles().size() - 1; i >= 0; i--) {
+                    if (nouvellepoche.getTuiles().contains(poche2.getTuiles().get(i))) {
+                        if (poche2.getTuiles().get(i).getPoche()[0].getCouleur() == poche2.getCouleur()) {
+                            poche2.getTuiles().get(i).setPoche1(nouvellepoche);
+                        }
+                        if (poche2.getTuiles().get(i).getPoche()[1].getCouleur() == poche2.getCouleur()) {
+                            poche2.getTuiles().get(i).setPoche2(nouvellepoche);
+                        }
+                        poche2.getTuiles().remove(i);
+                    }
+                }
+                points = ajoutPoint(points, nouvellepoche);
+                System.out.println("taille nouvelle poche" + nouvellepoche.getTuiles().size());
+            }
         }
+        else {
+            while (!poche1.getTuiles().isEmpty()) {
+                System.out.println("rentre poche1");
+                ModelPoche nouvellepoche = new ModelPoche(poche1.getCouleur(), poche1.getTuiles().get(0));
+                nouvellepoche = ModelPoche.createPocheVoisinProfondeur(poche1.getTuiles().get(0), nouvellepoche, poche1.getCouleur(), matrice);
 
-        while (!poche2.getTuiles().isEmpty()) {
-            System.out.println("rentre poche2");
-            ModelPoche nouvellepoche = new ModelPoche(poche2.getCouleur(), poche2.getTuiles().get(0) );
-            nouvellepoche = ModelPoche.createPocheVoisinProfondeur( poche2.getTuiles().get(0), nouvellepoche,poche2.getCouleur(), matrice);
-
-            if (poche2.getTuiles().get(0).getPoche()[0].getCouleur() == poche2.getCouleur()) {
-                poche2.getTuiles().get(0).setPoche1(nouvellepoche);
-            }
-            if (poche2.getTuiles().get(0).getPoche()[1].getCouleur() == poche2.getCouleur()) {
-                poche2.getTuiles().get(0).setPoche2(nouvellepoche);
-            }
-            poche2.getTuiles().remove(poche2.getTuiles().get(0));
-            for (int i = poche2.getTuiles().size()-1; i >= 0; i--) {
-                if (nouvellepoche.getTuiles().contains(poche2.getTuiles().get(i))) {
-                    if (poche2.getTuiles().get(i).getPoche()[0].getCouleur() == poche2.getCouleur()) {
-                        poche2.getTuiles().get(i).setPoche1(nouvellepoche);
-                    }
-                    if (poche2.getTuiles().get(i).getPoche()[1].getCouleur() == poche2.getCouleur()) {
-                        poche2.getTuiles().get(i).setPoche2(nouvellepoche);
-                    }
-                    poche2.getTuiles().remove(i);
+                if (poche1.getTuiles().get(0).getPoche()[0].getCouleur() == poche1.getCouleur()) {
+                    poche1.getTuiles().get(0).setPoche1(nouvellepoche);
                 }
+                if (poche1.getTuiles().get(0).getPoche()[1].getCouleur() == poche1.getCouleur()) {
+                    poche1.getTuiles().get(0).setPoche2(nouvellepoche);
+                }
+                poche1.getTuiles().remove(poche1.getTuiles().get(0));
+                for (int i = poche1.getTuiles().size() - 1; i >= 0; i--) {
+                    if (nouvellepoche.getTuiles().contains(poche1.getTuiles().get(i))) {
+                        if (poche1.getTuiles().get(i).getPoche()[0].getCouleur() == poche1.getCouleur()) {
+                            poche1.getTuiles().get(i).setPoche1(nouvellepoche);
+                        }
+                        if (poche1.getTuiles().get(i).getPoche()[1].getCouleur() == poche1.getCouleur()) {
+                            poche1.getTuiles().get(i).setPoche2(nouvellepoche);
+                        }
+                        poche1.getTuiles().remove(i);
+                    }
+                }
+                points = ajoutPoint(points, nouvellepoche);
+                System.out.println("taille nouvelle poche" + nouvellepoche.getTuiles().size());
+
             }
-            points = ajoutPoint(points, nouvellepoche);
-            System.out.println("taille nouvelle poche"+nouvellepoche.getTuiles().size());
         }
 
 
