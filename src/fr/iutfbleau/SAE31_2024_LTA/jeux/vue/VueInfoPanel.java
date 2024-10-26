@@ -35,6 +35,7 @@ public class VueInfoPanel extends javax.swing.JPanel {
         centrer.addActionListener(new CentrerAction(modelJeux));
         centrer.setBounds((VuePrincipale.frameWidth / 2) - 200, 100, 200, 50);
         centrer = setStyleButtonInGame(centrer, 34);
+
     }
     public JLabel getCurrentScore() {
         return currentScore;

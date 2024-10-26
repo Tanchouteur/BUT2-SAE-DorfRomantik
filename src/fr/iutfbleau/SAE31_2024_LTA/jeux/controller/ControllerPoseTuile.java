@@ -1,7 +1,7 @@
 package fr.iutfbleau.SAE31_2024_LTA.jeux.controller;
 
 import fr.iutfbleau.SAE31_2024_LTA.jeux.model.ModelJeux;
-import fr.iutfbleau.SAE31_2024_LTA.jeux.vue.ModelTuile;
+import fr.iutfbleau.SAE31_2024_LTA.jeux.model.ModelTuile;
 import fr.iutfbleau.SAE31_2024_LTA.jeux.vue.VueTuile;
 
 import java.awt.event.MouseEvent;
@@ -44,11 +44,13 @@ public class ControllerPoseTuile implements MouseListener {
                     modelJeux.playTuileSound(modelJeux.getListTuiles().getFirst().getSoundIndex());
                     modelJeux.getModelMatrice().deleteTuile(btnHovered.getModelTuile());
                     modelJeux.getModelMatrice().poseTuile(btnHovered.getModelTuile().getX(), btnHovered.getModelTuile().getY());
+                    modelJeux.getVueJeux().updatePlayerInfo();
                     modelJeux.getVueJeux().updatePreviewTuileList();
                 }
             }
             if (e.getButton() == MouseEvent.BUTTON3 && modelJeux.isUndoActivate()) {
                 modelJeux.undoLastTuile();
+                modelJeux.getVueJeux().updatePlayerInfo();
             }
             clicked = false;
         }

@@ -1,7 +1,16 @@
-package fr.iutfbleau.SAE31_2024_LTA.jeux.vue;
+package fr.iutfbleau.SAE31_2024_LTA.jeux.model;
+
+import fr.iutfbleau.SAE31_2024_LTA.jeux.vue.TuileRandomFactory;
+import fr.iutfbleau.SAE31_2024_LTA.jeux.vue.VueJeux;
+import fr.iutfbleau.SAE31_2024_LTA.jeux.vue.VueTuile;
 
 public class ModelTuile {
     private int[] composition;
+
+    private int Indexcouleur1;
+    private int Indexcouleur2;
+
+    private ModelPoche[] inpoche;
 
     private int seed;
 
@@ -20,7 +29,8 @@ public class ModelTuile {
     private int soundIndex;
 
     public ModelTuile(int seed, boolean preview, boolean suivante, boolean AntiAliasing) {//Tuile de jeux
-        this.composition = new int[6];
+        composition = new int[6];
+        this.inpoche = new ModelPoche[2];
         this.suivante = suivante;
 
         this.tuileRandomFactory = new TuileRandomFactory(seed);
@@ -124,6 +134,23 @@ public class ModelTuile {
     public boolean isSuivante() {
         return suivante;
     }
+
+    public void setPoche(ModelPoche poche1,ModelPoche poche2) {
+        this.inpoche[0] = poche1;
+        this.inpoche[1] = poche2;
+    }
+    public void setPoche1(ModelPoche poche) {
+        this.inpoche[0]=poche;
+
+    }
+    public void setPoche2(ModelPoche poche) {
+        this.inpoche[1]=poche;
+    }
+    public ModelPoche[] getPoche() {
+        return inpoche;
+    }
+
+
 
     public boolean isOnBoard() {
         return onBoard;

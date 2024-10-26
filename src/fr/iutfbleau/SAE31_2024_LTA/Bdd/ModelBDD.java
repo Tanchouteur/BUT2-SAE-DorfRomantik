@@ -30,10 +30,7 @@ public class ModelBDD {
         if (!connected) {
             connexionBdd();
         }
-        if (db!=null) {
-            return true;
-        }
-        return false;
+        return db != null;
     }
 
     public List<BddListeTuiles> getAllListe() {

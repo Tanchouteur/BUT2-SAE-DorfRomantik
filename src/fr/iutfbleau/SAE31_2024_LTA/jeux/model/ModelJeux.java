@@ -2,7 +2,6 @@ package fr.iutfbleau.SAE31_2024_LTA.jeux.model;
 
 import fr.iutfbleau.SAE31_2024_LTA.ModelPrincipale;
 import fr.iutfbleau.SAE31_2024_LTA.endGame.VueScoreScreen;
-import fr.iutfbleau.SAE31_2024_LTA.jeux.vue.ModelTuile;
 import fr.iutfbleau.SAE31_2024_LTA.jeux.vue.VueJeux;
 
 import javax.swing.*;
@@ -15,7 +14,7 @@ public class ModelJeux {
 
     private final ModelPrincipale modelPrincipale;
     private final ModelMatrice modelMatrice;
-    private final ModelListePoche modelListePoche;
+
 
     private final LinkedList<ModelTuile> listTuiles;//Liste de tuile généré
 
@@ -25,11 +24,11 @@ public class ModelJeux {
 
     private int score = 0;
 
-    private static final int nombreTuile = 5;
+    private static final int nombreTuile = 50;
 
     public ModelJeux(ModelPrincipale modelPrincipale, int seed) {
         this.modelPrincipale = modelPrincipale;
-        this.modelListePoche = new ModelListePoche(this);
+
         this.modelMatrice = new ModelMatrice(this);
         listTuiles = new LinkedList<>();
 
@@ -139,9 +138,7 @@ public class ModelJeux {
         this.score = score;
     }
 
-    public ModelListePoche getModelListePoche() {
-        return modelListePoche;
-    }
+
 
     public boolean isUndo() {
         return undo;
@@ -167,7 +164,9 @@ public class ModelJeux {
         if (!undo) {
             listTuiles.addFirst(tuileUndoAble);
             deleteButtons();
+
             modelMatrice.deleteTuile(tuileUndoAble);
+            setScore(ModelComptagePoints.UndoPoints(getScore(),listTuiles.getFirst(),modelMatrice));
             getVueJeux().updatePreviewTuileList();
             tuileUndoAble.setVueTuile(null);
             createButton();
@@ -176,6 +175,7 @@ public class ModelJeux {
 
             undo = true;
             tuileUndoAble.setOnBoard(false);
+
         }
         return null;
     }
@@ -183,4 +183,7 @@ public class ModelJeux {
     public boolean isAA() {
         return modelPrincipale.getConfigManager().isAA();
     }
+
+
+
 }

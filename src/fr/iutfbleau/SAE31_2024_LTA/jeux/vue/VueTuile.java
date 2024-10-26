@@ -1,5 +1,7 @@
 package fr.iutfbleau.SAE31_2024_LTA.jeux.vue;
 
+import fr.iutfbleau.SAE31_2024_LTA.jeux.model.ModelTuile;
+
 import javax.swing.*;
 import java.awt.*;
 
@@ -16,7 +18,7 @@ public class VueTuile extends JComponent {
 
     private boolean AA;
 
-    VueTuile(ModelTuile modelTuile, int centerX, int centerY, int radius, boolean AA) {
+    public VueTuile(ModelTuile modelTuile, int centerX, int centerY, int radius, boolean AA) {
         this.modelTuile = modelTuile;
         this.AA = AA;
         this.xPoints = new int[6];

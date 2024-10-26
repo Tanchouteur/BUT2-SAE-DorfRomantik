@@ -5,6 +5,7 @@ import fr.iutfbleau.SAE31_2024_LTA.jeux.controller.Controller2D;
 import fr.iutfbleau.SAE31_2024_LTA.jeux.controller.ControllerMouseWheelDecalage;
 import fr.iutfbleau.SAE31_2024_LTA.jeux.controller.ControllerPoseTuile;
 import fr.iutfbleau.SAE31_2024_LTA.jeux.model.ModelJeux;
+import fr.iutfbleau.SAE31_2024_LTA.jeux.model.ModelTuile;
 
 import javax.swing.*;
 import java.awt.*;

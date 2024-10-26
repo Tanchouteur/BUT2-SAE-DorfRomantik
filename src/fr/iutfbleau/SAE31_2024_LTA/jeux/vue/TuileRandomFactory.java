@@ -7,7 +7,7 @@ public class TuileRandomFactory {
     private int Indexcouleur1;
     private int Indexcouleur2;
     private int soundIndex;
-    TuileRandomFactory(int seed) {
+    public TuileRandomFactory(int seed) {
 
         int[] indexBiome = new int[5];
         indexBiome[0] = 0; //Mer
