@@ -23,48 +23,7 @@ public class ModelBDD {
     }
 
     public void connexionBdd() {
-        new Thread(new BddConnectionTask()).start();
-    }
-
-    private class BddConnectionTask implements Runnable {
-        @Override
-        public void run() {
-            String message = "Connexion bd...";
-            PopupBd popupBd = null;
-            try {
-                inConnexion = true;
-                popupBd = new PopupBd(message, true);
-                db = DriverManager.getConnection(
-                        "jdbc:mariadb://dwarves.iut-fbleau.fr:3306/tanchou",
-                        "tanchou", "MotdepasseUpec77**");
-
-            } catch (SQLException e) {
-                connected = false;
-                System.err.println("Erreur de connexion BDD");
-            }
-            if (db != null) {
-                connected = true;
-            }
-            vuePrincipale.getPrincipaleLayeredPane().remove(popupBd);
-            inConnexion = false;
-
-            if (connected) {
-                message = "Connection à la base de donnée réussi";
-            } else {
-                message = "Connection à la base de donnée échouer";
-            }
-
-            popupBd = new PopupBd(message, connected);
-            vuePrincipale.getPrincipaleLayeredPane().add(popupBd, Integer.valueOf(3));
-
-            try {
-                Thread.sleep(3000);
-            } catch (InterruptedException ignored) {
-                Thread.currentThread().interrupt();
-            }
-            vuePrincipale.getPrincipaleLayeredPane().remove(popupBd);
-            vuePrincipale.getPrincipaleLayeredPane().repaint();
-        }
+        new Thread(new BddConnectionTask(this)).start();
     }
 
     public boolean updateBdd(){
@@ -197,7 +156,32 @@ public class ModelBDD {
         return inConnexion;
     }
 
+    public void setInConnexion(boolean inConnexion) {
+        this.inConnexion = inConnexion;
+    }
+
     public void setGameSaved(boolean b) {
         gameSaved = b;
+    }
+
+    public boolean isConnected() {
+        return connected;
+    }
+
+    public void setConnected(boolean connected) {
+        this.connected = connected;
+    }
+
+    public void setDb(Connection db) {
+        this.db = db;
+    }
+
+    public void removePopup(PopupBd popupBd) {
+        vuePrincipale.remove(popupBd);
+        vuePrincipale.getPrincipaleLayeredPane().repaint();
+    }
+
+    public void addPopup(PopupBd popupBd) {
+        vuePrincipale.getPrincipaleLayeredPane().add(popupBd, Integer.valueOf(3));
     }
 }
