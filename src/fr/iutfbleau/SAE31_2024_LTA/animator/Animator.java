@@ -9,8 +9,22 @@ import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+/**
+ * Classe utilitaire pour gérer les animations de déplacement d'éléments dans l'interface graphique.
+ */
 public class Animator {
 
+    /**
+     * Anime le déplacement d'un composant JComponent d'une position de départ à une position finale.
+     *
+     * @param panel Le composant à déplacer
+     * @param startX La position de départ en X
+     * @param startY La position de départ en Y
+     * @param endX La position finale en X
+     * @param endY La position finale en Y
+     * @param duration La durée de l'animation en millisecondes
+     * @param amortie Indique si l'animation doit être adoucie
+     */
     public static void moveTo(JComponent panel, int startX, int startY, int endX, int endY, int duration, boolean amortie) {
         Timer timer = new Timer(10, null);
         final long startTime = System.currentTimeMillis();
@@ -19,6 +33,15 @@ public class Animator {
         timer.start();
     }
 
+    /**
+     * Anime le déplacement d'une tuile vers une position sur le plateau de jeu.
+     *
+     * @param vueTuile La vue de la tuile à déplacer
+     * @param startX La position de départ en X
+     * @param startY La position de départ en Y
+     * @param duration La durée de l'animation en millisecondes
+     * @param vueJeux La vue du plateau de jeu
+     */
     public static void moveToTuile(VueTuile vueTuile, int startX, int startY, int duration, VueJeux vueJeux) {
         Timer timer = new Timer(10, null);
         final long startTime = System.currentTimeMillis();
@@ -27,10 +50,19 @@ public class Animator {
         timer.start();
     }
 
-    private static double easeInOut(double t) {
+    /**
+     * Fonction d'interpolation pour adoucir les animations.
+     *
+     * @param t La progression de l'animation
+     * @return La progression adoucie
+     */
+    static double easeInOut(double t) {
         return t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
     }
 
+    /**
+     * Classe interne pour gérer l'animation de déplacement pour une VueTuile.
+     */
     private static class MoveToAction implements ActionListener {
         private final JComponent panel;
         private final int startX, startY, endX, endY, duration;
@@ -50,6 +82,11 @@ public class Animator {
             this.startTime = startTime;
         }
 
+        /**
+         * Méthode appelée à chaque tick du Timer pour mettre à jour la position du composant.
+         *
+         * @param e L'événement d'action
+         */
         @Override
         public void actionPerformed(ActionEvent e) {
             long elapsed = System.currentTimeMillis() - startTime;
@@ -64,57 +101,6 @@ public class Animator {
 
             if (progress >= 1.0) {
                 timer.stop();
-            }
-        }
-    }
-
-    private static class MoveToTuileAction implements ActionListener {
-        private final VueTuile vueTuile;
-        private final int startX, startY, duration;
-        private final VueJeux vueJeux;
-        private final Timer timer;
-        private final long startTime;
-
-        public MoveToTuileAction(VueTuile vueTuile, int startX, int startY, int duration, VueJeux vueJeux, Timer timer, long startTime) {
-            this.vueTuile = vueTuile;
-            this.startX = startX;
-            this.startY = startY;
-            this.duration = duration;
-            this.vueJeux = vueJeux;
-            this.timer = timer;
-            this.startTime = startTime;
-        }
-
-        @Override
-        public void actionPerformed(ActionEvent e) {
-            vueJeux.getModelJeux().setUndoActivate(false);
-            long elapsed = System.currentTimeMillis() - startTime;
-            double progress = Math.min(1.0, (double) elapsed / duration);
-            double easedProgress = easeInOut(progress);
-
-            int centerX = VuePrincipale.frameWidth / 2;
-            int centerY = VuePrincipale.frameHeight / 2;
-            int initialOffsetX = centerX;
-            int initialOffsetY = centerY - 43;
-            int totalOffsetX = initialOffsetX + vueJeux.getOffsetX();
-            int totalOffsetY = initialOffsetY + vueJeux.getOffsetY();
-
-            int col = vueTuile.getModelTuile().getX();
-            int row = vueTuile.getModelTuile().getY();
-
-            int x = (totalOffsetX + col * (3 * 50 / 2)) - 40;
-            int y = (totalOffsetY + row * 43) - 10;
-
-            int newX = (int) (startX + easedProgress * (x - startX));
-            int newY = (int) (startY + easedProgress * (y - startY));
-
-            vueTuile.setBounds(newX, newY, vueTuile.getWidth(), vueTuile.getHeight());
-            vueTuile.repaint();
-
-            if (progress >= 1.0) {
-                timer.stop();
-                vueTuile.getModelTuile().setOnBoard(true);
-                vueJeux.getModelJeux().setUndoActivate(true);
             }
         }
     }
