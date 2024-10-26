@@ -165,7 +165,7 @@ public class ModelJeux {
             deleteButtons();
 
             modelMatrice.deleteTuile(tuileUndoAble);
-            setScore(ModelComptagePoints.UndoPocheTuile(getScore(),listTuiles.getFirst(),modelMatrice));
+            setScore(ModelComptagePoints.UndoPoints(getScore(),listTuiles.getFirst(),modelMatrice));
             getVueJeux().updatePreviewTuileList();
             tuileUndoAble.setVueTuile(null);
             createButton();

@@ -22,7 +22,7 @@ public class ModelMatrice {
         this.tuilesPartie.get(new Point(x, y)).setCoordonner(x, y);
         modelJeux.setTuileUndoAble(tuile);
         ModelTuile[] voisin = getVoisins(tuile);
-        modelJeux.setScore(ModelComptagePoints.updatePoche(modelJeux.getScore(),tuile,voisin));
+        modelJeux.setScore(ModelComptagePoints.updatePoints(modelJeux.getScore(),tuile,voisin));
         modelJeux.getListTuiles().removeFirst();
 
         if (!modelJeux.isUndoActivate() && x != 0 && y != 0) {
@@ -148,6 +148,30 @@ public class ModelMatrice {
         return voisins;
 
     }
+    public static boolean correspond(ModelTuile tuile, ModelTuile comparaison, int direction)  {
+        if (tuile.getComposition()[direction] == comparaison.getComposition()[(direction+3)%6]) {
+            return true;
+        }
+        return false;
+    }
+
+    // cette fonction retourne une liste de boolean
+    public static boolean[] correspondVoisins(ModelTuile tuile, ModelTuile[] voisin) {
+        boolean[] correspond = new boolean[voisin.length];
+        for (int i = 0; i < voisin.length; i++) {
+            if (voisin[i]!=null) {
+
+
+                if (ModelMatrice.correspond(tuile, voisin[i], i)) {
+                    correspond[i] = true;
+                } else {
+                    correspond[i] = false;
+                }
+            }
+        }
+        return correspond;
+    }
+
     public Map<Point, ModelTuile> getTuilesPartie() {
         return this.tuilesPartie;
     }
