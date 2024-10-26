@@ -1,6 +1,7 @@
 package fr.iutfbleau.SAE31_2024_LTA.loading;
 
 import fr.iutfbleau.SAE31_2024_LTA.ControlerMain;
+import fr.iutfbleau.SAE31_2024_LTA.endGame.QuitAction;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -19,9 +20,7 @@ public class LoadingFrame extends JFrame {
 
         JButton cancelButton = new JButton("Annuler");
         cancelButton.setBounds(100,220,200,50);
-        cancelButton.addActionListener(e->{
-            System.exit(0);
-        });
+        cancelButton.addActionListener(new QuitAction());
         this.add(setStyleButton(cancelButton,28));
 
         JProgressBar progressBar = new JProgressBar();
