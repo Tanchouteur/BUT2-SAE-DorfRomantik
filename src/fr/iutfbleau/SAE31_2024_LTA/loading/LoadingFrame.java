@@ -1,4 +1,6 @@
-package fr.iutfbleau.SAE31_2024_LTA;
+package fr.iutfbleau.SAE31_2024_LTA.loading;
+
+import fr.iutfbleau.SAE31_2024_LTA.ControlerMain;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -10,7 +12,7 @@ import static fr.iutfbleau.SAE31_2024_LTA.miseEnForme.StyleComponent.setStyleBut
 import static fr.iutfbleau.SAE31_2024_LTA.miseEnForme.StyleComponent.setStyleImageTitre;
 
 public class LoadingFrame extends JFrame {
-    LoadingFrame(){
+    public LoadingFrame(){
         this.setSize(400, 350);
         this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);//faut surtout pas exit le programme
         this.setLayout(null);

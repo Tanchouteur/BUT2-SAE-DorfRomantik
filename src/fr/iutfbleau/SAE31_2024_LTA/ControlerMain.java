@@ -1,19 +1,17 @@
 package fr.iutfbleau.SAE31_2024_LTA;
 
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
+import fr.iutfbleau.SAE31_2024_LTA.loading.LoadingFrame;
+import fr.iutfbleau.SAE31_2024_LTA.loading.ModelLoader;
+import fr.iutfbleau.SAE31_2024_LTA.loading.WindowStateHandler;
 
-class ControlerMain {
+public class ControlerMain {
 
     private static volatile boolean isLoading = true;
     private static ModelPrincipale modelPrincipale;
 
     public static void main(String[] args) {
         LoadingFrame loadingFrame = new LoadingFrame();
-        new Thread(() -> {
-            modelPrincipale = new ModelPrincipale();
-            isLoading = false;
-        }).start(); // On lance le chargement du modèle en parallèle
+        new Thread(new ModelLoader()).start();
 
         while (isLoading) {
             try {
@@ -24,11 +22,22 @@ class ControlerMain {
         }
 
         loadingFrame.dispose();
-        modelPrincipale.getVuePrincipale().addWindowListener(new WindowAdapter() {
-            @Override
-            public void windowStateChanged(WindowEvent e) {
-                modelPrincipale.getVuePrincipale().updateSize();
-            }
-        });
+        modelPrincipale.getVuePrincipale().addWindowListener(new WindowStateHandler());
+    }
+
+    public static synchronized void setModelPrincipale(ModelPrincipale model) {
+        modelPrincipale = model;
+    }
+
+    public static synchronized ModelPrincipale getModelPrincipale() {
+        return modelPrincipale;
+    }
+
+    public static synchronized void setIsLoading(boolean loading) {
+        isLoading = loading;
+    }
+
+    public static synchronized boolean isIsLoading() {
+        return isLoading;
     }
 }
