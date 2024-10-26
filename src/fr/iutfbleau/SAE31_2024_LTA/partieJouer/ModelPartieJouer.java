@@ -1,6 +1,8 @@
 package fr.iutfbleau.SAE31_2024_LTA.partieJouer;
 
 import fr.iutfbleau.SAE31_2024_LTA.Bdd.BddPartieJouer;
+import fr.iutfbleau.SAE31_2024_LTA.Bdd.PlayerNameFilter;
+import fr.iutfbleau.SAE31_2024_LTA.Bdd.ScoreComparator;
 import fr.iutfbleau.SAE31_2024_LTA.ModelPrincipale;
 
 import java.util.List;
@@ -18,8 +20,8 @@ public class ModelPartieJouer {
 
     public List<BddPartieJouer> getAllParties() {
         if (modelPrincipale.getBdd().updateBdd()) {
-            List<BddPartieJouer> listParties = modelPrincipale.getBdd().getPartieJouer().stream()
-                    .sorted((p1, p2) -> Integer.compare(p2.getScore(), p1.getScore()))
+            List<BddPartieJouer> listParties = modelPrincipale.getBdd().getAllPartieJouer().stream()
+                    .sorted(new ScoreComparator())
                     .collect(Collectors.toList());
             return listParties;
         }
@@ -28,9 +30,9 @@ public class ModelPartieJouer {
 
     public List<BddPartieJouer> getFilteredParties(String playerName) {
         if (modelPrincipale.getBdd().updateBdd()) {
-            return modelPrincipale.getBdd().getPartieJouer().stream()
-                    .filter(partie -> partie.getPlayerName().equalsIgnoreCase(playerName))
-                    .sorted((p1, p2) -> Integer.compare(p2.getScore(), p1.getScore()))
+            return modelPrincipale.getBdd().getAllPartieJouer().stream()
+                    .filter(new PlayerNameFilter(playerName))
+                    .sorted(new ScoreComparator())
                     .collect(Collectors.toList());
         }
         return null;

@@ -39,13 +39,7 @@ public class MediaPlayerManager {
             currentClip.setFramePosition(0);
             currentClip.start();
 
-            currentClip.addLineListener(event -> {
-                if (event.getType() == LineEvent.Type.STOP) {
-                    currentClip.stop();
-                    int nextClipIndex = (currentClipIndex + 1) % musicClips.size();
-                    startClip(musicClips, nextClipIndex);
-                }
-            });
+            currentClip.addLineListener(new ClipStopListener(this, currentClip, currentClipIndex, musicClips));
         }
     }
 

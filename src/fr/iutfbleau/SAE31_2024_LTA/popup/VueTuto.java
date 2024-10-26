@@ -28,12 +28,12 @@ public class VueTuto extends JLayeredPane {
 
         showAtStartupCheckBox = setStyleCheckBox(new JCheckBox("Montrer au démarrage", configManager.isTuto()));
         showAtStartupCheckBox.setBounds(60, this.getHeight()-60, 220, 50);
-        showAtStartupCheckBox.addActionListener(e -> onShowAtStartupChange(configManager));
+        showAtStartupCheckBox.addActionListener(new ControllerTutoStartUp(configManager, showAtStartupCheckBox));
         add(showAtStartupCheckBox,Integer.valueOf(1));
 
         JButton resumeButton = StyleComponent.setStyleButton(new JButton("Resume"),18);
         resumeButton.setBounds(this.getWidth()-240, this.getHeight()-60, 180, 50);
-        resumeButton.addActionListener(e -> onResume(controllerPopup));
+        resumeButton.addActionListener(new ControllerResumeListener(controllerPopup,1));
         add(resumeButton ,Integer.valueOf(1));
 
         updateVueTuto(controllerPopup.getVuePrincipale());
@@ -60,14 +60,6 @@ public class VueTuto extends JLayeredPane {
         logoLabel.setBorder(BorderFactory.createEmptyBorder(10, 0, 10, 0));
         logoLabel.setBounds(0, 0, newWidth, newHeight);
         return logoLabel;
-    }
-
-    private void onResume(ControllerPopup controllerPopup) {
-        controllerPopup.closeTuto();
-    }
-
-    private void onShowAtStartupChange(ConfigManager configManager) {
-        configManager.setTuto(showAtStartupCheckBox.isSelected());
     }
 
     public void updateVueTuto(VuePrincipale vuePrincipale) {
