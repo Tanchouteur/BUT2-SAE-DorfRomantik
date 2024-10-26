@@ -1,4 +1,6 @@
-package fr.iutfbleau.SAE31_2024_LTA.jeux;
+package fr.iutfbleau.SAE31_2024_LTA.jeux.model;
+
+import fr.iutfbleau.SAE31_2024_LTA.jeux.vue.ModelTuile;
 
 import java.awt.Point;
 import java.util.HashMap;

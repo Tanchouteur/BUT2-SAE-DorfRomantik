@@ -1,7 +1,7 @@
 package fr.iutfbleau.SAE31_2024_LTA.animator;
 
-import fr.iutfbleau.SAE31_2024_LTA.jeux.VueJeux;
-import fr.iutfbleau.SAE31_2024_LTA.jeux.VueTuile;
+import fr.iutfbleau.SAE31_2024_LTA.jeux.vue.VueJeux;
+import fr.iutfbleau.SAE31_2024_LTA.jeux.vue.VueTuile;
 import fr.iutfbleau.SAE31_2024_LTA.layers.VuePrincipale;
 
 import javax.swing.*;

@@ -1,6 +1,7 @@
-package fr.iutfbleau.SAE31_2024_LTA.jeux;
+package fr.iutfbleau.SAE31_2024_LTA.jeux.controller;
 
-import javax.swing.*;
+import fr.iutfbleau.SAE31_2024_LTA.jeux.vue.VueJeux;
+
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;

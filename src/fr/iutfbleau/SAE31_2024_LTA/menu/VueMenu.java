@@ -2,13 +2,11 @@ package fr.iutfbleau.SAE31_2024_LTA.menu;
 
 import fr.iutfbleau.SAE31_2024_LTA.Bdd.BddListeTuiles;
 import fr.iutfbleau.SAE31_2024_LTA.ModelPrincipale;
-import fr.iutfbleau.SAE31_2024_LTA.jeux.ControllerPlayCard;
+import fr.iutfbleau.SAE31_2024_LTA.jeux.controller.ControllerPlayCard;
 import fr.iutfbleau.SAE31_2024_LTA.miseEnForme.StyleComponent;
 import fr.iutfbleau.SAE31_2024_LTA.partieJouer.ControllerPartieJouerBTN;
 
 import javax.swing.*;
-import javax.swing.event.PopupMenuEvent;
-import javax.swing.event.PopupMenuListener;
 import java.awt.*;
 import java.util.List;
 import java.util.Objects;

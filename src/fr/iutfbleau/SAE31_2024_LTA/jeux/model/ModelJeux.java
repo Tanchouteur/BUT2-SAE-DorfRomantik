@@ -1,11 +1,12 @@
-package fr.iutfbleau.SAE31_2024_LTA.jeux;
+package fr.iutfbleau.SAE31_2024_LTA.jeux.model;
 
 import fr.iutfbleau.SAE31_2024_LTA.ModelPrincipale;
 import fr.iutfbleau.SAE31_2024_LTA.endGame.VueScoreScreen;
+import fr.iutfbleau.SAE31_2024_LTA.jeux.vue.ModelTuile;
+import fr.iutfbleau.SAE31_2024_LTA.jeux.vue.VueJeux;
 
 import javax.swing.*;
 import java.awt.Point;
-import java.sql.SQLException;
 import java.util.*;
 
 public class ModelJeux {

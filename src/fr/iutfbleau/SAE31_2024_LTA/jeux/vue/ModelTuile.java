@@ -1,6 +1,4 @@
-package fr.iutfbleau.SAE31_2024_LTA.jeux;
-
-import java.util.Random;
+package fr.iutfbleau.SAE31_2024_LTA.jeux.vue;
 
 public class ModelTuile {
     private int[] composition;
@@ -54,7 +52,7 @@ public class ModelTuile {
         this.y = y;
     }
 
-    public void decalage(int decaler,VueJeux vueJeux){
+    public void decalage(int decaler, VueJeux vueJeux){
         //decaler > 0 = molette vers le bas
         if(decaler>0) {
             int tmp = this.composition[0];

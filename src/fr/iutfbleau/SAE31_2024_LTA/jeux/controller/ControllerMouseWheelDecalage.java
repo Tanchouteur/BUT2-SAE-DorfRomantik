@@ -1,4 +1,4 @@
-package fr.iutfbleau.SAE31_2024_LTA.jeux;
+package fr.iutfbleau.SAE31_2024_LTA.jeux.controller;
 
 import fr.iutfbleau.SAE31_2024_LTA.ModelPrincipale;
 
@@ -7,7 +7,7 @@ import java.awt.event.MouseWheelListener;
 
 public class ControllerMouseWheelDecalage implements MouseWheelListener {
     ModelPrincipale modelPrincipale;
-    ControllerMouseWheelDecalage(ModelPrincipale modelPrincipale) {
+    public ControllerMouseWheelDecalage(ModelPrincipale modelPrincipale) {
         this.modelPrincipale = modelPrincipale;
     }
 

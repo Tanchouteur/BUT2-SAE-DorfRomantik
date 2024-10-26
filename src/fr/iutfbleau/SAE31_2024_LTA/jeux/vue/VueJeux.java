@@ -1,7 +1,10 @@
-package fr.iutfbleau.SAE31_2024_LTA.jeux;
+package fr.iutfbleau.SAE31_2024_LTA.jeux.vue;
 
 import fr.iutfbleau.SAE31_2024_LTA.animator.Animator;
-import fr.iutfbleau.SAE31_2024_LTA.layers.VuePrincipale;
+import fr.iutfbleau.SAE31_2024_LTA.jeux.controller.Controller2D;
+import fr.iutfbleau.SAE31_2024_LTA.jeux.controller.ControllerMouseWheelDecalage;
+import fr.iutfbleau.SAE31_2024_LTA.jeux.controller.ControllerPoseTuile;
+import fr.iutfbleau.SAE31_2024_LTA.jeux.model.ModelJeux;
 
 import javax.swing.*;
 import java.awt.*;
@@ -47,7 +50,7 @@ public class VueJeux extends JLayeredPane {
         repaint();
     }
 
-    protected void centrer() {
+    public void centrer() {
         offsetX = 0;
         offsetY = 0;
         repaint();

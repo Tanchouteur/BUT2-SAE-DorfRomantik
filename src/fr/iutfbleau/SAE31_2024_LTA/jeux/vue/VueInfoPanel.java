@@ -1,5 +1,7 @@
-package fr.iutfbleau.SAE31_2024_LTA.jeux;
+package fr.iutfbleau.SAE31_2024_LTA.jeux.vue;
 
+import fr.iutfbleau.SAE31_2024_LTA.jeux.controller.CentrerAction;
+import fr.iutfbleau.SAE31_2024_LTA.jeux.model.ModelJeux;
 import fr.iutfbleau.SAE31_2024_LTA.layers.VuePrincipale;
 
 import javax.swing.*;
@@ -30,7 +32,7 @@ public class VueInfoPanel extends javax.swing.JPanel {
         this.add(setStyleLabelScore(currentScore,18));
 
         centrer = new JButton("Centrer");
-        centrer.addActionListener(e -> modelJeux.getVueJeux().centrer());
+        centrer.addActionListener(new CentrerAction(modelJeux));
         centrer.setBounds((VuePrincipale.frameWidth / 2) - 200, 100, 200, 50);
         centrer = setStyleButtonInGame(centrer, 34);
     }
