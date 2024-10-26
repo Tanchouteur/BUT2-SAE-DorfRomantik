@@ -33,12 +33,12 @@ public class ControllerSearchPartieJouer implements ActionListener {
     private void resetPartie() {
         if (modelPrincipale.getBdd().updateBdd()) {
             List<BddPartieJouer> allParties = modelPrincipale.getModelPartieJouer().getAllParties();
-            SwingUtilities.invokeLater(() -> {
-                modelPrincipale.getModelPartieJouer().getVuePartieJouer().getTableModel().setRowCount(0);
-                for (BddPartieJouer partie : allParties) {
-                    modelPrincipale.getModelPartieJouer().getVuePartieJouer().getTableModel().addRow(new Object[]{partie.getPlayerName(), partie.getListeTuile().getId(), partie.getScore()});
-                }
-            });
+
+            modelPrincipale.getModelPartieJouer().getVuePartieJouer().getTableModel().setRowCount(0);
+            for (BddPartieJouer partie : allParties) {
+                modelPrincipale.getModelPartieJouer().getVuePartieJouer().getTableModel().addRow(new Object[]{partie.getPlayerName(), partie.getListeTuile().getId(), partie.getScore()});
+            }
+
         }
     }
 
