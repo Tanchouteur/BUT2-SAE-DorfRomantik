@@ -39,5 +39,6 @@ public class ControllerMenuCard implements ActionListener {
         vuePrincipale.getPrincipaleLayeredPane().getMainPanel().getCardLayout().show(vuePrincipale.getPrincipaleLayeredPane().getMainPanel(), "menu");
 
         vuePrincipale.setTitle("DorfJavatik - Menu");
+        vuePrincipale.getModelPrincipale().getBdd().setGameSaved(false);
     }
 }

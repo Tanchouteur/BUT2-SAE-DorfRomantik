@@ -2,7 +2,7 @@ package fr.iutfbleau.SAE31_2024_LTA;
 
 import fr.iutfbleau.SAE31_2024_LTA.Bdd.ModelBDD;
 import fr.iutfbleau.SAE31_2024_LTA.config.ConfigManager;
-import fr.iutfbleau.SAE31_2024_LTA.jeux.ModelJeux;
+import fr.iutfbleau.SAE31_2024_LTA.jeux.model.ModelJeux;
 import fr.iutfbleau.SAE31_2024_LTA.layers.VuePrincipale;
 import fr.iutfbleau.SAE31_2024_LTA.media.MediaPlayerManager;
 import fr.iutfbleau.SAE31_2024_LTA.media.ModelMediaLoader;
