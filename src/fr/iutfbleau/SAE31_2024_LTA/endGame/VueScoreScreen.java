@@ -80,7 +80,7 @@ public class VueScoreScreen extends JPanel {
 
         JButton quitButton = new JButton("Quitter");
 
-        quitButton.addActionListener(e -> System.exit(0));
+        quitButton.addActionListener(new QuitAction());
 
         gbc.gridy = 6;
         sidebarPanel.add(setStyleButton(quitButton,buttonFontSize), gbc);
