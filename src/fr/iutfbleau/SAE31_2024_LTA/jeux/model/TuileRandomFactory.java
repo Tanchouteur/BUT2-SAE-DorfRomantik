@@ -1,4 +1,4 @@
-package fr.iutfbleau.SAE31_2024_LTA.jeux.vue;
+package fr.iutfbleau.SAE31_2024_LTA.jeux.model;
 
 import java.util.Random;
 

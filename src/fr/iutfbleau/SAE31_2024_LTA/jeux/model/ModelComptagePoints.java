@@ -2,21 +2,43 @@ package fr.iutfbleau.SAE31_2024_LTA.jeux.model;
 
 import java.util.ArrayList;
 
-
-// cette méthode permet de compter les points de la partie en cours
+/**
+ * Cette classe est responsable du comptage des points dans le jeu.
+ * Elle fournit des méthodes pour ajouter ou enlever des points en fonction
+ * des tuiles posées et des poches associées.
+ */
 public class ModelComptagePoints {
 
-    // Fonction qui enlève des points au compteur
+    /**
+     * Enlève des points du compteur en fonction de la taille des tuiles dans une poche.
+     *
+     * @param points Le total actuel des points.
+     * @param poche  La poche dont les tuiles sont comptées pour enlever des points.
+     * @return Le nouveau total de points après la soustraction.
+     */
     private static int enleverPoint(int points, ModelPoche poche) {
         return points - (poche.getTuiles().size() * poche.getTuiles().size());
     }
 
-    // Fonction qui ajoute des points au compteur
+    /**
+     * Ajoute des points au compteur en fonction de la taille des tuiles dans une poche.
+     *
+     * @param points Le total actuel des points.
+     * @param poche  La poche dont les tuiles sont comptées pour ajouter des points.
+     * @return Le nouveau total de points après l'addition.
+     */
     private static int ajouterPoint(int points, ModelPoche poche) {
         return points + (poche.getTuiles().size() * poche.getTuiles().size());
     }
 
-    // cette fonction permet d'uptade les points après qu'une nouvelle tuile soit posé
+    /**
+     * Met à jour les points après qu'une nouvelle tuile a été posée.
+     *
+     * @param points  Le total actuel des points.
+     * @param tuile   La tuile qui a été posée.
+     * @param voisin  Un tableau de tuiles voisines pour évaluer les poches.
+     * @return Le nouveau total de points après mise à jour.
+     */
     public static int updatePoints(int points, ModelTuile tuile, ModelTuile[] voisin) {
         boolean[] correspond = ModelMatrice.correspondVoisins(tuile, voisin);
         ArrayList<ModelPoche> couleur1 = new ArrayList<>();
@@ -108,7 +130,15 @@ public class ModelComptagePoints {
         }
         return points;
     }
-    // cette fonction va enlevé les points quand on enlève une tuile
+
+    /**
+     * Enlève des points lorsqu'une tuile est annulée (enlevée du jeu).
+     *
+     * @param points  Le total actuel des points.
+     * @param tuile   La tuile qui a été retirée.
+     * @param matrice La matrice de jeu utilisée pour la gestion des poches.
+     * @return Le nouveau total de points après l'annulation.
+     */
     public static int UndoPoints(int points, ModelTuile tuile, ModelMatrice matrice) {
         ModelPoche poche1 = tuile.getPoche()[0];
         ModelPoche poche2 = tuile.getPoche()[1];

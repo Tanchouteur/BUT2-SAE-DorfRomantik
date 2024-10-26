@@ -1,6 +1,5 @@
 package fr.iutfbleau.SAE31_2024_LTA.jeux.model;
 
-import fr.iutfbleau.SAE31_2024_LTA.jeux.vue.TuileRandomFactory;
 import fr.iutfbleau.SAE31_2024_LTA.jeux.vue.VueJeux;
 import fr.iutfbleau.SAE31_2024_LTA.jeux.vue.VueTuile;
 

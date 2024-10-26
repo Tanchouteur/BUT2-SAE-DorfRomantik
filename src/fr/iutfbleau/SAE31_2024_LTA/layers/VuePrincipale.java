@@ -10,10 +10,15 @@ import java.awt.event.*;
 import java.io.IOException;
 import java.net.URL;
 
-
+/**
+ * La classe VuePrincipale représente la fenêtre principale de l'application.
+ * Elle hérite de JFrame et contient un PrincipaleLayeredPane pour gérer
+ * les différents panneaux de l'application.
+ */
 public class VuePrincipale extends JFrame {
+
     private final PrincipaleLayeredPane principaleLayeredPane;
-    ModelPrincipale modelPrincipale;
+    private final ModelPrincipale modelPrincipale;
 
     public static int frameWidth;
     public static int frameHeight;
@@ -21,6 +26,11 @@ public class VuePrincipale extends JFrame {
     public static int screenWidth;
     public static int screenHeight;
 
+    /**
+     * Constructeur de la classe VuePrincipale.
+     *
+     * @param modelPrincipale Le modèle principal de l'application.
+     */
     public VuePrincipale(ModelPrincipale modelPrincipale) {
         this.modelPrincipale = modelPrincipale;
         setTitle("DorfRomantique");
@@ -37,12 +47,14 @@ public class VuePrincipale extends JFrame {
 
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
-        setMinimumSize(new Dimension(900,600));
+        setMinimumSize(new Dimension(900, 600));
         setResizable(true);
+
         principaleLayeredPane = new PrincipaleLayeredPane(this);
         this.add(principaleLayeredPane);
-        this.getPrincipaleLayeredPane().getMainPanel().setSize(this.getWidth(),this.getHeight());
+        this.getPrincipaleLayeredPane().getMainPanel().setSize(this.getWidth(), this.getHeight());
 
+        // Chargement du logo
         try {
             URL logoUrl = getClass().getResource("/Images/logo.png");
             if (logoUrl != null) {
@@ -51,35 +63,54 @@ public class VuePrincipale extends JFrame {
                 System.err.println("Logo non trouvé : /Images/Logo.png");
             }
         } catch (IOException e) {
-            System.out.println("logo err : " + e);
+            System.out.println("Erreur lors du chargement du logo : " + e);
         }
-        this.addComponentListener(new java.awt.event.ComponentAdapter() {
-            public void componentResized(java.awt.event.ComponentEvent evt) {
+
+        // Écouteur pour redimensionner la fenêtre
+        this.addComponentListener(new ComponentAdapter() {
+            public void componentResized(ComponentEvent evt) {
                 updateSize();
                 modelPrincipale.getControllerPopup().updatePopup();
             }
         });
     }
-    public void updateSize(){
+
+    /**
+     * Met à jour les dimensions de la fenêtre et du panneau principal.
+     */
+    public void updateSize() {
         frameWidth = this.getWidth();
         frameHeight = this.getHeight();
-        this.getPrincipaleLayeredPane().getMainPanel().setSize(this.getWidth(),this.getHeight());
+        this.getPrincipaleLayeredPane().getMainPanel().setSize(this.getWidth(), this.getHeight());
     }
 
-    public PrincipaleLayeredPane getPrincipaleLayeredPane(){
+    /**
+     * Retourne le PrincipaleLayeredPane contenu dans cette fenêtre.
+     *
+     * @return le PrincipaleLayeredPane de la fenêtre.
+     */
+    public PrincipaleLayeredPane getPrincipaleLayeredPane() {
         return this.principaleLayeredPane;
     }
 
+    /**
+     * Retourne le modèle principal de l'application.
+     *
+     * @return le modèle principal de l'application.
+     */
     public ModelPrincipale getModelPrincipale() {
         return modelPrincipale;
     }
 
-    public void setActionMap(){
+    /**
+     * Configure les mappages d'actions pour les événements de touche.
+     */
+    public void setActionMap() {
         InputMap inputMap = getRootPane().getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW);
         ActionMap actionMap = getRootPane().getActionMap();
 
         inputMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), "toggleSettings");
-        actionMap.put("toggleSettings", new ControllerInputMap(modelPrincipale,"toggleSettingsAction"));
+        actionMap.put("toggleSettings", new ControllerInputMap(modelPrincipale, "toggleSettingsAction"));
 
         inputMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_Z, KeyEvent.CTRL_DOWN_MASK), "undo");
         actionMap.put("undo", new ControllerInputMap(modelPrincipale, "undo"));

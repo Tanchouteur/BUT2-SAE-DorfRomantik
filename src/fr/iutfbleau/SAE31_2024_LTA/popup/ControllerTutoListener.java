@@ -6,14 +6,8 @@ import java.awt.event.ActionListener;
 public class ControllerTutoListener implements ActionListener {
     ControllerPopup controllerPopup;
     ControllerTutoListener(ControllerPopup controllerPopup) {
-
+        this.controllerPopup = controllerPopup;
     }
-
-    /**
-     * Invoked when an action occurs.
-     *
-     * @param e the event to be processed
-     */
     @Override
     public void actionPerformed(ActionEvent e) {
         controllerPopup.closeSettings();
