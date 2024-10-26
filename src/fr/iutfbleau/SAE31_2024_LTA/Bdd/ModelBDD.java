@@ -22,18 +22,21 @@ public class ModelBDD {
         connexionBdd();
     }
 
-    public void connexionBdd(){
-        new Thread(() -> {
+    public void connexionBdd() {
+        new Thread(new BddConnectionTask()).start();
+    }
+
+    private class BddConnectionTask implements Runnable {
+        @Override
+        public void run() {
             String message = "Connexion bd...";
             PopupBd popupBd = null;
-            try {// Connexion à la base de données
-
+            try {
                 inConnexion = true;
-                popupBd = new PopupBd(message,true);
-
-                this.db = DriverManager.getConnection(
-                    "jdbc:mariadb://dwarves.iut-fbleau.fr:3306/tanchou",
-                    "tanchou", "MotdepasseUpec77**");
+                popupBd = new PopupBd(message, true);
+                db = DriverManager.getConnection(
+                        "jdbc:mariadb://dwarves.iut-fbleau.fr:3306/tanchou",
+                        "tanchou", "MotdepasseUpec77**");
 
             } catch (SQLException e) {
                 connected = false;
@@ -46,22 +49,22 @@ public class ModelBDD {
             inConnexion = false;
 
             if (connected) {
-                message="Connection à la base de donnée réussi";
-            }else {
-                message="Connection à la base de donnée échouer";
+                message = "Connection à la base de donnée réussi";
+            } else {
+                message = "Connection à la base de donnée échouer";
             }
 
-            popupBd = new PopupBd(message,connected);
-            vuePrincipale.getPrincipaleLayeredPane().add(popupBd,Integer.valueOf(3));
+            popupBd = new PopupBd(message, connected);
+            vuePrincipale.getPrincipaleLayeredPane().add(popupBd, Integer.valueOf(3));
 
             try {
                 Thread.sleep(3000);
             } catch (InterruptedException ignored) {
-
+                Thread.currentThread().interrupt();
             }
             vuePrincipale.getPrincipaleLayeredPane().remove(popupBd);
             vuePrincipale.getPrincipaleLayeredPane().repaint();
-        }).start();
+        }
     }
 
     public boolean updateBdd(){
