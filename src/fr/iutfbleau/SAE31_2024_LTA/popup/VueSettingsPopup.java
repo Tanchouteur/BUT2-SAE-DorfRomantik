@@ -62,7 +62,7 @@ public class VueSettingsPopup extends JPanel {
 
         JButton resumeButton = new JButton("Resume");
         resumeButton.setBounds(240, 350, 200, 50);
-        resumeButton.addActionListener(new ControllerResumeListener(controllerPopup));
+        resumeButton.addActionListener(new ControllerResumeListener(controllerPopup,0));
         add(setStyleButton(resumeButton,18));
 
         JButton menuButton = new JButton("Menu");

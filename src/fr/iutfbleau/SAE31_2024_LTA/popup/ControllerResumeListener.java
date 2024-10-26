@@ -5,12 +5,20 @@ import java.awt.event.ActionListener;
 
 public class ControllerResumeListener implements ActionListener {
     ControllerPopup controllerPopup;
-    ControllerResumeListener(ControllerPopup controllerPopup) {
+    int wich;
+    ControllerResumeListener(ControllerPopup controllerPopup, int wich) {
         this.controllerPopup = controllerPopup;
+        this.wich = wich;
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        controllerPopup.togleSettingsDialog();
+        if (wich == 0){
+            controllerPopup.togleSettingsDialog();
+        }
+        else if (wich == 1){
+            controllerPopup.closeTuto();
+        }
+
     }
 }
