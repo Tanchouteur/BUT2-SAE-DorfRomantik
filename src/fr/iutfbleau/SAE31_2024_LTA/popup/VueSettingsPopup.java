@@ -52,7 +52,7 @@ public class VueSettingsPopup extends JPanel {
         AACheckBox = new JCheckBox("Anti-Aliasing", configManager.isAA());
         setStyleCheckBox(AACheckBox);
         AACheckBox.setBounds(20, this.getHeight()-140, 220, 50);
-        AACheckBox.addActionListener(e -> onAntiAliasingChange(configManager));
+        AACheckBox.addActionListener(new AntiAliasingChange(configManager, AACheckBox));
         add(AACheckBox);
 
         JButton tutoButton = new JButton("Tutoriel");
@@ -69,10 +69,6 @@ public class VueSettingsPopup extends JPanel {
         quitButton.setBounds(460, 350, 200, 50);
         quitButton.addActionListener(e -> onQuit(controllerPopup));
         add(setStyleButton(quitButton,18));
-    }
-
-    public void onAntiAliasingChange(ConfigManager configManager){
-        configManager.setAA(AACheckBox.isSelected());
     }
 
     public void updateVueSettings(){
