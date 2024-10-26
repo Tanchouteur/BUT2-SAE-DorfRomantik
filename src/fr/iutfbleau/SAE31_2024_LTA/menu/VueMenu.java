@@ -2,6 +2,7 @@ package fr.iutfbleau.SAE31_2024_LTA.menu;
 
 import fr.iutfbleau.SAE31_2024_LTA.Bdd.BddListeTuiles;
 import fr.iutfbleau.SAE31_2024_LTA.ModelPrincipale;
+import fr.iutfbleau.SAE31_2024_LTA.endGame.QuitAction;
 import fr.iutfbleau.SAE31_2024_LTA.jeux.controller.ControllerPlayCard;
 import fr.iutfbleau.SAE31_2024_LTA.miseEnForme.StyleComponent;
 import fr.iutfbleau.SAE31_2024_LTA.partieJouer.ControllerPartieJouerBTN;
@@ -153,7 +154,7 @@ public class VueMenu extends JPanel {
         sidebarPanel.add(setStyleButton(settingsButton,buttonFontSize), gbc);
 
         JButton quitButton = new JButton("Quitter");
-        quitButton.addActionListener(e -> System.exit(0));
+        quitButton.addActionListener(new QuitAction());
 
         gbc.gridy = 6;
         sidebarPanel.add(setStyleButton(quitButton,buttonFontSize), gbc);
