@@ -75,20 +75,24 @@ Configuration.class :
 ConfigFileHandler.class: Configuration.class
 	javac -cp $(CLASSPATH):$(OUT_DIR) -d $(OUT_DIR) $(CONFIG_DIR)ConfigFileHandler.java
 
-#interdépendances entre ConfigManager -> ControllerPopup -> Vuetuto -> ConfigManager
-ConfigManager.class: Configuration.class ControllerPopup.class
-	javac -cp $(CLASSPATH):$(OUT_DIR) -d $(OUT_DIR) $(CONFIG_DIR)ConfigManager.java
+#ModelPrincipale <-> VuePrincipale
+ModelPrincipale.class :
+	javac -cp $(CLASSPATH) -d $(OUT_DIR) $(SRC_DIR)ModelPrincipale.java
+#interdépendances entre ConfigManager -> ControllerPopup -> Vuetuto -> ConfigManager + ControllerPopup <-> VuePrincipale
+ConfigManager.class&ControllerPopup.class&VueTuto.class&VuePrincipale.class: #Configuration.class VueTuto.class ControllerPopup.class ConfigManager.class
+	javac -cp $(CLASSPATH):$(OUT_DIR) -d $(OUT_DIR) $(CONFIG_DIR)ConfigManager.java $(POPUP_DIR)ControllerPopup.java \
+	$(POPUP_DIR)ControllerPopup.java $(POPUP_DIR)VueTuto.java $(SRC_DIR)VuePrincipale.java \
 
-config : Configuration.class ConfigFileHandler.class ConfigManager.class
+config : Configuration.class ConfigFileHandler.class #ConfigManager.class
 
 ControllerPopup.class : VueTuto.class ConfigManager.class
 	javac -cp $(CLASSPATH):$(OUT_DIR) -d $(OUT_DIR) $(POPUP_DIR)ControllerPopup.java
-ControllerVolumeChange.class :
+ControllerVolumeChange.class : ConfigManager.class
 	javac -cp $(CLASSPATH):$(OUT_DIR) -d $(OUT_DIR) $(POPUP_DIR)ControllerVolumeChange.java
 #pas possible pour le moment
 VueSettingsPopup.class :
 	javac -cp $(CLASSPATH) -d $(OUT_DIR) $(POPUP_DIR)VueSettingsPopup.java
-VueTuto.class : ConfigManager.class
+VueTuto.class :
 	javac -cp $(CLASSPATH):$(OUT_DIR) -d $(OUT_DIR) $(POPUP_DIR)VueTuto.java
 popup : ControllerPopup.class ControllerVolumeChange.class VueSettingsPopup.class VueTuto.class
 
