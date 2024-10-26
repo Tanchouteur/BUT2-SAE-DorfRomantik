@@ -57,18 +57,18 @@ public class VueSettingsPopup extends JPanel {
 
         JButton tutoButton = new JButton("Tutoriel");
         tutoButton.setBounds(20, 350, 200, 50);
-        tutoButton.addActionListener(e -> onTuto(controllerPopup));
+        tutoButton.addActionListener(new ControllerTutoListener(controllerPopup));
         add(setStyleButton(tutoButton,18));
 
         JButton resumeButton = new JButton("Resume");
         resumeButton.setBounds(240, 350, 200, 50);
-        resumeButton.addActionListener(e -> onResume(controllerPopup));
+        resumeButton.addActionListener(new ControllerResumeListener(controllerPopup));
         add(setStyleButton(resumeButton,18));
 
-        JButton quitButton = new JButton("Menu");
-        quitButton.setBounds(460, 350, 200, 50);
-        quitButton.addActionListener(e -> onQuit(controllerPopup));
-        add(setStyleButton(quitButton,18));
+        JButton menuButton = new JButton("Menu");
+        menuButton.setBounds(460, 350, 200, 50);
+        menuButton.addActionListener(new ControllerMenuBListener(controllerPopup, modelPrincipale));
+        add(setStyleButton(menuButton,18));
     }
 
     public void updateVueSettings(){
@@ -77,21 +77,6 @@ public class VueSettingsPopup extends JPanel {
         }else {
             this.setBounds((modelPrincipale.getVuePrincipale().getWidth()-this.getWidth())/2, (modelPrincipale.getVuePrincipale().getHeight()-this.getHeight())/2,getWidth(),getHeight());
         }
-    }
-
-    private void onTuto(ControllerPopup controllerPopup) {
-        controllerPopup.closeSettings();
-        controllerPopup.showTutoDialog();
-    }
-
-    private void onResume(ControllerPopup controllerPopup) {
-        controllerPopup.togleSettingsDialog();
-    }
-
-    private void onQuit(ControllerPopup controllerPopup) {
-        ControllerMenuCard controllerMenuCard = new ControllerMenuCard(modelPrincipale);
-        controllerPopup.closeSettings();
-        controllerMenuCard.goMenu();
     }
 
     @Override
