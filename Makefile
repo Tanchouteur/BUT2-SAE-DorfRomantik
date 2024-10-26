@@ -6,6 +6,7 @@ LIB_DIR = ressources/_LIB
 RESOURCES_DIR = ressources
 MAIN_CLASS = fr.iutfbleau.SAE31_2024_LTA.ControlerMain
 
+
 compile:
 	javac -d $(OUT_DIR) -cp $(LIB_DIR)/mariadb-java-client-2.5.3.jar $(SRC_DIR)/fr/iutfbleau/SAE31_2024_LTA/*/*/*.java \
 	$(SRC_DIR)/fr/iutfbleau/SAE31_2024_LTA/*/*.java \
@@ -25,12 +26,10 @@ cp_resources:
 	cp -r $(RESOURCES_DIR)/META-INF/* $(OUT_DIR)/META-INF/
 
 jar: compile cp_resources
-	jar cfm $(PROJECT_NAME).jar $(RESOURCES_DIR)/META-INF/MANIFEST.MF -C $(OUT_DIR) . \
+	jar cfm $(PROJECT_NAME).jar $(RESOURCES_DIR)/META-INF/MANIFEST.MF -C $(OUT_DIR) .
 
 run: jar
-	java -cp "$(LIB_DIR)/mariadb-java-client-2.5.3.jar" -jar $(PROJECT_NAME).jar
+	java -cp ".:$(OUT_DIR)/ressources/mariadb-java-client-2.5.3.jar"  -jar $(PROJECT_NAME).jar
 clean:
-	rm -rf $(OUT_DIR)/*
+	rm -rf out/*
 	rm -f $(PROJECT_NAME).jar
-
-.PHONY: compile jar copy-dlls run clean
