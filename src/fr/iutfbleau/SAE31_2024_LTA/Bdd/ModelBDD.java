@@ -174,11 +174,11 @@ public class ModelBDD {
     }
 
     public void removePopup(PopupBd popupBd) {
-        vuePrincipale.remove(popupBd);
+        vuePrincipale.getPrincipaleLayeredPane().remove(popupBd);
         vuePrincipale.getPrincipaleLayeredPane().repaint();
     }
 
     public void addPopup(PopupBd popupBd) {
-        vuePrincipale.getPrincipaleLayeredPane().add(popupBd, Integer.valueOf(3));
+        vuePrincipale.getPrincipaleLayeredPane().add(popupBd, Integer.valueOf(4));
     }
 }
