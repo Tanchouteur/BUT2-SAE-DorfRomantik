@@ -10,6 +10,11 @@ import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
 import java.util.List;
 
+/**
+ * Cette classe gère le chargement des fichiers audio nécessaires au jeu.
+ * Elle permet de charger des clips audio pour la musique de menu, les sons de clic et les sons associés aux tuiles dans le jeu.
+ *
+ */
 public class ModelMediaLoader {
 
     private final Clip menuMusicClip;
@@ -18,6 +23,12 @@ public class ModelMediaLoader {
 
     private final List<Clip> gameMusicClips;
 
+
+    /**
+     * Constructeur de la classe ModelMediaLoader
+     * Charge tous les sons nécessaires pour le jeu, y compris la musique de menu,
+     * le son de clic et les sons associés aux tuiles.
+     */
     public ModelMediaLoader() {//Charge touts les son du jeu
 
         menuMusicClip = loadMedia("/Audio/MenuSoundTrack.wav");
@@ -73,19 +84,28 @@ public class ModelMediaLoader {
 
         return clip;
     }
-
+    /**
+     * @return Le clip de musique du menu.
+     */
     public Clip getMenuMusicClip() {
         return menuMusicClip;
     }
 
+    /**
+     *  @return Le clip de son de clic.
+     */
     public Clip getClicAudioClip() {
         return clicAudioClip;
     }
-
+    /**
+     * @return Une liste de clips pour les musiques du jeu.
+     */
     public List<Clip> getGameMusicClips() {
         return gameMusicClips;
     }
-
+    /**
+     * @return Un tableau de clips pour les sons des tuiles.
+     */
     public Clip[] getClipsTuiles() {
         return clipsTuiles;
     }

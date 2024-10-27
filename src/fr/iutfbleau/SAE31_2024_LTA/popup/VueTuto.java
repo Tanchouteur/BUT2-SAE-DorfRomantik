@@ -12,9 +12,20 @@ import java.util.Objects;
 import static fr.iutfbleau.SAE31_2024_LTA.miseEnForme.StyleComponent.setStyleCheckBox;
 import static fr.iutfbleau.SAE31_2024_LTA.miseEnForme.StyleComponent.setStyleLabelScore;
 
+
+/**
+ * Vue pour afficher le tutoriel à l'utilisateur.
+ * Affiche une image de tutoriel, une option pour montrer le tutoriel au démarrage, et un bouton de reprise.
+ */
 public class VueTuto extends JLayeredPane {
     private final JCheckBox showAtStartupCheckBox;
 
+    /**
+     * Constructeur de VueTuto.
+     *
+     * @param controllerPopup le contrôleur de pop-up.
+     * @param configManager   le gestionnaire de configuration pour gérer les préférences de l'utilisateur.
+     */
     VueTuto(ControllerPopup controllerPopup, ConfigManager configManager) {
         setLayout(null);
         this.setBackground(StyleComponent.getPopupColor());
@@ -39,6 +50,13 @@ public class VueTuto extends JLayeredPane {
         updateVueTuto(controllerPopup.getVuePrincipale());
     }
 
+    /**
+     * Crée une image redimensionné pour le tutoriel.
+     *
+     * @param maxWidth  largeur maximale de l'image.
+     * @param maxHeight hauteur maximale de l'image.
+     * @return un JLabel contenant l'image redimensionnée du tutoriel.
+     */
     private JLabel createImageTuto(int maxWidth, int maxHeight) {
         ImageIcon tutoIcon = new ImageIcon(Objects.requireNonNull(StyleComponent.class.getResource("/Images/tuto.png")));
         Image image = tutoIcon.getImage();
@@ -62,6 +80,11 @@ public class VueTuto extends JLayeredPane {
         return logoLabel;
     }
 
+    /**
+     * Met à jour la position de la vue tutoriel pour la centrer dans la fenêtre principale.
+     *
+     * @param vuePrincipale la vue principale de l'application.
+     */
     public void updateVueTuto(VuePrincipale vuePrincipale) {
         this.setBounds((vuePrincipale.getWidth()-this.getWidth())/2,-this.getHeight(),getWidth(),getHeight());
     }
