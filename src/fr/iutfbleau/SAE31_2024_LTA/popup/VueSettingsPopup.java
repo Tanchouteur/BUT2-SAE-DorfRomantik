@@ -10,6 +10,11 @@ import java.awt.*;
 
 import static fr.iutfbleau.SAE31_2024_LTA.miseEnForme.StyleComponent.*;
 
+
+/**
+ * Cette classe représente la vue des paramètres du jeu,gère l'affichage des paramètres de volume de musique,
+ * des effets sonores, et des options de configuration supplémentaires comme l'anti-aliasing.
+ */
 public class VueSettingsPopup extends JPanel {
     private final JSlider musicVolumeSlider;
     private final JSlider effectsVolumeSlider;
@@ -17,6 +22,12 @@ public class VueSettingsPopup extends JPanel {
     private boolean open = false;
     private JCheckBox AACheckBox;
 
+    /**
+     * Constructeur pour créer la vue des paramètres.
+     *
+     * @param controllerPopup le contrôleur de la fenêtre contextuelle.
+     * @param modelPrincipale le modèle principal qui contient la logique de l'application.
+     */
     public VueSettingsPopup(ControllerPopup controllerPopup, ModelPrincipale modelPrincipale) {
         this.modelPrincipale = modelPrincipale;
         ConfigManager configManager = modelPrincipale.getConfigManager();
@@ -71,6 +82,9 @@ public class VueSettingsPopup extends JPanel {
         add(setStyleButton(menuButton,18));
     }
 
+    /**
+     * Met à jour la position de la vue des paramètres dans la fenêtre.
+     */
     public void updateVueSettings(){
         if (!open){
             this.setBounds((modelPrincipale.getVuePrincipale().getWidth()-this.getWidth())/2,-this.getHeight(),getWidth(),getHeight());
@@ -79,6 +93,11 @@ public class VueSettingsPopup extends JPanel {
         }
     }
 
+    /**
+     * Méthode pour dessiner.
+
+     * @param g l'objet Graphics utilisé pour dessiner le composant.
+     */
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
@@ -93,18 +112,38 @@ public class VueSettingsPopup extends JPanel {
         g2d.fillRect(0, 0, width, height);
     }
 
+    /**
+     * Définit le volume de la musique.
+     *
+     * @param volume le niveau de volume à définir.
+     */
     public void setMusicVolume(int volume) {
         musicVolumeSlider.setValue(volume);
     }
 
+    /**
+     * Définit le volume des effets.
+     *
+     * @param volume le niveau de volume à définir.
+     */
     public void setEffectsVolume(int volume) {
         effectsVolumeSlider.setValue(volume);
     }
 
+    /**
+     * Indique si la vue des paramètres est ouverte.
+     *
+     * @return true si la vue est ouverte, sinon false.
+     */
     public boolean isOpen() {
         return open;
     }
 
+    /**
+     * Définit l'état ouvert ou fermé de la vue des paramètres.
+     *
+     * @param open true pour ouvrir la vue, sinon false pour la fermer.
+     */
     public void setOpen(boolean open) {
         this.open = open;
     }
