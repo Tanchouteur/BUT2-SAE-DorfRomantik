@@ -24,7 +24,7 @@ public class PopupBd extends JPanel {
         setOpaque(false);
         setBackground(new Color(255,255,255,0));
 
-        setBounds((VuePrincipale.frameWidth ) - 700,30, 600, 50);
+        setBounds((VuePrincipale.frameWidth - 600)/2,30, 600, 50);
 
         JLabel label = new JLabel();
         label.setSize(new Dimension(600,50));
