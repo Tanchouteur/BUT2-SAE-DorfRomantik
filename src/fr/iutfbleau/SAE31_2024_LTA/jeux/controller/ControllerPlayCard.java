@@ -11,17 +11,36 @@ import java.awt.event.ActionListener;
 import java.util.List;
 import java.util.Random;
 
+/**
+ * La classe {@code ControllerPlayCard} gère les actions liées à la carte de jeu.
+ * Elle est responsable de la vérification de l'entrée du nom du joueur,
+ * de la sélection de la suite, et de la préparation du jeu.
+ */
 public class ControllerPlayCard implements ActionListener {
     private final VuePrincipale vuePrincipale;
     private final List<BddListeTuiles> listeTuiles;
-    ModelPrincipale modelPrincipale;
+    private final ModelPrincipale modelPrincipale;
 
+    /**
+     * Constructeur de la classe {@code ControllerPlayCard}.
+     *
+     * @param modelPrincipale le modèle principal du jeu
+     * @param listeTuiles    la liste des tuiles provenant de la base de données
+     */
     public ControllerPlayCard(ModelPrincipale modelPrincipale, List<BddListeTuiles> listeTuiles) {
         this.modelPrincipale = modelPrincipale;
         this.vuePrincipale = modelPrincipale.getVuePrincipale();
         this.listeTuiles = listeTuiles;
     }
 
+    /**
+     * Gère l'événement d'action lorsque le joueur interagit avec la carte de jeu.
+     * Vérifie si un nom de joueur est fourni, valide la sélection de la suite,
+     * génère une graine pour le jeu, et commence le jeu en affichant
+     * la vue correspondante.
+     *
+     * @param e l'événement d'action déclenché
+     */
     @Override
     public void actionPerformed(ActionEvent e) {
         VueMenu vueMenu = modelPrincipale.getModelMenu().getVueMenu();
@@ -43,12 +62,10 @@ public class ControllerPlayCard implements ActionListener {
                         seed = rand.nextInt();
                         modelPrincipale.setSeedIndex(-1);
                     } else {
-
-                        seed = listeTuiles.get(selectedIndex - 1).getSeed();//listetuile de la bdd
+                        seed = listeTuiles.get(selectedIndex - 1).getSeed(); // liste de tuiles de la BDD
                         modelPrincipale.setSeedIndex(selectedIndex);
-
                     }
-                }else {
+                } else {
                     Random rand = new Random();
                     seed = rand.nextInt();
                     modelPrincipale.setSeedIndex(-1);
@@ -58,9 +75,8 @@ public class ControllerPlayCard implements ActionListener {
                 modelPrincipale.getConfigManager().setPlayerName(playerName);
                 modelPrincipale.setSelectedSeed(seed);
 
-
                 modelPrincipale.getMediaPlayerManager().stopClip(modelPrincipale.getModelMediaLoader().getMenuMusicClip());
-                modelPrincipale.getMediaPlayerManager().startClip(modelPrincipale.getModelMediaLoader().getGameMusicClips(),0);
+                modelPrincipale.getMediaPlayerManager().startClip(modelPrincipale.getModelMediaLoader().getGameMusicClips(), 0);
 
                 modelPrincipale.createJeux();
                 vuePrincipale.getPrincipaleLayeredPane().getMainPanel().getCardLayout().show(vuePrincipale.getPrincipaleLayeredPane().getMainPanel(), "jeux");

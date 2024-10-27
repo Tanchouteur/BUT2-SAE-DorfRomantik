@@ -15,6 +15,10 @@ import java.util.Objects;
 import static fr.iutfbleau.SAE31_2024_LTA.miseEnForme.StyleComponent.setStyleButton;
 import static fr.iutfbleau.SAE31_2024_LTA.miseEnForme.StyleComponent.setStyleImageTitre;
 
+/**
+ * VueMenu représente l'interface graphique du menu principal du jeu.
+ * Elle gère l'affichage des composants du menu et certainnes interactions avec le joueur.
+ */
 public class VueMenu extends JPanel {
     private JTextField playerNameInput;
     private JComboBox<String> suiteSelector;
@@ -23,6 +27,11 @@ public class VueMenu extends JPanel {
     private JPanel sidebarPanel;
     private final JLayeredPane layeredPane;
 
+    /**
+     * Crée une nouvelle instance de VueMenu.
+     *
+     * @param modelPrincipale Le modèle principal de l'application.
+     */
     public VueMenu(ModelPrincipale modelPrincipale) {
         this.modelPrincipale = modelPrincipale;
         setLayout(null);
@@ -76,6 +85,9 @@ public class VueMenu extends JPanel {
         modelPrincipale.getVuePrincipale().setActionMap();
     }
 
+    /**
+     * Met à jour la taille et la position des composants du menu.
+     */
     public void updateMenu() {
         int widthSidebar = 450;
         int heightSidebar = 630;
@@ -160,10 +172,16 @@ public class VueMenu extends JPanel {
         sidebarPanel.add(setStyleButton(quitButton,buttonFontSize), gbc);
     }
 
+    /**
+     * @return Le JComboBox pour sélectionner la suite.
+     */
     public JComboBox<String> getSuiteSelector() {
         return suiteSelector;
     }
 
+    /**
+     * @return Le JTextField pour le nom du joueur.
+     */
     public JTextField getPlayerNameInput() {
         return playerNameInput;
     }

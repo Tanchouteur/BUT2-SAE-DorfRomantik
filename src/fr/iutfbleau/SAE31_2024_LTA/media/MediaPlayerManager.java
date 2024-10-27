@@ -6,14 +6,26 @@ import javax.sound.sampled.Clip;
 import javax.sound.sampled.FloatControl;
 import javax.sound.sampled.LineEvent;
 import java.util.List;
-
+/**
+ * Cette classe gère la lecture des clips audio dans l'application.
+ * Elle permet de démarrer, arrêter, et ajuster le volume des clips audio.
+ */
 public class MediaPlayerManager {
     ModelPrincipale modelPrincipale;
-
+    /**
+     * Constructeur de la classe  MediaPlayerManager.
+     *
+     * @param modelPrincipale Le modèle principal de l'application qui sera utilisé pour accéder aux ressources nécessaires.
+     */
     public MediaPlayerManager(ModelPrincipale modelPrincipale) {
         this.modelPrincipale = modelPrincipale;
     }
-
+    /**
+     * Démarre la lecture d'un clip audio.
+     *
+     * @param clip             Le clip à démarrer.
+     * @param loopIndefinitely Indique si le clip doit être joué en boucle indéfiniment.
+     */
     public void startClip(Clip clip, boolean loopIndefinitely) {
         if (clip != null) {
             if (!clip.isRunning()) {
@@ -26,7 +38,12 @@ public class MediaPlayerManager {
             }
         }
     }
-
+    /**
+     * Démarre la lecture d'un clip audio à partir d'une liste de clips.
+     *
+     * @param musicClips      La liste des clips audio.
+     * @param currentClipIndex L'index du clip à démarrer.
+     */
     public void startClip(List<Clip> musicClips, int currentClipIndex) {//Démmarre une liste de clip
         if (musicClips.isEmpty()) {
             System.out.println("Aucune musique n'a été chargée.");
@@ -43,6 +60,11 @@ public class MediaPlayerManager {
         }
     }
 
+    /**
+     * Arrête la lecture d'un clip audio.
+     *
+     * @param clip Le clip à arrêter.
+     */
     public void stopClip(Clip clip) {
         if (clip != null && clip.isRunning()) {
             clip.stop();
@@ -79,7 +101,11 @@ public class MediaPlayerManager {
             }
         }
     }
-
+    /**
+     * Ajuste le volume des effets sonores.
+     *
+     * @param levelP Le niveau de volume en pourcentage (0-100).
+     */
     public void setVolumeEffect(int levelP) {
         float level = levelP / 100.0f;
         for (int i = 0; i < modelPrincipale.getModelMediaLoader().getClipsTuiles().length; i++) {
@@ -89,7 +115,11 @@ public class MediaPlayerManager {
         //modelPrincipale.getModelMediaLoader().setVolumeEffect(levelP);
         modelPrincipale.getConfigManager().setVolumeEffet(levelP);
     }
-
+    /**
+     * Ajuste le volume de la musique.
+     *
+     * @param levelP Le niveau de volume en pourcentage (0-100).
+     */
     public void setVolumeMusique(int levelP) {
         float level = levelP / 100.0f;
         for (int i = 0; i < modelPrincipale.getModelMediaLoader().getGameMusicClips().size(); i++) {
@@ -99,7 +129,12 @@ public class MediaPlayerManager {
         //modelPrincipale.getModelMediaLoader().setVolumeMusic(levelP);
         modelPrincipale.getConfigManager().setVolumeMusique(levelP);
     }
-
+    /**
+     * Obtient le volume actuel d'un clip audio.
+     *
+     * @param clip Le clip dont on veut obtenir le volume.
+     * @return Le niveau de volume du clip, ou 0 si le clip n'est pas valide ou n'a pas de contrôle de volume.
+     */
     public float getClipVolume(Clip clip) {
         if (clip != null && clip.isControlSupported(FloatControl.Type.MASTER_GAIN)) {
             FloatControl volumeControl = (FloatControl) clip.getControl(FloatControl.Type.MASTER_GAIN);

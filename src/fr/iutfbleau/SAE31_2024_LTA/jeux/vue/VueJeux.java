@@ -27,7 +27,6 @@ public class VueJeux extends JLayeredPane {
     private final ModelTuile[] tuilePreview;
     private boolean end = false;
     private VueInfoPanel infoPanel;
-    private JLabel currentScore;
 
     public VueJeux(ModelJeux modelJeux) {
         setLayout(null);

@@ -8,6 +8,13 @@ import javax.swing.*;
 import java.awt.Point;
 import java.util.*;
 
+/**
+ * La classe ModelJeux gere la logique du jeu, y compris les tuiles, les scores et les interactions avec la vue.
+ *  Elle s'occupe egalement de la creation et de la gestion des boutons associés aux tuiles.
+ *
+ *
+ */
+
 public class ModelJeux {
     private VueJeux vueJeux;
     private VueScoreScreen vueScoreScreen;
@@ -26,6 +33,11 @@ public class ModelJeux {
 
     private static final int nombreTuile = 50;
 
+    /**
+     * Constructeur de ModelJeux
+     * @param modelPrincipale
+     * @param seed
+     */
     public ModelJeux(ModelPrincipale modelPrincipale, int seed) {
         this.modelPrincipale = modelPrincipale;
 
@@ -42,33 +54,57 @@ public class ModelJeux {
         vueJeux.updatePreviewTuileList();
     }
 
+    /**
+     * créer une VueJeux associer a ModelJeux
+     */
     private void createView(){
         this.vueJeux = new VueJeux(this);
         modelPrincipale.getVuePrincipale().getPrincipaleLayeredPane().getMainPanel().add(vueJeux, "jeux");
     }
 
+    /**
+     * créer une EndView associer a ModelJeux, cela s'affiche lorsque que la partie est finie
+     */
     public void createEndView() {
         this.vueScoreScreen = new VueScoreScreen(modelPrincipale);
         this.getVueScoreScreen().setBounds(vueJeux.getWidth(), (vueJeux.getHeight()-this.getVueScoreScreen().getHeightSidebar())/2, this.getVueScoreScreen().getWidthSidebar(), this.getVueScoreScreen().getHeightSidebar());
     }
 
+    /**
+     * @return  LinkedList<ModelTuile>
+     */
     public LinkedList<ModelTuile> getListTuiles() {
-
         return listTuiles;
     }
 
+    /**
+     *
+     * @return VueJeux
+     */
     public VueJeux getVueJeux() {
         return this.vueJeux;
     }
 
+    /**
+     *
+     * @return ModelMatrice
+     */
     public ModelMatrice getModelMatrice() {
         return this.modelMatrice;
     }
 
+    /**
+     *
+     * @return ModelPrincipale
+     */
     public ModelPrincipale getModelPrincipale() {
         return this.modelPrincipale;
     }
 
+    /**
+     * methode permetant de creer les boutons dans le model, en cherchant les tuiles preexistantes dans la matriceet en
+     * y ajoutant de nouvelles sous la forme de boutons
+     */
     public void createButton() {
         List<Point> pointsToAdd = new ArrayList<>(); // Liste pour stocker les points à ajouter
 
@@ -99,17 +135,24 @@ public class ModelJeux {
             }
         }
 
-
         for (Point newPoint : pointsToAdd) {
             modelMatrice.poseeButton(newPoint.x, newPoint.y, new ModelTuile());
         }
     }
 
+    /**
+     *  Cette methode regarde dans la matrice du model afin de voir si l'emplacement (x;y) est occupé
+     * @param x
+     * @param y
+     * @return boolean
+     */
     private boolean tryCreateButton(int x, int y) {
         return !modelMatrice.isOccupied(x, y);
     }
 
-
+    /**
+     * détruit tous les boutons
+     */
     public void deleteButtons() {
         Map<Point, ModelTuile> tuiles = modelMatrice.getTuilesPartie();
 
@@ -122,36 +165,62 @@ public class ModelJeux {
         tuiles.values().removeIf(ModelTuile::isButton);
     }
 
+    /**
+     *  joue un son en fonction de son soundindex
+     * @param soundIndex
+     */
     public void playTuileSound(int soundIndex) {
         modelPrincipale.getMediaPlayerManager().startClip(modelPrincipale.getModelMediaLoader().getClipsTuiles()[soundIndex], false);
     }
 
+    /**
+     *
+     * @return VueScoreScreen
+     */
     public VueScoreScreen getVueScoreScreen() {
         return vueScoreScreen;
     }
 
+    /**
+     * méthode qui donne le score de ModelJeux
+     * @return int
+     */
     public int getScore() {
         return this.score;
     }
 
+    /**
+     * set le score de modelJeux égale au int en paramètre
+     * @param score
+     */
     public void setScore(int score) {
         this.score = score;
     }
-
-
 
     public boolean isUndo() {
         return undo;
     }
 
+    /**
+     * met la valeur d'undo en false ou true
+     * @param undo
+     */
     public void setUndo(boolean undo) {
         this.undo = undo;
     }
 
+    /**
+     * revoie une valeur qui permet de savoir si undo est activable
+     * @return boolean
+     */
     public boolean isUndoActivate() {
         return undoActivate;
     }
 
+    /**
+     *
+     * @param undoActivate
+     */
     public void setUndoActivate(boolean undoActivate) {
         this.undoActivate = undoActivate;
     }
@@ -160,6 +229,10 @@ public class ModelJeux {
         this.tuileUndoAble = tuileUndoAble;
     }
 
+    /**
+     *  annule la dernière pose d'une tuile cela n'est
+     * @return
+     */
     public Action undoLastTuile() {
         if (!undo) {
             listTuiles.addFirst(tuileUndoAble);
