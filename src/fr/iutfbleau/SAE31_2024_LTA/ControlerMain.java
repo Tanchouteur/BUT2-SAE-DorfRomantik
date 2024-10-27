@@ -4,6 +4,9 @@ import fr.iutfbleau.SAE31_2024_LTA.loading.LoadingFrame;
 import fr.iutfbleau.SAE31_2024_LTA.loading.ModelLoader;
 import fr.iutfbleau.SAE31_2024_LTA.loading.WindowStateHandler;
 
+/**
+ * Classe principale qui s'occupe
+ */
 public class ControlerMain {
 
     private static volatile boolean isLoading = true;
