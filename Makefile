@@ -30,7 +30,7 @@ cp_resources: compile
 jar: cp_resources
 	jar cfm  $(PROJECT_NAME).jar $(RESOURCES_DIR)/META-INF/MANIFEST.MF -C $(OUT_DIR) .
 
-
+#afin de lancer le jeu il faut lancer la commande make run.
 run: jar
 	java -cp "$(PROJECT_NAME).jar:$(LIB_DIR)/mariadb-java-client-2.5.3.jar" $(MAIN_CLASS)
 
