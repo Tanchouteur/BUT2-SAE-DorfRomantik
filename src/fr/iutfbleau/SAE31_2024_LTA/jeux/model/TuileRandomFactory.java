@@ -1,14 +1,21 @@
 package fr.iutfbleau.SAE31_2024_LTA.jeux.model;
 
 import java.util.Random;
-
+/**
+ * La classe TuileRandomFactory permet de générer une compositions aléatoires basée sur un index de biome et une graine fournie.
+ */
 public class TuileRandomFactory {
     private int[] composition = new int[6];
     private int Indexcouleur1;
     private int Indexcouleur2;
     private int soundIndex;
+    /**
+     * Constructeur de TuileRandomFactory qui initialise la composition de la tuile en
+     * fonction de la graine fournie.
+     *
+     * @param seed La graine pour générer des éléments en pseudo-aléatoires.
+     */
     public TuileRandomFactory(int seed) {
-
         int[] indexBiome = new int[5];
         indexBiome[0] = 0; //Mer
         indexBiome[1] = 1; //Montagne
@@ -61,18 +68,30 @@ public class TuileRandomFactory {
             soundIndex = indexCouleur2;
     }
 
+    /**
+     * Récupère la composition de la tuile.
+     *
+     * @return int[]
+     */
     public int[] getComposition() {
         return composition;
     }
 
+    /**
+     * Récupère l'index de la première couleur.
+     */
     public int getIndexcouleur1() {
         return Indexcouleur1;
     }
-
+    /**
+     * Récupère l'index de la deuxième couleur.
+     */
     public int getIndexcouleur2() {
         return Indexcouleur2;
     }
-
+    /**
+     * Récupère l'index du son associé à la composition de la tuile.
+     */
     public int getSoundIndex() {
         return soundIndex;
     }
