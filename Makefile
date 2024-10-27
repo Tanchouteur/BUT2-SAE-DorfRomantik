@@ -28,8 +28,9 @@ cp_resources:
 jar: compile cp_resources
 	jar cfm $(PROJECT_NAME).jar $(RESOURCES_DIR)/META-INF/MANIFEST.MF -C $(OUT_DIR) .
 
+
 run: jar
-	java -cp ".:$(OUT_DIR)/ressources/mariadb-java-client-2.5.3.jar"  -jar $(PROJECT_NAME).jar
+	java -jar $(PROJECT_NAME).jar
 clean:
 	rm -rf out/*
 	rm -f $(PROJECT_NAME).jar
