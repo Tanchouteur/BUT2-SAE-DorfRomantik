@@ -7,10 +7,19 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
-
+/**
+ * Cette classe gère le chargement des pistes musicales à partir d'un dossier donné.
+ * Elle permet d'accéder à une liste de clips audio à partir de fichiers .wav.
+ */
 public class MusiqueTrack {
 
     private final List<Clip> musicClips;
+    /**
+     * Constructeur de la classe  MusiqueTrack.
+     * Charge toutes les pistes musicales à partir du dossier spécifié.
+     *
+     * @param path Le chemin vers le dossier contenant les fichiers audio au format .wav.
+     */
 
     MusiqueTrack(String path) { //Charge le dossier qui contient les musiques quand on est en jeux
         musicClips = new ArrayList<>();
@@ -50,6 +59,11 @@ public class MusiqueTrack {
 
     }
 
+    /**
+     * Récupère la liste des clips musicaux chargés.
+     *
+     * @return Une liste de clips audio.
+     */
     public List<Clip> getMusicClips() {
         return musicClips;
     }
