@@ -2,11 +2,13 @@ package fr.iutfbleau.SAE31_2024_LTA.jeux.model;
 
 import java.util.ArrayList;
 
-// cette classe poche contient deux attributs, tuiles qui est une liste de tuile
-// et couleur qui est la couleur que toutes les tuiles de la poche partage
-// pour que deux tuiles soient dans la meme poche, il faut que les deux tuiles
-//soient adjacents et qu'il est la meme couleur sur le coté où ils sont adjacents
-// ou alors qu'une autre tuile fassent pour eux indirectement
+/**
+ * cette classe poche contient deux attributs, tuiles qui est une liste de tuile
+ * et couleur qui est la couleur que toutes les tuiles de la poche partage
+ * pour que deux tuiles soient dans la meme poche, il faut que les deux tuiles
+ * soient adjacents et qu'il est la meme couleur sur le coté où ils sont adjacents
+ * ou alors qu'une autre tuile fassent pour eux indirectement
+ */
 
 
 public class ModelPoche {
@@ -18,8 +20,10 @@ public class ModelPoche {
         this.tuiles = new ArrayList<>();
         this.tuiles.add(tuile);
     }
-    // cette fonction retourne la poche de la tuile "comparaison" qui a la meme couleur
-    // que la couleur de la tuile "tuile" dans la direction "direction"
+    /** cette fonction retourne la poche de la tuile "comparaison" qui a la meme couleur
+     * que la couleur de la tuile "tuile" dans la direction "direction"
+     * @return ModelPoche
+     */
     public static ModelPoche comparaisonPoche(ModelTuile tuile, ModelTuile comparaison, int direction) {
         int couleur = tuile.getComposition()[direction];
         if (comparaison.getPoche()[0] == comparaison.getPoche()[1]) {
@@ -27,27 +31,45 @@ public class ModelPoche {
         }
         return comparaison.getPoche()[0].getCouleur() == couleur ? comparaison.getPoche()[0] : comparaison.getPoche()[1];
     }
-    // retourne la liste des tuiles dans la poche
+
+    /** retourne la liste des tuiles dans la poche
+     * @return  ArrayList<ModelTuile>
+     */
     public ArrayList<ModelTuile> getTuiles() {
         return tuiles;
     }
 
-    // ajoute la tuile "m" à la poche
+    /** ajoute la tuile "m" à la poche
+     * @param m
+     */
     public void addTuile(ModelTuile m) {
         this.tuiles.add(m);
     }
 
-    // retourne la couleur de la poche
+    /** retourne la couleur de la poche
+     * 0 = mer;1 = Montagne;2 = Champ;3 = Plaine;4 = Foret;
+     * @return int qui est l'equivalent d'une couleur
+     */
     public int getCouleur() {
         return this.couleur;
     }
 
-    //enlève la tuile "m" de la poche
+    /** enlève la tuile "m" de la poche
+     *
+     * @param m
+     */
     public void removeTuile(ModelTuile m) {
         this.tuiles.remove(m);
     }
 
-    // fonction qui va appelé la fonction récursive
+    /** fonction (static) qui va appelé la fonction récursive
+     *
+     * @param m
+     * @param poche
+     * @param matrice
+     * @param tuileEnleve
+     * @return ModelPoche
+     */
     public static ModelPoche createPocheVoisinProfondeur(ModelTuile m, ModelPoche poche, ModelMatrice matrice, ModelTuile tuileEnleve) {
         ArrayList<ModelTuile> visited = new ArrayList<>();
         ArrayList<ModelTuile> Avisite = new ArrayList<>();
@@ -55,7 +77,15 @@ public class ModelPoche {
         return createPocheVoisinProfondeur(m, poche,matrice, visited, Avisite);
     }
 
-    // fonction récursive qui recrée la poche de avant que la dernière tuile soit poser
+    /** fonction (static) récursive qui recrée la poche de avant que la dernière tuile soit poser
+     *
+     * @param m
+     * @param poche
+     * @param matrice
+     * @param visited
+     * @param Avisite
+     * @return ModelPoche
+     */
     private static ModelPoche createPocheVoisinProfondeur(ModelTuile m, ModelPoche poche, ModelMatrice matrice, ArrayList<ModelTuile> visited, ArrayList<ModelTuile> Avisite) {
         Avisite.remove(m);
         if (visited.contains(m)) {
@@ -76,7 +106,14 @@ public class ModelPoche {
         }
         return Avisite.size() > 0 ? createPocheVoisinProfondeur(Avisite.get(0), poche, matrice, visited, Avisite) : poche;
     }
-    // crée une nouvelle poche et fais savoir poche qui ont changé de poche leurs nouvelle poche
+
+    /**
+     * fonction (static) qui crée une nouvelle poche et fais savoir poche qui ont changé de poche leurs nouvelle poche
+     * @param poche
+     * @param matrice
+     * @param tuile
+     * @return ModelPoche
+     */
     public static ModelPoche createNouvellePoche(ModelPoche poche, ModelMatrice matrice, ModelTuile tuile) {
         ModelPoche nouvellepoche = new ModelPoche(poche.getCouleur(), poche.getTuiles().get(0));
         nouvellepoche = createPocheVoisinProfondeur(poche.getTuiles().get(0), nouvellepoche, matrice, tuile);
@@ -102,7 +139,13 @@ public class ModelPoche {
         }
         return nouvellepoche;
     }
-    //met toutes les tuiles des poches contenu dans "couleur" dans la poche "poche"
+
+    /**
+     * fonction (static) qui met toutes les tuiles des poches contenu dans "couleur" dans la poche "poche"
+     * @param couleur
+     * @param poche
+     * @param indexcouleur
+     */
     public static void changementPoche(ArrayList<ModelPoche> couleur, ModelPoche poche, int indexcouleur) {
         for (ModelPoche changementPoche : couleur) {
             for (ModelTuile tuileChangement : changementPoche.getTuiles()) {

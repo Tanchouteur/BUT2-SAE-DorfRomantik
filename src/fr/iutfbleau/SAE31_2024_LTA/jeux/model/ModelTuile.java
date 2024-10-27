@@ -6,9 +6,6 @@ import fr.iutfbleau.SAE31_2024_LTA.jeux.vue.VueTuile;
 public class ModelTuile {
     private int[] composition;
 
-    private int Indexcouleur1;
-    private int Indexcouleur2;
-
     private ModelPoche[] inpoche;
 
     private int seed;
@@ -24,8 +21,6 @@ public class ModelTuile {
     private VueTuile vueTuile;
 
     private TuileRandomFactory tuileRandomFactory;
-
-    private int soundIndex;
 
     public ModelTuile(int seed, boolean preview, boolean suivante, boolean AntiAliasing) {//Tuile de jeux
         composition = new int[6];

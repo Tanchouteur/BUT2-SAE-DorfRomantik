@@ -61,9 +61,9 @@ public class BddConnectionTask implements Runnable {
         modelBDD.removePopup(popupBd);
         modelBDD.setInConnexion(false);
         if (modelBDD.isConnected()) {
-            message = "Connection à la base de donnée réussi";
+            message = "Connexion à la base de donnée réussi";
         } else {
-            message = "Connection à la base de donnée échouer";
+            message = "Connexion à la base de donnée échouer";
         }
 
         popupBd = new PopupBd(message, modelBDD.isConnected());
