@@ -10,7 +10,11 @@ public class ControllerTutoListener implements ActionListener {
     }
     @Override
     public void actionPerformed(ActionEvent e) {
-        controllerPopup.closeSettings();
-        controllerPopup.showTutoDialog();
+        if (controllerPopup != null) {
+            controllerPopup.closeSettings();
+            controllerPopup.showTutoDialog();
+        } else {
+            System.err.println("erreur qui existe depuis le MakeFile");
+        }
     }
 }
