@@ -45,7 +45,7 @@ public class BddConnectionTask implements Runnable {
 
             db = DriverManager.getConnection(
                     "jdbc:mariadb://dwarves.iut-fbleau.fr:3306/tanchou",
-                    "tanchou", "MotdepasseUpec77**"); // Remplacez "Motdepasse" par le mot de passe approprié
+                    "tanchou", "Motdepasse"); // Remplacez "Motdepasse" par le mot de passe approprié
 
         } catch (SQLException e) {
             modelBDD.setConnected(false); // Marque la connexion comme échouée
