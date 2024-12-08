@@ -16,22 +16,15 @@ l'archive JAR est éxécutable et ne require rien d'autre que [JDK-18](https://w
   - Boutton pour aller voir la liste des parties jouer (a revoir)
   - Bouton pour lancer le jeux
 
-
-- ### La liste des parties jouer
-  - a détailler
-
-
 - ### Le Jeux en lui même : 
   - Méthode de placement des tuiles : 
     - Bouton pour placer une tuiles adjacentes a une autres
     - placement uniquemment adjacent a une tuile deja présente
   
-
   - Methode de déplacement de la caméra : 
     - Déplacement "drag" on reste appuyer sur clique gauche et on déplace
 
-
-
+---
 
 ### [Sujet](https://iut-fbleau.fr/sitebp/sae3/31_2024/M67XNS5HAF8M5DAN.php) :
 ### Paysages
